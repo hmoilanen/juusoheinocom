@@ -1,0 +1,87 @@
+// App
+%app--border-radius { border-radius: 3px; }
+
+// Event handling
+%noselect { user-select: none; }
+%disabled {
+  pointer-events: none !important;
+  @extend %noselect;
+}
+%clickable {
+  cursor: pointer;
+  @extend %noselect;
+}
+
+// Positioning
+%absolute-0000 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+%rotate-0 {
+  transition: transform 0.15s ease;
+  transform: rotate(0deg) !important;
+}
+%rotate-180 {
+  transition: transform 0.15s ease;
+  transform: rotate(180deg) !important;
+}
+
+// Other
+%truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  min-width: 0; // for parent flex box
+}
+
+%instagram-bg { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%); }
+
+
+
+
+// TODO!: TUNGE OMAAN KOMPONENTTIIN !!!
+%view-component {
+  $footer-default-visible-part: 10px;
+
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-rows: minmax(calc(100vh - #{$footer-default-visible-part}), auto) auto;
+  grid-template-areas: 
+    "."
+    "footer";
+}
+
+// NÄILLE EHKÄ TARVETTA -> KYTKE, JOS TULEE MUUALLAKIN TARVETTA KUIN base-input / base-textarea:SSA
+%style--input {
+  border-radius: 3px;
+  &::placeholder { // not supported in all browsers, but behaves as regular text content if not
+    font-weight: 500;
+    color: $app-color--input-placeholder;
+  }
+}
+
+// TARVIIKO NÄITÄ VIELÄ?!?!? -> VAI TÄSTÄ MIXSINI?!?!?!?!!!!!!
+// Shadows
+//%shadow-light--to-bottom { box-shadow: 0 2px 3px $app-color--shadow-light, 0 3px 8px $app-color--shadow-light; }
+//%shadow-light--to-bottom-left { box-shadow: 1px 2px 4px $app-color--shadow-light, 2px 3px 12px $app-color--shadow-medium; }
+//%shadow-medium--to-left { box-shadow: -1px 0 3px $app-color--shadow-medium, 2px 0 14px $app-color--shadow-medium; }
+//%shadow-medium--to-right { box-shadow: 1px 0 3px $app-color--shadow-medium, 2px 0 14px $app-color--shadow-medium; }
+//%shadow-medium--to-bottom { box-shadow: 0 1px 3px $app-color--shadow-medium, 0 2px 14px $app-color--shadow-medium; }
+//%shadow-medium--to-bottom-left { box-shadow: 1px 1px 3px $app-color--shadow-medium, 2px 2px 14px $app-color--shadow-medium; }
+//%shadow-medium--to-left {}
+//%shadow-small--to-left {}
+
+
+// TÄLLE LIENEE VIELÄ KÄYTTÖÄ?!
+// contentViewer / topicViewer
+/* %viewer-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+} */

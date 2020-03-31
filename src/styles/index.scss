@@ -1,0 +1,9 @@
+@import 'colorlist';
+@import 'colors';
+@import 'fonts.scss';
+@import 'placeholders';
+
+:export {
+  // Any values that need to be accessible from JavaScript outside of a Vue component can be defined here,
+  // prefixed with `global-` to avoid conflicts with classes.
+}

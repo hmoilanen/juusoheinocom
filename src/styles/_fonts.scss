@@ -1,0 +1,130 @@
+// Fonts
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Imported fonts
+
+@import url('https://fonts.googleapis.com/css?family=Alata&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Alatsi&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Overpass:700,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Sintony:400,700&display=swap');
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Hosted custom fonts
+
+// See: https://forum.vuejs.org/t/loading-local-fonts-with-vue-cli-3/38967
+
+/* @font-face { // See: https://css-tricks.com/snippets/css/using-font-face/
+  font-family: "";
+  font-style: normal;
+  font-weight: 400;
+  //font-display: swap;
+  //src: // sources are handled in given order
+    local("font name"), // include local() if font can be downloaded straight from computer (first check if user already has it on their computer)
+    url(~@/assets/fonts/x.woff2) format('woff2'),
+    url(~@/assets/fonts/x.otf) format('otf');
+    //...
+  //unicode-range: U+0100-024F, U+0259, U+1E00-1EFF; // define the available characters, see: https://css-tricks.com/almanac/properties/u/unicode-range/
+} */
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Fonts, grouped by font families
+
+// See: https://www.w3.org/TR/css-fonts-3/#generic-font-families
+// Web safe fonts, see: https://www.cssfontstack.com/
+// Note!: generic font families are ALWAYS presented in the end when declaring css, e.g. font-family: xxx, xxx, serif;
+
+// Sans-serif: (formal, stylistic / generally low contrast / typically proportionately-spaced)
+// In other languages: 'sans-serif' = Gothic (Japanese), Hei (Chinese), Gulim (Korean)
+$font--alata: "Alata", sans-serif; // Google font
+$font--alatsi: "Alatsi", sans-serif; // Google font
+$font--arial: "Arial", sans-serif; // SAFE!
+$font--arial-black: "Arial Black", sans-serif; // SAFE!
+$font--avenir: "Avenir", sans-serif;
+$font--bebas-neue: "Bebas Neue", sans-serif;
+//$font--bebas-neue: "BebasNeue web", sans-serif;
+$font--futura: "Futura", sans-serif;
+$font--helvetica: "Helvetica", sans-serif;
+$font--helvetica-neue: "Helvetica Neue", sans-serif;
+$font--montserrat: "Montserrat", sans-serif;; // Google font
+$font--open-sans: "Open Sans", sans-serif; // Google font
+$font--overpass: "Overpass", sans-serif; // Google font
+$font--roboto: "Roboto", sans-serif; // Google font
+$font--roboto-condensed: "Roboto Condensed", sans-serif; // Google font
+$font--sintony: "Sintony", sans-serif; // Google font
+$font--trebuchet-ms: "Trebuchet MS", sans-serif;
+
+// Serif: (formal or generic text style / typically proportionately-spaced / greater variation between thick and thin strokes than in ‘sans-serif’)
+// In other languages: 'serif' = Mincho (Japanese), Sung or Song (Chinese), Batang (Korean), Naskh (Arabic)
+$font--constantia: "Constantia", serif;
+$font--georgia: "Georgia", serif; // SAFE!
+$font--lucida-bright: "Lucida Bright", serif;
+$font--lucida-serif: "Lucida Serif", serif;
+$font--times-new-roman: "Times New Roman", serif; // SAFE!
+
+// Monospaced: (all letters have same fixed width / style: computer code, typing machine, old newspaper)
+$font--andale-mono: "Andale-mono", monospace;
+$font--consolas: "Consolas", monospace;
+$font--courier-new: "Courier New", monospace; // SAFE!
+$font--menlo: "Menlo", monospace;
+$font--roboto-mono: "Roboto Mono", monospace; // Google font
+
+// Other (fantasy, cursive, ...): e.g. decorative / expressive:
+$font--comfortaa: "Comfortaa", cursive; // Google font
+$font--fredoka-one: "Fredoka One", cursive; // Google font
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Font sets
+
+$font-set--serif: "Constantia", "Lucida Bright", "Lucida Serif", "Georgia", serif;
+$font-set--sans: "Avenir", "Helvetica", "Arial", sans-serif;
+$font-set--mono: "Roboto Mono", "Andale-mono", "Menlo", "Consolas", "Courier New", monospace;
+$font-set--caps: "Bebas Neue", "Arial Black", sans-serif;
+//$font-set--custom-1: ;
+//$font-set--custom-2: ;
+//$font-set--custom-3: ;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Application fonts
+
+$app-font--base: $font-set--sans;
+$app-font--title: $font-set--caps;
+$app-font--handle: $font-set--sans;
+$app-font--link: $font-set--sans;
+$app-font--button: $font-set--sans;
+$app-font--input: $app-font--base;
+$app-font--label: $font-set--sans;
+$app-font--placeholder: $font-set--mono;
+$app-font--feedback: $font-set--sans;
+$app-font--list: $font-set--sans;
+$app-font--tag: $font-set--sans;
+$app-font--nav: $font-set--sans;
+$app-font--numbers: $font-set--sans;
+
+
+////////////////////////////////////////////////////////////////////////////////
+// Get
+
+// "Bebas neue" // https://www.dafont.com/bebas-neue.font
+// "SharpSans-Extrabold" ((pienet) otsikot)
+// Tungsten Bold
+// Graublau Sans Web
+// proxima nova / proxima-nova-condensed
+// "Gordita"
+// "Neue Haas Grotesk"
+// CentraNo2 / Centra No2 Medium
+// "Endzone Sans Medium", sans-serif; (base text)
+// "gt walsheim pro", sans-serif; (base text, bolded base text, secondary / ui links) (onko sama kuin "gt walsheim, joka on myös hyvä fontti")
+// "Code" (https://www.dafont.com/code.font, titles, myös design-tyyppinen base-text)
+// "Lulo clean"
