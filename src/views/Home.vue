@@ -1,9 +1,29 @@
 <template>
   <div class="view-home">
 
-    <content-gallery v-model="kritemit" m="xl"></content-gallery>
     
-    <base-content-wrapper :compensateNavTop="true">
+    <base-wrapper :compensateNavTop="true" :padding="true">
+      <p>pee</p>
+      <base-text :lorem="true"></base-text>
+      <base-list :list="lista2" type="ol" mT="xl" #default="{ item }">
+        <base-text :size="30">{{ item.value }}</base-text>
+      </base-list>
+      <base-list :list="lista2" type="ul" mY="xl" #default="{ item }">
+        <span style="font-size: 50px; display: block;">{{ item }}</span>
+      </base-list>
+      <base-list :list="lista2" type="ul" mY="xl">
+      </base-list>
+
+      <base-spacer size="l" mB="xl">
+        <span v-for="(item, index) in 5" :key="index">späni</span>
+      </base-spacer>
+
+      <base-wrapper maxWidth="300px">
+        testi
+      </base-wrapper>
+      
+      <content-gallery v-model="kritemit" m="xl"></content-gallery>
+
       <base-div :card="true" p="m" mB="l">
         <base-text :lorem="true"></base-text>
       </base-div>
@@ -153,7 +173,7 @@
         <base-tag v-for="tag in 16" :key="tag.index" size="s" :mR="3" :mB="3">base tag</base-tag>
       </base-flex>
       
-    </base-content-wrapper>
+    </base-wrapper>
 
     <app-footer></app-footer>
   </div>
@@ -185,9 +205,14 @@ export default {
       selekted: '',
       baseInput1: '',
       baseInput2: '',
-      lista: ['a', 'b', 'c', 'd', 'e'],
       ikoni: 'close',
-      kritemit: []
+      kritemit: [],
+      lista: ['a', 'b', 'c', 'd', 'e'],
+      lista2: [
+        { value: 'value1', id: 'id1' },
+        { value: 'value2', id: 'id2' },
+        { value: 'value3', id: 'id3' }
+      ],
     }
   },
 

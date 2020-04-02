@@ -1,4 +1,4 @@
-import store from '@/store/index'
+// NOTE!: margins / paddings / sizing DOESN'T ACCEPT 0 AS A NUMBER / NO STYLE IS GENERATED IN COMPONENT! -> FIX!
 
 export const sizing = { // Generic sizing mixin for components
   props: {
@@ -17,7 +17,7 @@ export const sizing = { // Generic sizing mixin for components
 
   computed: {
     mixinSizing() {
-      let baseDimension = this.$store.state.app.ui.baseDimension
+      let baseDimension = this.$store.state.ui.baseDimension
       let sizingBaseValue = baseDimension ? baseDimension : 0.125
       let self = this
 
@@ -69,7 +69,7 @@ export const margins = { // Generic margin mixin for components
         marginTop: false,
         marginBottom: false
       }
-      let baseDimension = this.$store.state.app.ui.baseDimension
+      let baseDimension = this.$store.state.ui.baseDimension
       let marginBaseValue = baseDimension ? baseDimension : 0.125
       let self = this
 
@@ -152,7 +152,7 @@ export const paddings = { // Generic padding mixin for components
         paddingTop: false,
         paddingBottom: false
       }
-      let baseDimension = this.$store.state.app.ui.baseDimension
+      let baseDimension = this.$store.state.ui.baseDimension
       let paddingBaseValue = baseDimension ? baseDimension : 0.125
       let self = this
 
@@ -209,7 +209,7 @@ export const dynamicStyleSet = { // Generic styling for base components
   computed: {
     dynamicStyleSet() {
       let componentName = this.$options.name      
-      let defaultStyleSet = this.$store.state.app.styleSet[componentName]
+      let defaultStyleSet = this.$store.state.base.styleSet[componentName]
     
       if (this.resetStyle) {
         return 'reset'

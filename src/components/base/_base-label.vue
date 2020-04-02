@@ -1,0 +1,36 @@
+<template>
+  <label class="base-label">
+    <slot>base label</slot>
+    <span v-if="required"> *</span>
+  </label>
+</template>
+
+<script>
+// TODOS:
+// -ADD style-set mixin
+
+export default {
+  name: 'baseLabel',
+
+  props: {
+    required: Boolean 
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+$label-color: $app-color--input-label;
+$label-color--required: $app-color--error;
+$label-font: $app-font--label;
+
+.base-label {
+  display: block;
+  margin-bottom: 0.3em;
+  font-size: 0.9em; // based on parent component's font-size
+  font-weight: 500;
+  font-family: $label-font;
+  color: $label-color;
+
+  span { color: $label-color--required; }
+}
+</style>

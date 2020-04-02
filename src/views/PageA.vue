@@ -1,8 +1,8 @@
 <template>
   <div class="view-page-a">
-    <base-content-wrapper :compensateNavTop="true">
+    <base-wrapper :compensateNavTop="true">
       Page A
-    </base-content-wrapper>
+    </base-wrapper>
 
     <app-footer></app-footer>
   </div>

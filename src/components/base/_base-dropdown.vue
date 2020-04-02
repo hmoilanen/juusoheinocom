@@ -2,10 +2,9 @@
   <on-click-outside :do="close">
     <div ref="container" class="base-dropdown" :class="classing" :style="[styling.root, mixinMargins]">
 
-      <label v-if="label">
+      <base-label v-if="label" :required="required">
         {{ this.label }}
-        <span v-if="required"> (required)</span>
-      </label>
+      </base-label>
 
       <!-- HUOM! TÄMÄ EI VOI OLLA NÄIN KOSKA KAIKKI BINDAUKSET MENEE VITUIKS JOS SLOTTIIN SYÖTETÄÄN JOTAIN KUSTOMIA!!! -->
       <!-- HUOM! TÄMÄ EI VOI OLLA NÄIN KOSKA KAIKKI BINDAUKSET MENEE VITUIKS JOS SLOTTIIN SYÖTETÄÄN JOTAIN KUSTOMIA!!! -->
@@ -211,13 +210,10 @@ export default {
 $dropdown-color: $app-color--input;
 $dropdown-color--border: $app-color--input-border;
 $dropdown-color--bg: $app-color--theme;
-$dropdown-color--label: $app-color--input-label;
 $dropdown-color--placeholder: $app-color--input-placeholder;
 $dropdown-color--icons: $dropdown-color;
 $dropdown-color--shadow: $app-color--shadow;
-$dropdown-color--required: $app-color--error;
 $dropdown-font: $app-font--input;
-$dropdown-font--label: $app-font--label;
 $dropdown-font--placeholder: $app-font--placeholder;
 
 .base-dropdown {
@@ -227,18 +223,6 @@ $dropdown-font--placeholder: $app-font--placeholder;
 
   &.style-set-0 {
     font-family: $dropdown-font;
-
-    label {
-      display: block;
-      margin-bottom: 0.3em;
-      font-size: 0.9em;
-      font-weight: 500;
-      font-family: $dropdown-font--label;
-      color: $dropdown-color--label;
-      span {
-        color: $dropdown-color--required;
-      }
-    }
 
     .toggle {
       max-width: 100%;

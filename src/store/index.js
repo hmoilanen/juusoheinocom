@@ -2,11 +2,13 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // modules
-import api from './api'
+import api from './api' // TARVIIKO TÄSSÄ ROJEKTISSA?
 import app from './app'
-import auth from './auth'
-import content from './content'
-import modals from './modals'
+import auth from './auth' // TARVIIKO TÄSSÄ ROJEKTISSA?
+import base from './base'
+import content from './content' // TARVIIKO TÄSSÄ ROJEKTISSA?
+import modals from './modals' // TARVIIKO TÄSSÄ ROJEKTISSA?
+import ui from './ui'
 
 Vue.use(Vuex)
 
@@ -16,11 +18,13 @@ export default new Vuex.Store({
     api,
     app,
     auth,
+    base,
     content,
-    modals
+    modals,
+    ui,
   },
 
-  // Generic store functions
+  // Generic store functions:
 
   actions: {
     SET_STATE: ({ commit }, payload) => {
@@ -31,12 +35,11 @@ export default new Vuex.Store({
   mutations: {
     SET_STATE: (state, { data, path }) => {
       // Note: expects path as string of dot notation (e.g. 'a.b.c.d')
-      let target = path.split('.') // Convert path string into array
-      let key = target[target.length - 1] // Get key for corresponding object in entities.entityList to be updated
-  
-      // Create data path dynamically with bracket notation
+      let target = path.split('.') // convert path string into array
+      let key = target[target.length - 1] // get key for corresponding data
       let stateToUpdate = state
-  
+
+      // create data path dynamically with bracket notation
       while (target.length > 1) {
         stateToUpdate = stateToUpdate[target.shift()]
       }

@@ -1,8 +1,8 @@
 <template>
   <div class="base-view">
-    <base-content-wrapper :compensateNavTop="true">
+    <base-wrapper :compensateNavTop="true">
       <slot></slot>
-    </base-content-wrapper>
+    </base-wrapper>
     <app-footer v-if="displayFooter"></app-footer>
   </div>
 </template>

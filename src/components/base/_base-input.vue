@@ -4,10 +4,9 @@
     :class="classing"
     :style="[styling.root, mixinMargins]"
   >
-    <label v-if="label">
+    <base-label v-if="label" :required="required">
       {{ this.label }}
-      <span v-if="required"> (required)</span>
-    </label>
+    </base-label>
 
     <div class="input-container">
       <input
@@ -30,7 +29,9 @@
       >{{ this.iconRight }}</base-icon>
     </div>
 
+    <!-- TEE TÄSTÄ OMA BASE-KOMPONENTTINSA!!! -> VOI KÄYTTÄÄ MONESSA PAIKASSA!!! -->
     <base-text v-if="displayFeedback" :mT="3">{{ this.feedback }}</base-text>
+
   </div>
 </template>
 
@@ -152,16 +153,12 @@ export default {
 
 <style lang="scss" scoped>
 $input-color: $app-color--input;
-$input-color--label: $app-color--input-label;
 $input-color--border: $app-color--input-border;
 $input-color--bg: $app-color--theme;
 $input-color--placeholder: $app-color--input-placeholder;
-$input-color--required: $app-color--error;
 $input-color--icons: $input-color;
 $input-color--feedback: $app-color--error;
-
 $input-font: $app-font--input;
-$input-font--label: $app-font--label;
 $input-font--placeholder: $app-font--placeholder;
 
 .base-input {
@@ -173,18 +170,6 @@ $input-font--placeholder: $app-font--placeholder;
   }
 
   &.style-set-0 {
-    label {
-      display: block;
-      margin-bottom: 0.3em;
-      font-size: 0.9em;
-      font-weight: 500;
-      font-family: $input-font--label;
-      color: $input-color--label;
-      span {
-        color: $input-color--required;
-      }
-    }
-  
     .input-container {
       font-size: inherit !important;
       position: relative;

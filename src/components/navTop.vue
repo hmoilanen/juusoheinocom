@@ -20,12 +20,8 @@
 
     <base-div class="nav-background" :cover="true"></base-div>
 
-    <base-flex width="100%" style="position: relative;">
-      <base-flex flex-1 center="y">
-        <base-icon @click="toggleNavLeft" style="color: white;"></base-icon>
-      </base-flex>
-
-      <base-flex class="paska" center="y">
+    <base-flex width="100%" style="position: relative;"> <!-- TÄMÄ VISSIIN IHAN TURHA! SIVOA MUUTENKIN!!! -->
+      <base-flex center="y">
         <template v-if="!narrowScreen">
           <nav-top-link
             v-for="link in dynamicLinks"
@@ -34,8 +30,7 @@
             mL="m"
           >{{ link.title }}</nav-top-link>
         </template>
-        <!-- <base-button v-else @click="toggle">TOGL</base-button> -->
-        <base-button v-else @click="toggle">{{ showDropdownNav ? 'SULUJE' : 'AVVAA' }}</base-button>
+        <base-button v-else @click="toggle">{{ showDropdownNav ? 'Close' : 'Open' }}</base-button>
       </base-flex>
     </base-flex>
 
@@ -66,9 +61,10 @@ export default {
       narrowScreenBreakpoint: 450
     }
   },
-
+  
   computed: {
-    ...mapState('app', ['ui', 'window']),
+    ...mapState('app', ['window']),
+    ...mapState('ui', ['navTopHeight', 'zIndex']),
 
     dynamicLinks() {
       let routes = this.$router.options.routes
@@ -99,11 +95,11 @@ export default {
     },
 
     styling() {
-      let height = this.ui.navTopHeight + 'px' 
+      let height = this.navTopHeight + 'px' 
       return {
         root: {
           height: height,
-          zIndex: this.ui.zIndex.navTop
+          zIndex: this.zIndex.navTop
         },
         dropdown: {
           paddingTop: height
@@ -112,14 +108,7 @@ export default {
     }
   },
 
-  methods: {    
-    toggleNavLeft() {
-      this.$store.dispatch('SET_STATE', {
-        data: !this.ui.navLeftDisplayed,
-        path: 'app.ui.navLeftDisplayed'
-      })
-    },
-
+  methods: {
     toggle() {
       this.showDropdownNav = !this.showDropdownNav
     }

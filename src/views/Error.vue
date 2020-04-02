@@ -1,13 +1,13 @@
 <template>
   <div class="view-error">
-    <base-content-wrapper :compensateNavTop="true">
+    <base-wrapper :compensateNavTop="true">
       <base-title tag="h1">404 - Page not found</base-title>
       <!-- <base-title tag="h1">Ooops! Something went wrong</base-title> -->
       
       <base-link to="/" mode="router">
         <base-text>back to front page</base-text>
       </base-link>
-    </base-content-wrapper>
+    </base-wrapper>
 
     <app-footer></app-footer>
   </div>

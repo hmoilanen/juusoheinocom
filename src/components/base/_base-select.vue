@@ -1,10 +1,9 @@
 <template>
   <div class="base-select" :class="classing" :style="mixinMargins">
 
-    <label v-if="label">
+    <base-label v-if="label" :required="required">
       {{ this.label }}
-      <span v-if="required"> (required)</span>
-    </label>
+    </base-label>
 
     <div class="base-select-body" :style="styling">
 
@@ -97,26 +96,12 @@ export default {
 $select-color: $app-color--input;
 $select-color--bg: $app-color--theme;
 $select-color--border: $app-color--input-border;
-$select-color--label: $app-color--input-label;
-$select-color--required: $app-color--error;
 $select-color--icons: $select-color;
 $select-font: $app-font--input;
-$select-font--label: $app-font--label;
 
 .base-select {
 
   &.style-set-0 {
-    label {
-      display: block;
-      margin-bottom: 0.3em;
-      font-size: 0.9em;
-      font-weight: 500;
-      font-family: $select-font--label;
-      color: $select-color--label;
-      span {
-        color: $select-color--required;
-      }
-    }
 
     .base-select-body {
       display: block;

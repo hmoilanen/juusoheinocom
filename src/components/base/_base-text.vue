@@ -20,7 +20,7 @@
 import { sizing, margins, paddings, dynamicStyleSet, editableContent } from '@/utils/mixins'
 
 export default {
-  name: 'baseTexti',
+  name: 'baseText',
 
   mixins: [sizing, margins, paddings, dynamicStyleSet, editableContent],
 
@@ -33,7 +33,8 @@ export default {
     weight: Number,
     lorem: Boolean,
     loremLength: Number,
-    inheritStyle: Boolean
+    inheritStyle: Boolean,
+    display: String
   },
 
   data() {
@@ -55,7 +56,8 @@ export default {
       return {
         fontSize: this.mixinSizing,
         lineHeight: '1.25em',
-        fontWeight: this.weight ? this.weight : 400
+        fontWeight: this.weight ? this.weight : 400,
+        display: this.display ? this.display : false
       }
     },
 

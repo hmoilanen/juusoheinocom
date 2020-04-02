@@ -1,11 +1,13 @@
 <template>
-  <div class="base-textarea" :class="classing" :style="[styling, mixinMargins]">
-    <label v-if="label">
+  <div
+    class="base-textarea"
+    :class="classing"
+    :style="[styling, mixinMargins]"
+  >
+    <base-label v-if="label" :required="required">
       {{ this.label }}
-      <span v-if="required"> (required)</span>
-    </label>
+    </base-label>
 
-      <!-- @input="emitInput" -->
     <textarea
       ref="textarea"
       :value="value"
@@ -118,31 +120,16 @@ export default {
 
 <style lang="scss" scoped>
 $textarea-color: $app-color--input;
-$textarea-color--label: $app-color--input-label;
 $textarea-color--border: $app-color--input-border;
 $textarea-color--bg: $app-color--theme;
 $textarea-color--placeholder: $app-color--input-placeholder;
-$textarea-color--required: $app-color--error;
 $textarea-font: $app-font--input;
-$textarea-font--label: $app-font--label;
 $textarea-font--placeholder: $app-font--placeholder;
 
 .base-textarea {
   // font-size: ; // see: this.styling
 
   &.style-set-0 {
-    label {
-      display: block;
-      margin-bottom: 0.3em;
-      font-size: 0.9em;
-      font-weight: 500;
-      font-family: $textarea-font--label;
-      color: $textarea-color--label;
-      span {
-        color: $textarea-color--required;
-      }
-    }
-  
     textarea {
       overflow: hidden;
       outline: 0;

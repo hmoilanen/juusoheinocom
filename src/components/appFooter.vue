@@ -1,6 +1,6 @@
 <template>
   <div class="app-footer">
-    <base-content-wrapper>
+    <base-wrapper>
       <base-flex :column="true" center="x">
         <div class="app-footer-links">
           <base-link mode="router" :to="{ name: 'home' }">Home</base-link>
@@ -22,7 +22,7 @@
           <base-icon icon="up" :size="6" mL="s"></base-icon>
         </base-flex>
       </base-flex>
-    </base-content-wrapper>
+    </base-wrapper>
   </div>
 </template>
 

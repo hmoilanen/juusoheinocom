@@ -22,7 +22,7 @@ export default {
       immediate: true,
       deep: true,
       handler: function() {
-        let preventBodyScrolling = this.$store.state.app.ui.preventBodyScrolling
+        let preventBodyScrolling = this.$store.state.ui.preventBodyScrolling
 
         if (preventBodyScrolling) {
           document.body.style.setProperty('overflow', 'hidden')
