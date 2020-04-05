@@ -6,23 +6,20 @@
     :style="[styling, mixinMargins]"
     v-on="listeners"
   >
-    <slot>{{ this.editableInnerContent }}</slot>
+    <slot>{{ $options.name }}</slot>
   </component>
 </template>
 
 <script>
 // TODOS:
-// CLASS/JS: lisää hoveriin tooltip
-// PROP: LAITA GENEERINEN PROP.DYNAMIC KONDIKSEEN
-// JS: lisää truncate / wordwrap / ...
-// MIXIN/JS: lisää fontin dynaaminen skaalautuvuus viewportin koon perusteella!!! (variaatio s/m/l/xl -kokoihin!)
+// PROP: DYNAMIC
 
-import { sizing, margins, dynamicStyleSet, editableContent } from '@/utils/mixins'
+import { sizing, margins, dynamicStyleSet } from '@/utils/mixins'
 
 export default {
   name: 'baseTitle',
 
-  mixins: [sizing, margins, dynamicStyleSet, editableContent],
+  mixins: [sizing, margins, dynamicStyleSet],
 
   props: {
     tag: {
@@ -30,9 +27,7 @@ export default {
       default: 'h2'
     },
     center: Boolean,
-    break: Boolean,
     truncate: Boolean
-    //dynamic: Boolean // Sizing is based on ui break points // TEE/LISÄÄ TÄMÄ MYÖHEMMIN UUDELLEEN?!?!
   },
 
   data() {
@@ -45,7 +40,6 @@ export default {
     classing() {
       return {
         [`style-set-${this.dynamicStyleSet}`]: true, // see: utils/mixins.js
-        breakWord: this.break,
         truncate: this.truncate,
         center: this.center
       }
@@ -57,7 +51,6 @@ export default {
         lineHeight: '1.4em',
       }
     },
-
 
     listeners() {
       return { ...this.$listeners }
@@ -74,6 +67,7 @@ $title-font: $app-font--title;
 $title-indicator-width: 0.2em;
 
 .base-title {
+  overflow-wrap: break-word; // !
 
   &.break-word { word-break: break-all; }
   &.truncate { @extend %truncate; }
@@ -83,7 +77,12 @@ $title-indicator-width: 0.2em;
     font-weight: 700;
     font-family: $title-font;
     letter-spacing: 0.075em;
+    text-transform: uppercase;
     color: $title-color;
+    &::selection {
+      background: $title-color--active;
+      //color: $text-color--selection;
+    }
   }
 
   /* &.style-set-1 {

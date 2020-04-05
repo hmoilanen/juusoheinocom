@@ -234,12 +234,6 @@ export const editableContent = { // Generic 'tooling' for base components wrappe
     editableInnerContent() {
       if (this.editableContentData && this.editableContentData !== 'defaultInject') {
         return this.editableContentData.content
-      } else if (this.lorem) { // for now only for baseText component
-        if (this.loremLength) {
-          return this.loremIpsum.substring(0, this.loremLength)
-        } else {
-          return this.loremIpsum.substring(0)
-        }
       } else return 'default inner content' // Note: this cannot be changed or baseImage component misfunctions
     }
   }

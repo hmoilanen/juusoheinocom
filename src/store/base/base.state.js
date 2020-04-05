@@ -11,6 +11,10 @@ export default {
     baseTextarea: 0,
     baseTitle: 0,
   },
+
+  sizing: {
+    // defaulttisäädöt tähän
+  }
   
   // HUOM! PITÄISIKÖ MIXINIEN SIZE CATEGORIESE MYÖS TUODA KOOTUSTI TÄNNE???
   // HUOM! PITÄISIKÖ MIXINIEN SIZE CATEGORIESE MYÖS TUODA KOOTUSTI TÄNNE???

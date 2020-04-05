@@ -3,15 +3,34 @@
 
     
     <base-wrapper :compensateNavTop="true" :padding="true">
-      <p>pee</p>
+      <base-title></base-title>
+      <base-title :truncate="true">skdfbsfn jksdfbjks knfjks jnfnkskj fnkjs njknf kjnfk nkjsdn knkfjsfndks kfdsnksdknfksfnksnfkndkf dskn</base-title>
       <base-text :lorem="true"></base-text>
+      <br>
+      <base-text :lorem="998"></base-text>
+      <br>
+      <base-text :lorem="200"></base-text>
+      <br>
+      <base-text>{{ this.pas }}</base-text>
+      <br>
+      <base-text v-html="pas">testi</base-text>
+      <br>
+      <br><br>
+      <p v-html="pas">{{ this.pas }}</p>
+      <base-text :lorem="true" v-html="testiHtml" display="inline"></base-text>
+      <base-text></base-text>
+      <base-button ref="kuk" @click="klikki">tee</base-button>
+      <p ref="kok" v-pre>{{this.ikoni}}</p>
+
       <base-list :list="lista2" type="ol" mT="xl" #default="{ item }">
         <base-text :size="30">{{ item.value }}</base-text>
       </base-list>
+
       <base-list :list="lista2" type="ul" mY="xl" #default="{ item }">
         <span style="font-size: 50px; display: block;">{{ item }}</span>
       </base-list>
-      <base-list :list="lista2" type="ul" mY="xl">
+
+      <base-list :list="lista2" type="ul" mY="xl" marker="'$ '">
       </base-list>
 
       <base-spacer size="l" mB="xl">
@@ -105,6 +124,7 @@
         label="base-input"
         :required="true"
         :disabled="false"
+        feedback="palaute!"
         placeholder="placeholder"
         mB="xl"
       ></base-input>
@@ -213,6 +233,7 @@ export default {
         { value: 'value2', id: 'id2' },
         { value: 'value3', id: 'id3' }
       ],
+      pas: '<strong>strong</strong>'
     }
   },
 
@@ -225,7 +246,23 @@ export default {
     }
   },
 
+  computed: {
+    testiHtml() {
+      if (this.isOpen) {
+        return this.ikoni
+      } else return false
+    }
+  },
+
   methods: {
+    klikki() {
+      let ref =  this.$refs
+      //let atr =  this.$refs.kok.$attrs
+      console.log(ref);
+      //console.log(atr);
+      
+    },
+
     newIndex(index) {
       console.log(index);
     }
