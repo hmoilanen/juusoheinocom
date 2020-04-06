@@ -35,11 +35,8 @@ export default {
 
   methods: {
     handleWindowResize () {
-      // For window.innerWidth / .innerHeight tracking and storing
-      this.$store.dispatch('app/UPDATE_WINDOW', {
-        width: window.innerWidth,
-        height: window.innerHeight
-      })
+      this.$store.dispatch('SET_STATE', { data: window.innerWidth, path: 'ui.window.width' })
+      this.$store.dispatch('SET_STATE', { data: window.innerHeight, path: 'ui.window.height' })
     }
   }
 }

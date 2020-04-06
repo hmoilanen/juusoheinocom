@@ -1,5 +1,5 @@
 <template>
-  <div class="app-footer">
+  <div class="app-footer" ref="footer">
     <base-wrapper>
       <base-flex :column="true" center="x">
         <div class="app-footer-links">
@@ -28,42 +28,57 @@
 
 <script>
 export default {
-  name: "appFooter",
+  name: 'appFooter',
+
+  mounted() {
+    this.calcFooterHeight()
+
+    window.addEventListener('resize', this.calcFooterHeight)
+    this.$on('hook:beforeDestoy', () => {
+      window.removeEventListener('resize', this.calcFooterHeight)
+    })
+  },
 
   computed: {
     appUrl() {
-      return this.$store.state.api.appUrl;
+      return this.$store.state.api.appUrl
     }
   },
 
   methods: {
+    calcFooterHeight() {
+      let height = this.$refs.footer.offsetHeight
+      // store footer's height for ui adjustments
+      this.$store.dispatch('SET_STATE', { data: height, path: 'ui.footerHeight' })
+    },
+
     goTo(to) {
       // TODO!: TEE TÄSTÄ UTIL ?!?!
-      if (to === "/support") {
-        this.$router.push(to);
-      } else this.$router.push({ name: to });
+      if (to === '/support') {
+        this.$router.push(to)
+      } else this.$router.push({ name: to })
     },
 
     returnToTop() {
-      let scrollDuration = 500;
-      let cosParameter = window.scrollY / 2;
-      let scrollCount = 0;
-      let oldTimestamp = performance.now();
+      let scrollDuration = 500
+      let cosParameter = window.scrollY / 2
+      let scrollCount = 0
+      let oldTimestamp = performance.now()
 
       function step(newTimestamp) {
         scrollCount +=
-          Math.PI / (scrollDuration / (newTimestamp - oldTimestamp));
-        if (scrollCount >= Math.PI) window.scrollTo(0, 0);
-        if (window.scrollY === 0) return;
+          Math.PI / (scrollDuration / (newTimestamp - oldTimestamp))
+        if (scrollCount >= Math.PI) window.scrollTo(0, 0)
+        if (window.scrollY === 0) return
         window.scrollTo(
           0,
           Math.round(cosParameter + cosParameter * Math.cos(scrollCount))
-        );
-        oldTimestamp = newTimestamp;
-        window.requestAnimationFrame(step);
+        )
+        oldTimestamp = newTimestamp
+        window.requestAnimationFrame(step)
       }
 
-      window.requestAnimationFrame(step);
+      window.requestAnimationFrame(step)
     }
     /*
       See: https://stackoverflow.com/questions/21474678/scrolltop-animation-without-jquery
@@ -81,7 +96,7 @@ export default {
       = cosParameter + cosParameter * (cos scrollCount * x)
     */
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

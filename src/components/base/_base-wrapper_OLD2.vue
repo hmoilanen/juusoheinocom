@@ -1,29 +1,23 @@
 <template>
-  <div class="base-wrapper" :style="[styling, mixinMargins]">
-  <!-- <div class="base-wrapper" :style="styling"> -->
-    <slot>{{ $options.name }}</slot>
-    <!-- <div class="base-wrapper-inner" :style="styling.inner">
+  <div class="base-wrapper" :style="styling.outer">
+    <div class="base-wrapper-inner" :style="styling.inner">
       <slot>{{ $options.name }}</slot>
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
-// TARVIIKO SIZINGIA OLLENKAAN TÄSSÄ -> PADDIINGSIT?
-import { sizing, margins, paddings } from '@/utils/mixins'
-
 export default {
   name: 'baseWrapper',
 
-  mixins: [sizing, margins, paddings],
-
   props: {
     maxWidth: [Boolean, String],
+    compensateNavTop: Boolean,
+    padding: [Boolean, String],
+
     // TEE VALMIIKSI!
     dynamic: Boolean, // makes predefined paddings to scale with viewport size
-    
-    //compensateNavTop: Boolean,
-    padding: [Boolean, String],
+
     /* resetPadding: { // TEE TÄMÄ KONDIKSEEN / PÄÄTÄ TOTEUTUSTAPA!!!
       type: Boolean,
       default: false
@@ -34,17 +28,18 @@ export default {
     styling() {
       let ui = this.$store.state.ui
       let maxWidth = false
-      let maxWidthDefault = 1200
       let padding = false
 
       if (this.maxWidth) {
-        if (this.maxWidth && typeof this.maxWidth === 'boolean') {
-          maxWidth = ui.contentMaxWidth + 'px' || maxWidthDefault + 'px'
+        if (typeof this.maxWidth === 'boolean' && this.maxWidth === true) {
+          maxWidth = ui.contentMaxWidth + 'px'
         } else if (typeof this.maxWidth === 'string') {
           maxWidth = this.maxWidth
         }
       }
 
+      // MIKSEI TÄTÄ OLLE TEHTY miixinPAddings:LLÄ?
+      // MIKSEI TÄTÄ OLLE TEHTY miixinPAddings:LLÄ?
       if (this.padding) {
         if (typeof this.padding === 'boolean' && this.padding === true) {
           padding = ui.contentMinPadding + 'px'
@@ -54,9 +49,7 @@ export default {
       }
 
       return {
-        maxWidth: maxWidth,
-        padding: padding
-        /* outer: {
+        outer: {
           paddingTop: this.compensateNavTop
             ? ui.navTopHeight + 'px'
             : false
@@ -64,7 +57,7 @@ export default {
         inner: {
           maxWidth: maxWidth,
           padding: padding
-        } */
+        }
       }
     }
   }
@@ -73,7 +66,10 @@ export default {
 
 <style lang="scss" scoped>
 .base-wrapper {
+  position: relative;
+}
+.base-wrapper-inner {
+  position: relative;
   margin: 0 auto;
-  //position: relative;
 }
 </style>

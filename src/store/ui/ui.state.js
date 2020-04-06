@@ -5,7 +5,8 @@ export default {
   contentMinPadding: 16, // 16px / 1rem
   //curtainDisplayed: true,
   //darkMode: false,
-  //navTopDisplayed: true,
+  footerHeight: 0,
+  navTopDisplayed: true,
   navTopHeight: 70,
   //navLeftDisplayed: true,
   //navLeftWidth: 250,
@@ -20,5 +21,10 @@ export default {
     navLeft: 1000,
     navTop: 100,
     //navRight: 10,
+  },
+
+  window: { // SIIRRÄ MYÖHEMMIN ui.state:EN JOS TUNTUU SILTÄ!
+    width: null, // window.offsetWidth
+    height: null // window.offsetHeight
   }
 }

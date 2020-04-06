@@ -22,6 +22,16 @@ export default [
     }
   },
   {
+    path: "/testing",
+    name: "testing",
+    component: () => import("@/views/Testing"),
+    meta: {
+      navLink: true,
+      navLinkTitle: "Testing",
+      displayFooter: true
+    }
+  },
+  {
     path: '/404',
     name: 'error',
     component: () => import('@/views/Error'),

@@ -1,8 +1,10 @@
 <template>
   <div class="view-home">
-
     
     <base-wrapper :compensateNavTop="true" :padding="true">
+      <base-wrapper></base-wrapper>
+      <base-wrapperi></base-wrapperi>
+
       <base-title></base-title>
       <base-title :truncate="true">skdfbsfn jksdfbjks knfjks jnfnkskj fnkjs njknf kjnfk nkjsdn knkfjsfndks kfdsnksdknfksfnksnfkndkf dskn</base-title>
       <base-text :lorem="true"></base-text>

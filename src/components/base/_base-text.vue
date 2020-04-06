@@ -32,8 +32,8 @@ export default {
       default: 'p'
     },
     lorem: [Boolean, Number],
-    display: String, // for css: block / inline-block / inline / ...
-    weight: Number, // for css: font-weight
+    display: String, // for css
+    weight: Number, // for css
     //isHandle: Boolean,
   },
 
@@ -46,7 +46,7 @@ export default {
 
   computed: {
     textContent() {
-      if (this.lorem && typeof this.lorem === 'boolean') {        
+      if (this.lorem && typeof this.lorem === 'boolean') { // if boolean and true     
         return this.loremIpsum
       } else if (this.lorem && typeof this.lorem === 'number') { // if number
         let length = this.lorem > this.loremIpsum.length - 1

@@ -1,30 +1,21 @@
 <template>
   <div id="app">
-    <!-- LISÄÄ TÄHÄN appCurtain !!! -->
-
+    <!-- <app-curtain></app-curtain> -->
+    <app-handler></app-handler>
     <router-view></router-view>
 
-    <nav-top></nav-top>
-    <!-- <nav-left></nav-left> -->
-    <!-- VAI OLISIKO PAREMPI JOS TÄSSÄ OLISI <app-ui> TILALLA? -->
-
-    <app-handler></app-handler>
     <!-- <content-handler v-if="handlerControl.contentHandler"></content-handler> --> <!-- OLISIKO PAREMPI LEIPOA VIEWEIHIN?!?! -->
     <!-- <modal-handler v-if="handlerControl.modalHandler"></modal-handler> -->
   </div>
 </template>
 
 <script>
-import navTop from '@/components/navTop'
-//import navLeft from '@/components/navLeft'
 import appHandler from '@/components/appHandler'
 
 export default {
   name: 'app',
 
   components: {
-    navTop,
-    //navLeft,
     appHandler,
     //contentHandler: () => import('@/components/contentHandler'),
     //modalHandler: () => import('@/components/modalHandler'),
@@ -75,15 +66,5 @@ li { margin: 0; }
 p {
   margin: 0;
   padding: 0;
-}
-
-#app {
-  // optional:
-  //font-family: "Avenir", Helvetica, Arial, sans-serif;
-  //font-family: $app-font--base;
-  //-webkit-font-smoothing: antialiased;
-  //-moz-osx-font-smoothing: grayscale;
-  //color: $app-color--text-base;
-  //position: relative;
 }
 </style>

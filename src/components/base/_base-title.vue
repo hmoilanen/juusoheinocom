@@ -26,8 +26,8 @@ export default {
       type: String,
       default: 'h2'
     },
-    center: Boolean,
-    truncate: Boolean
+    center: Boolean, // for css
+    truncate: Boolean // for css
   },
 
   data() {
