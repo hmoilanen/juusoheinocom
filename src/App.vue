@@ -24,7 +24,7 @@ export default {
   computed: {
     handlerControl() {      
       return {
-        //contentHandler: this.$store.state.content.showContentHandler,
+        //contentHandler: this.$store.state.content.showContentHandler, // TÄTÄ E ENÄÄ OLE
         //modalHandler: this.$store.state.modals.showModal
       }
     }

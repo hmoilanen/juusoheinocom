@@ -63,8 +63,8 @@ export default {
   },
   
   computed: {
-    ...mapState('app', ['window']),
-    ...mapState('ui', ['navTopHeight', 'zIndex']),
+    //...mapState('app', ['window']),
+    ...mapState('ui', ['navTopHeight', 'zIndex', 'window']),
 
     dynamicLinks() {
       let routes = this.$router.options.routes

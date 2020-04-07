@@ -1,6 +1,7 @@
 export default {
-  //isLoading: true,
-  //localization: 'en', // 'en' / 'fi'
+  domain: 'https://juusoheino.com',
+  isLoading: true,
+  //localization: 'en',
 
   /* externalApps: [
     { title: 'Discord', icon: 'discord', link: '' },
@@ -14,7 +15,7 @@ export default {
   ], */
 
   official: {
-    appName: 'juusoheino',
+    appName: 'juusoheino.com',
     companyName: 'Juuso Heino',
     emailPrefix: 'info',
     emailDomain: 'juusoheino',

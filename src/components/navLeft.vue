@@ -55,7 +55,7 @@ export default {
   },
 
   computed: {
-    ...mapState('app', ['ui', 'window']),
+    ...mapState('app', ['ui', 'window']), // app.ui:TA EI OLE ENÄÄ
 
     navLeftDisplayed() {
       return this.ui.navLeftDisplayed

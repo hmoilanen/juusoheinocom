@@ -9,7 +9,7 @@ export default {
   navTopDisplayed: true,
   navTopHeight: 70,
   //navLeftDisplayed: true,
-  //navLeftWidth: 250,
+  //navLeftWidth: 160,
   //navRightDisplayed: true,
   preventBodyScrolling: false,
 

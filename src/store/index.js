@@ -2,7 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 // modules
-import api from './api' // TARVIIKO TÄSSÄ ROJEKTISSA?
 import app from './app'
 import auth from './auth' // TARVIIKO TÄSSÄ ROJEKTISSA?
 import base from './base'
@@ -15,7 +14,6 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   modules: {
-    api,
     app,
     auth,
     base,

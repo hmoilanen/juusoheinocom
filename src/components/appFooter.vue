@@ -41,7 +41,7 @@ export default {
 
   computed: {
     appUrl() {
-      return this.$store.state.api.appUrl
+      return this.$store.state.app.appUrl
     }
   },
 

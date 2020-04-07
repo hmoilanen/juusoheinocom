@@ -1,16 +1,36 @@
+import firebaseConfig from '@/api/firebase/firebaseConfig'
+
 export default {
+  GET_URL: state => {
+    const appURL = process.env.NODE_ENV === 'production'
+      ? state.domain
+      : `${window.location.protocol}//${window.location.host}`
+    const storage = firebaseConfig.storageBucket
+    const storageURL = `https://storage.googleapis.com/${storage}/`
+    const imageURL = `${storageURL}images/`
+    
+    return {
+      app: appURL,
+      storage: storageURL,
+      image: imageURL
+    }
+  },
+
   GET_OFFICIAL: state => {
+    // OTA MYÖHEMMIN KÄYTTÖÖN
+    //if (!state.human) { return {} }
+
     let official = state.official
     let currentYear = new Date().getFullYear()
-    let emailHost = official.appName.toLowerCase().split(' ').join('')
+    let emailHost = official.emailDomain.toLowerCase().split(' ').join('')
     let info = {
       email: `${official.emailPrefix}@${emailHost}.${official.emailSuffix}`,
       watermark: `© ${currentYear} ${official.companyName}`,
       location: [{ // data structure googleMap component expects
-        name: 'OSB',
+        name: 'JH',
         position: {
-          lat: official.latitude,
-          lng: official.longitude
+          lat: official.latitude || 0,
+          lng: official.longitude || 0
         }
       }]
     }
@@ -18,28 +38,10 @@ export default {
     Object.assign(info, official)
 
     return info
-  },
-
-  GET_BREAKPOINT: state => {
-    const windowWidth = state.window.width
-    const breakpoints = state.ui.breakpoints
-    const classes = ['s', 'm', 'l', 'xl']
-    let current = 'm'
-
-    for (let i = 0; i <= breakpoints.length - 1; i++) {
-      if (windowWidth < breakpoints[i]) {
-        current = classes[i]
-        break
-      } else if (i === breakpoints.length - 1 && windowWidth >= breakpoints[i]) {
-        current = classes[breakpoints.length]
-      }
-    }
-    
-    return current
   }
 }
 
 // Example:
-// GETTER_NAME: (state, getters) => {}
+// GETTER_NAME: (state, getters, rootState) => {}
 // ...or as method-style access:
-// GETTER_NAME: (state, getters) => (param) => {}
+// GETTER_NAME: (state, getters, rootState) => (param) => {}

@@ -1,12 +1,23 @@
 <template>
-  <!-- TODO!: TEE TÄSTÄ RENDERLESS-KOMPONENTTI! -->
-  <div></div>
+  <div class="app-handler"></div>
 </template>
 
 <script>
+// TODOS:
+// -CONVERT TO RENDERLESS COMPONENT
+
 //import { throttle } from 'lodash' // TODO!: OTA KÄYTTÖÖN MYÖHEMMIN!
 
 export default {
+  async beforeCreate() {
+    // get data from firebase
+    await Promise.all([
+      this.$api.getData('text', {}, 'content'),
+      this.$api.getData('images', {}, 'content')
+    ])
+    this.$store.dispatch('SET_STATE', { data: false, path: 'app.isLoading' })
+  },
+  
   created() {
     this.handleWindowResize()
 
@@ -18,7 +29,7 @@ export default {
 
   watch: {
     // For preventing screen scrolling in certain circumstances (body.style.overflow = 'hidden')
-    '$store.state.app.ui.preventBodyScrolling': {
+    '$store.state.ui.preventBodyScrolling': {
       immediate: true,
       deep: true,
       handler: function() {
@@ -42,4 +53,8 @@ export default {
 }
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.app-handler {
+  position: absolute;
+}
+</style>
