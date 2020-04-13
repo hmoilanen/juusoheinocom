@@ -1,4 +1,18 @@
 export default {
+  apptests: {
+    a: 1,
+    b: 2,
+    d: 666,
+    object: {},
+    object2: { a: 1 },
+    array: [],
+    array2: ['a'],
+    string: '',
+    string2: 'a',
+    number: 0,
+    boolean: true,
+    null: null
+  },
   domain: 'https://juusoheino.com',
   isLoading: true,
   //localization: 'en',

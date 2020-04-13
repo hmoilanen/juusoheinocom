@@ -43,42 +43,36 @@ export default {
       const targetDotsRegex = /\./g
       const imageUrl = state.app.imageURL + this.path.replace('images.', '').replace(targetDotsRegex, '/') + '/'
       let path = this.path.split('.')
-      let content = state.content
+      //let content = state.content
       const noContent = 'no content'
 
-      //console.log('imageUrl', imageUrl);
-      //console.log('state.content', state.content);
-      //console.log('collection', collection);
-      //console.log('collection / state.content[collection]', content);
-      //console.log('path', path);
-
       if (!state.content[collection]) {
-        //console.log('EI LÄPI');
         return noContent
       }
-
-      //console.log('LÄPI');
 
       while (path.length > 0) {
         // create default data structure if it doesn't exist yet
         if (!(path[0] in content)) {
-          const propertyToAdd = path[0]
-          const valueToAdd = path.length === 1
-            ? noContent
-            : {}
+          console.log('TÄNNE MENEE MUTTA VUEXI LÄKKÄÄ -> PÄIVITÄ SET_STATE GENEERISEMMÄKSI!!!');
+          
+          //const propertyToAdd = path[0]
+          let dataToStore = path.length === 1 ? noContent : {}
+
+          //let pathToStore = 'content.'
+          //pathToStore += path[0] + '.'
+          //console.log(pathToStore);
+
+          //this.$store.dispatch('SET_STATE', { data: dataToStore, path: pathToStore }
 
           // JATKA TÄMÄN PARISSA HUOMENNA!!!
           // JATKA TÄMÄN PARISSA HUOMENNA!!!
           // JATKA TÄMÄN PARISSA HUOMENNA!!!
           //this.$store.dispatch('SET_STATE_OBJECT', { data: propertyToAdd, object: content, valueToAdd: value })
         }
-        //console.log('content-ENNEN', content);
         // complement path
         content = content[path.shift()]
-        //console.log('content-JÄLKEEN', content);
       }
 
-      //return content
       return this.isImage
         ? imageUrl + content
         : content
@@ -86,7 +80,7 @@ export default {
   },
 
   methods: {
-    editContent() {
+    editContent() { // TARKISTAMATTA!!! -> FIXAA!!!
       const split = this.path.split('@')
       let doc = split[0]
       let path = split[1]

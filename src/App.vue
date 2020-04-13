@@ -50,6 +50,7 @@ body {
   color: $app-color--text-base;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  font-variant-ligatures: none;
 }
 
 h1,

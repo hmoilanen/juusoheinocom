@@ -8,7 +8,7 @@
         </div>
 
         <span class="app-footer-watermark"
-          >{{ this.$store.state.app.official.watermark }}. All rights
+          >{{ this.official.watermark }}. All rights
           reserved.</span
         >
 
@@ -40,8 +40,11 @@ export default {
   },
 
   computed: {
-    appUrl() {
+    /* appUrl() {
       return this.$store.state.app.appUrl
+    } */
+    official() {
+      return this.$store.getters['app/GET_OFFICIAL']
     }
   },
 

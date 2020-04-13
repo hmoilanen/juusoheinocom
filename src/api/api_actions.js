@@ -43,11 +43,14 @@ setFirebaseAuth()
   });
 } */
 
-const getData = (collectionName, query, storePath, asArray) => {
+const getData = (collectionName, query, path, asArray) => {
   return new Promise((resolve, reject) => {
     let data = firestore.collection(collectionName)
 
     if (query.document) { // for getting the certain document
+      // TODO!: PITÄISIKÖ TÄSSÄKIN OLLA MAHDOLLISUUS ETTÄ TALLENTAA SUORAAN STOREEN JOS PATHIA EI ANNETTU?!?!?!?!
+      // TODO!: PITÄISIKÖ TÄSSÄKIN OLLA MAHDOLLISUUS ETTÄ TALLENTAA SUORAAN STOREEN JOS PATHIA EI ANNETTU?!?!?!?!
+      // TODO!: PITÄISIKÖ TÄSSÄKIN OLLA MAHDOLLISUUS ETTÄ TALLENTAA SUORAAN STOREEN JOS PATHIA EI ANNETTU?!?!?!?!
       data = data.doc(query.document).get()
         .then(doc => {
           resolve(doc.data())
@@ -58,13 +61,17 @@ const getData = (collectionName, query, storePath, asArray) => {
     } else { // for getting the whole collection
       data.get()
         .then(snapshot => {
-          const parsed = dataParser.parseFirebaseData(snapshot, asArray)          
-          
-          if (storePath) { // only stores parsed data
-            let completeStorePath = storePath + '.' + collectionName
-            store.dispatch('SET_STATE', { data: parsed, path: completeStorePath })
+          const parsed = dataParser.parseFirebaseData(snapshot, asArray)
+
+          // if path is given, only store the parsed data instead of returning it
+          if (typeof path === 'string') { // for accepting path also as falsy ('')
+            let completePath = path === '' // for storing data to store root
+              ? collectionName
+              : path + '.' + collectionName
+
+            store.dispatch('SET_STATE', { data: parsed, path: completePath })
             resolve()
-          }
+          }          
 
           resolve(parsed)
         })
