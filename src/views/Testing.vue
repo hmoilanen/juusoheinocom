@@ -48,15 +48,14 @@ export default {
 
     //let data = { b: 2 }
     let data = false
-    //let path = this.$store.state.app.apptests.homo
-    let path = 'app.apptests.homo.paska.perse'
+    let path = 'app.apptests'
     let property = this.properti
 
     setTimeout(() => {
-      /* this.$store.dispatch('SETTAA_STATE',
+      /* this.$store.dispatch('SET_STATE',
         { data: data, path: path, property: property, update: true }
       ) */
-      this.$store.dispatch('SETTAA_STATE',
+      this.$store.dispatch('SET_STATE',
         { data: 'prekele', path: path, property: 'stringy' }
       )
     }, 1000)

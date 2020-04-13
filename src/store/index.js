@@ -58,10 +58,7 @@ export default new Vuex.Store({
         
         // build an actual reference
         while (pathAsStrings.length > hasProperty) {
-          // create data structure if not existing yet
-          console.log('!stateToSet.hasOwnProperty(pathAsStrings[0])', !stateToSet.hasOwnProperty(pathAsStrings[0]));
-          
-
+          // create data structure if not existing yet (works only if path is string)
           if (!stateToSet.hasOwnProperty(pathAsStrings[0])) {
             if (update) {
               console.log(`SET_STATE: reference not found`)
