@@ -32,11 +32,24 @@ export default {
 
   data() {
     return {
-      mixinSizeCategories: { s: 9, m: 13, l: 17, xl: 24 }
+      mixinSizeCategories: { s: 9, m: 13, l: 17, xl: 23 }
+    }
+  },
+
+  watch: {
+    '$store.state.base.sizing.baseTitle': {
+      immediate: true,
+      handler: function() {
+        this.mixinSizeCategories = this.$store.state.base.sizing.baseTitle
+      }
     }
   },
 
   computed: {
+    /* mixinSizeCategories() {
+      return this.$store.state.base.sizing.baseTitle
+    }, */
+
     classing() {
       return {
         [`style-set-${this.dynamicStyleSet}`]: true, // see: utils/mixins.js
@@ -74,9 +87,9 @@ $title-indicator-width: 0.2em;
   &.center { text-align: center; }
 
   &.style-set-0 {
-    font-weight: 700;
+    font-weight: 900;
     font-family: $title-font;
-    letter-spacing: 0.075em;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
     color: $title-color;
     &::selection {

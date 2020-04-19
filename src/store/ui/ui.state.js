@@ -1,8 +1,12 @@
 export default {
   baseDimension: 0.125, // rem
   breakpoints: [420, 768], // default 2, max 3 (if unique layout for super wide screen is provided)
-  contentMaxWidth: 1200,
   contentMinPadding: 16, // 16px / 1rem
+  contentWidth: {
+    max: 1200,
+    medium: 900,
+    paragraph: 600,
+  },
   //curtainDisplayed: true,
   //darkMode: false,
   footerHeight: 0,

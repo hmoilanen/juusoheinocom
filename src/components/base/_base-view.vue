@@ -60,5 +60,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-view {}
+.base-view {
+  .content {
+    padding: 16px;
+  }
+}
 </style>

@@ -1,10 +1,6 @@
 <template>
-  <div class="base-wrapper" :style="[styling, mixinMargins]">
-  <!-- <div class="base-wrapper" :style="styling"> -->
+  <div class="base-wrapper" :class="classing" :style="[styling, mixinMargins]">
     <slot>{{ $options.name }}</slot>
-    <!-- <div class="base-wrapper-inner" :style="styling.inner">
-      <slot>{{ $options.name }}</slot>
-    </div> -->
   </div>
 </template>
 
@@ -18,12 +14,12 @@ export default {
   mixins: [sizing, margins, paddings],
 
   props: {
-    maxWidth: [Boolean, String],
     // TEE VALMIIKSI!
     dynamic: Boolean, // makes predefined paddings to scale with viewport size
-    
-    //compensateNavTop: Boolean,
+    maxWidth: [Boolean, String],
     padding: [Boolean, String],
+    center: Boolean
+    //compensateNavTop: Boolean,
     /* resetPadding: { // TEE TÄMÄ KONDIKSEEN / PÄÄTÄ TOTEUTUSTAPA!!!
       type: Boolean,
       default: false
@@ -31,6 +27,12 @@ export default {
   },
 
   computed: {
+    classing() {
+      return {
+        center: this.center
+      }
+    },
+
     styling() {
       let ui = this.$store.state.ui
       let maxWidth = false
@@ -39,9 +41,11 @@ export default {
 
       if (this.maxWidth) {
         if (this.maxWidth && typeof this.maxWidth === 'boolean') {
-          maxWidth = ui.contentMaxWidth + 'px' || maxWidthDefault + 'px'
+          maxWidth = ui.contentWidth.max + 'px' || maxWidthDefault + 'px'
         } else if (typeof this.maxWidth === 'string') {
-          maxWidth = this.maxWidth
+          maxWidth = this.maxWidth === 'paragraph'
+            ? ui.contentWidth.paragraph + 'px'
+            : this.maxWidth
         }
       }
 
@@ -56,15 +60,6 @@ export default {
       return {
         maxWidth: maxWidth,
         padding: padding
-        /* outer: {
-          paddingTop: this.compensateNavTop
-            ? ui.navTopHeight + 'px'
-            : false
-        },
-        inner: {
-          maxWidth: maxWidth,
-          padding: padding
-        } */
       }
     }
   }
@@ -74,6 +69,10 @@ export default {
 <style lang="scss" scoped>
 .base-wrapper {
   margin: 0 auto;
-  //position: relative;
+  &.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 </style>

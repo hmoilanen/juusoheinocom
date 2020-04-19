@@ -19,6 +19,7 @@
 // PROP: CODE -> VRT. HANDLE!
 // PROP: LINK -> VRT. HANDLE!
 
+import { mapState } from 'vuex'
 import { sizing, margins, paddings, dynamicStyleSet } from '@/utils/mixins'
 
 export default {
@@ -44,7 +45,19 @@ export default {
     }
   },
 
+  watch: {
+    sizing: {
+      immediate: true,
+      deep: true,
+      handler: function() {
+        this.mixinSizeCategories = this.sizing[this.$options.name]
+      }
+    }
+  },
+
   computed: {
+    ...mapState('base', ['sizing']),
+
     textContent() {
       if (this.lorem && typeof this.lorem === 'boolean') { // if boolean and true     
         return this.loremIpsum

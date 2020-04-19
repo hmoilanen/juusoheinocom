@@ -36,7 +36,7 @@ export default {
   methods: {
     newIndex(index) {
       this.activeIndex = index
-      this.$emit('newIndex', index)
+      this.$emit('new-index', index)
     }
   },
 
