@@ -10,6 +10,7 @@
 %clickable {
   cursor: pointer;
   @extend %noselect;
+  -webkit-tap-highlight-color: transparent;
 }
 
 // Positioning

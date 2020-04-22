@@ -1,48 +1,55 @@
 <template>
-  <div class="base-content-carousel">
+  <div class="base-content-carousel" :style="mixinMargins">
     
-    <Vue-slick-carousel ref="carousel" v-bind="settings">
-      <div
-        v-for="(dummy, index) in items"
-        :key="index"
-        class="item"
-      ><span>{{ index + 1 }}</span></div>
-
-      <template #prevArrow>
-        <base-icon>left</base-icon>
-      </template>
-      <template #nextArrow>
-        <base-icon>right</base-icon>
-      </template>
+    <Vue-slick-carousel
+      v-bind="settings"
+      ref="carousel"
+    >
+      <slot>
+        <div
+          :key="index"
+          v-for="(dummy, index) in amount"
+          class="item"
+        >
+          <span>{{ index + 1 }}</span>
+        </div>
+      </slot>
     </Vue-slick-carousel>
-    
-    <br><br>
 
-    <base-index-indicator
-      :amount="items"
-      :duration="duration"
-      @new-index="newIndex"
-    ></base-index-indicator>
+    <base-flex center="x" m-t="m">
+      <base-index-indicator
+        :amount="amount"
+        :duration="duration"
+        @new-index="newIndex"
+      ></base-index-indicator>
+    </base-flex>
 
   </div>
 </template>
 
 <script>
+import { margins } from '@/utils/mixins'
 // https://github.com/gs-shop/vue-slick-carousel
 import VueSlickCarousel from 'vue-slick-carousel'
 import 'vue-slick-carousel/dist/vue-slick-carousel.css' // import style
-import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css' // optional style for arrows & dots
+// import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css' // optional style for arrows & dots
 
 export default {
   name: 'baseContentCarousel',
 
-  components: {
-    VueSlickCarousel
+  components: { VueSlickCarousel },
+
+  mixins: [margins],
+
+  props: {
+    amount: {
+      type: Number,
+      default: 6
+    }
   },
 
   data() {
     return {
-      items: 8,
       duration: 3000,
       paused: false,
       settings: {
@@ -51,7 +58,7 @@ export default {
         cssEase: 'cubic-bezier(0, 0.65, 0.25, 1)',
         //fade: true,
         pauseOnHover: false,
-        speed: 600,
+        speed: 390,
         waitForAnimate: false
       }
     }
@@ -88,14 +95,14 @@ export default {
 
 <style lang="scss" scoped>
 .base-content-carousel {
-  margin-bottom: 30px; //POISTUU!
-
-  .item { //POISTUU!
-    min-height: 100px;
+  
+  .item {
+    min-height: 40vh;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
     background: grey;
+    span { font-weight: 700; }
   }
 }
 </style>

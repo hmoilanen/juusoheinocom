@@ -12,22 +12,22 @@ export default [
     }
   },
   {
-    path: "/pageA",
-    name: "pageA",
-    component: () => import("@/views/PageA"),
+    path: "/contact",
+    name: "contact",
+    component: () => import("@/views/Contact"),
     meta: {
       navLink: true,
-      navLinkTitle: "Page A",
+      navLinkTitle: "Contact",
       displayFooter: true
     }
   },
   {
-    path: "/testing",
-    name: "testing",
-    component: () => import("@/views/Testing"),
+    path: "/travels",
+    name: "travels",
+    component: () => import("@/views/Travels"),
     meta: {
       navLink: true,
-      navLinkTitle: "Testing",
+      navLinkTitle: "Travels",
       displayFooter: true
     }
   },

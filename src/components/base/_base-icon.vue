@@ -81,6 +81,7 @@ export default {
     iconEdit: () => import("@/components/icons/iconEdit"),
     iconFacebook: () => import("@/components/icons/iconFacebook"),
     iconInstagram: () => import("@/components/icons/iconInstagram"),
+    iconJuusoheino: () => import("@/components/icons/iconJuusoheino"),
     iconLeft: () => import("@/components/icons/iconLeft"),
     iconLink: () => import("@/components/icons/iconLink"),
     iconLinkedin: () => import("@/components/icons/iconLinkedin"),
@@ -120,6 +121,10 @@ export default {
 
 <style lang="scss">
 svg.base-icon {
+  g[fill="juusoheino"] {
+    #base-icon--color-juusoheino-main { fill: $app-color--main; }
+    #base-icon--color-juusoheino-hl { fill: $app-color--hl; }
+  }
   g[fill="discord"] { fill: colorlist("custom", "discord"); }
   g[fill="facebook"] { fill: colorlist("custom", "facebook"); }
   g[fill="linkedin"] { fill: colorlist("custom", "linkedin"); }

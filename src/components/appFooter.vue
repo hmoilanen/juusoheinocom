@@ -1,6 +1,40 @@
 <template>
   <div class="app-footer" ref="footer">
-    <base-wrapper>
+
+    <div class="links">
+      <base-link
+        v-for="(link, index) in navLinks"
+        :key="index"
+        :to="link.to"
+        mode="router"
+      >{{ link.title }}</base-link>
+    </div>
+    <div class="media">
+      <base-icon>github</base-icon>
+      <base-icon>linkedin</base-icon>
+      <base-icon>constlet</base-icon>
+    </div>
+
+    <span class="app-footer-watermark"
+      >{{ this.official.watermark }}. All rights
+      reserved.</span
+    >
+
+    <base-flex
+      class="app-footer-return"
+      @click="returnToTop"
+      center="y"
+      mT="m"
+    >
+      <span>Back to top</span>
+      <base-icon icon="up" :size="6" mL="s"></base-icon>
+    </base-flex>
+
+
+
+
+
+    <!-- <base-wrapper>
       <base-flex :column="true" center="x">
         <div class="app-footer-links">
           <base-link mode="router" :to="{ name: 'home' }">Home</base-link>
@@ -22,11 +56,13 @@
           <base-icon icon="up" :size="6" mL="s"></base-icon>
         </base-flex>
       </base-flex>
-    </base-wrapper>
+    </base-wrapper> -->
   </div>
 </template>
 
 <script>
+import { navLinks } from '@/utils/navigation'
+
 export default {
   name: 'appFooter',
 
@@ -40,6 +76,9 @@ export default {
   },
 
   computed: {
+    navLinks() {
+      return navLinks()
+    },
     /* appUrl() {
       return this.$store.state.app.appUrl
     } */
@@ -110,6 +149,7 @@ $footer-color: $app-color--theme;
   //grid-area: footer; // TODO!: OTA KÄYTTÖÖN!
   display: flex;
   flex-direction: column;
+  align-items:  center;
   background-color: $footer-bg-color;
   color: $footer-color;
   span {

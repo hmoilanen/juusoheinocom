@@ -1,13 +1,8 @@
 <template>
   <base-view>
 
+    <base-icon style="color: blue;">juuso-heino</base-icon>
     <base-content-carousel></base-content-carousel>
-
-    <base-wrapper :center="true">
-      <base-button @click="aika">hidasta</base-button>
-      <base-index-indicator @new-index="newIndex" :duration="taimi"></base-index-indicator>
-      <index-indicator></index-indicator>
-    </base-wrapper>
 
     <base-wrapper maxWidth="paragraph">
       <base-title size="s" mB="s">This is title text</base-title>

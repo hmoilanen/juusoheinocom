@@ -7,7 +7,7 @@
 $app-color--main: colorlist("grey", "darken-15"); // e.g. ui / modals / tooltips
 $app-color--bg: desaturate(lighten($app-color--main, 100%), 10%); // background color
 $app-color--theme: colorlist("white", "base"); // e.g. icons / buttons
-$app-color--hl: colorlist("yellow", "accent-4"); // all other colors, as many as needed
+$app-color--hl: colorlist("custom", "juusoheino-hl"); // all other colors, as many as needed
 //$app-color--hl2: ;
 //$app-color--hl3: ;
 $app-color--error: colorlist("purple", "accent-4");
