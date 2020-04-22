@@ -35,7 +35,7 @@ export default {
 
     classing() {
       // Note: if menu is opened icon must suggest closing it 
-      let displayed = this.basicState ? 'to-open' : 'to-close'
+      let displayed = this.basicState ? 'to-close' : 'to-open'
 
       return {
         [displayed]: true
