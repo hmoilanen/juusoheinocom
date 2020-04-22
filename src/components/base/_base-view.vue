@@ -1,9 +1,9 @@
 <template>
   <div class="base-view" :style="styling.root">
+    <slot name="hero"></slot>
     <div class="content" :style="styling.content">
       <slot>{{ $options.name }}</slot>
     </div>
-
     <app-footer v-if="displayFooter"></app-footer>
 
     <app-ui></app-ui>

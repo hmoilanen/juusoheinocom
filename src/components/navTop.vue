@@ -6,10 +6,12 @@
         <base-link
           v-for="(link, index) in navLinks"
           :key="index"
-          :to="link.to"
+          :to="link.path"
           mode="router"
           @click.native="toggle"
         >
+        <!-- :to="{ name: link.to, params: {}, meta: {} } -->
+        <!-- :to="link.path" -->
           <base-title size="s">{{ link.title }}</base-title>
         </base-link>
       </div>

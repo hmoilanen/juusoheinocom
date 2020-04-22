@@ -5,10 +5,11 @@ export const navLinks = function() {
   let filteredRoutes = [];
 
   routes.forEach(route => {
-    if (route.meta && route.meta.navLink) {
+    if (route.meta && route.meta.navLink) {      
       filteredRoutes.push({
         title: route.meta.navLinkTitle,
-        to: route.name
+        path: route.path,
+        name: route.name
       });
     }
   });

@@ -24,7 +24,7 @@ export default {
 
   props: {
     to: {
-      type: [String, Object, Function],
+      type: [String, Object],
       default: "https://constlet.com/"
     },
     mode: {
@@ -47,8 +47,20 @@ export default {
     },
 
     linkTo() {
+      let to
+      
+      if (typeof this.to === 'object') {
+        to = {}
+        let keys = Object.keys(this.to)
+        keys.forEach(key => {
+          to[key] = this.to[key]
+        })
+      } else { // if string        
+        to = this.to
+      }
+
       return {
-        href: this.mode !== 'router' ? this.to : false,
+        href: this.mode !== 'router' ? to : false,
         to: this.mode === 'router' ? this.to : false,
       }
     },

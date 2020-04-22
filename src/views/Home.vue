@@ -1,6 +1,6 @@
 <template>
-  <div class="view-home">
-    
+  <base-view class="view-home">
+
     <base-wrapper :compensateNavTop="true" :padding="true">
       <base-wrapper></base-wrapper>
 
@@ -195,9 +195,7 @@
       </base-flex>
       
     </base-wrapper>
-
-    <app-footer></app-footer>
-  </div>
+  </base-view>
 </template>
 
 <script>

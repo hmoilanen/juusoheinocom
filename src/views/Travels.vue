@@ -1,9 +1,7 @@
 <template>
-  <div class="view-travels">
-    <base-view>
-      Travels
-    </base-view>
-  </div>
+  <base-view class="view-travels">
+    Travels
+  </base-view>
 </template>
 
 <script>
