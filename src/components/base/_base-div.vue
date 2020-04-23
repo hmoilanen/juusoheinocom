@@ -43,7 +43,7 @@ $div-color--border: $app-color--main;
 
 .base-div {
   &.card {
-    @extend %app--border-radius;
+    @extend %app-default--border-radius;
     border: 1px solid $div-color--border;
     background: $div-color--bg;
   }

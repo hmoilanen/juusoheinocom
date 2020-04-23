@@ -32,6 +32,7 @@ $app-color--input: $app-color--text-base;
 $app-color--input-border: $app-color--main;
 $app-color--input-label: $app-color--main;
 $app-color--input-placeholder: lighten($app-color--input, 50%);
+$app-color--input-feedback: $app-color--error;
 
 // Icons
 //$app-color--icon: ;

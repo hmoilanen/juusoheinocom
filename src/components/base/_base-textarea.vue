@@ -22,6 +22,8 @@
 </template>
 
 <script>
+//TEE NIIN, ETTÄ JOS ANNETTU MAX-LENGTH VOI MYÖS ANTAA "PROP: showCounter", TMS, JOLLOIN MERKKILASKURI NÄKYY!!!!!
+
 import { sizing, margins, dynamicStyleSet } from '@/utils/mixins'
 
 export default {
@@ -136,8 +138,10 @@ $textarea-font--placeholder: $app-font--placeholder;
       resize: none;
       transition: all 0.3s ease;
       width: 100%;
-      border: 1px solid lighten(desaturate($textarea-color--border, 30%), 30%);
-      border-radius: 3px;
+      @extend %input--border;
+      border-color: $textarea-color--border;
+      //border: 1px solid lighten(desaturate($textarea-color--border, 30%), 30%);
+      //border-radius: 3px;
       padding: 0.6rem;
       font-size: inherit;
       line-height: 1.4em;
@@ -150,9 +154,9 @@ $textarea-font--placeholder: $app-font--placeholder;
         color: $textarea-color--placeholder;
       }
     }
-    &.focused textarea {
+    /* &.focused textarea {
       border: 1px solid $textarea-color;
-    }
+    } */
   }
 
   /* &.style-set-1 {

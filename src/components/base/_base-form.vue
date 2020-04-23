@@ -5,7 +5,5 @@
 </template>
 
 <script>
-
-// TARVIIKO TÄTÄ OLLENKAAN?
 export default { name: 'baseForm' }
 </script>

@@ -1,5 +1,13 @@
 // App
-%app--border-radius { border-radius: 3px; }
+%app-default--border-radius { border-radius: 0px; }
+
+// Base components
+%input--border { // for base-input / -textarea / -dropdown
+  border-style: solid;
+  border-width: 2px;
+  @extend %app-default--border-radius;
+  //border-radius: 0px;
+}
 
 // Event handling
 %noselect { user-select: none; }

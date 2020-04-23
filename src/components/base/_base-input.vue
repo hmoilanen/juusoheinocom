@@ -30,7 +30,8 @@
     </div>
 
     <!-- TEE TÄSTÄ OMA BASE-KOMPONENTTINSA!!! -> VOI KÄYTTÄÄ MONESSA PAIKASSA!!! -->
-    <base-text v-if="displayFeedback" :mT="3">{{ this.feedback }}</base-text>
+    <!-- <base-text v-if="displayFeedback" :mT="3">{{ this.feedback }}</base-text> -->
+    <base-feedback v-if="displayFeedback" type="error" :mT="3">{{ this.feedback }}</base-feedback>
 
   </div>
 </template>
@@ -60,7 +61,8 @@ export default {
     focused: Boolean,
     iconLeft: String,
     iconRight: String,
-    feedback: [Boolean, String]
+    //feedback: [Boolean, String]
+    feedback: String
   },
 
   data() {
@@ -143,9 +145,10 @@ export default {
     },
 
     displayFeedback() {
-      if (this.feedback && typeof this.feedback === 'string') {
+      /* if (this.feedback && typeof this.feedback === 'string') {
         return true
-      } else return false
+      } else return false */
+      return this.feedback ? true : false
     }
   }
 }
@@ -157,7 +160,7 @@ $input-color--border: $app-color--input-border;
 $input-color--bg: $app-color--theme;
 $input-color--placeholder: $app-color--input-placeholder;
 $input-color--icons: $input-color;
-$input-color--feedback: $app-color--error;
+$input-color--feedback: $app-color--input-feedback;
 $input-font: $app-font--input;
 $input-font--placeholder: $app-font--placeholder;
 
@@ -166,7 +169,7 @@ $input-font--placeholder: $app-font--placeholder;
 
   &.disabled {
     @extend %disabled;
-    opacity: 0.4;
+    opacity: 0.2;
   }
 
   &.style-set-0 {
@@ -184,8 +187,11 @@ $input-font--placeholder: $app-font--placeholder;
     input {
       transition: all 0.3s ease-in-out;
       outline: 0;
-      border: 1px solid lighten(desaturate($input-color--border, 30%), 30%);
-      border-radius: 3px;
+      @extend %input--border;
+      border-color: $input-color--border;
+      //border-color: lighten(desaturate($input-color--border, 30%), 30%);
+      //border: 1px solid lighten(desaturate($input-color--border, 30%), 30%);
+      //border-radius: 3px;
       width: 100%;
       //padding: ; // see: this.styling.input
       background: $input-color--bg;
@@ -193,8 +199,11 @@ $input-font--placeholder: $app-font--placeholder;
       letter-spacing: 0.05em;
       font-family: $input-font;
       color: $input-color;
-      &:hover,
-      &:focus { border: 1px solid $input-color--border; }
+      /* &:hover,
+      &:focus {
+        //border: 1px solid $input-color--border;
+        border-color: $input-color--border;
+      } */
       &::placeholder { // not supported in all browsers, but behaves as regular text content if not
         font-weight: 500;
         font-family: $input-font--placeholder;
@@ -202,7 +211,10 @@ $input-font--placeholder: $app-font--placeholder;
       }
     }
     &.feedback {
-      input { border: 1px solid $input-color--feedback; }
+      input {
+        //color: 1px solid $input-color--feedback;
+        border-color: $input-color--feedback;
+      }
       p { color: $input-color--feedback; }
     }
   }

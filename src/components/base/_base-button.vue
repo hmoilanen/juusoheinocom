@@ -66,13 +66,14 @@ $button-color--highlight: $app-color--button-highlight;
 $button-color--icons: $app-color--button;
 $button-font: $app-font--button;
 $button-height: 2.6em !default;
+$button-side: 1.4em !default;
 $disabled-button-opacity--default: 0.4;
 
 .base-button {
   display: flex;
   align-items: center;
   position: relative; // for icons
-  padding: 0 1.2em;
+  padding: 0 $button-side;
   height: $button-height;
   //line-height: this.styling();
   //font-size: this.styling();
@@ -115,7 +116,8 @@ $disabled-button-opacity--default: 0.4;
 
   &.style-set-0 {
     border: none;
-    border-radius: 3px;
+    //border-radius: 3px;
+    @extend %app-default--border-radius;
     background: $button-color--bg;
     color: $button-color;
     &:hover {
