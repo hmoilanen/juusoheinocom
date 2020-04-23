@@ -21,23 +21,19 @@ export default {
     tag: {
       type: String,
       default: 'p',
-      /* validator: prop => {
-        return ['p', 'span', 'pre', 'blockquote', 'dd'].indexOf(prop) !== -1
-      } */
     },
-    type: {
+    /* type: {
       type: String,
       default: 'default',
       validator: prop => {
         return ['error'].indexOf(prop) !== -1
       }
-    }
+    } */
   },
 
   computed: {
     classing() {
       let parent = camelToKebab(this.$parent.$options.name)
-      
       return {
         //error: this.type === 'error',
         [`child-of--${parent}`]: true
@@ -58,8 +54,9 @@ $base-feedback--color-error: $app-color--input-feedback;
 
 .base-feedback {
   line-height: 1.4em;
-  
-  &.child-of--base-input {
+
+  &.child-of--base-input,
+  &.child-of--base-textarea {
     color: $base-feedback--color-error;
   }
 }

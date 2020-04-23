@@ -4,18 +4,16 @@
     :class="classing"
     :style="[styling.root, mixinMargins]"
   >
-    <base-label v-if="label" :required="required">
-      {{ this.label }}
-    </base-label>
+    <base-label v-if="label" :required="required">{{ this.label }}</base-label>
 
     <div class="input-container">
       <input
-        :type="type"
-        :value="value"
         ref="input"
+        :value="value"
+        :type="type"
+        :style="styling.input"
         v-bind="$attrs"
         v-on="listeners"
-        :style="styling.input"
       />
       <base-icon
         v-if="iconLeft"
@@ -29,10 +27,7 @@
       >{{ this.iconRight }}</base-icon>
     </div>
 
-    <!-- TEE TÄSTÄ OMA BASE-KOMPONENTTINSA!!! -> VOI KÄYTTÄÄ MONESSA PAIKASSA!!! -->
-    <!-- <base-text v-if="displayFeedback" :mT="3">{{ this.feedback }}</base-text> -->
-    <base-feedback v-if="displayFeedback" type="error" :mT="3">{{ this.feedback }}</base-feedback>
-
+    <base-feedback v-if="feedback" :mT="2">{{ this.feedback }}</base-feedback>
   </div>
 </template>
 
@@ -58,11 +53,10 @@ export default {
     label: String,
     required: Boolean,
     disabled: Boolean,
+    feedback: String,
     focused: Boolean,
     iconLeft: String,
-    iconRight: String,
-    //feedback: [Boolean, String]
-    feedback: String
+    iconRight: String
   },
 
   data() {
@@ -144,12 +138,9 @@ export default {
       }
     },
 
-    displayFeedback() {
-      /* if (this.feedback && typeof this.feedback === 'string') {
-        return true
-      } else return false */
+    /* displayFeedback() {
       return this.feedback ? true : false
-    }
+    } */
   }
 }
 </script>
@@ -166,11 +157,8 @@ $input-font--placeholder: $app-font--placeholder;
 
 .base-input {
   width: 100%;
-
-  &.disabled {
-    @extend %disabled;
-    opacity: 0.2;
-  }
+  // font-size: ; // see: this.styling
+  &.disabled { @extend %input--disabled; }
 
   &.style-set-0 {
     .input-container {
@@ -210,13 +198,7 @@ $input-font--placeholder: $app-font--placeholder;
         color: $input-color--placeholder;
       }
     }
-    &.feedback {
-      input {
-        //color: 1px solid $input-color--feedback;
-        border-color: $input-color--feedback;
-      }
-      p { color: $input-color--feedback; }
-    }
+    //&.feedback input { border-color: $input-color--feedback; }
   }
 
   /* &.style-set-1 {

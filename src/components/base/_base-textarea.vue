@@ -4,20 +4,21 @@
     :class="classing"
     :style="[styling, mixinMargins]"
   >
-    <base-label v-if="label" :required="required">
-      {{ this.label }}
-    </base-label>
+    <base-flex>
+      <base-label v-if="label" :required="required" flex-1>{{ this.label }}</base-label>
+      <div v-if="maxLength" class="counter">{{ this.currentLength }} / {{ this.maxLength }}</div>
+    </base-flex>
 
     <textarea
       ref="textarea"
       :value="value"
-      @focus="toggleFocus(true)"
-      @blur="toggleFocus(false)"
       :rows="rows"
-      :placeholder="$attrs.placeholder"
-      v-on="listeners"
       :maxlength="maxLength"
+      v-bind="$attrs"
+      v-on="listeners"
     ></textarea>
+
+    <base-feedback v-if="feedback" :mT="2">{{ this.feedback }}</base-feedback>
   </div>
 </template>
 
@@ -29,22 +30,26 @@ import { sizing, margins, dynamicStyleSet } from '@/utils/mixins'
 export default {
   name: 'baseTextarea',
 
+  inheritAttrs: false,
+
   mixins: [sizing, margins, dynamicStyleSet],
 
   props: {
     value: String,
-    rows: {
+    label: String,
+    required: Boolean,
+    disabled: Boolean,
+    feedback: String,
+    focused: Boolean,
+    maxLength: Number,
+    rows: { // default size
       type: Number,
       default: 3
     },
-    label: String,
-    required: Boolean,
-    maxLength: Number
   },
 
   data() {
     return {
-      focused: false,
       mixinSizeCategories: { s: 7, m: 8, l: 9, xl: 10 }
     }
   },
@@ -71,10 +76,21 @@ export default {
     resize()
   },
 
+  watch: {
+    focused: {
+      immediate: true,
+      handler() {
+        if (this.focused) {
+          this.$nextTick(() => this.$refs.textarea.focus())
+        }
+      }
+    }
+  },
+
   methods: {
     observe(element, event, handler) {
       if (window.attachEvent) {
-        // this is only for IE8- (if any problems occur, it's possible to get rid of)
+        // only for IE8- (if any problems occur, it's possible to get rid of)
         element.attachEvent('on' + event, handler)
       } else {
         element.addEventListener(event, handler, false)
@@ -83,14 +99,6 @@ export default {
       this.$on('hook:beforeDestroy', () => {
         element.removeEventListener(event, handler)
       })
-    },
-
-    toggleFocus(boolean) {
-      this.focused = boolean
-    },
-
-    emitInput() {
-      this.$emit('input', this.$refs.textarea.value)
     }
   },
 
@@ -98,8 +106,10 @@ export default {
     listeners() {
       return {
         ...this.$listeners,
-        input: () => { // override input from $listeners
-          this.emitInput()
+        input: event => { // override input from $listeners
+          //this.emitInput()
+          //this.$emit('input', this.$refs.textarea.value)
+          this.$emit('input', event.target.value)
         }
       }
     },
@@ -107,7 +117,8 @@ export default {
     classing() {
       return {
         [`style-set-${this.dynamicStyleSet}`]: true, // see: utils/mixins.js
-        focused: this.focused
+        disabled: this.disabled,
+        feedback: this.feedback
       }
     },
 
@@ -115,6 +126,10 @@ export default {
       return {
         fontSize: this.mixinSizing
       }
+    },
+
+    currentLength() {
+      return this.value.length
     }
   }
 }
@@ -125,11 +140,14 @@ $textarea-color: $app-color--input;
 $textarea-color--border: $app-color--input-border;
 $textarea-color--bg: $app-color--theme;
 $textarea-color--placeholder: $app-color--input-placeholder;
+$textarea-color--feedback: $app-color--input-feedback;
 $textarea-font: $app-font--input;
 $textarea-font--placeholder: $app-font--placeholder;
 
 .base-textarea {
+  width: 100%;
   // font-size: ; // see: this.styling
+  &.disabled { @extend %input--disabled; }
 
   &.style-set-0 {
     textarea {
@@ -137,6 +155,7 @@ $textarea-font--placeholder: $app-font--placeholder;
       outline: 0;
       resize: none;
       transition: all 0.3s ease;
+      display: block;
       width: 100%;
       @extend %input--border;
       border-color: $textarea-color--border;
@@ -154,9 +173,13 @@ $textarea-font--placeholder: $app-font--placeholder;
         color: $textarea-color--placeholder;
       }
     }
-    /* &.focused textarea {
-      border: 1px solid $textarea-color;
-    } */
+    .counter {
+      display: flex;
+      justify-content: flex-end;
+      font-size: 0.85em;
+      font-weight: 700;
+    }
+    //&.feedback textarea { border-color: $textarea-color--feedback; }
   }
 
   /* &.style-set-1 {

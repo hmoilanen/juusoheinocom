@@ -10,7 +10,8 @@ $app-color--theme: colorlist("white", "base"); // e.g. icons / buttons
 $app-color--hl: colorlist("custom", "juusoheino-hl"); // all other colors, as many as needed
 //$app-color--hl2: ;
 //$app-color--hl3: ;
-$app-color--error: colorlist("purple", "accent-4");
+//$app-color--error: colorlist("purple", "accent-4");
+$app-color--error: $app-color--hl;
 //$app-color--success: ;
 
 // Typography
