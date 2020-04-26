@@ -54,9 +54,9 @@ export default {
       inputBudget: '',
       inputDescription: '',
       feedbackInputName: 'jotain pientä valitettavaa aina löytyy',
-      //feedbackInputEmail: 'fsdffsf',
-      //feedbackInputBudget: '',
-      //feedbackInputDescription: 'sdfsfsd',
+      feedbackInputEmail: 'fsdffsf',
+      feedbackInputBudget: '',
+      feedbackInputDescription: 'sdfsfsd',
       feedbackSubmit: '',
       submitting: false
     }

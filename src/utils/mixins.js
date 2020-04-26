@@ -1,3 +1,7 @@
+import { dataType } from '@/utils/data'
+
+// NOTE!: margins / paddings / sizing DOESN'T ACCEPT 0 AS A NUMBER / NO STYLE IS GENERATED IN COMPONENT! -> FIX!
+// NOTE!: margins / paddings / sizing DOESN'T ACCEPT 0 AS A NUMBER / NO STYLE IS GENERATED IN COMPONENT! -> FIX!
 // NOTE!: margins / paddings / sizing DOESN'T ACCEPT 0 AS A NUMBER / NO STYLE IS GENERATED IN COMPONENT! -> FIX!
 
 export const sizing = { // Generic sizing mixin for components
@@ -6,6 +10,9 @@ export const sizing = { // Generic sizing mixin for components
     sizeUnit: {
       type: String,
       default: 'rem'
+    },
+    scaling: {
+      type: [Boolean, Array, Object, Number]
     }
   },
 
@@ -21,19 +28,78 @@ export const sizing = { // Generic sizing mixin for components
       let sizingBaseValue = baseDimension ? baseDimension : 0.125
       let self = this
 
-      // For sizing base on predetermined categories
+      // Sizing based on predetermined categories
       function sizeCategory(size) {
         if (typeof size === 'string') {
           if (size === 's' || size === 'm' || size === 'l' || size === 'xl') {
             return self.mixinSizeCategories[size]
           } else return self.mixinSizeCategories.m
+        } else return size // = number
+      }
+
+      // Fixed sizing based on breakpoints
+      function ifScaling(size) {
+        // expected prop values:
+        // -boolean (true), where size is scaled based on default multiplier and app's breakpoints
+        // -array of numbers (1 = 0.125rem) which correlate with app's breakpoints (eg. [6, 8, 10])
+        // -object of key-value pairs, where keys are custom breakpoints and values numbers (eg. { '400': 6, '700': 8, '1000': 10 })
+        // -number, where size is scaled based on it and app's breakpoints
+
+        if (self.scaling) {
+          let type = dataType(self.scaling)
+          let breakpoint = self.$store.getters['ui/GET_BREAKPOINT']
+          let multiplier = 2 // = 2 * 0.125rem          
+
+          if (type === 'boolean') {
+            return size + (breakpoint.index * multiplier)
+          } else if (type === 'array') {
+            let hasNumbers = self.scaling.every(number => {
+              return typeof number === 'number'
+            })
+
+            if (hasNumbers) {
+              if (breakpoint.index > self.scaling.length - 1) {
+                return self.scaling[self.scaling.length - 1]
+              } else {
+                return self.scaling[breakpoint.index]
+              }
+            } else {
+              console.log('mixinSizing: scaling array has to contain only numbers')
+              return size
+            }
+          } else if (type === 'object') {
+            let customBreakpoints = Object.keys(self.scaling).map(Number)
+            let customSizes = Object.values(self.scaling)
+            customSizes.unshift(size)
+            let hasNumbers = customSizes.every(number => {
+              return typeof number === 'number'
+            })
+
+            if (hasNumbers) {
+              let windowWidth = self.$store.state.ui.window.width
+
+              for (let i = 0; i < customBreakpoints.length; i++) {
+                if (windowWidth < customBreakpoints[i]) {
+                  return customSizes[i]
+                } else if (i === customBreakpoints.length - 1 && windowWidth >= customBreakpoints[i]) {
+                  return customSizes[customSizes.length - 1]
+                }
+              }
+            } else {
+              console.log('mixinSizing: scaling object\'s values has to contain only numbers')
+              return size
+            }
+          } else { // if number
+            return size + (breakpoint.index * self.scaling)
+          }
         } else return size
       }
 
-      if (typeof this.size === 'string' || typeof this.size === 'number') {
-        return sizeCategory(this.size) * sizingBaseValue + this.sizeUnit
+      if (this.size) {
+        return ifScaling(sizeCategory(this.size)) * sizingBaseValue + this.sizeUnit
       }
-      return this.mixinSizeCategories.m * sizingBaseValue + this.sizeUnit
+
+      return ifScaling(this.mixinSizeCategories.s) * sizingBaseValue + this.sizeUnit
     }
   }
 }

@@ -1,11 +1,11 @@
 export default {
-  GET_BREAKPOINTS: state => {
+  GET_BREAKPOINT: state => {
     const windowWidth = state.window.width
     const breakpoints = state.breakpoints
     const classes = ['s', 'm', 'l', 'xl']
     let current = 'm'
 
-    for (let i = 0; i <= breakpoints.length - 1; i++) {
+    for (let i = 0; i < breakpoints.length; i++) {
       if (windowWidth < breakpoints[i]) {
         current = classes[i]
         break
@@ -13,8 +13,12 @@ export default {
         current = classes[breakpoints.length]
       }
     }
-    
-    return current
+
+    return {
+      breakpoint: current,
+      index: classes.indexOf(current),
+      width: windowWidth
+    }
   }
 }
 

@@ -6,8 +6,8 @@ export const dataType = function(data) {
   } else if (Object.prototype.toString.call(data) === '[object Function]') {
     return 'function'
   } else if (typeof data === 'boolean') {
-    return 'boolean'
-  } else if (!data && data !== '' && data !== 0) {
+    return typeof data
+  } else if (!data && data !== '' && data !== 0) { // null / undefined / NaN
     return data
   } else {
     return typeof data

@@ -136,11 +136,7 @@ export default {
           width: rightIconSize + 'em'
         }
       }
-    },
-
-    /* displayFeedback() {
-      return this.feedback ? true : false
-    } */
+    }
   }
 }
 </script>

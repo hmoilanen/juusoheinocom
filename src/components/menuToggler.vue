@@ -46,7 +46,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$line-thickness: 4.5px;
+$line-thickness: 3px;
 $line-length: 20px;
 $line-gap: 8px;
 $animation-duration: 0.6s;

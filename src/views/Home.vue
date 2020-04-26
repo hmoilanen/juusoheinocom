@@ -2,6 +2,13 @@
   <base-view class="view-home">
 
     <base-wrapper :compensateNavTop="true" :padding="true">
+
+      <base-text :scaling="4" :lorem="40" m-b="m"></base-text>
+      <base-text :scaling="true" :lorem="40" m-b="m"></base-text>
+      <base-text :scaling="[7, 11]" :lorem="40" m-b="m"></base-text>
+      <base-text :scaling="{ '400': 6, '500': 10, '600': 18, '700': 4 }" :lorem="40" m-b="m"></base-text>
+      <div>{{ this.numerot }}</div>
+
       <base-wrapper></base-wrapper>
 
       <base-title></base-title>
@@ -58,7 +65,6 @@
       ></base-input>
       <base-input
         label="laabeli"
-        :feedback="true"
         mB="l"
       ></base-input>
 
@@ -232,7 +238,8 @@ export default {
         { value: 'value2', id: 'id2' },
         { value: 'value3', id: 'id3' }
       ],
-      pas: '<strong>strong</strong>'
+      pas: '<strong>strong</strong>',
+      thestring: '420rem'
     }
   },
 
@@ -250,6 +257,11 @@ export default {
       if (this.isOpen) {
         return this.ikoni
       } else return false
+    },
+
+    numerot() {
+      //return this.thestring.replace( /^\D+/g, '');
+      return parseInt(this.thestring, 10)
     }
   },
 

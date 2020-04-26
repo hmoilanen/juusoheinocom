@@ -64,15 +64,6 @@ export default {
     }
   },
 
-  watch: {
-    newIndex: {
-      immediate: true,
-      handler() {
-        
-      }
-    }
-  },
-
   mounted() {
     let interval = setInterval(() => {
       if (!this.paused) {

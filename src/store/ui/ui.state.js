@@ -1,6 +1,6 @@
-export default {
+ export default {
   baseDimension: 0.125, // rem
-  breakpoints: [420, 768], // default 2, max 3 (if unique layout for super wide screen is provided)
+  breakpoints: [420, 768, 900], // default 2, max 3 (if unique layout for super wide screen is provided)
   contentMinPadding: 16, // 16px / 1rem
   contentWidth: {
     max: 1200,
