@@ -18,7 +18,7 @@ export default {
 
   GET_OFFICIAL: state => {
     // OTA MYÖHEMMIN KÄYTTÖÖN
-    //if (!state.human) { return {} }
+    //if (!state.human, tms.) { return {} }
 
     let official = state.official
     let currentYear = new Date().getFullYear()
@@ -26,6 +26,9 @@ export default {
     let info = {
       email: `${official.emailPrefix}@${emailHost}.${official.emailSuffix}`,
       watermark: `© ${currentYear} ${official.companyName}`,
+      disclaimer: state.localization === 'en'
+        ? 'All rights reserved.'
+        : 'Kaikki oikeudet pidätetään.',
       location: [{ // data structure googleMap component expects
         name: 'JH',
         position: {

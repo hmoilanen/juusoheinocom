@@ -29,7 +29,7 @@ export default {
     },
     mode: {
       type: String,
-      default: 'tab' // '' = default <a/> / 'tab' =  new tab / 'router' = <router-link/>
+      default: 'router' // '' = default <a/> / 'tab' =  <a/> + new tab / 'router' = <router-link/>
     },
     display: String
   },

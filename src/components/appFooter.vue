@@ -1,27 +1,33 @@
 <template>
   <div class="app-footer" ref="footer">
-
-    <div class="links">
+    <div class="routes">
       <base-link
-        v-for="(link, index) in navLinks"
+        v-for="(link, index) in links.routes"
         :key="index"
-        :to="link.to"
+        :to="link.path"
         mode="router"
       >{{ link.title }}</base-link>
     </div>
-    <div class="media">
-      <base-icon>github</base-icon>
-      <base-icon>linkedin</base-icon>
-      <base-icon>constlet</base-icon>
+
+    <div class="links">
+      <base-link
+        v-for="(link, index) in links.externals"
+        :key="index"
+        :to="link.link"
+        mode="tab"
+      >
+        <base-icon size="l">{{ link.icon }}</base-icon>
+      </base-link>
     </div>
 
-    <span class="app-footer-watermark"
-      >{{ this.official.watermark }}. All rights
-      reserved.</span
-    >
+    <div class="legal">
+      <span>{{ this.official.watermark }}. Made with <span class="heart"> &#10085;</span></span>
+      <!-- <span>{{ this.official.disclaimer }}</span> -->
+    </div>
 
+    <!-- TEE TÄMÄ JOTENKIN HIENOMMIN!!! -->
     <base-flex
-      class="app-footer-return"
+      class="scroller"
       @click="returnToTop"
       center="y"
       mT="m"
@@ -29,34 +35,6 @@
       <span>Back to top</span>
       <base-icon icon="up" :size="6" mL="s"></base-icon>
     </base-flex>
-
-
-
-
-
-    <!-- <base-wrapper>
-      <base-flex :column="true" center="x">
-        <div class="app-footer-links">
-          <base-link mode="router" :to="{ name: 'home' }">Home</base-link>
-          <base-link mode="router" :to="{ name: 'error' }">Error</base-link>
-        </div>
-
-        <span class="app-footer-watermark"
-          >{{ this.official.watermark }}. All rights
-          reserved.</span
-        >
-
-        <base-flex
-          class="app-footer-return"
-          @click="returnToTop"
-          center="y"
-          mT="m"
-        >
-          <span>Back to top</span>
-          <base-icon icon="up" :size="6" mL="s"></base-icon>
-        </base-flex>
-      </base-flex>
-    </base-wrapper> -->
   </div>
 </template>
 
@@ -76,12 +54,13 @@ export default {
   },
 
   computed: {
-    navLinks() {
-      return navLinks()
+    links() {
+      return {
+        routes: navLinks(),
+        externals: this.$store.state.app.externals
+      }
     },
-    /* appUrl() {
-      return this.$store.state.app.appUrl
-    } */
+
     official() {
       return this.$store.getters['app/GET_OFFICIAL']
     }
@@ -146,41 +125,24 @@ $footer-bg-color: $app-color--main;
 $footer-color: $app-color--theme;
 
 .app-footer {
-  //grid-area: footer; // TODO!: OTA KÄYTTÖÖN!
+  //grid-area: footer; // TODO!: OTA KÄYTTÖÖN!?
   display: flex;
   flex-direction: column;
   align-items:  center;
   background-color: $footer-bg-color;
   color: $footer-color;
-  span {
-    // VÄLIAIKAINEN
-    display: block;
-    text-align: center;
-    font-size: 0.85rem;
+
+  .routes {
+    & > * { display: block; }
   }
-}
-
-// KESKENERÄINEN -> JÄÄKÖ EDES OLLENKAAN BASE-VERSIOON?
-.app-footer-links {
-  justify-content: center;
-  flex-wrap: wrap;
-  line-height: 2rem;
-  & > * {
-    padding: 0 1rem;
-    text-align: center;
-    white-space: nowrap;
+  .links {
+    & > *:not(:last-child) { margin-right: 1rem; }
   }
-}
-
-.app-footer-socials {
-  margin-top: 1rem;
-}
-
-.app-footer-watermark {
-  margin-top: 1rem;
-}
-
-.app-footer-return {
-  @extend %clickable;
+  .legal {
+    .heart {
+      display: inline-block;
+      transform: rotate(90deg);
+    }
+  }
 }
 </style>

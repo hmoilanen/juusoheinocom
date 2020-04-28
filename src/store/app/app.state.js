@@ -1,5 +1,5 @@
 export default {
-  apptests: {
+  apptests: { //POISTUU!!
     a: 1,
     b: 2,
     d: 666,
@@ -13,25 +13,21 @@ export default {
     boolean: true,
     null: null
   },
+
   domain: 'https://juusoheino.com',
   isLoading: true,
-  //localization: 'en',
+  localization: 'en',
 
-  /* externalApps: [
-    { title: 'Discord', icon: 'discord', link: '' },
-    { title: 'Facebook', icon: 'facebook', link: '' },
-    { title: 'Instagram', icon: 'instagram', link: '' },
-    { title: 'Mixer', icon: 'mixer', link: '' },
-    { title: 'Twitch', icon: 'twitch', link: '' },
-    { title: 'Twitter', icon: 'twitter', link: '' },
-    { title: 'Youtube', icon: 'youtube', link: '' },
-    { title: 'LinkedIn', icon: 'linkedin', link: '' }
-  ], */
+  externals: [
+    { title: 'Github', icon: 'github', link: 'https://github.com/' }, //HUOM! PÄIVITÄ LINKKI KUN TILI LUOTU
+    { title: 'LinkdIn', icon: 'linkedin', link: 'https://www.linkedin.com/in/heinojuuso/' },
+    { title: 'Constlet', icon: 'constlet', link: 'https://constlet.com' }
+  ],
 
   official: {
     appName: 'juusoheino.com',
     companyName: 'Juuso Heino',
-    emailPrefix: 'info',
+    emailPrefix: 'mail',
     emailDomain: 'juusoheino',
     emailSuffix: 'com',
     //phone: '+358 44 123 4567',
@@ -39,9 +35,4 @@ export default {
     //latitude: 0, // for maps
     //longitude: 0,
   },
-
-  window: { // SIIRRÄ MYÖHEMMIN ui.state:EN JOS TUNTUU SILTÄ!
-    width: null, // window.offsetWidth
-    height: null // window.offsetHeight
-  }
 }

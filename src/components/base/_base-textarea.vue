@@ -23,8 +23,6 @@
 </template>
 
 <script>
-//TEE NIIN, ETTÄ JOS ANNETTU MAX-LENGTH VOI MYÖS ANTAA "PROP: showCounter", TMS, JOLLOIN MERKKILASKURI NÄKYY!!!!!
-
 import { sizing, margins, dynamicStyleSet } from '@/utils/mixins'
 
 export default {
@@ -42,7 +40,7 @@ export default {
     feedback: String,
     focused: Boolean,
     maxLength: Number,
-    rows: { // default size
+    rows: { // default vertical size
       type: Number,
       default: 3
     },

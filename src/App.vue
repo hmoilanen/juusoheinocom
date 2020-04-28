@@ -2,7 +2,7 @@
   <div id="app">
     <!-- <app-curtain></app-curtain> -->
     <app-handler></app-handler>
-    <router-view></router-view>
+    <router-view :key="$route.fullPath"></router-view>
 
     <!-- <content-handler v-if="handlerControl.contentHandler"></content-handler> --> <!-- OLISIKO PAREMPI LEIPOA VIEWEIHIN?!?! -->
     <!-- <modal-handler v-if="handlerControl.modalHandler"></modal-handler> -->

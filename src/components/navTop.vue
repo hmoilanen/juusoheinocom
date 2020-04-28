@@ -10,8 +10,6 @@
           mode="router"
           @click.native="toggle"
         >
-        <!-- :to="{ name: link.to, params: {}, meta: {} } -->
-        <!-- :to="link.path" -->
           <base-title size="s">{{ link.title }}</base-title>
         </base-link>
       </div>
@@ -111,6 +109,7 @@ export default {
 
 <style lang="scss" scoped>
 $nav-top--padding-sides: 1rem;
+$nav-top-dropdown--color-background: $app-color--main;
 $nav-top-dropdown--animation-duration: 0.3s;
 
 .nav-top {
@@ -132,7 +131,7 @@ $nav-top-dropdown--animation-duration: 0.3s;
     height: 100vh;
     //padding-top: ; // see: this.styling.dropdown
     //background: $app-color--main;
-    background: rgb(30, 42, 83);
+    background: transparentize($nav-top-dropdown--color-background, 0.05);
     transition: transform $nav-top-dropdown--animation-duration cubic-bezier(.09,.58,.36,1);
 
     //POSTIUU!!

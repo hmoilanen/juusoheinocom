@@ -72,6 +72,10 @@ export default {
         clearInterval(interval)
       }
     }, this.duration)
+
+    this.$on('hook:beforeDestroy', () => {
+      clearInterval(interval)
+    })
   },
 
   methods: {

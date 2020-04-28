@@ -2,7 +2,7 @@
   <base-view>
 
     <base-icon style="color: blue;">juuso-heino</base-icon>
-    <base-content-carousel></base-content-carousel>
+    <content-carousel></content-carousel>
 
     <base-wrapper maxWidth="paragraph">
       <base-title size="s" mB="s">This is title text</base-title>
@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import contentCarousel from '@/components/contentCarousel'
 import indexIndicator from '@/components/indexIndicator'
 import editableContent from '@/components/editableContent'
 
@@ -50,6 +51,7 @@ export default {
   name: 'viewTesting',
 
   components: {
+    contentCarousel,
     indexIndicator,
     editableContent
   },

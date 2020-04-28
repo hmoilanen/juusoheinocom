@@ -33,7 +33,7 @@ export default {
 
   computed: {
     classing() {
-      let parent = camelToKebab(this.$parent.$options.name)
+      let parent = camelToKebab(this.$parent.$options.name)      
       return {
         //error: this.type === 'error',
         [`child-of--${parent}`]: true
@@ -55,6 +55,7 @@ $base-feedback--color-error: $app-color--input-feedback;
 .base-feedback {
   line-height: 1.4em;
 
+  &.child-of--base-dropdown,
   &.child-of--base-input,
   &.child-of--base-textarea {
     color: $base-feedback--color-error;

@@ -1,35 +1,43 @@
 <template>
   <on-click-outside :do="close">
     <div ref="container" class="base-dropdown" :class="classing" :style="[styling.root, mixinMargins]">
+
       <base-label v-if="label" :required="required">{{ this.label }}</base-label>
 
-      <div
-        ref="toggle"
-        class="toggle"
-        :style="styling.toggle"
-        tabIndex="0"
-        @click="toggle"
-        @keydown.esc="close"
-        @keydown.up.prevent="activatePrev"
-        @keydown.down.prevent="activateNext"
-        @keydown.enter.prevent="selectActive"
-        @keydown.tab.prevent
-      >
-        <span v-if="selected">{{ this.selected }}</span>
-        <span v-else class="placeholder">{{ this.placeholder }}</span>
-        <base-icon>down</base-icon>
-      </div>
-
-      <ul v-show="showDropdown" ref="list" class="list" :style="styling.list">
+      <!-- HUOM! TÄMÄ EI VOI OLLA NÄIN KOSKA KAIKKI BINDAUKSET MENEE VITUIKS JOS SLOTTIIN SYÖTETÄÄN JOTAIN KUSTOMIA!!! -->
+      <!-- HUOM! TÄMÄ EI VOI OLLA NÄIN KOSKA KAIKKI BINDAUKSET MENEE VITUIKS JOS SLOTTIIN SYÖTETÄÄN JOTAIN KUSTOMIA!!! -->
+      <!-- HUOM! TÄMÄ EI VOI OLLA NÄIN KOSKA KAIKKI BINDAUKSET MENEE VITUIKS JOS SLOTTIIN SYÖTETÄÄN JOTAIN KUSTOMIA!!! -->
+      <!-- KORJAA!!! (PITÄNEE OLLA VIELÄ YKSI PARENTTIELEMENTTI NÄILLE?!) -->
+      <slot name="toggle" :toggle="toggle" :selected="selected">
         <div
-          v-for="(item, index) in value"
-          :key="item"
-          @click="select(item, index)"
-          :class="{ active: activeIndex === index }"
-        >{{ item }}</div>
-      </ul>
+          @click="toggle"
+          class="toggle"
+          :style="styling.toggle"
+          tabIndex="0"
+          @keydown.esc="close"
+          @keydown.up.prevent="activatePrev"
+          @keydown.down.prevent="activateNext"
+          @keydown.enter.prevent="selectActive"
+          @keydown.tab.prevent
+        >
+          <span v-if="selected">{{ this.selected }}</span>
+          <span v-else class="placeholder">{{ this.placeholder }}</span>
+          <base-icon>down</base-icon>
+        </div>
+      </slot>
 
       <base-feedback v-if="feedback" :mT="2">{{ this.feedback }}</base-feedback>
+
+      <ul v-show="showDropdown" ref="list" class="list" :style="styling.list">
+        <slot :select="select">
+          <div
+            v-for="(item, index) in value"
+            :key="item"
+            @click="select(item, index)"
+            :class="{ active: activeIndex === index }"
+          >{{ item }}</div>
+        </slot>
+      </ul>
     </div>
   </on-click-outside>
 </template>
@@ -114,7 +122,7 @@ export default {
 
     setupPopper() {
       if (this.popper === undefined) {
-        this.popper = new Popper(this.$refs.toggle, this.$refs.list, {
+        this.popper = new Popper(this.$refs.container, this.$refs.list, {
           placement: 'bottom'
         })
       } else {
@@ -131,7 +139,6 @@ export default {
 
     selectActive() {
       this.select(this.value[this.activeIndex], this.activeIndex)
-      this.$refs.toggle.focus()
     },
 
     scrollToHighlighted() {
@@ -258,8 +265,7 @@ $dropdown-font--placeholder: $app-font--placeholder;
 
     .list {
       z-index: 1;
-      margin-top: 2px;
-      margin-bottom: 2px;
+      margin-top: 3px;
       position: absolute;
       left: 0;
       right: 0;

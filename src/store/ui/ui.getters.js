@@ -15,7 +15,7 @@ export default {
     }
 
     return {
-      breakpoint: current,
+      current: current,
       index: classes.indexOf(current),
       width: windowWidth
     }

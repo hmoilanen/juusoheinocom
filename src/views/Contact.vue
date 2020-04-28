@@ -21,7 +21,12 @@
             :feedback="feedbackInputEmail"
             :disabled="submitting"
           ></base-input>
-          <!-- TÄHÄN VÄLIIN TULEE DROPDOWNI ! -->
+          <base-dropdown
+            label="budget"
+            placeholder="your budget"
+            :feedback="feedbackInputBudget"
+            :disabled="submitting"
+          ></base-dropdown>
           <base-textarea
             v-model="inputDescription"
             :required="true"
@@ -32,7 +37,7 @@
             :maxLength="1000"
           ></base-textarea>
           <base-button
-            @click="submit"
+            @click.prevent="submit"
             :disabled="!allowSubmit"
             size="l"
           >send</base-button>
@@ -55,7 +60,7 @@ export default {
       inputDescription: '',
       feedbackInputName: 'jotain pientä valitettavaa aina löytyy',
       feedbackInputEmail: 'fsdffsf',
-      feedbackInputBudget: '',
+      feedbackInputBudget: 'fsfdsfs',
       feedbackInputDescription: 'sdfsfsd',
       feedbackSubmit: '',
       submitting: false
