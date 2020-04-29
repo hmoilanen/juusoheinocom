@@ -16,7 +16,7 @@
         :to="link.link"
         mode="tab"
       >
-        <base-icon size="l">{{ link.icon }}</base-icon>
+        <base-icon :size="12">{{ link.icon }}</base-icon>
       </base-link>
     </div>
 

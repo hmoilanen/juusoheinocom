@@ -1,6 +1,13 @@
 <template>
   <base-view>
 
+    <base-scroller style="height: 400px; width: 200px;" scrollbarWidth="2px">
+      <base-text :lorem="true"></base-text>
+    </base-scroller>
+    <base-scroller style="height: 400px; width: 200px;" :hideScrollbar="true">
+      <base-text :lorem="true"></base-text>
+    </base-scroller>
+
     <base-icon style="color: blue;">juuso-heino</base-icon>
     <content-carousel></content-carousel>
 

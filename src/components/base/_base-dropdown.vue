@@ -17,7 +17,7 @@
       >
         <span v-if="selected">{{ this.selected }}</span>
         <span v-else class="placeholder">{{ this.placeholder }}</span>
-        <base-icon>down</base-icon>
+        <base-icon tooltip="toggle">down</base-icon>
       </div>
 
       <ul v-show="showDropdown" ref="list" class="list" :style="styling.list">
@@ -194,7 +194,7 @@ export default {
           padding: `0 ${baseTogglePadding}em`
         },
         list: {
-          padding: `${baseTogglePadding * 0.6}em`
+          //padding: `${baseTogglePadding * 0.6}em`
         }
       }
     }

@@ -11,7 +11,7 @@
     :style="mixinMargins"
     v-on="listeners"
   >
-    <title :id="icon" lang="en">{{ tooltip ? tooltip : icon }}</title>
+    <title v-if="tooltip" :id="icon" lang="en">{{ this.tooltip }}</title>
 
     <g :fill="app">
       <component :is="dynamicIcon"></component>
