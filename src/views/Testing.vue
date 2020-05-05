@@ -1,9 +1,19 @@
 <template>
   <base-view>
 
+    <!-- <editable-content path="text.home.title.fi" #default="{ content }">
+      <base-title>{{ content }}</base-title>
+    </editable-content> -->
+    <br>
+    <editable-content path="text.home.title.en" #default="{ content }">
+      <base-title :center="true">{{ content }}</base-title>
+    </editable-content>
+    <br>
+
     <base-scroller style="height: 400px; width: 200px;" scrollbarWidth="2px">
       <base-text :lorem="true"></base-text>
     </base-scroller>
+    <br>
     <base-scroller style="height: 400px; width: 200px;" :hideScrollbar="true">
       <base-text :lorem="true"></base-text>
     </base-scroller>
@@ -32,7 +42,7 @@
     <br>
     <div>{{ apptests[this.properti] }}</div>
 
-    <editable-content path="content.texti.houmi.titteli" #default="{ content }">
+    <!-- <editable-content path="content.texti.houmi.titteli" #default="{ content }">
       <base-text>{{ content[loc] }}</base-text>
     </editable-content>
     <editable-content path="content.text.home.title" #default="{ content }">
@@ -40,7 +50,7 @@
     </editable-content>
     <editable-content path="content.images.home.title" #default="{ content }">
       <base-image>{{ content[loc] }}</base-image>
-    </editable-content>
+    </editable-content> -->
 
     <base-wrapper :padding="true">
       <base-button v-for="(napi, index) in 20" :key="index" mB="m">!</base-button>

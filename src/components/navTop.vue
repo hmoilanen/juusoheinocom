@@ -45,6 +45,7 @@ export default {
 
   data() {
     return {
+      logannu: false,
       showDropdownNav: false,
       //narrowScreenBreakpoint: 450
     }

@@ -1,4 +1,3 @@
 export default {
-  //isLogged: false,
-  isAdmin: true
+  isLogged: false
 }

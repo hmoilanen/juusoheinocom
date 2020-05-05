@@ -25,6 +25,9 @@ export default new Vuex.Store({
 
   state: {},
 
+  // HUOM! PITÄSIKÖ TEHDÄ ERIKSEEN 'GET_STATE',
+    //...JOHON VOI ANTAA POLUN SAMALLA TAVALLA KUIN 'SET_STATE':EN (STRING TAI REFERENSSI)
+
   actions: {
     SET_STATE: ({ commit }, payload) => {
       commit('SET_STATE', payload)

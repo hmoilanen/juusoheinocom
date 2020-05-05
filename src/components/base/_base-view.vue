@@ -11,12 +11,16 @@
 </template>
 
 <script>
+import appCurtain from '@/components/appCurtain'
+
 export default {
   name: 'baseView',
 
   components: {
+    appCurtain,
     appFooter: () => import('@/components/appFooter'),
-    appUi: () => import('@/components/appUi')
+    appUi: () => import('@/components/appUi'),
+    //appCurtain: () => import('@/components/appCurtain')
   },
 
   props: {

@@ -20,7 +20,7 @@ export default {
     hideScrollbar: Boolean,
     scrollbarWidth: {
       type: String,
-      default: '4px'
+      default: '3px'
     }
   },
 
@@ -37,14 +37,16 @@ export default {
 
   methods: {
     handleElementProperties() {
-      let inner = this.$refs.inner
-      let thumb = this.$refs.thumb
-      let thumbHeight = inner.offsetHeight / inner.scrollHeight * inner.offsetHeight
-      let thumbMaxFromTop = inner.offsetHeight - thumbHeight
-      let relativeScrollPosition = inner.scrollTop / (inner.scrollHeight - inner.offsetHeight)
+      if (!this.hideScrollbar) {
+        let inner = this.$refs.inner
+        let thumb = this.$refs.thumb
+        let thumbHeight = inner.offsetHeight / inner.scrollHeight * inner.offsetHeight
+        let thumbMaxFromTop = inner.offsetHeight - thumbHeight
+        let relativeScrollPosition = inner.scrollTop / (inner.scrollHeight - inner.offsetHeight)
 
-      thumb.style.height = thumbHeight + 'px'
-      thumb.style.top = thumbMaxFromTop * relativeScrollPosition + 'px'
+        thumb.style.height = thumbHeight + 'px'
+        thumb.style.top = thumbMaxFromTop * relativeScrollPosition + 'px'
+      }
     }
   },
 
@@ -65,7 +67,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$base-scroller--color-track: transparentize($app-color--main, 0.95);
+$base-scroller--color-track: transparentize($app-color--main, 0.90);
 $base-scroller--color-thumb: $app-color--hl;
 
 .base-scroller {

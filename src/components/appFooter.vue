@@ -35,6 +35,8 @@
       <span>Back to top</span>
       <base-icon icon="up" :size="6" mL="s"></base-icon>
     </base-flex>
+
+    <base-button @click="logging">{{ this.$api.isLogged() ? 'logout' : 'login' }}</base-button>
   </div>
 </template>
 
@@ -68,16 +70,27 @@ export default {
 
   methods: {
     calcFooterHeight() {
-      let height = this.$refs.footer.offsetHeight
       // store footer's height for ui adjustments
-      this.$store.dispatch('SET_STATE', { data: height, path: 'ui.footerHeight' })
+      let footerHeight = this.$refs.footer.offsetHeight
+      if (footerHeight) {
+        this.$store.dispatch('SET_STATE', { data: footerHeight, path: 'ui.footerHeight' })
+      }
     },
 
-    goTo(to) {
+    /* goTo(to) {
       // TODO!: TEE TÄSTÄ UTIL ?!?!
       if (to === '/support') {
         this.$router.push(to)
       } else this.$router.push({ name: to })
+    }, */
+
+    logging() {
+      let isLogged = this.$api.isLogged()
+      if (isLogged) {
+        this.$api.logout()
+      } else {
+        this.$api.login('mail@juusoheino.com', 'qwerty')
+      }
     },
 
     returnToTop() {

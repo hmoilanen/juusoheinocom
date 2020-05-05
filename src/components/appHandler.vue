@@ -10,11 +10,12 @@
 
 export default {
   async beforeCreate() {
-    // get data from firebase
+    // get data from firebase    
     await Promise.all([
       this.$api.getData('text', {}, 'content'),
       this.$api.getData('images', {}, 'content')
     ])
+
     this.$store.dispatch('SET_STATE', { data: false, path: 'app.isLoading' })
   },
   

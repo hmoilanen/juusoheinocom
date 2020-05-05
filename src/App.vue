@@ -1,29 +1,32 @@
 <template>
   <div id="app">
-    <!-- <app-curtain></app-curtain> -->
-    <app-handler></app-handler>
     <router-view :key="$route.fullPath"></router-view>
+    <app-curtain v-if="componentControl.curtain"></app-curtain>
+    <app-handler></app-handler>
 
-    <!-- <content-handler v-if="handlerControl.contentHandler"></content-handler> --> <!-- OLISIKO PAREMPI LEIPOA VIEWEIHIN?!?! -->
-    <!-- <modal-handler v-if="handlerControl.modalHandler"></modal-handler> -->
+    <!-- <content-handler v-if="coomponentControl.contentHandler"></content-handler> --> <!-- OLISIKO PAREMPI LEIPOA VIEWEIHIN?!?! -->
+    <!-- <modal-handler v-if="coomponentControl.modalHandler"></modal-handler> -->
   </div>
 </template>
 
 <script>
+import appCurtain from '@/components/appCurtain'
 import appHandler from '@/components/appHandler'
 
 export default {
   name: 'app',
 
   components: {
-    appHandler,
+    appCurtain,
+    appHandler
     //contentHandler: () => import('@/components/contentHandler'),
     //modalHandler: () => import('@/components/modalHandler'),
   },
 
   computed: {
-    handlerControl() {      
+    componentControl() {      
       return {
+        curtain: this.$store.state.ui.curtainDisplayed
         //contentHandler: this.$store.state.content.showContentHandler, // TÄTÄ E ENÄÄ OLE
         //modalHandler: this.$store.state.modals.showModal
       }

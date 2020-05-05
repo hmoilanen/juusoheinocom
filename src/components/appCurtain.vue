@@ -1,7 +1,8 @@
 <template>
   <transition name="exit">
     <div class="app-curtain" :style="styling">
-      <div class="logo">
+      <base-icon app="juusoheino" :size="50">juusoheino</base-icon>
+      <!-- <div class="logo">
         <base-icon
           class="intro"
           :size="70"
@@ -24,7 +25,7 @@
           :size="95"
           tooltip="osb"
         >osb-logo-text</base-icon>
-      </div>
+      </div> -->
     </div>
   </transition>
 </template>
@@ -36,13 +37,14 @@ export default {
   data() {
     return {
       initialState: true,
-      minimumDuration: 2000,
+      minimumDuration: 10,
       minimumDurationPassed: false
     }
   },
 
   mounted() {
     setTimeout(() => {
+      // when to start intro animation after initiation
       this.initialState = false
     }, 600)
 
@@ -98,8 +100,10 @@ $app-curtain--color-bg: $app-color--main;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $app-curtain--color-bg;
+  //background: $app-curtain--color-bg;
+  background: white;
   color: $app-curtain--color;
+  border-bottom: 1px solid grey;
 
   .logo {
     position: relative;
@@ -107,7 +111,7 @@ $app-curtain--color-bg: $app-color--main;
     width: 140px;
     height: 140px;
 
-    .base-icon {
+    /* .base-icon {
       user-select: none;
       pointer-events: none;
       &:last-child {
@@ -118,9 +122,9 @@ $app-curtain--color-bg: $app-color--main;
         transition: all 0.5s ease 0.5s;
         &.initial { opacity: 0; }
       }
-    }
+    } */
 
-    .intro {
+    /* .intro {
       position: absolute;
       top: 50%;
       left: 50%;
@@ -137,7 +141,7 @@ $app-curtain--color-bg: $app-color--main;
           left: 100%;
         }
       }
-    }
+    } */
   }
 }
 

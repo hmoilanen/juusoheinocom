@@ -24,11 +24,12 @@ export default {
   props: {
     icon: String,
     disabled: Boolean,
+    center: Boolean,
+    stretch: Boolean,
     rounded: Boolean,
     highlight: Boolean,
     empty: Boolean,
-    center: Boolean,
-    stretch: Boolean
+    pseudo: Boolean
   },
 
   computed: {
@@ -43,9 +44,10 @@ export default {
         rounded: this.rounded,
         highlight: this.highlight,
         disabled: this.disabled,
-        empty: this.empty,
         center: this.center,
-        stretch: this.stretch
+        stretch: this.stretch,
+        empty: this.empty,
+        pseudo: this.pseudo
       }
     },
 
@@ -124,7 +126,7 @@ $disabled-button-opacity--default: 0.4;
       background: $button-color--highlight;
       color: $button-color--bg;
     }
-    &.disabled { opacity: 0.3; }
+    &.disabled { opacity: 0.2; }
     &.highlight {
       background: $button-color--highlight;
       &:hover {
@@ -150,6 +152,12 @@ $disabled-button-opacity--default: 0.4;
           color: $button-color;
         }
       }
+    }
+    &.pseudo {
+      border: 1px solid transparent;
+      background: transparent;
+      color: $button-color--bg;
+      &:hover { background: transparentize($button-color--bg, 0.85); }
     }
   }
 

@@ -7,7 +7,7 @@
     medium: 900,
     paragraph: 600,
   },
-  //curtainDisplayed: true,
+  curtainDisplayed: true,
   //darkMode: false,
   footerHeight: 0,
   navTopDisplayed: true,

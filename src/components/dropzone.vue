@@ -30,7 +30,7 @@
 
     <!-- dropzone controls -->
     <base-flex v-if="addedFile && !loading" class="controls">
-      <base-button @click="emitFile" size="s" mR="m">accept</base-button>
+      <!-- <base-button @click="emitFile" size="s" mR="m">accept</base-button> -->
       <base-button @click="deleteFile" size="s" :empty="true">delete</base-button>
     </base-flex>
 
@@ -90,8 +90,7 @@ export default {
     ifFileAdded (file) {
       // This controls given files and now only lets one file to be active at dropzone at a time
       // Note: if it's intended multiple files to be loaded, code must be developed further!
-      console.log('ifFileAdded');
-
+      
       let ref = this.$refs.customVueDropzone
       let files = ref.dropzone.files
       let replacedFile = ref.dropzone.files[0]
@@ -108,6 +107,7 @@ export default {
     fileLoaded(response) {
       if (response.status === 'success') {
         this.loading = false
+        this.$emit('emitFile', this.addedFile)
       } else {
         console.log(response.status)
       }
@@ -119,16 +119,10 @@ export default {
       this.onTop = false
     },
 
-    async emitFile () {
-      console.log('tobedone!');
-      alert('tobedone!');
+    /* async emitFile () {
+      this.$emit('emitFile', this.addedFile)
       this.deleteFile()
-      
-      //this.$api.uploadDataToStorage(this.addedFile.dataURL, 'images/user/' + this.addedFile.name)
-      //const filelist = await this.$api.getFilesFromStorage('images/user/')
-      //add store.state.api.storageURL + '' + to filename
-      //console.log(filelist)
-    }
+    } */
   },
 
   computed: {
@@ -262,25 +256,4 @@ $dropzone-color--border: $app-color--main;
   }
 }
 
-//Vue2Dropzone default HTML structure:
-/*
-#dropzone .dz-clickable .dz-started
-  .dz-message
-  .dz-preview .dz-processing .dz-image-preview .dz-success .dz-complete
-    .dz-image
-      img data-dz-thumbnail 
-    .dz-details
-      .dz-size
-        span data-dz-size
-      .dz-filename
-        span data-dz-name
-    .dz-progress
-      span .dz-upload data-dz-uploadprogress
-    .dz-error-message
-      span data-dz-errormessage
-    .dz-success-mark
-      svg
-    .dz-error-mark
-      svg
-*/
 </style>
