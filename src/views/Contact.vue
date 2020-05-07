@@ -4,19 +4,11 @@
     <base-wrapper max-width="paragraph">
       <base-form v-if="!isLoading">
 
-        <base-button @click.prevent="toggeloi">toggeloi</base-button>
-        <br>
+        <!-- POISTUU!!! -->
+        <base-button @click.prevent="toggeloi">toggeloi</base-button><br>
+        <!-- POISTUU!!! -->
 
         <base-spacer :size="14">
-          <!-- <base-input
-            v-model="inputName"
-            :required="true"
-            label="your name"
-            placeholder="you are wonderful :)"
-            :feedback="feedbackInputName"
-            :disabled="submitting"
-          ></base-input> -->
-
           <base-input
             v-model="inputName"
             :required="true"
@@ -34,7 +26,8 @@
             :disabled="submitting"
           ></base-input>
           <base-dropdown
-            :value="content.budget.values"
+            :value="budgetCategories"
+            @itemSelected="budgetSelected"
             :label="content.budget.label[locale]"
             :placeholder="content.budget.placeholder[locale]"
             :disabled="submitting"
@@ -52,7 +45,7 @@
             :disabled="!allowSubmit"
             size="l"
           >{{ content.submit[locale] }}</base-button>
-          <base-feedback v-if="feedbackSubmit">{{ this.content.completed[locale] }}</base-feedback>
+          <base-feedback v-if="submitted !== null">{{ this.mainFeedback }}</base-feedback>
         </base-spacer>
       </base-form>
     </base-wrapper>
@@ -60,6 +53,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: 'viewContact',
 
@@ -69,43 +64,77 @@ export default {
       inputEmail: '',
       inputBudget: '',
       inputDescription: '',
-      //feedbackInputName: 'jotain pientä valitettavaa aina löytyy',
-      feedbackInputEmail: 'fsdffsf',
-      //feedbackInputBudget: 'fsfdsfs',
-      //feedbackInputDescription: 'sdfsfsd',
-      feedbackSubmit: '',
-      submitting: false
+      submitting: false,
+      submitted: null // false -> error, true -> success, see: this.submit()
     }
   },
 
   computed: {
-    isLoading() {
-      return this.$store.state.app.isLoading
-    },
+    ...mapState('app', ['isLoading', 'locale']),
 
     content() {
       return this.$store.state.content.text[this.$route.name]
     },
 
-    locale() {
-      return this.$store.state.app.locale
+    budgetCategories() {
+      let values = this.content.budget.values
+      let categories = []
+
+      for (let i = 0; i < values.length; i++) {
+        let currency = this.locale === 'en'
+          ? '$'
+          : '€'
+        let max = i === values.length - 1
+          ? ''
+          : values[i + 1]
+        categories.push(`${currency}${values[i]} - ${max}`)
+      }
+      return categories
     },
 
     allowSubmit() {
       if (this.inputName && this.inputEmail && this.inputDescription) {
         return true
       } else return false
+    },
+
+    mainFeedback() {
+      let status
+      if (this.submitted === false) { status = 'error' }
+      else if (this.submitted) { status = 'success' }
+
+      return this.content.completed[status][this.locale]
     }
   },
 
   methods: {
-    submit() {
-      this.submitting = true
+    budgetSelected(budget) {
+      this.inputBudget = budget
+    },
 
-      setTimeout(() => {
+    async submit() {
+      const contact = {
+        name: this.inputName,
+        email: this.inputEmail,
+        budget: this.inputBudget || null,
+        description: this.inputDescription
+      }
+
+      this.submitting = true
+      await this.$api.setDocument('contacts', null, contact)
+      .then(response => {
+        //console.log(response);
         this.submitting = false
-        this.feedbackSubmit = 'Your contact has been sent successfully. I\'ll get back to you asap!'
-      }, 2000)
+        this.submitted = true
+        this.inputName = ''
+        this.inputEmail = ''
+        this.inputBudget = ''
+        this.inputDescription = ''
+      })
+      .catch(error => {
+        this.submitting = false
+        this.submitted = false
+      })
     },
 
     toggeloi() { //POISTUU!!!

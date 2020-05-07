@@ -130,8 +130,13 @@ export default {
     },
 
     selectActive() {
-      this.select(this.value[this.activeIndex], this.activeIndex)
-      this.$refs.toggle.focus()
+      if (this.showDropdown) {
+        this.select(this.value[this.activeIndex], this.activeIndex)
+        this.$refs.toggle.focus()
+      } else {
+        // just open dropdown if it's closed atm
+        this.showDropdown = true
+      }
     },
 
     scrollToHighlighted() {
