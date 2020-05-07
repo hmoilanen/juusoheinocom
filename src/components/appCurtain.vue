@@ -31,6 +31,9 @@
 </template>
 
 <script>
+//HUOM! TÄSSÄ KOMPONENTISSA ON VIELÄ SISÄLLÄ KAIKKEA TURHAA LOGIIKKAA
+//-> FIXAA LOPUKSI ANIMAATION YHTEYDESSÄ JA POISTA KAIKKI KUONA!
+
 export default {
   name: 'appCurtain',
 
@@ -101,7 +104,8 @@ $app-curtain--color-bg: $app-color--main;
   align-items: center;
   justify-content: center;
   //background: $app-curtain--color-bg;
-  background: white;
+  //background: white;
+  background: rgba(255, 255, 255, 0.555);
   color: $app-curtain--color;
   border-bottom: 1px solid grey;
 

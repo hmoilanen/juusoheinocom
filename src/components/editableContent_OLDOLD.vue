@@ -40,7 +40,7 @@ export default {
   },
 
   computed: {
-    localization() {
+    locale() {
       let hostSuffix
 
       if (process.env.NODE_ENV === 'production') {
@@ -55,7 +55,7 @@ export default {
 
     editableContent() {
       let path = this.path.split('.')
-      let content = this.$store.state.content[this.localization]
+      let content = this.$store.state.content[this.locale]
 
       while (path.length > 0) {
         content = content[path.shift()]
@@ -71,7 +71,7 @@ export default {
 
   methods: {
     editContent() {
-      let data = { text: this.editableContent, path: `content.${this.localization}.${this.path}` }
+      let data = { text: this.editableContent, path: `content.${this.locale}.${this.path}` }
       let modal = { active: 'editContent', data: data }
 
       this.$store.dispatch('modals/SET_MODAL', modal)

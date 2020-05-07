@@ -109,19 +109,24 @@ export default {
 
   methods: {
     async loadImage(imageData) {
-      console.log('imageData', imageData);
+      //console.log('imageData', imageData);
 
       let dataURL = imageData.dataURL
       let path = 'images/' + imageData.name
+      let path2 = 'images/subImages/' + imageData.name
+      let path3 = 'images/subImages/subsub/' + imageData.name
       //console.log('dataURL', dataURL);
       //console.log('path', path);
 
-      /* await this.$api.uploadToStorage(dataURL, path)
-      .then(() => {        
+      //await this.$api.uploadToStorage(dataURL, path)
+      //await this.$api.uploadToStorage(dataURL, path2)
+      //await this.$api.uploadToStorage(dataURL, path3)
+
+      /* .then(() => {        
         console.log('menestys!');
-        this.$api.setDocument('images', 'testaus', { image: imageData.name }, true)
-        this.$api.setDocument('images', 'yliajo', { image: imageData.name })
-        this.$api.setDocument('images', null, { image: imageData.name })
+        //this.$api.setDocument('images', 'testaus', { image: imageData.name }, true)
+        //this.$api.setDocument('images', 'yliajo', { image: imageData.name })
+        //this.$api.setDocument('images', null, { image: imageData.name })
       })
       .catch((error)=>{
         console.log(error)
@@ -132,14 +137,26 @@ export default {
       //await this.$api.updateData('images', 'testaus', { juuso3: 'heino' })
       //await this.$api.updateData('images', 'testaus', { juuso4: 'heino' })
       //await this.$api.updateData('images', 'testaus', { juuso4: { jee: 'heino' } })
-      await this.$api.updateData('images', 'testaus', { jee: 'jee' })
+      //await this.$api.updateData('images', 'testaus', { jee: 'jee' })
+      
       //await this.$api.deleteData('images', 'testaus', 'juuso2')
-      await this.$api.updateArray('images', 'testaus', 'lista', 'ö')
-      await this.$api.updateArray('images', 'testaus', 'lista', 'b', true)
+      
+      //await this.$api.updateArray('images', 'testaus', 'lista', 'ä')
+      //await this.$api.updateArray('images', 'testaus', 'lista', 'c', true)
 
       //await this.$api.setDocument('images', 'apina', {})
       //await this.$api.setDocument('images', 'testaus', { juuso420: 'heino' }, true)
       //await this.$api.setDocument('images', null, { image: imageData.name })
+      
+      await this.$api.deleteFromStorage('images/subImages/subsub/')
+      
+      /* await this.$api.getFromStorage('images')
+      .then(res => {
+        console.log('res', res);
+      })
+      .catch(error => {
+        console.log('error', error);
+      }) */
     },
 
     edit() {

@@ -31,6 +31,12 @@ export default {
     } */
   },
 
+  data() {
+    return {
+      mixinSizeCategories: { s: 7, m: 8, l: 9, xl: 10 } // TÄSTÄ POIS!
+    }
+  },
+
   computed: {
     classing() {
       let parent = camelToKebab(this.$parent.$options.name)      
@@ -59,6 +65,7 @@ $base-feedback--color-error: $app-color--input-feedback;
   &.child-of--base-input,
   &.child-of--base-textarea {
     color: $base-feedback--color-error;
+    font-weight: 500;
   }
 }
 </style>

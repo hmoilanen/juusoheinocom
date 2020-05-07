@@ -12,7 +12,7 @@ export default {
     return {
       app: appURL,
       storage: storageURL,
-      image: imageURL
+      images: imageURL
     }
   },
 
@@ -26,7 +26,7 @@ export default {
     let info = {
       email: `${official.emailPrefix}@${emailHost}.${official.emailSuffix}`,
       watermark: `© ${currentYear} ${official.companyName}`,
-      disclaimer: state.localization === 'en'
+      disclaimer: state.locale === 'en'
         ? 'All rights reserved.'
         : 'Kaikki oikeudet pidätetään.',
       location: [{ // data structure googleMap component expects

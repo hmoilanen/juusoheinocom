@@ -1,11 +1,12 @@
 import firebase from '@/api/firebase/firebaseInit'
 import store from '@/store'
-import dataParser from './parsers/data_parser'
+import apiParser from './apiParser'
 
 const firestore = firebase.firestore()
 const storageRef = firebase.storage().ref()
+// https://firebase.google.com/docs/storage/web/create-reference
 
-let defers = {}
+let defers = {} //TARVIIKO TÄSSÄ PROJEKTISSA OLLENKAAN?
 
 setFirebaseAuth()
 
@@ -28,9 +29,9 @@ setFirebaseAuth()
         console.log('elssi-querySnapshot', querySnapshot);
         console.log('elssi-objectName', objectName);
         console.log('elssi-asObject', asObject);
-        const parsed = dataParser.parseData(querySnapshot, objectName, asObject);
-        //const parsed = dataParser.parseData(querySnapshot, 'aaa', asObject);
-        const PARSED2 = dataParser.parseFirebaseData(querySnapshot, 'test2');
+        const parsed = apiParser.parseData(querySnapshot, objectName, asObject);
+        //const parsed = apiParser.parseData(querySnapshot, 'aaa', asObject);
+        const PARSED2 = apiParser.parseFirebaseData(querySnapshot, 'test2');
         console.log('elssi-parsed', parsed);
         console.log('elssi-PARSED2', PARSED2);
 
@@ -64,13 +65,13 @@ const getData = (collectionName, query, path, asArray) => {
           
           resolve(doc.data())
         })
-        .catch(err => { // TODO!: TÄMÄ VIELÄ TESTAAMATTA!
-          reject(err)
+        .catch(error => { // TODO!: TÄMÄ VIELÄ TESTAAMATTA!
+          reject(error)
         })
     } else { // for getting the whole collection
       data.get()
         .then(snapshot => {
-          const parsed = dataParser.parseFirebaseData(snapshot, asArray)
+          const parsed = apiParser.parseFirebaseData(snapshot, asArray)
 
           // if path is given, only store the parsed data instead of returning it
           if (typeof path === 'string') { // for accepting path also as falsy ('')
@@ -84,8 +85,8 @@ const getData = (collectionName, query, path, asArray) => {
 
           resolve(parsed)
         })
-        .catch(err => { // TODO!: TÄMÄ VIELÄ TESTAAMATTA!
-          reject(err)
+        .catch(error => { // TODO!: TÄMÄ VIELÄ TESTAAMATTA!
+          reject(error)
         })
     }
   })
@@ -132,12 +133,13 @@ const updateData = (collectionName, doc, dataObject) => {
   // https://firebase.google.com/docs/database/web/read-and-write
   return new Promise((resolve, reject) => {
     const collection = firestore.collection(collectionName)
+
     collection.doc(doc).update(dataObject)
     .then(() => {
       console.log('$api.updateData - success')
       resolve()
     })
-    .catch((error) => {
+    .catch(error => {
       console.log('$api.updateData - error:', error)
       reject(error)
     })
@@ -148,12 +150,13 @@ const deleteData = (collectionName, doc, field) => {
   // Use to delete certain (whole) data field from certain document.
   return new Promise((resolve, reject) => {
     const collection = firestore.collection(collectionName)
+
     collection.doc(doc).update({ [field]: firebase.firebase_.firestore.FieldValue.delete() })
     .then(() => {
       console.log('$api.deleteData - success')
       resolve()
     })
-    .catch((error) => {
+    .catch(error => {
       console.log('$api.deleteData - error', error)
       reject(error)
     })
@@ -180,7 +183,7 @@ const updateArray = (collection, doc, array, id, remove) => {
       console.log('$api.updateArray - success')
       resolve()
     })
-    .catch((error) => {
+    .catch(error => {
       console.log('$api.updateArray - error', error)
       reject(error)
     })
@@ -189,53 +192,66 @@ const updateArray = (collection, doc, array, id, remove) => {
 
 // // // // // // // // // // // // // // // // // // // // // // // // 
 // Firebase storage methods:
+// https://firebase.google.com/docs/storage/web/start
 
 const uploadToStorage = (dataURL, path) => {
+  // Use to upload images' encoded data to storage.
+  // Note: creates also related folder structure if it doesn't exist yet!
   // https://firebase.google.com/docs/storage/web/upload-files
   return new Promise((resolve, reject) => {
-    // create a reference to the path of the file, eg. images/image.jpg
+    // create a reference to the path of the file, eg. 'images/image.jpg'
     const ref = storageRef.child(path)
 
-    // upload encoded string to storage
+    // upload the encoded string
     ref.putString(dataURL, 'data_url')
-    .then((snapshot) => {
-      resolve('uploaded data to storage successfully')
+    .then(snapshot => {
+      console.log('$api.uploadToStorage - success')
+      resolve(snapshot)
     })
-    .catch((err) => {
-      reject(err)
-    })
-  })
-}
-
-// EI AINAKAAN VIELÄ KÄYTÖSSÄ!
-const getFromStorage = path => {
-  return new Promise((resolve, reject) => {
-    // create a reference to the file
-    const storageRef = firebase.storage().ref(path)
-    let files = []
-
-    // fetch all results for a directory
-    // Note: for large lists, use .list()
-    storageRef.listAll()
-    .then(result => {
-      result.items.forEach(imageRef => {
-        files.push(imageRef.fullPath)
-      })
-      resolve(files)
-    }).catch(error => {
+    .catch(error => {
+      console.log('$api.uploadToStorage - error', error)
       reject(error)
     })
   })
 }
 
-// EI AINAKAAN VIELÄ KÄYTÖSSÄ!
-const deleteFromStorage = filePath => {
-  const desertRef = storageRef.child(filePath); // eg. images/image.png
+const getFromStorage = path => {
+  // Use to fetch all data from certain directory of storage.
+  // https://firebase.google.com/docs/storage/web/list-files
+  return new Promise((resolve, reject) => {
+    // Create a reference to the path of a file, eg. 'images/'
+    const ref = storageRef.child(path)
+    let files = []
 
-  desertRef.delete().then(function() {
-    // File deleted successfully
-  }).catch(function(error) {
-    // Uh-oh, an error occurred!
+    // Fetch all results from a directory
+    ref.listAll()
+    .then(result => {
+      // Note: for large lists, it'd be better to use .list()
+      // Todo: update method later if neccessary!
+      console.log('$api.getFromStorage - success')
+      result.items.forEach(imageRef => {
+        files.push(imageRef.fullPath)
+      })
+      resolve(files)
+    }).catch(error => {
+      console.log('$api.getFromStorage - error', error)
+      reject(error)
+    })
+  })
+}
+
+const deleteFromStorage = path => {
+  // Use to delete single file from certain location.
+  // Note: can't be used to delete whole folders.
+  // Note: if deleted file makes folder empty, the folder is deleted simultaneously!
+  // https://firebase.google.com/docs/storage/web/delete-files
+  const ref = storageRef.child(path) // eg. 'images/image.jpg'
+
+  ref.delete()
+  .then(() => {
+    console.log('$api.deleteFromStorage - success')
+  }).catch(error => {
+    console.log('$api.deleteFromStorage - error', error)
   })
 }
 
@@ -250,9 +266,9 @@ const login = (email, password) => {
       await getDefer('logging')
       resolve('logged in')
     })
-    .catch((error) => {
+    .catch(error => {
+      console.log('$api.login - error', error)
       reject(error)
-      console.log(error.code,  error.message)
     })
   })
 }
@@ -276,6 +292,7 @@ function setFirebaseAuth() {
   })
 }
 
+//TARVIIKO OLLENKAAN TÄSSÄ KONTEKSTISSA???
 function addDefer(name) {
   let defer = () => {
     let res, rej
@@ -291,6 +308,7 @@ function addDefer(name) {
   defers[name] = defer()
 }
 
+//TARVIIKO OLLENKAAN TÄSSÄ KONTEKSTISSA???
 function getDefer(name) {
   return defers[name] || { resolve: () => {}, reject: () => {} }
 }

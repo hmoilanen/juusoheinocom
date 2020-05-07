@@ -42,6 +42,7 @@ export default {
 *,
 *::before,
 *::after { box-sizing: border-box; }
+//VAI PITÄISKÖ TÄHÄN LAITTAA SUORAAN MYÖS MARGNI/PADDING: 0 ???
 
 body {
   margin: 0;

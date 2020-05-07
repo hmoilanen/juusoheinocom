@@ -1,8 +1,8 @@
 /* eslint-disable no-console */
-import api_actions from './api_actions'
+import apiActions from './apiActions'
 
 export default {
   install(Vue, options) {
-    Vue.prototype.$api = api_actions;
+    Vue.prototype.$api = apiActions
   }
-};
+}

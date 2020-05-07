@@ -12,9 +12,10 @@ export default {
     baseTitle: 0,
   },
 
-  sizing: {
+  sizing: { // TEE TÄMÄ JOSSAIN VAIHEESSA KONDIKSEEN! -> NYT IHAN KESKEN KOKO SYSTEEMI!!!
     baseTitle: { s: 14, m: 16, l: 18, xl: 22 },
     baseText: { s: 7, m: 8, l: 9, xl: 11 },
+    baseFeedback: { s: 7, m: 8, l: 9, xl: 11 },
   }
   
   // HUOM! PITÄISIKÖ MIXINIEN SIZE CATEGORIESE MYÖS TUODA KOOTUSTI TÄNNE???

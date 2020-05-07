@@ -31,6 +31,9 @@ $label-font: $app-font--label;
   font-family: $label-font;
   color: $label-color;
 
-  span { color: $label-color--required; }
+  span {
+    font-size: 1.35em;
+    color: $label-color--required;
+  }
 }
 </style>

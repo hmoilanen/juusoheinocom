@@ -16,7 +16,7 @@ export default {
 
   domain: 'https://juusoheino.com',
   isLoading: true,
-  localization: 'en',
+  locale: 'en',
 
   externals: [
     { title: 'Github', icon: 'github', link: 'https://github.com/' }, //HUOM! PÄIVITÄ LINKKI KUN TILI LUOTU
