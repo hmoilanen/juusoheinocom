@@ -2,10 +2,10 @@
   <div id="app">
     <router-view :key="$route.fullPath"></router-view>
     <app-curtain v-if="componentControl.curtain"></app-curtain>
+    <modal-handler v-if="componentControl.modalHandler"></modal-handler>
     <app-handler></app-handler>
 
-    <!-- <content-handler v-if="coomponentControl.contentHandler"></content-handler> --> <!-- OLISIKO PAREMPI LEIPOA VIEWEIHIN?!?! -->
-    <!-- <modal-handler v-if="coomponentControl.modalHandler"></modal-handler> -->
+    <!-- <content-handler v-if="componentControl.contentHandler"></content-handler> --> <!-- OLISIKO PAREMPI LEIPOA VIEWEIHIN?!?! -->
   </div>
 </template>
 
@@ -18,17 +18,17 @@ export default {
 
   components: {
     appCurtain,
-    appHandler
+    appHandler,
+    modalHandler: () => import('@/components/modalHandler'),
     //contentHandler: () => import('@/components/contentHandler'),
-    //modalHandler: () => import('@/components/modalHandler'),
   },
 
   computed: {
     componentControl() {      
       return {
-        curtain: this.$store.state.ui.curtainDisplayed
+        curtain: this.$store.state.ui.curtainDisplayed,
+        modalHandler: this.$store.state.modals.showModal
         //contentHandler: this.$store.state.content.showContentHandler, // TÄTÄ E ENÄÄ OLE
-        //modalHandler: this.$store.state.modals.showModal
       }
     }
   }

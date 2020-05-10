@@ -10,9 +10,9 @@ export default {
     const imageURL = `${storageURL}images/`
     
     return {
-      app: appURL,
-      storage: storageURL,
-      images: imageURL
+      appURL: appURL,
+      storageURL: storageURL,
+      imageURL: imageURL
     }
   },
 

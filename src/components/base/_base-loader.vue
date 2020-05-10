@@ -11,8 +11,10 @@
       </div>
     </div>
 
-    <div v-else-if="mode === 'spinner'" class="spinner-container">
-      <div class="spinner"></div>
+    <div v-else-if="mode === 'spinner'" class="spinner"></div>
+
+    <div v-else-if="mode === 'kitt'" class="kitt-container">
+      <div class="kitt"></div>
     </div>
 
   </div>
@@ -29,7 +31,7 @@ export default {
   props: {
     mode: {
       type: String,
-      default: 'spots'
+      default: 'kitt'
     }
   }
 }
@@ -71,7 +73,8 @@ $loader-color--secondary: rgba(0, 0, 0, 0.45);
         border-radius: 50%;
         background: $loader-color--highlight;
         transform: translateX(-50%);
-        transition: all 1s cubic-bezier(0, 0.8, 1, 0.2);
+        //transition: all 1s cubic-bezier(0, 0.8, 1, 0.2);
+        //transition: all 1s linear;
 
         &:nth-child(1) {
           left: 0;
@@ -112,7 +115,7 @@ $loader-color--secondary: rgba(0, 0, 0, 0.45);
     }
   }
 
-  .spinner-container {
+  .spinner {
     width: 40px;
     height: 40px;
     border-radius: 50%;
@@ -121,11 +124,40 @@ $loader-color--secondary: rgba(0, 0, 0, 0.45);
     animation: spin 1.3s linear infinite;
 
     @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  }
+
+  .kitt-container {
+    $kitt-duration: 1.3s;
+
+    position: relative;
+    width: 120px;
+    height: 5px;
+    background: lightgrey;
+    animation: flip calc(#{$kitt-duration} * 2) infinite;
+
+    @keyframes flip {
+      0%, 50% { transform: rotate(0); }
+      50.001%, 100% { transform: rotate(180deg); }
+    }
+
+    .kitt {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      background: $app-color--hl;
+      animation: slide $kitt-duration linear infinite;
+
+      @keyframes slide {
+        0% {
+          left: 0;
+          right: 100%;
+        }
+        10% { left: 0; }
+        18% { right: 0; }
+        60% { left: 100%; }
       }
     }
   }

@@ -12,8 +12,9 @@ export default {
   async beforeCreate() {
     // get data from firebase    
     await Promise.all([
-      this.$api.getData('text', {}, 'content'),
-      this.$api.getData('images', {}, 'content')
+      this.$api.getData('text', null, 'content'),
+      this.$api.getData('images', null, 'content'),
+      this.$api.getData('meta', null, 'content')
     ])
 
     this.$store.dispatch('SET_STATE', { data: false, path: 'app.isLoading' })

@@ -2,55 +2,26 @@
   <transition name="exit">
     <div class="app-curtain" :style="styling">
       <base-icon app="juusoheino" :size="50">juusoheino</base-icon>
-      <!-- <div class="logo">
-        <base-icon
-          class="intro"
-          :size="70"
-          tooltip="osb"
-        >osb-intro</base-icon>
-        <base-icon
-          class="intro left"
-          :class="{ initial: initialState }"
-          :size="70"
-          tooltip="osb"
-        >osb-intro-left</base-icon>
-        <base-icon
-          class="intro right"
-          :class="{ initial: initialState }"
-          :size="70"
-          tooltip="osb"
-        >osb-intro-right</base-icon>
-        <base-icon
-          :class="{ initial: initialState }"
-          :size="95"
-          tooltip="osb"
-        >osb-logo-text</base-icon>
-      </div> -->
+      <base-loader v-if="showLoader" class="curtain-loader"></base-loader>
     </div>
   </transition>
 </template>
 
 <script>
-//HUOM! TÄSSÄ KOMPONENTISSA ON VIELÄ SISÄLLÄ KAIKKEA TURHAA LOGIIKKAA
-//-> FIXAA LOPUKSI ANIMAATION YHTEYDESSÄ JA POISTA KAIKKI KUONA!
+//TUUNAA LOPUKSI VIELÄ ANIMAATIOT KONDIKSEEN!
 
 export default {
   name: 'appCurtain',
 
   data() {
     return {
-      initialState: true,
-      minimumDuration: 10,
-      minimumDurationPassed: false
+      minimumDuration: 2000,
+      minimumDurationPassed: false,
+      showLoader: true
     }
   },
 
   mounted() {
-    setTimeout(() => {
-      // when to start intro animation after initiation
-      this.initialState = false
-    }, 600)
-
     setTimeout(() => {
       this.minimumDurationPassed = true
     }, this.minimumDuration)
@@ -84,7 +55,10 @@ export default {
 
   methods: {
     proceed() {
-      this.$store.dispatch('SET_STATE', { data: false, path: 'ui.curtainDisplayed' })
+      this.showLoader = false
+      setTimeout(() => { // for visual purposes (hide loader and then proceed)
+        this.$store.dispatch('SET_STATE', { data: false, path: 'ui.curtainDisplayed' })
+      }, 200)
     }
   }
 }
@@ -105,47 +79,15 @@ $app-curtain--color-bg: $app-color--main;
   justify-content: center;
   //background: $app-curtain--color-bg;
   //background: white;
-  background: rgba(255, 255, 255, 0.555);
+  background: rgba(255, 255, 255, 1.555);
   color: $app-curtain--color;
   border-bottom: 1px solid grey;
 
-  .logo {
-    position: relative;
-    margin-bottom: 60px;
-    width: 140px;
-    height: 140px;
-
-    /* .base-icon {
-      user-select: none;
-      pointer-events: none;
-      &:last-child {
-        position: absolute;
-        left: 50%;
-        bottom: 0;
-        transform: translate(-50%, 65%);
-        transition: all 0.5s ease 0.5s;
-        &.initial { opacity: 0; }
-      }
-    } */
-
-    /* .intro {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      transition: all 0.5s ease;
-      &.initial {
-        opacity: 0;
-        &.left {
-          top: 100%;
-          left: 0%;
-        }
-        &.right {
-          top: 0%;
-          left: 100%;
-        }
-      }
-    } */
+  .curtain-loader {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 10vh;
   }
 }
 

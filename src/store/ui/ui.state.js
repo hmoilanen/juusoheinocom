@@ -18,8 +18,8 @@
   preventBodyScrolling: false,
 
   zIndex: {
-    appCurtain: 10000000,
-    errorHandler: 1000000,
+    appCurtain: 1000000,
+    //errorHandler: 1000000,
     modalHandler: 100000,
     contentHandler: 10000,
     navLeft: 1000,

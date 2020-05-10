@@ -1,27 +1,27 @@
 <template>
   <div class="modal-logout">
-    MODAALI
-
-    <!-- <h3 class="font-10 bold mb-6">Logout</h3> -->
-    <!-- <base-title size="l" :highlighted="true">Logout</base-title>
-    <br>
-    <p>Are you sure?</p>
-    <br><br> -->
-    <!-- <button @click="logout" class="btn block mx-auto">logout</button> -->
-    <!-- <base-button @click="logout">logout</base-button> -->
+    <base-title size="l" mB="xl">Logout</base-title>
+    <base-text size="l" mB="xl">Are you sure?</base-text>
+    <base-button @click="logout">logout</base-button>
   </div>
 </template>
 
 <script>
 export default {
-  name: "modalLogout",
+  name: 'modalLogout',
 
   methods: {
-    /* logout () {
-      this.$store.dispatch('auth/logout')
+    async logout () {
+      await this.$api.logout()
       this.$store.dispatch('modals/SET_MODAL', '')
-      this.$router.push('/')
-    } */
+      //this.$router.push('/')
+      /* .then(res => {
+      })
+      .catch(err => {
+        console.log(err)
+        alert('Something went wrong logging out')
+      }) */
+    }
   }
 };
 </script>

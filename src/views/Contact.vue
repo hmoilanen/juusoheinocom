@@ -2,6 +2,8 @@
   <base-view class="view-contact">
     
     <base-wrapper max-width="paragraph">
+      <base-loader></base-loader>
+
       <base-form v-if="!isLoading">
 
         <!-- POISTUU!!! -->
@@ -22,9 +24,10 @@
             :required="true"
             :label="content.email.label[locale]"
             :placeholder="content.email.placeholder[locale]"
-            :feedback="content.email.feedback[locale]"
+            :feedback="emailFeedback"
             :disabled="submitting"
           ></base-input>
+            <!-- :feedback="content.email.feedback[locale]" -->
           <base-dropdown
             :value="budgetCategories"
             @itemSelected="budgetSelected"
@@ -40,6 +43,7 @@
             :disabled="submitting"
             :maxLength="1000"
           ></base-textarea>
+
           <base-button
             @click.prevent="submit"
             :disabled="!allowSubmit"
@@ -54,6 +58,8 @@
 
 <script>
 import { mapState } from 'vuex'
+import { validateEmail } from '@/utils/regex'
+import { genericTimeStamp } from '@/utils/time'
 
 export default {
   name: 'viewContact',
@@ -64,6 +70,7 @@ export default {
       inputEmail: '',
       inputBudget: '',
       inputDescription: '',
+      invalidEmail: false,
       submitting: false,
       submitted: null // false -> error, true -> success, see: this.submit()
     }
@@ -87,6 +94,7 @@ export default {
         let max = i === values.length - 1
           ? ''
           : values[i + 1]
+
         categories.push(`${currency}${values[i]} - ${max}`)
       }
       return categories
@@ -96,6 +104,12 @@ export default {
       if (this.inputName && this.inputEmail && this.inputDescription) {
         return true
       } else return false
+    },
+
+    emailFeedback() {
+      return this.invalidEmail
+        ? this.content.email.feedback[this.locale]
+        : ''
     },
 
     mainFeedback() {
@@ -113,27 +127,63 @@ export default {
     },
 
     async submit() {
+      if (!validateEmail.test(this.inputEmail)) {
+        this.invalidEmail = true
+        return
+      }
+
       const contact = {
         name: this.inputName,
         email: this.inputEmail,
         budget: this.inputBudget || null,
-        description: this.inputDescription
+        description: this.inputDescription,
+        time: genericTimeStamp(),
+        handled: false // for sorting
       }
 
       this.submitting = true
       await this.$api.setDocument('contacts', null, contact)
-      .then(response => {
-        //console.log(response);
+      .then(() => {
+        this.sendEmail(contact)
         this.submitting = false
         this.submitted = true
         this.inputName = ''
         this.inputEmail = ''
         this.inputBudget = ''
         this.inputDescription = ''
+        this.invalidEmail = false
       })
       .catch(error => {
         this.submitting = false
         this.submitted = false
+      })
+    },
+
+    sendEmail(contact) {
+      const data = {
+        to: this.$store.state.content.meta.email.to || 'juuso.ville.henrikki@gmail.com',
+        from: 'juusoheino.com',
+        subject: 'juusoheino.com - UUSI YHTEYDENOTTO',
+        html: `<h3>Uusi yhteydenotto</h3>
+              <ul>
+                <li>nimi: ${contact.name}</li>
+                <li>email: ${contact.email}</li>
+                <li>tarve/idea: ${contact.description}</li>
+                <li>budjetti: ${contact.budget || '-'}</li>
+                <li>aika: ${contact.time}</li>
+              </ul>`
+      }
+
+      return new Promise((resolve, reject) => {
+        const xmlhttp = new XMLHttpRequest() // to interact with server
+        const cloudSenderURL = this.$store.state.content.meta.email.cloudSenderURL || 'https://us-central1-constlet.cloudfunctions.net/emailMessage'
+
+        // Initialize a request
+        xmlhttp.open('POST', cloudSenderURL)
+        // Tell the server what kind of data is sent
+        xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
+        xmlhttp.send(JSON.stringify(data))
+        resolve()
       })
     },
 

@@ -1,6 +1,9 @@
 <template>
   <base-view>
 
+    <!-- <base-image :src=""></base-image> -->
+    <img :src="kuva" alt="eitoimi">
+
     <!-- <editable-content path="text.home.title.fi" #default="{ content }">
       <base-title>{{ content }}</base-title>
     </editable-content> -->
@@ -96,6 +99,13 @@ export default {
   computed: {
     apptests() {
       return this.$store.state.app.apptests
+    },
+
+    kuva() {
+      let imageURL = this.$store.getters['app/GET_URL'].imageURL
+      console.log('imageURL', imageURL);
+      
+      return `${imageURL}joni-hoitaa.png`
     }
   },
 

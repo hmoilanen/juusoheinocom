@@ -148,7 +148,7 @@ export default {
       //await this.$api.setDocument('images', 'testaus', { juuso420: 'heino' }, true)
       //await this.$api.setDocument('images', null, { image: imageData.name })
       
-      await this.$api.deleteFromStorage('images/subImages/subsub/')
+      //await this.$api.deleteFromStorage('images/subImages/subsub/')
       
       /* await this.$api.getFromStorage('images')
       .then(res => {

@@ -87,9 +87,11 @@ export default {
     logging() {
       let isLogged = this.$api.isLogged()
       if (isLogged) {
-        this.$api.logout()
+        //this.$api.logout()
+        this.$store.dispatch('modals/SET_MODAL', { active: 'logout' })
       } else {
-        this.$api.login('mail@juusoheino.com', 'qwerty')
+        //this.$api.login('mail@juusoheino.com', 'qwerty')
+        this.$store.dispatch('modals/SET_MODAL', { active: 'login' })
       }
     },
 

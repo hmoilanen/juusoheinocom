@@ -28,6 +28,7 @@ export default {
     //claim: () => import('@/components/modals/modalClaim'),
     addContent: () => import('@/components/modals/modalAddContent'),
     editContent: () => import('@/components/modals/modalEditContent'),
+    login: () => import('@/components/modals/modalLogin'),
     logout: () => import('@/components/modals/modalLogout')
     //manageEntityHandles: () => import('@/components/modals/modalManageEntityHandles'),
     //passwordRecovery: () => import('@/components/modals/modalPasswordRecovery'),
@@ -63,7 +64,7 @@ export default {
     },
 
     styling () {
-      return { zIndex: this.$store.state.app.ui.zIndex.modalHandler }
+      return { zIndex: this.$store.state.ui.zIndex.modalHandler || 999999 }
     }
   },
 
@@ -103,7 +104,8 @@ $modal-padding: 2rem;
     padding: $modal-padding;
     //padding-top: calc(#{$modal-padding} * 1.2);
     //padding: $modal-padding calc(#{$modal-padding} * 0.8);
-    border-radius: 3px;
+    //border-radius: 3px;
+    @extend %app-default--border-radius;
     background-color: $modal-color--bg-card;
     color: $modal-color;
     /* box-shadow:

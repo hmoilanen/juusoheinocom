@@ -10,84 +10,47 @@ let defers = {} //TARVIIKO TÄSSÄ PROJEKTISSA OLLENKAAN?
 
 setFirebaseAuth()
 
-/* const getData = (collection, query, storePath, objectName, asObject) => {
-  //const queryObject = query;
-
-  return new Promise(resolve => {
-    let database = firestore.collection(collection);
-
-    if (query.document) {
-      database = database.doc(query.document)
-      database.get().then(doc => {
-        resolve(doc.data())
-      })
-    } else {
-      console.log('elssi');
-      console.log('elssi-database', database);
-      
-      database.get().then(querySnapshot => {
-        console.log('elssi-querySnapshot', querySnapshot);
-        console.log('elssi-objectName', objectName);
-        console.log('elssi-asObject', asObject);
-        const parsed = apiParser.parseData(querySnapshot, objectName, asObject);
-        //const parsed = apiParser.parseData(querySnapshot, 'aaa', asObject);
-        const PARSED2 = apiParser.parseFirebaseData(querySnapshot, 'test2');
-        console.log('elssi-parsed', parsed);
-        console.log('elssi-PARSED2', PARSED2);
-
-        if (storePath) {
-          store.dispatch('SET_STATE', { data: parsed, path: storePath })
-          resolve();
-        }
-        resolve(parsed);
-      });
-    }
-  });
-} */
-
 // // // // // // // // // // // // // // // // // // // // // // // // 
 // Firebase firestore methods:
 
-// TÄTÄ PITÄÄ VIELÄ VÄHÄN KATSOA! -> AINAKIN ALKUOSAA if(query.document) !
-const getData = (collectionName, query, path, asArray) => {
+const getData = (collectionName, document, path, asArray) => {
+  // Use to get certain collection or document.
+  // Note: if path is given, data is stored instead of returning it.
+  // Note: asArray works only if document is not given.
+  // Todo: later, add possibility to make queries if needed: https://firebase.google.com/docs/firestore/query-data/queries
   return new Promise((resolve, reject) => {
-    let data = firestore.collection(collectionName)
+    let target = firestore.collection(collectionName)
 
-    if (query.document) { // for getting the certain document
-      console.log('query', query);
-      
-      // TODO!: PITÄISIKÖ TÄSSÄKIN OLLA MAHDOLLISUUS ETTÄ TALLENTAA SUORAAN STOREEN JOS PATHIA EI ANNETTU?!?!?!?!
-      // TODO!: PITÄISIKÖ TÄSSÄKIN OLLA MAHDOLLISUUS ETTÄ TALLENTAA SUORAAN STOREEN JOS PATHIA EI ANNETTU?!?!?!?!
-      // TODO!: PITÄISIKÖ TÄSSÄKIN OLLA MAHDOLLISUUS ETTÄ TALLENTAA SUORAAN STOREEN JOS PATHIA EI ANNETTU?!?!?!?!
-      data = data.doc(query.document).get()
-        .then(doc => {
-          console.log('doc', doc.data());
-          
-          resolve(doc.data())
-        })
-        .catch(error => { // TODO!: TÄMÄ VIELÄ TESTAAMATTA!
-          reject(error)
-        })
-    } else { // for getting the whole collection
-      data.get()
-        .then(snapshot => {
-          const parsed = apiParser.parseFirebaseData(snapshot, asArray)
+    if (document) { // get certain document
+      target = target.doc(document).get()
+      .then(doc => {
+        console.log('$api.getData - success')
+        resolve(doc.data())
+      })
+      .catch(error => {
+        console.error('$api.getData - error:', error)
+        reject(error)
+      })
+    } else { // get the whole collection
+      target.get()
+      .then(snapshot => {
+        console.log('$api.getData - success')
+        const parsed = apiParser.parseFirebaseData(snapshot, asArray)
 
-          // if path is given, only store the parsed data instead of returning it
-          if (typeof path === 'string') { // for accepting path also as falsy ('')
-            let completePath = path === '' // for storing data to store root
-              ? collectionName
-              : path + '.' + collectionName
+        if (typeof path === 'string') { // for accepting path also as falsy ('')
+          let completePath = path === '' // for storing data to store's root
+            ? collectionName
+            : path + '.' + collectionName
 
-            store.dispatch('SET_STATE', { data: parsed, path: completePath })
-            resolve()
-          }          
-
-          resolve(parsed)
-        })
-        .catch(error => { // TODO!: TÄMÄ VIELÄ TESTAAMATTA!
-          reject(error)
-        })
+          store.dispatch('SET_STATE', { data: parsed, path: completePath })
+          resolve()
+        }          
+        resolve(parsed)
+      })
+      .catch(error => {
+        console.error('$api.getData - error:', error)
+        reject(error)
+      })
     }
   })
 }
@@ -110,11 +73,10 @@ const setDocument = (collectionName, doc, dataObject, merge) => {
     }
 
     setDocument.then((docRef) => {
+      console.log('$api.setDocument - success')
       if (docRef) { // if new document with random id
-        console.log('$api.setDocument - success: document set with id ' + docRef.id)
         resolve(docRef)
       } else {
-        console.log('$api.setDocument - success')
         resolve()
       }
     })
