@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import { dataType, dynamicDataStructure } from '@/utils/data'
+
 export default {
   name: 'editableContent',
 
@@ -109,7 +111,17 @@ export default {
 
   methods: {
     async loadImage(imageData) {
-      //console.log('imageData', imageData);
+      console.log('imageData', imageData);
+      //imageData.name = 'juuso.jpg'
+      //imageData.append('name', 'juuso.jpg');
+      //Object.defineProperty(imageData, 'name', { name: 'juuso.jpg' })
+      /* Object.defineProperty(imageData, 'name', {
+        value: 42,
+        writable: false
+      }); */
+
+      console.log('imageData2', imageData);
+
 
       let dataURL = imageData.dataURL
       let path = 'images/' + imageData.name
@@ -159,7 +171,27 @@ export default {
       }) */
     },
 
-    edit() {
+    async edit() {
+      let path = this.path.split('.')
+
+      if (path.length < 3) { // path has to at least contain: collection.document.data
+        console.log('editableContent - error: provide proper path');
+        return
+      }
+
+      let collection = path.shift()
+      let document = path.shift()
+      let documentReference = await this.$api.getData(collection, document)
+      let dataObject = {}
+
+      // Create data structure inside of object dynamically.
+      dynamicDataStructure(dataObject, path, this.editedContent)
+
+      // Set data in database.
+      // Creates new document if it doesn't exist yet,
+      // otherwise merges with existing one.
+      await this.$api.setDocument(collection, document, dataObject, true)
+      // Set data in store.
       this.$store.dispatch('SET_STATE', { data: this.editedContent, path: 'content.' + this.path })
       this.content = this.editedContent
     },

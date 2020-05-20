@@ -30,7 +30,7 @@ export const genericTimeStamp = function() {
   for (let key in datetime) {
     if (!datetime.hasOwnProperty(key)) { continue }  
     
-    for(var i in datetime[key]) {
+    for(let i in datetime[key]) {
       if (!datetime[key].hasOwnProperty(i)) { continue }
           
       let n = datetime[key][i]

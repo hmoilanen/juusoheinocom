@@ -13,3 +13,21 @@ export const dataType = function(data) {
     return typeof data
   }
 }
+
+export const dynamicDataStructure = function(baseObject, keys, value) {
+  // Create dynamic data structure inside of object from array of keys.
+  // If  value is given, remove the last key for later.
+  let lastKey = value ? keys.pop() : false
+  
+  // Create the object structure using empty objects where neccessary.
+  for (let i = 0; i < keys.length; i++) {
+    baseObject = baseObject[keys[i]] = baseObject[keys[i]] || {}
+  }
+
+  // If value is given, set it.
+  if (lastKey) {
+    baseObject = baseObject[lastKey] = value
+  }
+
+  return baseObject
+}

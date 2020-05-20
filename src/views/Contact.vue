@@ -1,11 +1,8 @@
 <template>
   <base-view class="view-contact">
-    
     <base-wrapper max-width="paragraph">
-      <base-loader></base-loader>
-
+      
       <base-form v-if="!isLoading">
-
         <!-- POISTUU!!! -->
         <base-button @click.prevent="toggeloi">toggeloi</base-button><br>
         <!-- POISTUU!!! -->
@@ -45,13 +42,17 @@
           ></base-textarea>
 
           <base-button
+            v-if="!submitted"
             @click.prevent="submit"
             :disabled="!allowSubmit"
+            :loading="!allowSubmit && submitting"
             size="l"
           >{{ content.submit[locale] }}</base-button>
-          <base-feedback v-if="submitted !== null">{{ this.mainFeedback }}</base-feedback>
+          <!-- <base-feedback v-if="submitted !== null">{{ this.mainFeedback }}</base-feedback> -->
+          <base-feedback v-else>{{ this.mainFeedback }}</base-feedback>
         </base-spacer>
       </base-form>
+
     </base-wrapper>
   </base-view>
 </template>
@@ -101,7 +102,7 @@ export default {
     },
 
     allowSubmit() {
-      if (this.inputName && this.inputEmail && this.inputDescription) {
+      if (this.inputName && this.inputEmail && this.inputDescription && !this.submitting) {
         return true
       } else return false
     },
@@ -144,14 +145,17 @@ export default {
       this.submitting = true
       await this.$api.setDocument('contacts', null, contact)
       .then(() => {
-        this.sendEmail(contact)
-        this.submitting = false
-        this.submitted = true
-        this.inputName = ''
-        this.inputEmail = ''
-        this.inputBudget = ''
-        this.inputDescription = ''
-        this.invalidEmail = false
+        setTimeout(() => {
+        
+          this.sendEmail(contact)
+          this.submitting = false
+          this.submitted = true
+          this.inputName = ''
+          this.inputEmail = ''
+          this.inputBudget = ''
+          this.inputDescription = ''
+          this.invalidEmail = false
+        }, 3000);
       })
       .catch(error => {
         this.submitting = false

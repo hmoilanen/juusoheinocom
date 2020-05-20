@@ -15,7 +15,7 @@ setFirebaseAuth()
 
 const getData = (collectionName, document, path, asArray) => {
   // Use to get certain collection or document.
-  // Note: if path is given, data is stored instead of returning it.
+  // Note: if path is given, data is stored instead of returning it!
   // Note: asArray works only if document is not given.
   // Todo: later, add possibility to make queries if needed: https://firebase.google.com/docs/firestore/query-data/queries
   return new Promise((resolve, reject) => {
@@ -159,6 +159,7 @@ const updateArray = (collection, doc, array, id, remove) => {
 const uploadToStorage = (dataURL, path) => {
   // Use to upload images' encoded data to storage.
   // Note: creates also related folder structure if it doesn't exist yet!
+  // Note: path is provided as '/folder/subfolder/...'
   // https://firebase.google.com/docs/storage/web/upload-files
   return new Promise((resolve, reject) => {
     // create a reference to the path of the file, eg. 'images/image.jpg'
@@ -179,6 +180,7 @@ const uploadToStorage = (dataURL, path) => {
 
 const getFromStorage = path => {
   // Use to fetch all data from certain directory of storage.
+  // Note: path is provided as '/folder/subfolder/...'
   // https://firebase.google.com/docs/storage/web/list-files
   return new Promise((resolve, reject) => {
     // Create a reference to the path of a file, eg. 'images/'
@@ -206,6 +208,7 @@ const deleteFromStorage = path => {
   // Use to delete single file from certain location.
   // Note: can't be used to delete whole folders.
   // Note: if deleted file makes folder empty, the folder is deleted simultaneously!
+  // Note: path is provided as '/folder/subfolder/...'
   // https://firebase.google.com/docs/storage/web/delete-files
   const ref = storageRef.child(path) // eg. 'images/image.jpg'
 

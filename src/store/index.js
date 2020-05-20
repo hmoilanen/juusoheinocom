@@ -54,8 +54,8 @@ export default new Vuex.Store({
       if (typeof path === 'string') { // if path given as string notation instead of reference
         let hasProperty = property ? 0 : 1
         let pathAsStrings = path.length > 0 // for { path: '' } (= store.state)
-        ? path.split('.')
-        : []
+          ? path.split('.')
+          : []
         
         stateToSet = state
         

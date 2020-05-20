@@ -7,6 +7,7 @@
   >
     <base-icon v-if="icon" :icon="icon"></base-icon>
     <slot>baseButton</slot>
+    <base-loader v-if="loading"></base-loader>
   </button>
 </template>
 
@@ -29,7 +30,8 @@ export default {
     rounded: Boolean,
     highlight: Boolean,
     empty: Boolean,
-    pseudo: Boolean
+    pseudo: Boolean,
+    loading: false
   },
 
   computed: {
@@ -47,7 +49,8 @@ export default {
         center: this.center,
         stretch: this.stretch,
         empty: this.empty,
-        pseudo: this.pseudo
+        pseudo: this.pseudo,
+        loading: this.loading
       }
     },
 
@@ -66,6 +69,7 @@ $button-color: $app-color--button;
 $button-color--bg: $app-color--button-bg;
 $button-color--highlight: $app-color--button-highlight;
 $button-color--icons: $app-color--button;
+$button-color--focus: $app-color--input-focus;
 $button-font: $app-font--button;
 $button-height: 2.6em !default;
 $button-side: 1.4em !default;
@@ -85,13 +89,31 @@ $disabled-button-opacity--default: 0.4;
   @extend %clickable;
   outline: 0;
   user-select: none;
-  outline: 0;
   -webkit-tap-highlight-color: transparent; // ignore tap active state (non-standard across browsers)
+  &:focus {
+    &::before {
+      $focused--border-width: -4px;
+      content: '';
+      position: absolute;
+      top: $focused--border-width;
+      left: $focused--border-width;
+      right: $focused--border-width;
+      bottom: $focused--border-width;
+      border: 6px solid $button-color--focus;
+    }
+  }
 
   .base-icon {
     width: calc(#{$button-height} * 0.7);
     height: calc(#{$button-height} * 0.7);
     margin-right: 0.6rem;
+  }
+  .base-loader {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0.5em;
+    right: 0.5em;
   }
 
   &.discord { background-color: colorlist("custom", "discord") !important; }
@@ -101,10 +123,14 @@ $disabled-button-opacity--default: 0.4;
   &.youtube { background-color: colorlist("custom", "youtube") !important; }
 
   &.disabled {
-    pointer-events: none !important;
+    //pointer-events: none !important;
+    @extend %disabled;
     opacity: $disabled-button-opacity--default;
     outline: 0;
-    &:focus { outline: 0; }
+    &:focus {
+      outline: 0;
+      &::before { border-color: transparent; }
+    }
   }
   &.rounded {
     border-radius: calc(#{$button-height} / 2) !important;
@@ -158,6 +184,12 @@ $disabled-button-opacity--default: 0.4;
       background: transparent;
       color: $button-color--bg;
       &:hover { background: transparentize($button-color--bg, 0.85); }
+    }
+    &.loading {
+      color: $button-color--bg;
+      &.highlight { color: $button-color--highlight; }
+      &.empty { color: $button-color; }
+      &.pseudo { color: transparent; }
     }
   }
 

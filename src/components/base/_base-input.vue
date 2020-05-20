@@ -14,6 +14,7 @@
         :style="styling.input"
         v-bind="$attrs"
         v-on="listeners"
+        @keydown.enter.prevent
       />
       <base-icon
         v-if="iconLeft"
@@ -145,6 +146,7 @@ export default {
 $input-color: $app-color--input;
 $input-color--border: $app-color--input-border;
 $input-color--bg: $app-color--theme;
+$input-color--bg-focus: $app-color--input-focus;
 $input-color--placeholder: $app-color--input-placeholder;
 $input-color--icons: $input-color;
 $input-color--feedback: $app-color--input-feedback;
@@ -183,11 +185,12 @@ $input-font--placeholder: $app-font--placeholder;
       letter-spacing: 0.05em;
       font-family: $input-font;
       color: $input-color;
-      /* &:hover,
+      //&:hover,
       &:focus {
+        background: $input-color--bg-focus;
         //border: 1px solid $input-color--border;
-        border-color: $input-color--border;
-      } */
+        //border-color: $input-color--border;
+      }
       &::placeholder { // not supported in all browsers, but behaves as regular text content if not
         font-weight: 500;
         font-family: $input-font--placeholder;

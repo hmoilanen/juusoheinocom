@@ -1,0 +1,58 @@
+-contact-sivu:
+  -kun validaatio läpäisty, tyhjennä myös dropdown (-> vaatii basekomponentin puukotusta?)
+  -tee tyylit (vai vasta joskus myöhemmin?)
+
+-muut:
+  -laitat api kiinni editableContent:iin ja viimeistele se
+
+-navTop dropdown:
+  -lisää tarkkailu sivun muutoksesta
+    -näytä loader ja kun valmis, sulje dd
+
+-app-ui:
+  -siirrä pois view:stä ettei estä toiminnallisuuden toteuttamista kun route vaihtuu
+    -siirrä app-curta
+    
+/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
+/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
+
+-editable-content:
+  -muuta komponenttia niin että kun sisältöä klikataan, aukeaa "modal", jossa editointi tapahtuu
+  -tee tarkastelu, onko kyseessä kuva
+  -jos kuva, tallenna kuva storageen
+  -tee toiminnallisuus, jossa "modaalissa" voi editoida
+    -...sekä yksittäistä
+    -...että montaa asiaa kerralla
+
+  -toimintaperiaate:
+    -wrappaa mikä tahansa komponentti editable-content:tiin
+    
+
+
+-asioita joita modaallissa tarvitaan / tarekastellaan
+  -path
+  -miitä inputtityyppiä käytetään
+    -base-input
+    -base-textarea (onko sittenki default? eikä input)
+    -dropzone
+    --base-radio ? (tämän voi lisätä joskus myöhemminkin -> ei tue mieleen järkevää käyttötapausta)
+    --listat / arrayt (voi myös lisätä myöhemmin -> ...tai muuttaa suoraan kantaan)
+
+-modaali voisi ottaa vastaan datan näin:
+  -[] tai {}
+    -jos {} = perustapaus -> yksi muutettava tietue
+    -jos [...{}] = monta muutettavaa tietuetta
+      -sisältö: { path: xxx, type: input/textarea/dropzone }
+        -> tässä se hyvä puolii että näitä voi nyt tehdä itse sellaisella kokoonpanolla kuin milloinkin tarvii
+
+-esimerkki kantaan muutettavista asioista:
+  -text/home/refs/someId
+    -/header: ''
+    -/description: ''
+  -images/home/refs/someId
+    -/image.jpg (kantaan menee ainoastaan kuvan nimi!)
+    -(huom! tämä logiikka ei toimi jos kuvia on enemmän kuin 1kpl/someId
+-ja storagessa:
+  -images/home/refs/someId
+    -/image.jpg (storageen menee encryptattu olio!)
+

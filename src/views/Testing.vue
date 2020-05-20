@@ -8,7 +8,8 @@
       <base-title>{{ content }}</base-title>
     </editable-content> -->
     <br>
-    <editable-content path="text.home.title.en" #default="{ content }">
+    <!-- <editable-content path="text.home.stringi.kikkelis.kokkelis.jeejee" #default="{ content }"> -->
+    <editable-content path="text.homer.object.taso3.pohja" #default="{ content }">
       <base-title :center="true">{{ content }}</base-title>
     </editable-content>
     <br>
@@ -84,7 +85,7 @@ export default {
     }
   },
 
-  created() {
+  async created() {
     let data = false
     let path = 'app.apptests'
     let property = this.properti

@@ -1,13 +1,13 @@
-import Vue from "vue";
-import Router from "vue-router";
-import routes from "./routes";
+import Vue from 'vue'
+import Router from 'vue-router'
+import routes from './routes'
 //import store from '@/store/index'
 //import axios from 'axios'
 
-Vue.use(Router);
+Vue.use(Router)
 
 const router = new Router({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
   routes,
 
@@ -15,16 +15,16 @@ const router = new Router({
   // See: https://router.vuejs.org/guide/advanced/scroll-behavior.html
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
-      return savedPosition;
+      return savedPosition
     } else {
-      return { x: 0, y: 0 };
+      return { x: 0, y: 0 }
     }
   }
-});
+})
 
 // GLOBAL ROUTE GUARDS
 //router.beforeEach((to, from, next) => {})
 //router.beforeResolve(async (to, from, next) => {})
 //router.afterEach((to, from) => {})
 
-export default router;
+export default router

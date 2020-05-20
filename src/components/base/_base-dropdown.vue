@@ -8,13 +8,14 @@
         class="toggle"
         :style="styling.toggle"
         tabIndex="0"
+        @blur="close"
         @click="toggle"
         @keydown.esc="close"
         @keydown.up.prevent="activatePrev"
         @keydown.down.prevent="activateNext"
         @keydown.enter.prevent="selectActive"
-        @keydown.tab.prevent
       >
+        <!-- @keydown.tab.prevent -->
         <span v-if="selected">{{ this.selected }}</span>
         <span v-else class="placeholder">{{ this.placeholder }}</span>
         <base-icon tooltip="toggle">down</base-icon>
@@ -211,6 +212,7 @@ export default {
 $dropdown-color: $app-color--input;
 $dropdown-color--border: $app-color--input-border;
 $dropdown-color--bg: $app-color--theme;
+$dropdown-color--bg-focus: $app-color--input-focus;
 $dropdown-color--placeholder: $app-color--input-placeholder;
 $dropdown-color--icons: $dropdown-color;
 $dropdown-color--shadow: $app-color--shadow;
@@ -241,6 +243,7 @@ $dropdown-font--placeholder: $app-font--placeholder;
       font-size: inherit;
       font-family: $dropdown-font--placeholder;
       @extend %clickable;
+      &:focus { background: $dropdown-color--bg-focus; }
       span {
         margin-right: 2em;
         max-width: 100% !important;
@@ -283,7 +286,7 @@ $dropdown-font--placeholder: $app-font--placeholder;
         //border-radius: 2px;
         @extend %truncate;
         @extend %clickable;
-        &:hover { background: lighten(desaturate($dropdown-color--border ,50%), 90%); }
+        &:hover { background: $dropdown-color--bg-focus; }
         &.active {
           background: $dropdown-color--border;
           color: $dropdown-color--bg;

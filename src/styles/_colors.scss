@@ -34,6 +34,7 @@ $app-color--input-border: $app-color--main;
 $app-color--input-label: $app-color--main;
 $app-color--input-placeholder: lighten($app-color--input, 50%);
 $app-color--input-feedback: $app-color--error;
+$app-color--input-focus: transparentize($app-color--hl, 0.82);
 
 // Icons
 //$app-color--icon: ;

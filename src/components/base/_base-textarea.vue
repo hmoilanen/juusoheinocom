@@ -137,6 +137,7 @@ export default {
 $textarea-color: $app-color--input;
 $textarea-color--border: $app-color--input-border;
 $textarea-color--bg: $app-color--theme;
+$textarea-color--bg-focus: $app-color--input-focus;
 $textarea-color--placeholder: $app-color--input-placeholder;
 $textarea-color--feedback: $app-color--input-feedback;
 $textarea-font: $app-font--input;
@@ -164,6 +165,7 @@ $textarea-font--placeholder: $app-font--placeholder;
       line-height: 1.4em;
       font-family: $textarea-font;
       color: $textarea-color;
+      &:focus { background: $textarea-color--bg-focus; }
       &::placeholder {
         // not supported in all browsers, but behaves as regular text content if not
         font-weight: 500;
