@@ -1,8 +1,8 @@
 export default {
   SET_MODAL: (state, modal) => {
-    // If no active modal is given, close modal handler
+    // If no active modal is given, close modal handler.
     // Expects: { active: 'activeModalName', data: 'modalData' },
-    // where only modal.active is required
+    // where only modal.active is required.
     if (!modal || modal.active === '') {
       state.showModal = false
       state.activeModal = ''

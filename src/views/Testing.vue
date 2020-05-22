@@ -9,7 +9,9 @@
     </editable-content> -->
     <br>
     <!-- <editable-content path="text.home.stringi.kikkelis.kokkelis.jeejee" #default="{ content }"> -->
-    <editable-content path="text.homer.object.taso3.pohja" #default="{ content }">
+
+    <editable-content path="text.home.testObject" #default="{ content }">
+    <!-- <editable-content path="text.home.testObject" #default="{ content }"> -->
       <base-title :center="true">{{ content }}</base-title>
     </editable-content>
     <br>
@@ -90,11 +92,13 @@ export default {
     let path = 'app.apptests'
     let property = this.properti
 
-    setTimeout(() => {
+    //await this.$api.()
+
+    /* setTimeout(() => {
       this.$store.dispatch('SET_STATE',
         { data: 'prekele', path: path, property: 'stringy' }
       )
-    }, 1000)
+    }, 1000) */
   },
 
   computed: {
@@ -104,7 +108,7 @@ export default {
 
     kuva() {
       let imageURL = this.$store.getters['app/GET_URL'].imageURL
-      console.log('imageURL', imageURL);
+      //console.log('imageURL', imageURL);
       
       return `${imageURL}joni-hoitaa.png`
     }

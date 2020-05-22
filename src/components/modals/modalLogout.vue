@@ -13,7 +13,8 @@ export default {
   methods: {
     async logout () {
       await this.$api.logout()
-      this.$store.dispatch('modals/SET_MODAL', '')
+      this.$emit('close-modal')
+      //this.$store.dispatch('modals/SET_MODAL', '')
       //this.$router.push('/')
       /* .then(res => {
       })

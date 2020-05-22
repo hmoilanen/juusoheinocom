@@ -4,15 +4,13 @@
     <div class="modal">
       <span @click="closeModal" class="close">close</span>
 
-      <!-- <form v-if="activeModal" @submit.prevent> -->
       <template v-if="activeModal">
         <component
           :is="activeModal"
           :modalData="modalData"
-          @closeModal="closeModal"
+          @close-modal="closeModal"
         ></component>
       </template>
-      <!-- </form> -->
     </div>
 
   </div>
@@ -25,19 +23,10 @@ export default {
   name: 'modalHandler',
 
   components: {
-    //claim: () => import('@/components/modals/modalClaim'),
     addContent: () => import('@/components/modals/modalAddContent'),
     editContent: () => import('@/components/modals/modalEditContent'),
     login: () => import('@/components/modals/modalLogin'),
     logout: () => import('@/components/modals/modalLogout')
-    //manageEntityHandles: () => import('@/components/modals/modalManageEntityHandles'),
-    //passwordRecovery: () => import('@/components/modals/modalPasswordRecovery'),
-    //purchase: () => import('@/components/modals/modalPurchase'),
-    //search: () => import('@/components/modals/modalSearch'),
-    //signIn: () => import('@/components/modals/modalSignIn'),
-    //sort: () => import('@/components/modals/modalSort'),
-    //sources: () => import('@/components/modals/modalSources'),
-    //changeAvatar: () => import('@/components/modals/modalChangeAvatar')
   },
 
   created() {

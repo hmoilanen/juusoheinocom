@@ -26,7 +26,14 @@
 
   -toimintaperiaate:
     -wrappaa mikä tahansa komponentti editable-content:tiin
-    
+
+  -modaalissa:
+    -tarkastele mitä dataa tulee sisään
+    -jos yksittäinen -> string
+      -tarkastele joka kerta regexillä onko string kuva!
+    -jos objekti (älä hyväksy arrayta)...
+      -tarkastele jokainen objektin stringi (älä hyväksy muuta sisältöä objektissa!)
+
 
 
 -asioita joita modaallissa tarvitaan / tarekastellaan

@@ -98,7 +98,7 @@ export default {
       this.loading = true
       this.addedFile = file
 
-      // If another file is added when there is already one, replace the prior file with the new one
+      // If another file is added when there is already one, replace the prior with the new one
       if (ref.dropzone.files.length > 1) {
         ref.removeFile(replacedFile)
       }
@@ -107,7 +107,8 @@ export default {
     fileLoaded(response) {
       if (response.status === 'success') {
         this.loading = false
-        this.$emit('emitFile', this.addedFile)
+        this.$emit('emit-file', this.addedFile)
+        this.$emit('input', this.addedFile.name) // for v-model, see eg. modalEditContent.vue
       } else {
         console.log(response.status)
       }
@@ -117,12 +118,7 @@ export default {
       this.$refs.customVueDropzone.removeAllFiles(true)
       this.addedFile = null
       this.onTop = false
-    },
-
-    /* async emitFile () {
-      this.$emit('emitFile', this.addedFile)
-      this.deleteFile()
-    } */
+    }
   },
 
   computed: {

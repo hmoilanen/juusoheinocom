@@ -34,7 +34,7 @@ export default {
       })
       // await this.$api.getDefer('logging') // this code waits logging as well
       this.loading = false
-      this.$emit('closeModal')
+      this.$emit('close-modal')
     }
   },
 

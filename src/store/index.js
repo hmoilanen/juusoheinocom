@@ -103,6 +103,11 @@ export default new Vuex.Store({
         }
       }
 
+      //console.log('stateToSet', stateToSet);
+      //console.log('key', key);
+      //console.log('updatedData', updatedData);
+      
+
       Vue.set(stateToSet, key, updatedData)
     },
 

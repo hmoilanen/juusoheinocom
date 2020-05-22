@@ -48,7 +48,7 @@ export default {
       console.log('tähän vähän koodia');
       
       
-      this.$emit('closeModal')
+      this.$emit('close-modal')
     }
   }
 }
