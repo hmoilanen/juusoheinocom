@@ -10,7 +10,10 @@
     <br>
     <!-- <editable-content path="text.home.stringi.kikkelis.kokkelis.jeejee" #default="{ content }"> -->
 
-    <editable-content path="text.home.testObject" #default="{ content }">
+    <!-- <editable-content path="text.home.testiObjecti.deep.deep" #default="{ content }"> -->
+    <!-- <editable-content path="text.home.juusonkoe" #default="{ content }"> -->
+    <!-- <editable-content path="text.home.testObject" #default="{ content }"> -->
+    <editable-content path="text.home.obji" #default="{ content }">
     <!-- <editable-content path="text.home.testObject" #default="{ content }"> -->
       <base-title :center="true">{{ content }}</base-title>
     </editable-content>

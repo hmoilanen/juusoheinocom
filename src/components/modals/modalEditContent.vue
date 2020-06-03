@@ -2,37 +2,23 @@
   <div class="modal-edit-content">
     <base-title size="l" mB="xl">Edit content</base-title>
 
-    <!-- <base-input v-model="kompu" mB="l"></base-input>
-    <div>{{this.contentToEdit}}</div>
-    <div>{{this.kompu}}</div> -->
-    <!-- <base-flex>
-      <base-button
-        @click="edit"
-        :disabled="!isEdited"
-        m-r="s"
-      >save</base-button>
-      <base-button
-        v-if="isEdited"
-        @click="undo"
-        :pseudo="true"
-      >undo</base-button>
-    </base-flex> -->
-
     <base-spacer>
-      <component
-        v-for="(editable, key) in editables"
-        :key="key"
-        :is="editable.is"
-        :label="key"
-        v-model="contentToEdit[key]"
-        @emit-file="emitFile"
-      ></component>
-      
-      <!-- POISTUU! -->
-      <br>
-      <base-text>{{ this.contentToEdit }}</base-text>
-      <!-- POISTUU! -->
-      
+      <template v-for="(editable, key) in editables">
+        <component
+          :key="key"
+          :ref="key"
+          :is="editable.is"
+          :value="editable.data"
+          :label="key"
+          @updated="updateContentToEdit($event, key)"
+        ></component>
+        <base-button
+          v-if="allowUndo(key)"
+          :key="key + '-button'"
+          @click="undo(key)"
+          :empty="true"
+        >undo</base-button>
+      </template>
     </base-spacer>
 
     <base-button @click="save">Done</base-button>
@@ -40,8 +26,12 @@
 </template>
 
 <script>
+//TODOS:
+//RAKENNA FEEDBACK KUN TALLENNETTU
+//LISÄÄ APUTEKSTEJÄ!
+
+import { dataType, dynamicDataStructure } from '@/utils/data'
 import { isImage } from '@/utils/regex' 
-import { dataType } from '@/utils/data'
 import dropzone from '@/components/dropzone'
 
 export default {
@@ -49,110 +39,124 @@ export default {
 
   components: { dropzone },
 
-  props: ['modalData'],
+  props: {
+    modalData: {
+      type: [String, Object], // Provide as '' or { key: value, ... }
+      required: true
+    }
+  },
 
   data() {
     return {
-      //TÄMÄ TULEE OLLA AINA SELLAISESSA (ALKUPERÄISESSÄ) MUODOSSA ETTÄ SEN VOI SUORAAN PÄIVITTÄÄ STOREEN / KANTAAN !
-      contentToEdit: null,
-      //dataType: null,
+      contentToEdit: null, // This mimics $props.modalData.content
+      dataType: '',
       images: {}
     }
   },
 
-  created() {
-    //this.$store.dispatch('SET_STATE', { data: 'perse', path: 'text.home.persaus' })
-    //this.contentToEdit = this.modalData.content
+  async created() {
     this.contentToEdit = JSON.parse(JSON.stringify(this.modalData.content))
-    //JSON.parse(JSON.stringify(this.modalData.content))
-    console.log('this.contentToEdit', this.contentToEdit);
-    console.log('this.modalData.content', this.modalData.content);
-    
-    //////// ->
-    /* this.dataType = dataType(this.modalData.content)
-    
-    let toEdit = {}
-
-    // Populate toEdit with data depending on it's type
-    if (this.dataType === 'string') {
-      toEdit.item = { data: this.modalData.content }
-    } else if (this.dataType === 'object') {
-      // Loop through all editable data
-      for (let key in this.modalData.content) {
-        toEdit[key] = { data: this.modalData.content[key] }
-      }
-    } else {
-      console.log("ModalEditContent: editable data is inappropriate - provide it as '' or { key: value, ... }")
-    }
-
-    this.contentToEdit = toEdit */
+    this.dataType = dataType(this.contentToEdit)
   },
 
   computed: {
     editables() {
-      let type = dataType(this.contentToEdit)
       let toEdit = {}
 
-      // Populate toEdit with data depending on it's type
-      if (type === 'string') {
-        toEdit = { data: this.contentToEdit }
-      } else if (type === 'object') {
-        // Loop through all editable data
+      // Create object structure to be looped in template
+      if (this.dataType === 'string') {
+        let key = this.modalData.path.split('.').pop()
+        toEdit[key] = { data: this.contentToEdit }
+      } else { // If object
         for (let key in this.contentToEdit) {
-          let ifImage = isImage.test(this.contentToEdit[key])
-          let componentType = ifImage
-            ? 'dropzone'
-            : 'base-input'
-
-          toEdit[key] = {
-            data: this.contentToEdit[key],
-            is: componentType
-          }
+          toEdit[key] = { data: this.contentToEdit[key] }
         }
-      } else {
-        console.log("ModalEditContent: editable data is inappropriate - provide it as '' or { key: value, ... }")
+      }
+
+      // Determine components to use and tweak data structure if image
+      for (let key in toEdit) {
+        let content = toEdit[key]
+        
+        if (isImage.test(content.data) || dataType(content.data) === 'object') {
+          content.is = 'dropzone'
+          content.data = { name: content.data, path: this.modalData.path }
+        } else {
+          content.is = 'base-input'
+        }
       }
 
       return toEdit
-
-      //let editables = JSON.parse(JSON.stringify(this.contentToEdit))
-
-      // Determine whether data is about image or not
-      /* for (let editable in editables) {
-        let ifImage = isImage.test(editables[editable].data)
-        let componentType = ifImage
-          ? 'dropzone'
-          : 'base-input'
-
-        editables[editable].is = componentType
-      }
-
-      return editables */
     }
   },
 
   methods: {
-    emitFile(file) {
-      this.$set(this.images, file.name, file)
+    updateContentToEdit(value, key) {
+      if (this.dataType === 'string') {
+        this.contentToEdit = value
+      } else { // If object
+        let data = value
+
+        if (value.name) { // If value is about image
+          data = value.name
+          this.$set(this.images, value.name, value)
+        }
+
+        this.$set(this.contentToEdit, key, data)
+      }
     },
 
-    save() {
-      // Save edited data to store
+    allowUndo(key) {
+      return this.modalData.content[key] !== this.contentToEdit[key]
+        ? true
+        : false
+    },
+
+    undo(key) {
+      let toUndo = this.modalData.content[key]
+      this.updateContentToEdit(toUndo, key)
+    },
+
+    async save() {
+      // Save edited data to store.
       this.$store.dispatch('SET_STATE', {
         data: this.contentToEdit,
         path: 'content.' + this.modalData.path
       }, null, true)
 
-      //TALLETA EDITOITU DATA KANTAAN
-      //JOS KUVIA, TALLETA NE VASTAAVAAN SIJAINTIN STORAGEEN
+      let path = this.modalData.path.split('.')
+      let collection = path.shift()
+      let document = path.shift()
+      let dataObject = {}
 
-      // Save edited data to database
-      // ...
+      // Create data structure inside of object dynamically, to be stored under the document.
+      dynamicDataStructure(dataObject, path, this.contentToEdit)
+      
+      // Save edited data to database.
+      await this.$api.setDocument(collection, document, dataObject, true)
+      
+      // In case of images, save files to storage.
+      if (Object.keys(this.images).length !== 0) {
+        // Save files.
+        for (let image in this.images) {
+          // Create path and URL for image.
+          let dataURL = this.images[image].dataURL
+          let imagePath = this.modalData.path.split('.') 
+          imagePath.splice(0, 1, 'images')
+          imagePath = imagePath.join('/') + '/' + this.images[image].name
 
-      // In case of images, save files to storage
-      // ...
+          // Check if image is included in this.contentToEdit .
+          if (Object.values(this.contentToEdit).includes(image)) {
+            // If included, save it to storage.
+            await this.$api.uploadToStorage(dataURL, imagePath)
+            .then(res => console.log('uploaded:', res))
+            .catch(err => console.log('error:', err))
+          } else {
+            // Later, add code here if it's intended to delete the pre-existing file from storage.
+          }
+        }
+      }
 
-      //this.$emit('close-modal')
+      this.$emit('close-modal')
     }
   }
 }

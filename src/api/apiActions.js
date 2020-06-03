@@ -4,7 +4,7 @@ import apiParser from './apiParser'
 
 const firestore = firebase.firestore()
 const storageRef = firebase.storage().ref()
-// https://firebase.google.com/docs/storage/web/create-reference
+// For creating references, see: https://firebase.google.com/docs/storage/web/create-reference
 
 let defers = {} //TARVIIKO TÄSSÄ PROJEKTISSA OLLENKAAN?
 
@@ -92,7 +92,7 @@ const updateData = (collectionName, doc, dataObject) => {
   // Note: data can be updated only on first level of parent's scope,
   // and the possible deeper existing data structure is overwritten!
   // Note: dataObject is always required as object (can also be empty).
-  // https://firebase.google.com/docs/database/web/read-and-write
+  // see: https://firebase.google.com/docs/database/web/read-and-write
   return new Promise((resolve, reject) => {
     const collection = firestore.collection(collectionName)
 
@@ -129,7 +129,7 @@ const updateArray = (collection, doc, array, id, remove) => {
   // Use to update certain array of certain document.
   // Note: data can also be removed from array (if remove = true).
   // Note: updating array is an atomic action!
-  // https://firebase.google.com/docs/firestore/manage-data/add-data
+  // see: https://firebase.google.com/docs/firestore/manage-data/add-data
   return new Promise((resolve, reject) => {
     const database = firestore.collection(collection)
     let updateArray = firebase.firebase_.firestore.FieldValue
@@ -154,13 +154,13 @@ const updateArray = (collection, doc, array, id, remove) => {
 
 // // // // // // // // // // // // // // // // // // // // // // // // 
 // Firebase storage methods:
-// https://firebase.google.com/docs/storage/web/start
+// see: https://firebase.google.com/docs/storage/web/start
 
 const uploadToStorage = (dataURL, path) => {
   // Use to upload images' encoded data to storage.
   // Note: creates also related folder structure if it doesn't exist yet!
   // Note: path is provided as '/folder/subfolder/...'
-  // https://firebase.google.com/docs/storage/web/upload-files
+  // see: https://firebase.google.com/docs/storage/web/upload-files
   return new Promise((resolve, reject) => {
     // create a reference to the path of the file, eg. 'images/image.jpg'
     const ref = storageRef.child(path)
@@ -178,10 +178,11 @@ const uploadToStorage = (dataURL, path) => {
   })
 }
 
+//LAAJENNA TÄTÄ NIIN ETTÄ VO HAKEA MYÖS YKSITTÄISEN FILUN!!!
 const getFromStorage = path => {
   // Use to fetch all data from certain directory of storage.
   // Note: path is provided as '/folder/subfolder/...'
-  // https://firebase.google.com/docs/storage/web/list-files
+  // see: https://firebase.google.com/docs/storage/web/list-files
   return new Promise((resolve, reject) => {
     // Create a reference to the path of a file, eg. 'images/'
     const ref = storageRef.child(path)
@@ -209,7 +210,7 @@ const deleteFromStorage = path => {
   // Note: can't be used to delete whole folders.
   // Note: if deleted file makes folder empty, the folder is deleted simultaneously!
   // Note: path is provided as '/folder/subfolder/...'
-  // https://firebase.google.com/docs/storage/web/delete-files
+  // see: https://firebase.google.com/docs/storage/web/delete-files
   const ref = storageRef.child(path) // eg. 'images/image.jpg'
 
   ref.delete()

@@ -96,6 +96,7 @@ export default {
         ...this.$listeners,
         input: event => { // override input from $listeners
           this.$emit('input', event.target.value)
+          this.$emit('updated', event.target.value) // if v-model is insufficient
         }
       }
     },

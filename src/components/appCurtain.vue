@@ -15,7 +15,7 @@ export default {
 
   data() {
     return {
-      minimumDuration: 2000,
+      minimumDuration: 200,
       minimumDurationPassed: false,
       showLoader: true
     }

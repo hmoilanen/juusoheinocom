@@ -25,14 +25,13 @@ export default {
   data() {
     return {
       content: null,
-      storeReferenceCreated: false
     }
   },
 
   watch: {
-    '$store.state.app.isLoading': {
-      // After app initiation / loading content from database,
-      // build store's data structure for content, if not yet existent.
+    isLoading: {
+      // After loading content from database,
+      // build store's data structure, if not yet existent.
       immediate: true,
       handler(newValue) {
         if (!newValue) { // when loading no more
@@ -49,28 +48,26 @@ export default {
             target = target[path.shift()]          
           }
 
-          this.storeReferenceCreated = true
+          this.content = target
         }
       }
     }
   },
 
   computed: {
-    editableContent() {
-      if (this.storeReferenceCreated) {
-        let path = this.path.split('.')
-        let target = this.$store.state.content
-
-        while (path.length > 0) {      
-          target = target[path.shift()]          
-        }
-  
-        return target
-      } else return 'is loading...'
-    },
-
     isLoading() {
       return this.$store.state.app.isLoading
+    },
+
+    editableContent() {
+      let path = this.path.split('.')
+
+      // Path has to at least contain: collection.document.property
+      if (path.length < 3) {
+        return 'Path has to at least contain: collection.document.property ...'
+      } else if (!this.content) {
+        return 'loading...'
+      } else return this.content
     },
 
     classing() {
@@ -84,7 +81,7 @@ export default {
     openEditModal() {
       this.$store.dispatch('modals/SET_MODAL', {
         active: 'editContent',
-        data: { content: this.editableContent, path: this.path }
+        data: { content: this.content, path: this.path }
       })
     }
   }

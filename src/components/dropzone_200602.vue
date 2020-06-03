@@ -30,18 +30,8 @@
 
     <!-- dropzone controls -->
     <base-flex v-if="addedFile && !loading" class="controls">
-      <base-button
-        @click="deleteFile"
-        :empty="true"
-        size="s"
-        m-r="s"
-      >delete</base-button>
-      <base-button
-        v-if="allowUndo"
-        @click="manuallyAddFile(initialFile.name)"
-        :empty="true"
-        size="s"
-      >undo</base-button>
+      <!-- <base-button @click="emitFile" size="s" mR="m">accept</base-button> -->
+      <base-button @click="deleteFile" size="s" :empty="true">delete</base-button>
     </base-flex>
 
   </div>
@@ -57,7 +47,12 @@
 // PROP: LISÄÄ THUMBNAIIL-OPTIO (= TUOTTAA KUVAN LATAAMISEN LISÄKSI SIITÄ TIETYNKOKOISEN JA -LAATUISEN THUMBIN) -> PITÄÄ VOIDA MÄÄRITTÄÄ MYÖS THUMBIN KOKO!
 // SLOT: LISÄÄ OPTIO SYÖTTÄÄ SLOTTIIN (AINAKIN) KONTROLLIT KUSTOMOITUINA (JA OTA SLOTISTA SCOPEDILLA METODIT ULOS)
 
-//???: TEE MYÖS DELETE-NAPPI, JOLLA VOI POISTAA KOKO KUVAN -> KANTAAN TALLENTUU TÄLLÖIN: ''
+//JOS DEFAULT-KUVA ANNETTU PROPPINA, NÄYTÄ SE
+//JOS DEFAULT-KUVA VAIHDETAAN, OTA SE TALTEEN -> NÄYTÄ UNDO
+  //UNDO SIKSI, ETTÄ MODAL TALLENTAA SEN KUVAN, MIKÄ DROPZONESSA ON AKTIIVISENA, ...
+  //JA JOS NAPPI OLISI (VAIN) DELETE, MODALILLA EI OLISI KUVAA OLLENKAAN, JOLLLOIN SE TALLENTAISI TYHJÄN KUVAN / '' OLEMASSAOLEVAN TILALLE
+//TEE MYÖS DELETE-NAPPI, JOLLA VOI POISTAA KOKO KUVAN -> KANTAAN TALLENTUU TÄLLÖIN: ''
+//KUN UNDOA KLIKATAAN, PALAUTA ALKUPERÄINEN KUVA
 
 import vue2Dropzone from 'vue2-dropzone'
 //import 'vue2-dropzone/dist/vue2Dropzone.min.css'
@@ -73,7 +68,7 @@ export default {
     disabled: Boolean,
     size: String,
     height: String,
-    value: Object // Expects: { name: 'some-file.png', path: 'root.sub...' }
+    puske: Boolean
   },
 
   data () {
@@ -83,7 +78,6 @@ export default {
         thumbnailWidth: null,
         thumbnailHeight: null
       },
-      initialFile: '',
       addedFile: null,
       loading: false,
       onTop: false,
@@ -100,10 +94,16 @@ export default {
       window.removeEventListener('resize', this.onWindowResize)
     })
 
-    if (this.value) {
-      this.initialFile = this.value
-      this.manuallyAddFile(this.value.name)
-    }
+    let ref = this.$refs.customVueDropzone
+    console.log('ref', ref);
+
+    let imageName = 'Screenshot 2020-04-12 at 21.13.07.png'
+    let imagesURL = this.$store.getters['app/GET_URL'].imageURL + 'home/juusonkoe/' + imageName
+    let file = { name: imageName, size: 1 }
+    console.log('imagesURL', imagesURL);
+    console.log('file', file);
+
+    ref.manuallyAddFile(file, imagesURL)
   },
 
   methods: {
@@ -118,36 +118,25 @@ export default {
       // Note: if multiple files need to be loaded, code must be developed further!
       let ref = this.$refs.customVueDropzone
       let files = ref.dropzone.files
+      let replacedFile = ref.dropzone.files[0]
 
       this.loading = true
       this.addedFile = file
 
       // If another file is added when there is already one, replace the prior with the new one
       if (files.length > 1) {
-        ref.removeFile(files[0])
+        ref.removeFile(replacedFile)
       }
     },
 
-    fileLoaded(response) {      
+    fileLoaded(response) {
       this.loading = false
-      if (response.status === 'success' || response.manuallyAdded) {
-        this.$emit('updated', this.addedFile)
+      if (response.status === 'success') {
+        this.$emit('emit-file', this.addedFile)
+        //this.$emit('updated', this.addedFile.name) // for modalEditContent.vue
       } else {
-        console.log(response)
+        console.log(response.status)
       }
-    },
-
-    manuallyAddFile(imageName) {      
-      let ref = this.$refs.customVueDropzone
-      let path = this.value.path.split('.')
-      path.splice(0, 1)
-      path = path.join('/')
-      
-      let imageURL = `${this.$store.getters['app/GET_URL'].imageURL}${path}/${imageName}`
-      let file = { name: imageName, size: 10000 }
-
-      this.deleteFile()
-      ref.manuallyAddFile(file, imageURL)
     },
 
     deleteFile() {
@@ -158,15 +147,6 @@ export default {
   },
 
   computed: {
-    allowUndo() {
-      if (this.addedFile && this.addedFile.name) {
-        return this.addedFile.name === this.initialFile.name
-          ? false
-          : true
-      } else return false
-      
-    },
-
     classing() {
       return {
         disabled: this.disabled,
