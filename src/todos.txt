@@ -16,42 +16,6 @@
 / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
 / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
 
--editable-content:
-  -muuta komponenttia niin että kun sisältöä klikataan, aukeaa "modal", jossa editointi tapahtuu
-  -tee tarkastelu, onko kyseessä kuva
-  -jos kuva, tallenna kuva storageen
-  -tee toiminnallisuus, jossa "modaalissa" voi editoida
-    -...sekä yksittäistä
-    -...että montaa asiaa kerralla
-
-  -toimintaperiaate:
-    -wrappaa mikä tahansa komponentti editable-content:tiin
-
-  -modaalissa:
-    -tarkastele mitä dataa tulee sisään
-    -jos yksittäinen -> string
-      -tarkastele joka kerta regexillä onko string kuva!
-    -jos objekti (älä hyväksy arrayta)...
-      -tarkastele jokainen objektin stringi (älä hyväksy muuta sisältöä objektissa!)
-
-
-
--asioita joita modaallissa tarvitaan / tarekastellaan
-  -path
-  -miitä inputtityyppiä käytetään
-    -base-input
-    -base-textarea (onko sittenki default? eikä input)
-    -dropzone
-    --base-radio ? (tämän voi lisätä joskus myöhemminkin -> ei tue mieleen järkevää käyttötapausta)
-    --listat / arrayt (voi myös lisätä myöhemmin -> ...tai muuttaa suoraan kantaan)
-
--modaali voisi ottaa vastaan datan näin:
-  -[] tai {}
-    -jos {} = perustapaus -> yksi muutettava tietue
-    -jos [...{}] = monta muutettavaa tietuetta
-      -sisältö: { path: xxx, type: input/textarea/dropzone }
-        -> tässä se hyvä puolii että näitä voi nyt tehdä itse sellaisella kokoonpanolla kuin milloinkin tarvii
-
 -esimerkki kantaan muutettavista asioista:
   -text/home/refs/someId
     -/header: ''
@@ -63,3 +27,94 @@
   -images/home/refs/someId
     -/image.jpg (storageen menee encryptattu olio!)
 
+/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
+/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
+/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
+SIVUSTON SISÄLTÖ / RAKENNE:
+
+db:
+  -home.hero.xxx
+store:
+  -content.home.hero.xxx
+storage:
+  -images.home.hero.xxx
+
+///////
+///////
+///////
+-home
+
+  -hero
+    -title
+    -text
+
+  -tech stack
+    -tech...
+      -name
+      -advanced
+      -icon
+
+  -me
+    -text1
+    -text2
+    -text3
+
+///////
+-projects
+  -id
+    -title
+    -text
+    -timeOfAdd
+    -bg
+  -id
+  -id...
+
+///////
+-contact
+
+
+HOME:
+-kuka olen = esittelyteksti
+  -onko tämä siis hero?
+  -tähän (ensimmäinen) linkki contact-sivulle
+  -tähän linkki myös travels-sivulle
+-mitä teen = refet / services
+  -näytä tässä randomilla esim 3 eri refeä joka kerta
+  -tähänkin joku lyhyt teksti (= services / mitä palveluja tarjoan)
+  -tähän linkki projects-sivulle
+-mitä osaan = tech stack
+  -listaa teknologiat ym tutut työkalut
+  -tähän (toinen) linkki contact-sivulle
+
+TRAVELS:
+-tämä on pelkkä galleriasivu, jolla rakennetaan osaltaan myös minä-bändiä / -kuvaa
+  -linkki tälle sivulle lölytyy jotenkin myös etusivulta / home:sta
+
+PROJECTS:
+-tänne erikseen kaikki rojektit
+-tee niin, että kaikki rojektit isoina galleria-itemeinä listattuna ja kun yhtä klikkaa...
+  -...aukeaa sen siältö jotenkin "hienommin" kuin pelkkä lightbox!
+
+CONTACT:
+-formi
+-tekstiä?
+
+/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
+/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
+/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
+ADD CONTENT / THING:
+
+-kun loggedIn, näytä add-nappi
+-kun nappia painetaan, avaa modal
+
+-??? anna proppina rakenne mitä lisätään (= array of objects)
+  -esim: [{ key: '', is: '' }, { key: '', is: '' }, ...]
+    -...jossa, key = kannassa olevaa propertya vastaava key ???
+-??? anna proppina path
+  -VAI RIITTÄÄKÖ PELKKÄ PAPTH???!!!
+
+-kun modaali aukeeaa, rendaa inputit
+-kun data annettu, llisää se kantaan
+
+-jos string, prop: [{}]
+-jos objekti, prop: [{}, {}, ...]

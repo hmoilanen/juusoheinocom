@@ -22,6 +22,16 @@ export default [
     }
   },
   {
+    path: "/projects",
+    name: "projects",
+    component: () => import("@/views/Projects"),
+    meta: {
+      navLink: true,
+      navLinkTitle: "Projects",
+      displayFooter: true
+    }
+  },
+  {
     path: "/travels",
     name: "travels",
     component: () => import("@/views/Travels"),

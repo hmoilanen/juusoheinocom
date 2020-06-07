@@ -19,9 +19,9 @@
           :empty="true"
         >undo</base-button>
       </template>
+      <base-button @click="save">Done</base-button>
     </base-spacer>
 
-    <base-button @click="save">Done</base-button>
   </div>
 </template>
 
@@ -106,7 +106,8 @@ export default {
     },
 
     allowUndo(key) {
-      return this.modalData.content[key] !== this.contentToEdit[key]
+      // Allow if changes have been made and component is not 'dropzone'.
+      return this.modalData.content[key] !== this.contentToEdit[key] && this.editables[key].is !== 'dropzone'
         ? true
         : false
     },

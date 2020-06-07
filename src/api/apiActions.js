@@ -15,6 +15,7 @@ setFirebaseAuth()
 
 const getData = (collectionName, document, path, asArray) => {
   // Use to get certain collection or document.
+  // If document is not provided, get all documents of collection.
   // Note: if path is given, data is stored instead of returning it!
   // Note: asArray works only if document is not given.
   // Todo: later, add possibility to make queries if needed: https://firebase.google.com/docs/firestore/query-data/queries
@@ -55,7 +56,7 @@ const getData = (collectionName, document, path, asArray) => {
   })
 }
 
-const setDocument = (collectionName, doc, dataObject, merge) => {
+const setDocument = (collectionName, doc, dataObject, merge = true) => {
   // Use to create or override documents for certain collection.
   // If doc is given, add document for collection with that id,
   // else, add document for collection with random id.

@@ -5,7 +5,8 @@
     </template>
     <home-bio></home-bio>
     <home-projects></home-projects>
-    <home-travels></home-travels>
+    <!-- <home-travels></home-travels> -->
+    <home-tools></home-tools>
   </base-view>
 </template>
 
@@ -13,7 +14,8 @@
 import hero from '@/components/hero'
 import homeBio from '@/components/homeBio'
 import homeProjects from '@/components/homeProjects'
-import homeTravels from '@/components/homeTravels'
+/* import homeTravels from '@/components/homeTravels' */
+import homeTools from '@/components/homeTools'
 
 export default {
   name: 'viewHome',
@@ -22,12 +24,8 @@ export default {
     hero,
     homeBio,
     homeProjects,
-    homeTravels,
-  },
-
-  data() {
-    return {
-    }
+    /* homeTravels, */
+    homeTools,
   }
 }
 </script>

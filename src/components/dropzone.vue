@@ -30,12 +30,12 @@
 
     <!-- dropzone controls -->
     <base-flex v-if="addedFile && !loading" class="controls">
-      <base-button
+      <!-- <base-button
         @click="deleteFile"
         :empty="true"
         size="s"
         m-r="s"
-      >delete</base-button>
+      >delete</base-button> -->
       <base-button
         v-if="allowUndo"
         @click="manuallyAddFile(initialFile.name)"
@@ -51,13 +51,8 @@
 // See: https://rowanwins.github.io/vue-dropzone/docs/dist/#/installation
 // See: https://www.dropzonejs.com/
 
-// Upload manually file from server, find this part: "If you want Dropzone to display an image you have on your server, you can use..."
-// See: https://gitlab.com/meno/dropzone/-/wikis/FAQ#how-to-show-files-already-stored-on-server
-
 // PROP: LISÄÄ THUMBNAIIL-OPTIO (= TUOTTAA KUVAN LATAAMISEN LISÄKSI SIITÄ TIETYNKOKOISEN JA -LAATUISEN THUMBIN) -> PITÄÄ VOIDA MÄÄRITTÄÄ MYÖS THUMBIN KOKO!
 // SLOT: LISÄÄ OPTIO SYÖTTÄÄ SLOTTIIN (AINAKIN) KONTROLLIT KUSTOMOITUINA (JA OTA SLOTISTA SCOPEDILLA METODIT ULOS)
-
-//???: TEE MYÖS DELETE-NAPPI, JOLLA VOI POISTAA KOKO KUVAN -> KANTAAN TALLENTUU TÄLLÖIN: ''
 
 import vue2Dropzone from 'vue2-dropzone'
 //import 'vue2-dropzone/dist/vue2Dropzone.min.css'
@@ -73,7 +68,10 @@ export default {
     disabled: Boolean,
     size: String,
     height: String,
-    value: Object // Expects: { name: 'some-file.png', path: 'root.sub...' }
+    // For displaying images manually.
+    // Expects data as: { name: 'some-file.png', path: 'root.sub...' } .
+    value: Object,
+
   },
 
   data () {
@@ -138,16 +136,20 @@ export default {
     },
 
     manuallyAddFile(imageName) {      
-      let ref = this.$refs.customVueDropzone
-      let path = this.value.path.split('.')
-      path.splice(0, 1)
-      path = path.join('/')
-      
-      let imageURL = `${this.$store.getters['app/GET_URL'].imageURL}${path}/${imageName}`
-      let file = { name: imageName, size: 10000 }
-
+      // If imageName isn't provided, method only empties dropzone 
       this.deleteFile()
-      ref.manuallyAddFile(file, imageURL)
+
+      if (imageName) {
+        let ref = this.$refs.customVueDropzone
+        let path = this.value.path.split('.')
+        path.splice(0, 1)
+        path = path.join('/')
+        
+        let imageURL = `${this.$store.getters['app/GET_URL'].imageURL}${path}/${imageName}`
+        let file = { name: imageName, size: 10000 }
+
+        ref.manuallyAddFile(file, imageURL)
+      }
     },
 
     deleteFile() {

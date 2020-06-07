@@ -63,6 +63,24 @@ export default {
   },
 
   components: {
+    iconAftereffects: () => import("@/components/icons/iconAftereffects"),
+    iconArchicad: () => import("@/components/icons/iconArchicad"),
+    iconCss: () => import("@/components/icons/iconCss"),
+    iconFirebase: () => import("@/components/icons/iconFirebase"),
+    iconGit: () => import("@/components/icons/iconGit"),
+    iconHtml: () => import("@/components/icons/iconHtml"),
+    iconIllustrator: () => import("@/components/icons/iconIllustrator"),
+    iconIndesign: () => import("@/components/icons/iconIndesign"),
+    iconJava: () => import("@/components/icons/iconJava"),
+    iconJavascript: () => import("@/components/icons/iconJavascript"),
+    iconJest: () => import("@/components/icons/iconJest"),
+    iconPhotoshop: () => import("@/components/icons/iconPhotoshop"),
+    iconReact: () => import("@/components/icons/iconReact"),
+    iconSass: () => import("@/components/icons/iconSass"),
+    iconSql: () => import("@/components/icons/iconSql"),
+    iconVue: () => import("@/components/icons/iconVue"),
+    iconXd: () => import("@/components/icons/iconXd"),
+
     iconAccount: () => import("@/components/icons/iconAccount"),
     iconAdd: () => import("@/components/icons/iconAdd"),
     iconAdmin: () => import("@/components/icons/iconAdmin"),
@@ -135,8 +153,8 @@ svg.base-icon {
   g[fill="twitter"] { fill: colorlist("custom", "twitter"); }
   g[fill="youtube"] { fill: colorlist("custom", "youtube"); }
   g[fill="mixer"] {
-    #main { fill: colorlist("custom", "mixer"); }
-    #sub { fill: colorlist("custom", "mixer2"); }
+    #main { fill: colorlist("custom", "mixer--blue"); }
+    #sub { fill: colorlist("custom", "mixer--blue-light"); }
   }
 }
 </style>

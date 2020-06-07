@@ -1,0 +1,88 @@
+projects / references
+
+maja: {
+  title: {
+    //en: 'MAJA - Finnish Housing Fair 2013, Hyvinkää',
+    //fi: 'MAJA - Asuntomessut 2013, Hyvinkää'
+    en: 'MAJA - House for a family of 4',
+    fi: 'MAJA - Koti nelihenkiselle perhelle'
+  },
+  desription: {
+    en: '',
+    fi: ''
+  },
+  role: {
+    en: ['architecture', 'design'],
+    fi: ['arkkitehtuuri', 'design']
+  },
+  bg: '',
+  year: 2013
+}
+constlet: {
+  title: {
+    en: 'Homepage for the startup',
+    fi: 'Startup-yrityksen kotisivu'
+  },
+  desription: {
+    en: '',
+    fi: ''
+  },
+  role: {
+    en: ['frontend', 'UX / UI', 'design'],
+    fi: ['frontend', 'UX / UI', 'design']
+  },
+  bg: '',
+  year: 2019
+}
+osb: {
+  title: {
+    en: 'Homepage for the glass terrace company',
+    fi: 'Lasiterassiyhrityksen kotisivu'
+  },
+  desription: {
+    en: '',
+    fi: ''
+  },
+  role: {
+    en: ['frontend', 'UX / UI', 'design'],
+    fi: ['frontend', 'UX / UI', 'design']
+  },
+  bg: '',
+  year: 2020
+}
+talopaletti: {
+  title: {
+    en: 'Research of new housing typologies',
+    fi: 'Tutkimus uusista asuntotypologioista'
+  },
+  desription: {
+    en: '',
+    fi: ''
+  },
+  role: {
+    en: ['research', 'design', 'layout'],
+    fi: ['tutkimus', 'design', 'taitto']
+  },
+  bg: '',
+  year: 2015
+}
+espot: {
+  title: {
+    en: 'eSpot - esports content gatherer',
+    fi: 'eSpot - esports-sisältökerääjä'
+  },
+  desription: {
+    en: '',
+    fi: ''
+  }
+  role: {
+    en: ['UI / UX', 'frontend', 'art'],
+    fi: ['UI / UX', 'frontend', 'art']
+  },
+  bg: '',
+  year: 2015
+}
+
+
+
+... I may have started not-too-long but i absolutely love learning.

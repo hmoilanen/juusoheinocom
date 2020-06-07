@@ -80,6 +80,7 @@ $title-font: $app-font--title;
 $title-indicator-width: 0.2em;
 
 .base-title {
+  position: relative;
   overflow-wrap: break-word; // !
 
   &.break-word { word-break: break-all; }
