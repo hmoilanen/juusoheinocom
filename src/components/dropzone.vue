@@ -100,7 +100,10 @@ export default {
 
     if (this.value) {
       this.initialFile = this.value
-      this.manuallyAddFile(this.value.name)
+      // Enable empty dropzone by giving value.name without actual filename, eg. as '.png'
+      if (this.value.name.split('.')[0] !== '') {
+        this.manuallyAddFile(this.value.name)
+      }
     }
   },
 
@@ -135,7 +138,7 @@ export default {
       }
     },
 
-    manuallyAddFile(imageName) {      
+    manuallyAddFile(imageName) {
       // If imageName isn't provided, method only empties dropzone 
       this.deleteFile()
 

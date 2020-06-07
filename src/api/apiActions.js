@@ -75,7 +75,7 @@ const setDocument = (collectionName, doc, dataObject, merge = true) => {
 
     setDocument.then((docRef) => {
       console.log('$api.setDocument - success')
-      if (docRef) { // if new document with random id
+      if (docRef) { // If new document with random id
         resolve(docRef)
       } else {
         resolve()

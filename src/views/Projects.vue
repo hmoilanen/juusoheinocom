@@ -1,24 +1,30 @@
 <template>
   <base-view class="view-projects">
     Projects
-    <!-- <add-things></add-things> -->
+    
+    <add-stuff path="projects"></add-stuff>
+    <!-- <add-stuff path="projects.joo.naru"></add-stuff> -->
+
     <projects-item
       v-for="(project, key) in projects"
       :key="key"
       :item="project"
     ></projects-item>
-    <!-- <base-text>{{ this.projects }}</base-text> -->
   </base-view>
 </template>
 
 
 <script>
+import addStuff from '@/components/addStuff'
 import projectsItem from '@/components/projectsItem'
 
 export default {
   name: 'viewProjects',
 
-  components: { projectsItem },
+  components: {
+    addStuff,
+    projectsItem
+  },
 
   computed: {
     projects() {

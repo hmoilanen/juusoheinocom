@@ -31,7 +31,7 @@
 //LISÄÄ APUTEKSTEJÄ!
 
 import { dataType, dynamicDataStructure } from '@/utils/data'
-import { isImage } from '@/utils/regex' 
+import { isImage } from '@/utils/regex'
 import dropzone from '@/components/dropzone'
 
 export default {
@@ -54,7 +54,7 @@ export default {
     }
   },
 
-  async created() {
+  created() {
     this.contentToEdit = JSON.parse(JSON.stringify(this.modalData.content))
     this.dataType = dataType(this.contentToEdit)
   },
@@ -118,22 +118,35 @@ export default {
     },
 
     async save() {
-      // Save edited data to store.
-      this.$store.dispatch('SET_STATE', {
-        data: this.contentToEdit,
-        path: 'content.' + this.modalData.path
-      }, null, true)
-
       let path = this.modalData.path.split('.')
       let collection = path.shift()
-      let document = path.shift()
+      let document = path.shift() || null // Null, if path contains only a collection
       let dataObject = {}
 
-      // Create data structure inside of object dynamically, to be stored under the document.
-      dynamicDataStructure(dataObject, path, this.contentToEdit)
-      
+      // Create data structure to be stored under the document in database.
+      if (path.length > 0) {
+        dynamicDataStructure(dataObject, path, this.contentToEdit)
+      } else {
+        dataObject = this.contentToEdit
+      }
+
       // Save edited data to database.
+      let randomDocumentId
       await this.$api.setDocument(collection, document, dataObject, true)
+      .then(res => {
+        // Triggers only if document's key isn't provided / is random
+        if (res && res.id) { randomDocumentId = res.id }
+      })
+
+      // Save edited data to store with intended id.
+      let dynamicPath = document === null
+        ? collection + '.' + randomDocumentId
+        : this.modalData.path
+
+      this.$store.dispatch('SET_STATE', {
+        data: this.contentToEdit,
+        path: 'content.' + dynamicPath
+      }, null, true)
       
       // In case of images, save files to storage.
       if (Object.keys(this.images).length !== 0) {
@@ -142,8 +155,12 @@ export default {
           // Create path and URL for image.
           let dataURL = this.images[image].dataURL
           let imagePath = this.modalData.path.split('.') 
-          imagePath.splice(0, 1, 'images')
-          imagePath = imagePath.join('/') + '/' + this.images[image].name
+          let ifRandomDocumentId = randomDocumentId
+            ? `/${randomDocumentId}/`
+            : '/'
+
+          imagePath.splice(0, 0, 'images')
+          imagePath = imagePath.join('/') + ifRandomDocumentId + this.images[image].name
 
           // Check if image is included in this.contentToEdit .
           if (Object.values(this.contentToEdit).includes(image)) {

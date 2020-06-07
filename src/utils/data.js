@@ -16,7 +16,7 @@ export const dataType = function(data) {
 
 export const dynamicDataStructure = function(baseObject, keys, value) {
   // Create dynamic data structure inside of object from array of keys.
-  // If  value is given, remove the last key for later.
+  // If value is given, remove the last key for later.
   let lastKey = value ? keys.pop() : false
   
   // Create the object structure using empty objects where neccessary.
