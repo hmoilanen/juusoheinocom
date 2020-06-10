@@ -130,7 +130,7 @@ export default {
   &::after {
     content: '';
     @extend %absolute-0000;
-    border: 1px solid black;
+    //border: 1px solid black;
     pointer-events: none;
   }
 }

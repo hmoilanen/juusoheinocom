@@ -28,7 +28,10 @@
       </div>
     </transition>
 
-    <base-icon app="juusoheino" size="xl">juusoheino</base-icon>
+    <base-flex center="y">
+      <base-icon app="juusoheino" size="xl">juusoheino</base-icon>
+      <base-button @click="swapLocale">swap</base-button>
+    </base-flex>
     <menu-toggler :state="showDropdownNav" @click="toggle"></menu-toggler>
   </div>
 </template>
@@ -84,6 +87,13 @@ export default {
   },
 
   methods: {
+    swapLocale() { //POISTUU!!
+      let localeState = this.$store.state.app.locale === 'en'
+        ? 'fi'
+        : 'en'
+      this.$store.dispatch('SET_STATE', { data: localeState, path: 'app.locale' })
+    },
+
     stylingMethod(index) {
       let offsetContainer = 10 //SELLVITÄ MIKSI???
       let offsetLink = 8 * (1 + (0.5 * index)) //SELLVITÄ MIKSI???
