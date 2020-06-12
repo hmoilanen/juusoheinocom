@@ -5,7 +5,7 @@
       <base-text>{{ projects.intro.text }}</base-text>
     </template>
     
-    <add-content path="projects"></add-content>
+    <add-content v-if="$api.isLogged()" path="projects"></add-content>
     <projects-item
       v-for="(project, key) in projects.projects"
       :key="key"

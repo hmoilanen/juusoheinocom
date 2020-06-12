@@ -3,14 +3,14 @@ S I V U T:
 
 HOME:
 -päätä: näytä tässä kaikki projektit vai vaan osa (vaihtuu aina randomilla) VAI vaan yksi (esim joka kerta eri)???
+  -> laita projektit näkyviin (nyt vain dummyjä)
 
 PROJECTS:
 -ratkaise toiminnallisuus: mitä tapahtuu kun projekti valitaan
--ratkaise miksi kuva ei näy taas dropzonessa kun editti avataan
 
 CONTACT:
+-lisää joku teksti myös tälle sivulle?!
 -kun validaatio läpäisty, tyhjennä myös dropdown (-> vaatii basekomponentin puukotusta?)
--tee tyylit
 
 TRAVELS:
 -ota kartta (ainkin allustavasti) kokonaan pois
@@ -22,23 +22,27 @@ TRAVELS:
 -lisää
 
 MUUT:
--laitat api kiinni editableContent:iin ja viimeistele se
+-laita api kiinni editableContent:iin ja viimeistele se (mitäköhän tarkoitin? :D)
 -lisää kielen valinta jonnekin hyvään paikkaan (navTop??? / navTop dd???)
 -animoi app-curtain
 -animoi sivun vaihto
 -animoi sivun sisällön näyttäminen kun sivu avataan (gsap / scrollmagic)
   -> tuleeko tästä ihan oma komponenttinsa?
+-viimeistele tyylit kaikkialta mistä läkkää
 
 ///////////////////////////////////////////////////////////////////////////
 K O M P O N E N T I T:
 
 NAVTOP (dropdown-osio)
 -lisää tarkkailu sivun muutoksesta
-  -näytä loader ja kun valmis, sulje dd
+  -näytä loader ja kun valmis -> sulje dd
 
 APP-UI:
 -siirrä pois view:stä ettei estä toiminnallisuuden toteuttamista kun route vaihtuu
 -siirrä app-curtain viewiin (??? + huom prerenderer)
+
+BASE-BUTTON:
+-loading state häksyää (ainkin jossain tilanteissa) -> näyttää sekä punaisen värin että tekstin loaderin taustalla -> olisko kyse siitä jos hoveraa??? -> FIKSAA!
     
 / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
 / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
