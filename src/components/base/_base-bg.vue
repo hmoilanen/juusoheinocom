@@ -57,9 +57,11 @@ export default {
       }
     },
     styling() {
+      let source = encodeURI(this.source)
+
       return {
         position: this.position,
-        backgroundImage: `url(${this.source})`,
+        backgroundImage: `url(${source})`,
         backgroundSize: this.fit, // 'cover' / 'contain'
         backgroundPositionY:
           this.parallax && !this.steady

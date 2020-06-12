@@ -29,7 +29,14 @@ export default [
       navLink: true,
       navLinkTitle: "Projects",
       displayFooter: true
-    }
+    },
+    children: [
+      {
+        path: ':id',
+        name: 'project',
+        component: () => import('@/components/projectsProject')
+      }
+    ]
   },
   {
     path: "/travels",
@@ -91,7 +98,7 @@ export default [
         name: 'exampleFront',
         component: () => import(/* webpackChunkName: 'exampleSubs' * / '@/components/exampleSub1')
         // NOTE: generates a separate chunk (example.[hash].js) which is lazy-loaded when the route is visited
-        // NOTE2: to make aforementioned work remove empty space between '*' and '/' (added for commenting out the whole block of code)
+        // NOTE2: to make aforementioned work remove empty space between '*' and '/' (added for commenting out the whole block of code to work)
       },
       {
         path: 'sub2',

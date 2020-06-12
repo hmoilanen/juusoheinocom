@@ -1,8 +1,8 @@
 <template>
-  <div class="add-stuff">
-    <base-button @click="openEditModal">add</base-button>
-    <div>{{this.toBeAdded}}</div>
-  </div>
+  <base-button
+    class="add-stuff"
+    @click="openEditModal"
+  >{{ this.buttonText }}</base-button>
 </template>
 
 <script>
@@ -55,6 +55,12 @@ export default {
       }
 
       return toBeAdded
+    },
+
+    buttonText() {
+      return this.$store.state.app.locale === 'en'
+        ? 'add content'
+        : 'lisää sisältö'
     }
   },
 
@@ -64,23 +70,7 @@ export default {
         active: 'editContent',
         data: { content: this.toBeAdded, path: this.path }
       })
-      // muodosta datarakenne JOS EI OLE JO JOSSAIN AIEMMIIN MUODOSTETTU!
-      // tallenna data storeen
-      // tallenna data kantaan
-      // tallenna data storageen, mutta vain jos sisältää kuvia!
-      // sulje modaali
     }
   }
-
-  // IN-COMPONENT ROUTE GUARDS:
-  // See: https://router.vuejs.org/guide/advanced/navigation-guards.html#in-component-guards
-  // beforeRouteEnter (to, from, next) {}
-  // beforeRouteUpdate (to, from, next) {}
-  // beforeRouteLeave (to, from, next) {}
 }
 </script>
-
-<style lang="scss" scoped>
-.add-stuff {
-}
-</style>

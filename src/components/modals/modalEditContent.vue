@@ -19,7 +19,7 @@
           :empty="true"
         >undo</base-button>
       </template>
-      <base-button @click="save">Done</base-button>
+      <base-button @click="save" :loading="saving">Done</base-button>
     </base-spacer>
 
   </div>
@@ -50,7 +50,8 @@ export default {
     return {
       contentToEdit: null, // This mimics $props.modalData.content
       dataType: '',
-      images: {}
+      images: {},
+      saving: false
     }
   },
 
@@ -123,6 +124,8 @@ export default {
       let document = path.shift() || null // Null, if path contains only a collection
       let dataObject = {}
 
+      this.saving = true
+
       // Create data structure to be stored under the document in database.
       if (path.length > 0) {
         dynamicDataStructure(dataObject, path, this.contentToEdit)
@@ -174,6 +177,7 @@ export default {
         }
       }
 
+      this.saving = false
       this.$emit('close-modal')
     }
   }

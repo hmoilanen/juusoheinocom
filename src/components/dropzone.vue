@@ -144,10 +144,7 @@ export default {
 
       if (imageName) {
         let ref = this.$refs.customVueDropzone
-        let path = this.value.path.split('.')
-        path.splice(0, 1)
-        path = path.join('/')
-        
+        let path = this.value.path.split('.').join('/')
         let imageURL = `${this.$store.getters['app/GET_URL'].imageURL}${path}/${imageName}`
         let file = { name: imageName, size: 10000 }
 

@@ -69,9 +69,9 @@ export default {
       } else return 'is loading...'
     },
 
-    isLoading() {
+    /* isLoading() { //OTIN POIS KÄYTÖSTÄ KUN EI NÄYTTÄNY OLEVAN KIINNI MSSÄÄN -> PISTÄ TAKAISIN JOS TULEE ONGELMAA!
       return this.$store.state.app.isLoading
-    },
+    }, */
 
     classing() {
       return {
@@ -82,10 +82,12 @@ export default {
 
   methods: {
     openEditModal() {
-      this.$store.dispatch('modals/SET_MODAL', {
-        active: 'editContent',
-        data: { content: this.editableContent, path: this.path }
-      })
+      if (this.$api.isLogged()) {
+        this.$store.dispatch('modals/SET_MODAL', {
+          active: 'editContent',
+          data: { content: this.editableContent, path: this.path }
+        })
+      }
     }
   }
 }

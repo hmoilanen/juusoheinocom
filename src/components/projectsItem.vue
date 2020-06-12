@@ -1,9 +1,11 @@
 <template>
-  <div class="projectsItem">
+  <div class="projects-item">
     <base-bg></base-bg>
     <base-title>{{ this.item.title || 'item' }}</base-title>
-    <base-text>{{ this.item.year }}</base-text>
-    <base-text>{{ this.item.text }}</base-text>
+    <template v-if="item">
+      <base-text>{{ this.item.year }}</base-text>
+      <base-text>{{ this.item.text }}</base-text>
+    </template>
   </div>
 </template>
 
@@ -18,8 +20,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.projectsItem {
+.projects-item {
   position: relative;
+  @extend %clickable;
   
   //POISTUU!
   border: 1px solid lightgrey;
