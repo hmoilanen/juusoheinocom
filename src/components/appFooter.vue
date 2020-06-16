@@ -141,6 +141,7 @@ $footer-color: $app-color--theme;
 
 .app-footer {
   //grid-area: footer; // TODO!: OTA KÄYTTÖÖN!?
+  //position: relative;
   display: flex;
   flex-direction: column;
   align-items:  center;

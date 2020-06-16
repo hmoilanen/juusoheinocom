@@ -8,6 +8,7 @@
 <script>
 import { dataType } from '@/utils/data'
 import { isImage } from '@/utils/regex'
+import { randomString } from '@/utils/strings'
 
 export default {
   name: 'addStuff',
@@ -34,9 +35,11 @@ export default {
           while (path.length > 0) {
             target = target[path.shift()]
           }
-      
+
           this.dataToCompare = target[Object.keys(target)[0]]
-          this.dataType = dataType(target)
+          console.log('this.dataToCompare', this.dataToCompare);
+          //this.dataType = dataType(target)
+          this.dataType = dataType(this.dataToCompare)
         }
       }
     }
@@ -44,14 +47,19 @@ export default {
 
   computed: {
     toBeAdded() {
-      let toBeAdded = this.dataType === 'object' ? {} : ''
-
+      //let toBeAdded = this.dataType === 'object' ? {} : ''
+      let toBeAdded = {}
+      console.log('toBeAdded', toBeAdded);
+      
       if (this.dataType === 'object') {
         for (let key in this.dataToCompare) {
           let value = isImage.test(this.dataToCompare[key]) ? '.png' : ''
           
           toBeAdded[key] = value
         }
+      } else { // If string
+        let key = randomString(6)
+        toBeAdded['image-' + key] = ''
       }
 
       return toBeAdded

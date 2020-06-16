@@ -1,10 +1,10 @@
 <template>
   <div class="projects-item">
-    <base-bg></base-bg>
-    <base-title>{{ this.item.title || 'item' }}</base-title>
+    <base-bg :source="imageURL(item.bg)"></base-bg>
+    <base-title>{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>
     <template v-if="item">
       <base-text>{{ this.item.year }}</base-text>
-      <base-text>{{ this.item.text }}</base-text>
+      <base-text>{{ this.item['text-' + $app.locale()] }}</base-text>
     </template>
   </div>
 </template>
@@ -15,6 +15,13 @@ export default {
 
   props: {
     item: Object
+  },
+
+  methods: {
+    imageURL(URL) {
+      let imageURL = this.$store.getters['app/GET_URL'].imageURL
+      return `${imageURL}${this.$route.name}/${this.$vnode.key}/${URL}`
+    }
   }
 }
 </script>

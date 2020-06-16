@@ -1,14 +1,8 @@
 <template>
   <base-view class="view-contact">
     <base-wrapper max-width="paragraph">
-
-      <google-map :zoom="12" mapStyle="light"></google-map>
       
       <base-form v-if="!isLoading">
-        <!-- POISTUU!!! -->
-        <base-button @click.prevent="toggeloi">toggeloi</base-button><br>
-        <!-- POISTUU!!! -->
-
         <base-spacer :size="14">
           <base-input
             v-model="inputName"
@@ -63,12 +57,9 @@
 import { mapState } from 'vuex'
 import { validateEmail } from '@/utils/regex'
 import { genericTimeStamp } from '@/utils/time'
-import googleMap from '@/components/googleMap'
 
 export default {
   name: 'viewContact',
-
-  components: { googleMap },
 
   data() {
     return {

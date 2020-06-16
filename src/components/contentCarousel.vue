@@ -13,6 +13,11 @@
         >
           <span>{{ index + 1 }}</span>
         </div>
+        <!-- <base-image
+          v-for="(image, index) in images"
+          :key="image + index"
+          :src="image"
+        ></base-image> -->
       </slot>
     </Vue-slick-carousel>
 
@@ -42,7 +47,8 @@ export default {
   mixins: [margins],
 
   props: {
-    amount: {
+    //images: Array,
+    amount: { // TEE TÄSTÄ 'max'
       type: Number,
       default: 6
     }
@@ -84,13 +90,29 @@ export default {
       this.$refs.carousel.pause()
       this.$refs.carousel.goTo(index)
     }
+  },
+
+  computed: {
+    images() {
+      let gallery = this.$store.state.content.gallery
+      let imageURL = this.$store.getters['app/GET_URL'].imageURL
+      let images = []
+
+      for (let image in gallery) {
+        let URL = imageURL + 'gallery/india/' + image
+        images.push(URL)
+      }
+
+      return images
+    }
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .base-content-carousel {
-  
+  position: relative;
+
   .item {
     min-height: 40vh;
     display: inline-flex !important;

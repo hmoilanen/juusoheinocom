@@ -92,6 +92,8 @@ export default {
 
   methods: {
     updateContentToEdit(value, key) {
+      console.log('updateContentToEdit');
+      
       if (this.dataType === 'string') {
         this.contentToEdit = value
       } else { // If object

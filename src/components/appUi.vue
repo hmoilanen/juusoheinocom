@@ -1,19 +1,21 @@
 <template>
   <div class="app-ui">
     <nav-top v-if="displayNav.top"></nav-top>
+    <contact-link></contact-link>
     <!-- <nav-left></nav-left> -->
     <!-- <nav-right></nav-right> -->
   </div>
 </template>
 
 <script>
+import contactLink from '@/components/contactLink'
+
 export default {
   name: 'appUi',
 
   components: {
     navTop: () => import('@/components/navTop'),
-    //navLeft: () => import('@/components/navLeft'),
-    //navRight: () => import('@/components/navRight'),
+    contactLink
   },
 
   computed: {

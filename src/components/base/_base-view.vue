@@ -5,7 +5,6 @@
       <slot>{{ $options.name }}</slot>
     </div>
     <app-footer v-if="displayFooter"></app-footer>
-
     <app-ui></app-ui>
   </div>
 </template>
@@ -37,8 +36,8 @@ export default {
 
     styling() {
       let ui = this.$store.state.ui
-      let footerHeight = ui.footerHeight || 50
       let navTopHeight = ui.navTopHeight || 50
+      let footerHeight = ui.footerHeight || 50
       let contentMinHeight = ui.window.height
 
       if (ui.navTopDisplayed && this.compensateNavTop) {

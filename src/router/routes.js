@@ -39,13 +39,13 @@ export default [
     ]
   },
   {
-    path: "/travels",
-    name: "travels",
-    component: () => import("@/views/Travels"),
+    path: "/gallery",
+    name: "gallery",
+    component: () => import("@/views/Gallery"),
     meta: {
       navLink: true,
-      navLinkTitle: "Travels",
-      displayFooter: true
+      navLinkTitle: "Gallery",
+      //displayFooter: true
     }
   },
   {

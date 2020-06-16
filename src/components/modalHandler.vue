@@ -23,7 +23,7 @@ export default {
   name: 'modalHandler',
 
   components: {
-    addContent: () => import('@/components/modals/modalAddContent'),
+    //addContent: () => import('@/components/modals/modalAddContent'),
     editContent: () => import('@/components/modals/modalEditContent'),
     login: () => import('@/components/modals/modalLogin'),
     logout: () => import('@/components/modals/modalLogout')

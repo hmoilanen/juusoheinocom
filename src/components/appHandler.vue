@@ -17,6 +17,7 @@ export default {
       this.$api.getData('home', null, 'content'),
       this.$api.getData('contact', null, 'content'),
       this.$api.getData('projects', null, 'content'),
+      this.$api.getData('gallery', null, 'content'),
       this.$api.getData('meta', null, 'content')
     ])
 
