@@ -1,11 +1,13 @@
 <template>
   <div class="google-map">
-    <!-- <google-map-marker v-if="!hideMarkers" :places="places"></google-map-marker> -->
+    <google-map-marker v-if="!hideMarkers" :places="places"></google-map-marker>
   </div>
 </template>
 
 <script>
 // API key: AIzaSyCVrXF_Jh-nfPCeMYgYTkIPl3aP0o9HOyw
+// HUOM! SIIRRÄ API-KEY STOREEN (AUTH)
+// LISÄÄ MARGINS-MIXIN
 
 // Google maps platform: https://cloud.google.com/maps-platform/
 // Google maps options: https://developers.google.com/maps/documentation/javascript/reference?csw=1#MapTypeControlOptions
@@ -13,18 +15,34 @@
 // Customise markers, see: https://developers.google.com/maps/documentation/javascript/custom-markers
 // Customize markers - complex icons: https://developers.google.com/maps/documentation/javascript/examples/icon-complex
 
+// DEPRECATED? ->
+// Add fusion table layer on map: https://stackoverflow.com/questions/8670859/highlight-whole-countries-in-google-maps
+
+import googleMapMarker from '@/components/googleMapMarker'
 import { googleMapStyles } from '@/utils/googleMapStyles'
-import { countries } from '@/api/countries'
 
 export default {
   name: 'googleMap',
+
+  /* head: { // KOITA SAADA TÄMÄ FUTAAMAAN NIIN EI TARVITSE ERIYTTÄÄ TOIMINNALLISUUTTA index.html:ÄÄN!
+    script: [
+      {
+        type: 'text/javascript',
+        src: 'https://maps.googleapis.com/maps/api/js?key=AIzaSyCVrXF_Jh-nfPCeMYgYTkIPl3aP0o9HOyw&callback=initMap',
+        async: true,
+        defer: true,
+      }
+    ]
+  }, */
+
+  components: { googleMapMarker,},
 
   props: {
     places: {
       type: Array,
       default: () => {
         return [
-          { // Provide (array of) place props like this.
+          { // Provide place props like this
             name: 'Koskipuisto',
             position: { lat: 61.499656, lng: 23.764980 }
           }
@@ -43,27 +61,45 @@ export default {
       type: Number,
       default: 1
     },
-    hideMarkers: Boolean, //POISTUUKO MYÖS KUN MARKER EI OLE ENÄÄ ERILLINEN KOMPONENTTI?!?!
-    streetView: Boolean, // Enable 3d street view
-    mapTypes: Boolean, // Default / satellite view
+    hideMarkers: Boolean,
+    streetView: Boolean, // = enable 3d street view
+    mapTypes: Boolean, // = default / satellite view
     mapStyle: {
       type: String,
       validator: prop => {
         return ['light', 'dark', 'retro'].indexOf(prop) !== -1
       }
     }
+
+  },
+
+  provide() {
+    return {
+      getGoogleMap: this.getMap
+    }
+  },
+
+  data() {
+    return {
+      map: null
+    }
   },
 
   mounted() {
-    this.initMap()
+    this.handleMap()
     this.$on('hook:updated',() => {
-      this.initMap()
+      this.handleMap()
     })
   },
 
+  /* updated() {
+    this.handleMap()
+    console.log('updated: this.places[0]', this.places[0]);
+  }, */
+
   methods: {
-    initMap() {
-      const map = new google.maps.Map(this.$el, {
+    handleMap() {
+      this.map = new google.maps.Map(this.$el, {
         center: {
           lat: this.places[0].position.lat,
           lng: this.places[0].position.lng
@@ -75,34 +111,20 @@ export default {
         mapTypeControl: this.mapTypes,
         styles: this.mapStyle ? googleMapStyles[this.mapStyle] : false
       })
-
-      if (!this.hideMarkers) {
-        this.setMarkers(map)
-      }
     },
 
-    setMarkers(map) {
-      let markerURL = this.$store.getters['app/GET_URL'].imageURL + 'gallery/markers/'
-      let markerSize = 40 //DUMMY!
+    getMap(marker) {
+      let self = this
 
-      for (let key in countries) {
-        let country = countries[key]
-        let marker = new google.maps.Marker({
-          position: { lat: country.latitude, lng: country.longitude },
-          map: map,
-          icon: {
-            url: markerURL + key + '.svg',
-            size: new google.maps.Size(markerSize, markerSize), // The marker is 50px wide by 50px high.
-            scaledSize: new google.maps.Size(markerSize, markerSize), // The marker icon (svg) is scaled to match marker size.
-            // Note: if size is smaller than scaledSize, marker icon gets cropped.
-            origin: new google.maps.Point(0, 0), // The origin of marker is (0, 0).
-            anchor: new google.maps.Point(25, 50) // The anchor for of marker is x=25px y=50px.
-          },
-          //shape: shape,
-          title: country['title-' + this.$app.locale()],
-          //zIndex: beach[3]
-        })
+      function checkForMap() {
+        if (self.map) {
+          marker(self.map)
+        } else {
+          setTimeout(checkForMap, 50)
+        }
       }
+
+      checkForMap()
     }
   }
 }
@@ -111,13 +133,14 @@ export default {
 <style lang="scss" scoped>
 .google-map {
   width: 100%;
-  min-height: 300px;
+  height: 400px;
   position: relative;
   overflow: hidden;
   padding: 1px;
   &::after {
     content: '';
     @extend %absolute-0000;
+    //border: 1px solid black;
     pointer-events: none;
   }
 }

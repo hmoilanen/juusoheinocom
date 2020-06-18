@@ -15,9 +15,10 @@ export default {
   },
 
   domain: 'https://juusoheino.com',
+  //googleMapsAPIKey: 'AIzaSyCVrXF_Jh-nfPCeMYgYTkIPl3aP0o9HOyw', //-> TEE TÄSTÄ ENV_VAR JA KÄYTÄ index.html:SSÄ!!!
+  //isLogged: true, //KUN SRRETTY POIS auth.state:STA
   isLoading: true,
   locale: 'en',
-  routeIsReady: false,
 
   externals: [
     { title: 'Github', icon: 'github', link: 'https://github.com/' }, //HUOM! PÄIVITÄ LINKKI KUN TILI LUOTU

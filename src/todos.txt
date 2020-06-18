@@ -13,6 +13,7 @@ CONTACT:
 -kun validaatio läpäisty, tyhjennä myös dropdown (-> vaatii basekomponentin puukotusta?)
 
 GALLERY:
+-alussa, lataa random maa (staattisen vaihtoehdon sijasta)
 ???-lisää tekstisisältö (alkuun), jolla avataan miiksi tämä siivu on olemassa
 -lisää taustalle googleMap joka vaihtaa näkymää aina sen mukaan mistä maasta kyseiset valokuvat on
 -piilota googleMap:sta kontrolit ym paska + css -> pointer-event: none
@@ -40,132 +41,13 @@ APP-UI:
 
 BASE-BUTTON:
 -loading state häksyää (ainkin jossain tilanteissa) -> näyttää sekä punaisen värin että tekstin loaderin taustalla -> olisko kyse siitä jos hoveraa??? -> FIKSAA!
-    
-/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
-/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
-/ / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / / 
 
-SIVUSTON SISÄLTÖ / RAKENNE:
+///////////////////////////////////////////////////////////////////////////
+R A N D O M:
 
-db:
-  -home.hero.xxx
-store:
-  -content.home.hero.xxx
-storage:
-  -images.home.hero.xxx
+content.gallery[maa].info
 
-/ / / / / / /
-/ / / / / / /
-/ / / / / / /
-
--home
-  -hero
-    -title
-    -text
-  -tech stack
-    -tech...
-      -name
-      -advanced
-      -icon
-  -me
-    -text1
-    -text2
-    -text3
-
-///////
--projects
-  -id
-    -title
-    -text
-    -timeOfAdd
-    -bg
-  -id
-  -id...
-
-///////
--contact
-
-
-HOME:
--kuka olen = esittelyteksti
-  -onko tämä siis hero?
-  -tähän (ensimmäinen) linkki contact-sivulle
-  -tähän linkki myös travels-sivulle
--mitä teen = refet / services
-  -näytä tässä randomilla esim 3 eri refeä joka kerta
-  -tähänkin joku lyhyt teksti (= services / mitä palveluja tarjoan)
-  -tähän linkki projects-sivulle
--mitä osaan = tech stack
-  -listaa teknologiat ym tutut työkalut
-  -tähän (toinen) linkki contact-sivulle
-
-TRAVELS:
--tämä on pelkkä galleriasivu, jolla rakennetaan osaltaan myös minä-bändiä / -kuvaa
-  -linkki tälle sivulle lölytyy jotenkin myös etusivulta / home:sta
-
-PROJECTS:
--tänne erikseen kaikki rojektit
--tee niin, että kaikki rojektit isoina galleria-itemeinä listattuna ja kun yhtä klikkaa...
-  -...aukeaa sen siältö jotenkin "hienommin" kuin pelkkä lightbox!
-
-CONTACT:
--formi
--tekstiä?
-
-
-
-
-
-
-
-sortable list (items)
-  grid
-    sortable item (item, key)
-      editable content (path) -> huom! locale
-        project
-          sortable item handle
-
--path: projects[key]
-
-////////////////////////////
--vaihtoehdot:
-  -1 objekti
-  -2 objekti (tyhjä)
-  -3 string
-  -4 array (?)
-
--jos 1, kopioi valmiit keyt
--jos 2, tuota random key tai anna key proppina
-  -jos image, random key esim: image-fs98gysuf039nu
-  -jos string, random key esim: data-fs98gysuf039nu
--jos 3, käytä osoitettua keytä ja liitä data suoraan sen alle
--jos 4, käytä osoitettua keytä ja puske data suoraan sen sisään
-
-maa:
-  -nimi
-  -ikonin nimi (= nimi?)
-  -koordinaatit
-  -järjestysnumero
-
-gallery
-  maa
-    info
-    image-90097408421
-    image-90097408422
-    image-90097408423
-    ...
-TAI:
-gallery
-  maa
-    info
-    images []
-      image-90097408421
-      image-90097408422
-      image-90097408423
-      ...
-
-order: [
-  { name: 'india', ... },
-  { name: 'china', ... },
-  { name: 'russia', ... }
-]
+name-en: ,
+name-fi: ,
+coords: { lat: 0, lng: 0 },
+year: ,

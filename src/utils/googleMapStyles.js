@@ -4,7 +4,7 @@ export const googleMapStyles = {
   light: [
     {
       elementType: 'geometry',
-      stylers: [{ color: '#f5f5f5' }]
+      stylers: [{ color: '#eeeeee' }]
     },
     {
       elementType: 'labels.icon',
@@ -26,7 +26,7 @@ export const googleMapStyles = {
     {
       featureType: 'poi',
       elementType: 'geometry',
-      stylers: [{ color: '#eeeeee' }]
+      stylers: [{ color: '#ebebeb' }]
     },
     {
       featureType: 'poi',
@@ -36,7 +36,7 @@ export const googleMapStyles = {
     {
       featureType: 'poi.park',
       elementType: 'geometry',
-      stylers: [{ color: '#e5e5e5' }]
+      stylers: [{ color: '#dadada' }]
     },
     {
       featureType: 'poi.park',
@@ -81,12 +81,12 @@ export const googleMapStyles = {
     {
       featureType: 'water',
       elementType: 'geometry',
-      stylers: [{ color: '#c9c9c9' }]
+      stylers: [{ color: '#888888' }]
     },
     {
       featureType: 'water',
       elementType: 'labels.text.fill',
-      stylers: [{ color: '#9e9e9e' }]
+      stylers: [{ color: '#dadada' }]
     }
   ],
 

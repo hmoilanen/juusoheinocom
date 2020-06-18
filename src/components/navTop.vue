@@ -173,24 +173,7 @@ export default {
 
     toggle() {
       this.showDropdownNav = !this.showDropdownNav
-    },
-
-    /* routeToLink(path) {
-      let ready = this.$store.state.app.routeIsReady
-      
-      if (this.$route.path !== path) {
-        this.$router.push({ path: path })
-        //console.log(this.$route);
-      }
-
-      setTimeout(() => {
-        this.$store.dispatch('SET_STATE', { data: true, path: 'app.routeIsReady' })
-      }, 2000)
-      
-      if (ready) {
-        this.toggle()
-      }
-    } */
+    }
   },
   
   computed: {
@@ -333,7 +316,7 @@ $nav-top-dropdown--animation-duration: 0.3s;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.55);
+  background: rgba(255, 255, 255, 0.2);
 
   .menu {
     position: absolute;

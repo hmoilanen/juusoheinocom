@@ -1,5 +1,5 @@
 <template>
-  <div class="base-content-carousel" :style="mixinMargins">
+  <div class="content-carousel" :style="mixinMargins">
     
     <Vue-slick-carousel
       v-bind="settings"
@@ -40,7 +40,7 @@ import 'vue-slick-carousel/dist/vue-slick-carousel.css' // import style
 // import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css' // optional style for arrows & dots
 
 export default {
-  name: 'baseContentCarousel',
+  name: 'contentCarousel',
 
   components: { VueSlickCarousel },
 
@@ -110,7 +110,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.base-content-carousel {
+.content-carousel {
   position: relative;
 
   .item {

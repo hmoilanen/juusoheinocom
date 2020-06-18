@@ -1,29 +1,34 @@
 <template>
   <base-view class="view-gallery">
-    <google-map :zoom="12" mapStyle="light"></google-map>
-
     <template v-if="content">
-      <ul class="galleries">
-        <li
-          v-for="(gallery, index) in content.galleries"
+      <google-map
+        :places="countries.places"
+        :zoom="countries.zoom"
+        mapStyle="light"
+      ></google-map>
+
+      <div class="galleries">
+        <div
+          v-for="(gallery, index) in content.countries"
           :key="index"
           @click="choosegallery(gallery)"
-        >{{ gallery }}</li>
-      </ul>
+        >{{ gallery }}</div>
+      </div>
 
       <base-button
         v-if="$api.isLogged()"
         @click="addImage"
       >{{ this.buttonText }}</base-button>
-      <content-carousel :amount="content.amount">
+      <!-- <content-carousel :amount="content.amount">
         <base-image
           v-for="(image, index) in content.images"
           :key="image + index"
           :src="image"
         ></base-image>
-      </content-carousel>
+      </content-carousel> -->
 
       <div class="joo">{{this.currentGallery}}</div>
+      <div>{{this.content.coords}}</div>
     </template>
 
   </base-view>
@@ -34,6 +39,8 @@
 import googleMap from '@/components/googleMap'
 import contentCarousel from '@/components/contentCarousel'
 import { randomString } from '@/utils/strings'
+import { randomIntegerFromInterval } from '@/utils/math'
+import { countries } from '@/api/countries'
 
 export default {
   name: 'viewGallery',
@@ -45,28 +52,101 @@ export default {
 
   data() {
     return {
-      currentGallery: 'india'
+      currentGallery: 'hongkong'
+    }
+  },
+
+  /* created() {
+    console.log(this.$app.isLoading())
+
+    setTimeout(() => {
+      console.log(this.$app.isLoading())
+    }, 4000);
+  }, */
+
+  /* async mounted() {
+    setTimeout(() => {
+      for (let country in countries) {
+        let info = countries[country]
+        let opj = {
+          info: info
+        }
+        //console.log('opj', opj);
+        this.$api.updateData('gallery', country, opj)
+      }
+    }, 5000);
+  }, */
+
+  watch: {
+    '$store.state.app.isLoading': {
+      immedate: true,
+      handler(newValue) {
+        if (newValue === false) {
+          const countries = Object.keys(this.$store.state.content.gallery)
+          this.currentGallery = countries[randomIntegerFromInterval(0, countries.length)]
+        }
+      }
     }
   },
 
   computed: {
+    countries() {
+      if (!this.$app.isLoading()) {
+        const gallery = this.$store.state.content.gallery
+        let listOfCountries = []
+
+        for (let country in gallery) {
+          listOfCountries.push({
+            name: country,
+            position: {
+              lat: gallery[country].info.latitude,
+              lng: gallery[country].info.longitude
+            }
+          })
+        }
+
+        return {
+          places: listOfCountries,
+          zoom: gallery[this.currentGallery].info.zoom
+        }
+      } else return null
+    },
+
+    images() {
+      if (this.countries) {
+        return this.countries[this.currentCountry]
+      } else return null
+    },
+    
     content() {
       if (!this.$store.state.app.isLoading) {
-        let galleries = Object.keys(this.$store.state.content.gallery)
+        const gallery = this.$store.state.content.gallery
+        let countries = Object.keys(gallery)
         let currentGallery = this.$store.state.content.gallery[this.currentGallery]
+        let { info, ...images } = currentGallery
         let imageURL = this.$store.getters['app/GET_URL'].imageURL
         let routeName = this.$route.name
-        let images = []
+        let imageURLs = []
   
-        for (let image in currentGallery) {
+        for (let image in images) {
           let URL = `${imageURL}${routeName}/${this.currentGallery}/${currentGallery[image]}`
-          images.push(URL)
+          imageURLs.push(URL)
         }
   
         return {
-          galleries: galleries,
-          images: images,
-          amount: images.length || 0
+          countries: countries, // Array of all countries
+          images: imageURLs, // Array of images of active country
+          amount: imageURLs.length || 0, // Amount of images
+          info: info,
+          coords: [
+            {
+              name: info['name-en'],
+              position: {
+                lat: info.latitude,
+                lng: info.longitude
+              }
+            }
+          ]
         }
       } else return null
     },
@@ -104,8 +184,8 @@ export default {
   position: relative;
 
   .google-map {
-    z-index: -1;
-    @extend %disabled;
+    //z-index: -1;
+    //@extend %disabled;
     @extend %absolute-0000;
     height: 100vh; //MUUTTUU!?
   }
@@ -113,7 +193,17 @@ export default {
   .galleries {
     position: relative;
     display: flex;
-    li { margin-right: 1rem; }
+    div {
+      margin-right: 0.5rem;
+      padding: 0.3rem 0.5rem;
+      background: white;
+      border: 1px solid black;
+      font-size: 0.6rem;
+    }
+  }
+
+  .content-carousel {
+    opacity: 0.2;
   }
 }
 
