@@ -7,11 +7,13 @@
     <base-flex class="home-contact" :column="true" center="x" p-y="l">
       <base-title
         size="xl"
+        :center="true"
         m-b="m"
       >{{ content[`title-${$app.locale()}`] }}</base-title>
       <base-button
         @click="toContact"
         size="xl"  
+        :highlight="true"
       >{{ content[`link-${$app.locale()}`] }}</base-button>
     </base-flex>
   </editable-content>

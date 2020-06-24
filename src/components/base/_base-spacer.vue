@@ -1,5 +1,8 @@
 <template>
-  <div class="base-spacer" :style="[mixinMargins, mixinPaddings, cssVars]">
+  <div
+    class="base-spacer"
+    :style="[mixinMargins, mixinPaddings, cssVars]"
+  >
     <slot></slot>
   </div>
 </template>

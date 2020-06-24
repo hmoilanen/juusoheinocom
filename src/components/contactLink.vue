@@ -6,7 +6,7 @@
     @mouseleave="expand(false)"
     @click="goToContact"
   >
-    <base-icon size="l">send</base-icon>
+    <base-icon size="xl">contact</base-icon>
     <base-text v-if="expanded" size="s">contact me</base-text>
   </div>
 </template>

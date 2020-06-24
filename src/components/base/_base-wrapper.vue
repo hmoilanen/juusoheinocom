@@ -40,18 +40,22 @@ export default {
       let padding = false
 
       if (this.maxWidth) {
-        if (this.maxWidth && typeof this.maxWidth === 'boolean') {
+        if (typeof this.maxWidth === 'boolean') {
           maxWidth = ui.contentWidth.max + 'px' || maxWidthDefault + 'px'
         } else if (typeof this.maxWidth === 'string') {
-          maxWidth = this.maxWidth === 'paragraph'
-            ? ui.contentWidth.paragraph + 'px'
-            : this.maxWidth
+          if (this.maxWidth === 'paragraph') {
+            maxWidth = ui.contentWidth.paragraph + 'px'
+          } else if (this.maxWidth === 'medium') {
+            maxWidth = ui.contentWidth.medium + 'px'
+          } else {
+            maxWidth = this.maxWidth
+          }
         }
       }
 
       if (this.padding) {
-        if (typeof this.padding === 'boolean' && this.padding === true) {
-          padding = ui.contentMinPadding + 'px'
+        if (typeof this.padding === 'boolean') {
+          padding = ui.contentPaddingDefault + 'px'
         } else if (typeof this.padding === 'string') {
           padding = this.padding
         }

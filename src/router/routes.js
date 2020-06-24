@@ -48,8 +48,7 @@ export default [
     meta: {
       navLink: true,
       navLinkTitle: 'Gallery',
-      navLinkTitleFi: 'Galleria',
-      //displayFooter: true
+      navLinkTitleFi: 'Galleria'
     }
   },
   {
@@ -57,7 +56,6 @@ export default [
     name: 'testing',
     component: () => import('@/views/Testing'),
     meta: {
-      //navLink: true,
       navLinkTitle: 'Testing',
       displayFooter: true
     }

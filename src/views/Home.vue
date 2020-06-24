@@ -3,10 +3,21 @@
     <template #hero>
       <home-hero></home-hero>
     </template>
-    <home-about></home-about>
-    <home-projects></home-projects>
-    <home-tools></home-tools>
-    <home-contact></home-contact>
+    <base-spacer :size="30">
+      <home-about
+        :titleSize="titleSize"
+        :textSize="textSize"
+      ></home-about>
+      <home-projects
+        :titleSize="titleSize"
+        :textSize="textSize"
+      ></home-projects>
+      <home-tools
+        :titleSize="titleSize"
+        :textSize="textSize"
+      ></home-tools>
+      <home-contact></home-contact>
+    </base-spacer>
   </base-view>
 </template>
 
@@ -26,6 +37,13 @@ export default {
     homeProjects,
     homeTools,
     homeContact
+  },
+
+  data() {
+    return {
+      titleSize: 'l',
+      textSize: 'l'
+    }
   }
 }
 </script>

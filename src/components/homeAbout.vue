@@ -5,10 +5,13 @@
       path="home.about"
       #default="{ content }"
     >
-      <base-title>{{ content[`title-${locale}`] }}</base-title>
-      <base-text m-b="s">{{ content[`text-${locale}`] }}</base-text>
-      <base-title :size="6" m-b="s">"{{ content[`quote-${locale}`] }}"</base-title>
-      <base-link to="gallery">{{ content[`link-${locale}`] }}</base-link>
+      <base-title :size="titleSize" m-b="l">{{ content[`title-${locale}`] }}</base-title>
+      <base-text :size="textSize">{{ content[`text-${locale}`] }}</base-text>
+      <div class="quote">
+        <base-icon :size="90">quote</base-icon>
+        <base-title :center="true" :size="10">"{{ content[`quote-${locale}`] }}"</base-title>
+      </div>
+      <!-- <base-link to="gallery">{{ content[`link-${locale}`] }}</base-link> -->
     </editable-content>
   </div>
 </template>
@@ -21,6 +24,11 @@ export default {
 
   components: { editableContent },
 
+  props: {
+    titleSize: [String, Number],
+    textSize: [String, Number]
+  },
+
   computed: {
     locale() {
       return this.$app.locale()
@@ -30,7 +38,31 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$color--icon-quote: transparentize($app-color--hl, 0.75);
+
 .home-about {
-  min-height: 70vh;
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .quote {
+    margin: 0 auto;
+    margin-top: 4rem;
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    .base-icon {
+      z-index: -1;
+      position: absolute;
+      top: 60%;
+      left: 25%;
+      //transform: translateY(-50%);
+      transform: translate(-50%, -50%);
+      color: $color--icon-quote;
+    }
+  }
 }
 </style>

@@ -2,7 +2,9 @@
   <div class="base-view" :style="styling.root">
     <slot name="hero"></slot>
     <div class="content" :style="styling.content">
-      <slot>{{ $options.name }}</slot>
+      <base-wrapper :maxWidth="true">
+        <slot>{{ $options.name }}</slot>
+      </base-wrapper>
     </div>
     <app-footer v-if="displayFooter"></app-footer>
     <app-ui></app-ui>
@@ -31,7 +33,7 @@ export default {
 
   computed: {
     displayFooter() {
-      return this.$route.meta.displayFooter
+      return this.$route.meta.displayFooter || false
     },
 
     styling() {
@@ -39,13 +41,23 @@ export default {
       let navTopHeight = ui.navTopHeight || 50
       let footerHeight = ui.footerHeight || 50
       let contentMinHeight = ui.window.height
+      let breakpoint = this.$store.getters['ui/GET_BREAKPOINT']
+      let padding = ui.contentPaddingDefault
 
       if (ui.navTopDisplayed && this.compensateNavTop) {
         contentMinHeight -= navTopHeight
       }
+
       if (this.displayFooter) {
         contentMinHeight -= footerHeight 
       }
+
+      /* if (breakpoint.index === 1) { padding = 32 } // = 'm'
+      else if (breakpoint.index === 2) { padding = 64 } // = 'l'
+      else if (breakpoint.index >= 3) { padding = 96 } // = 'xl' */
+      if (breakpoint.index === 1) { padding *= 2 } // = 'm'
+      else if (breakpoint.index === 2) { padding *= 4 } // = 'l'
+      else if (breakpoint.index >= 3) { padding *= 6 } // = 'xl'
 
       return {
         root: {
@@ -54,7 +66,9 @@ export default {
             : false
         },
         content: {
-          minHeight: contentMinHeight + 'px'
+          minHeight: contentMinHeight + 'px',
+          //padding: `0 ${padding}px`
+          padding: `${padding}px`
         }
       }
     }
@@ -64,8 +78,8 @@ export default {
 
 <style lang="scss" scoped>
 .base-view {
-  .content {
+  /* .content {
     padding: 16px;
-  }
+  } */
 }
 </style>

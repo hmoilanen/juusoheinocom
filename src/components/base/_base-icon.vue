@@ -65,6 +65,7 @@ export default {
   components: {
     iconAftereffects: () => import("@/components/icons/iconAftereffects"),
     iconArchicad: () => import("@/components/icons/iconArchicad"),
+    iconContact: () => import("@/components/icons/iconContact"),
     iconCss: () => import("@/components/icons/iconCss"),
     iconFirebase: () => import("@/components/icons/iconFirebase"),
     iconGit: () => import("@/components/icons/iconGit"),
@@ -75,6 +76,7 @@ export default {
     iconJavascript: () => import("@/components/icons/iconJavascript"),
     iconJest: () => import("@/components/icons/iconJest"),
     iconPhotoshop: () => import("@/components/icons/iconPhotoshop"),
+    iconQuote: () => import("@/components/icons/iconQuote"),
     iconReact: () => import("@/components/icons/iconReact"),
     iconSass: () => import("@/components/icons/iconSass"),
     iconSql: () => import("@/components/icons/iconSql"),

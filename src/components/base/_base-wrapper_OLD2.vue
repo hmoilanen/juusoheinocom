@@ -42,7 +42,7 @@ export default {
       // MIKSEI TÄTÄ OLLE TEHTY miixinPAddings:LLÄ?
       if (this.padding) {
         if (typeof this.padding === 'boolean' && this.padding === true) {
-          padding = ui.contentMinPadding + 'px'
+          padding = ui.contentPaddingDefault + 'px'
         } else if (typeof this.padding === 'string') {
           padding = this.padding
         }

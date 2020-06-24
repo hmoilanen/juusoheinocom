@@ -42,6 +42,9 @@ APP-UI:
 BASE-BUTTON:
 -loading state häksyää (ainkin jossain tilanteissa) -> näyttää sekä punaisen värin että tekstin loaderin taustalla -> olisko kyse siitä jos hoveraa??? -> FIKSAA!
 
+APP-CURTAIN:
+-jos yhteyttä bäkkiin ei saada, älä nosta verhoa ollenkaan vaan tarjoa "lataa uudestaan"-nappi
+
 ///////////////////////////////////////////////////////////////////////////
 R A N D O M:
 

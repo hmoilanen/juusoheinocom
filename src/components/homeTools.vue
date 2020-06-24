@@ -2,20 +2,25 @@
   <div class="home-tools">
     <template v-if="tools">
       <editable-content path="home.tools.main" #default="{ content }">
-        <base-title>{{ content[`title-${$app.locale()}`] }}</base-title>
-        <base-text>{{ content[`text-${$app.locale()}`] }}</base-text>
+        <base-title :size="titleSize">{{ content[`title-${$app.locale()}`] }}</base-title>
+        <base-text :size="textSize">{{ content[`text-${$app.locale()}`] }}</base-text>
         <base-text>* = {{ content[`nb-${$app.locale()}`] }}</base-text>
       </editable-content>
-      <div class="grid">
-        <div
-          class="tool"
-          v-for="(tool, key) in tools"
-          :key="key"
-        >
-          <base-icon size="xl">{{ key }}</base-icon>
-          <base-title :size="5" :truncate="true">{{ tool.title }}</base-title>
+      <base-wrapper maxWidth="medium">
+        <div class="grid">
+          <div
+            class="tool"
+            v-for="(tool, key) in tools"
+            :key="key"
+          >
+            <base-icon size="xl">{{ key }}</base-icon>
+            <base-title :size="4" :truncate="true">
+              {{ tool.title }}
+              <span v-if="!tool.advanced">*</span>
+            </base-title>
+          </div>
         </div>
-      </div>
+      </base-wrapper>
     </template>
   </div>
 </template>
@@ -27,6 +32,11 @@ export default {
   name: 'homeTools',
 
   components: { editableContent },
+
+  props: {
+    titleSize: [String, Number],
+    textSize: [String, Number]
+  },
 
   computed: {
     tools() {
@@ -58,7 +68,7 @@ export default {
 
   .tool {
     position: relative;
-    overflow: hidden;
+    //overflow: hidden;
     width: 70px;
     //eight: 70px;
     //border: 1px solid rgb(230, 230, 230);
