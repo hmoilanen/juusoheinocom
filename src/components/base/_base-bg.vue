@@ -27,7 +27,21 @@ export default {
       type: Number,
       default: 0.2
     },
-    steady: Boolean // Background stays stationary despite of scrolling
+    steady: Boolean, // Background stays stationary despite of scrolling
+    posX: {
+      type: String,
+      default: 'center',
+      validator(prop) {
+        return ['left', 'center', 'right', 'initial', 'inherit', 'unset'].indexOf(prop) !== -1
+      }
+    },
+    posY: {
+      type: String,
+      default: 'center',
+      validator(prop) {
+        return ['top', 'center', 'bottom', 'initial', 'inherit', 'unset'].indexOf(prop) !== -1
+      }
+    }
   },
 
   data() {
@@ -66,8 +80,8 @@ export default {
         backgroundPositionY:
           this.parallax && !this.steady
             ? this.offsetY * this.parallaxAmount + 'px'
-            : 'initial',
-        backgroundAttachment: this.steady ? 'fixed' : 'initial'
+            : this.posY,
+        backgroundAttachment: this.steady ? 'fixed' : this.posX
       }
     }
   }
@@ -83,7 +97,7 @@ export default {
   bottom: 0;
   position: relative;
   width: 100%;
-  background: lightblue;
+  background: lightgrey;
 
   &.steady {
     background-size: cover;

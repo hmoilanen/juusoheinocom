@@ -2,32 +2,35 @@
 
 export default [
   {
-    path: "/",
-    name: "home",
-    component: () => import("@/views/Home"),
+    path: '/',
+    name: 'home',
+    component: () => import('@/views/Home'),
     meta: {
       navLink: true,
-      navLinkTitle: "Home",
+      navLinkTitle: 'Front',
+      navLinkTitleFi: 'Etusivu',
       displayFooter: true
     }
   },
   {
-    path: "/contact",
-    name: "contact",
-    component: () => import("@/views/Contact"),
+    path: '/contact',
+    name: 'contact',
+    component: () => import('@/views/Contact'),
     meta: {
       navLink: true,
-      navLinkTitle: "Contact",
+      navLinkTitle: 'Contact',
+      navLinkTitleFi: 'Ota yhteyttä',
       displayFooter: true
     }
   },
   {
-    path: "/projects",
-    name: "projects",
-    component: () => import("@/views/Projects"),
+    path: '/projects',
+    name: 'projects',
+    component: () => import('@/views/Projects'),
     meta: {
       navLink: true,
-      navLinkTitle: "Projects",
+      navLinkTitle: 'Projects',
+      navLinkTitleFi: 'Projektit',
       displayFooter: true
     },
     children: [
@@ -39,22 +42,23 @@ export default [
     ]
   },
   {
-    path: "/gallery",
-    name: "gallery",
-    component: () => import("@/views/Gallery"),
+    path: '/gallery',
+    name: 'gallery',
+    component: () => import('@/views/Gallery'),
     meta: {
       navLink: true,
-      navLinkTitle: "Gallery",
+      navLinkTitle: 'Gallery',
+      navLinkTitleFi: 'Galleria',
       //displayFooter: true
     }
   },
   {
-    path: "/testing",
-    name: "testing",
-    component: () => import("@/views/Testing"),
+    path: '/testing',
+    name: 'testing',
+    component: () => import('@/views/Testing'),
     meta: {
-      navLink: true,
-      navLinkTitle: "Testing",
+      //navLink: true,
+      navLinkTitle: 'Testing',
       displayFooter: true
     }
   },

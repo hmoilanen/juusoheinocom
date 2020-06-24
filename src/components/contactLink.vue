@@ -86,6 +86,8 @@ $link-height: 48px;
     position: absolute;
     top: 50%;
     transform: translate(-50%, -50%);
+    //stroke: blue;
+    //stroke-width: .5em;
   }
   .base-text {
     margin-left: 1rem;

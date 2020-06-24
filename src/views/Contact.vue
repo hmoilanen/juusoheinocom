@@ -1,65 +1,79 @@
 <template>
   <base-view class="view-contact">
     <base-wrapper max-width="paragraph">
-      
-      <base-form v-if="!isLoading">
-        <base-spacer :size="14">
-          <base-input
-            v-model="inputName"
-            :required="true"
-            :label="content.name.label[locale]"
-            :placeholder="content.name.placeholder[locale]"
-            :disabled="submitting"
-          ></base-input>
-          <base-input
-            v-model="inputEmail"
-            type="email"
-            :required="true"
-            :label="content.email.label[locale]"
-            :placeholder="content.email.placeholder[locale]"
-            :feedback="emailFeedback"
-            :disabled="submitting"
-          ></base-input>
-            <!-- :feedback="content.email.feedback[locale]" -->
-          <base-dropdown
-            :value="budgetCategories"
-            @itemSelected="budgetSelected"
-            :label="content.budget.label[locale]"
-            :placeholder="content.budget.placeholder[locale]"
-            :disabled="submitting"
-          ></base-dropdown>
-          <base-textarea
-            v-model="inputDescription"
-            :required="true"
-            :label="content.description.label[locale]"
-            :placeholder="content.description.placeholder[locale]"
-            :disabled="submitting"
-            :maxLength="1000"
-          ></base-textarea>
 
-          <base-button
-            v-if="!submitted"
-            @click.prevent="submit"
-            :disabled="!allowSubmit"
-            :loading="!allowSubmit && submitting"
-            size="l"
-          >{{ content.submit[locale] }}</base-button>
-          <!-- <base-feedback v-if="submitted !== null">{{ this.mainFeedback }}</base-feedback> -->
-          <base-feedback v-else>{{ this.mainFeedback }}</base-feedback>
-        </base-spacer>
-      </base-form>
+      <template v-if="!isLoading">
+        <editable-content
+          v-if="!$app.isLoading()"
+          path="contact.main"
+          #default="{ content }"
+        >
+          <base-title>{{ content[`title-${$app.locale()}`] }}</base-title>
+          <base-text m-b="l">{{ content[`text-${$app.locale()}`] }}</base-text>
+        </editable-content>
+        
+        <base-form>
+          <base-spacer :size="14">
+            <base-input
+              v-model="inputName"
+              :required="true"
+              :label="formContent.name.label[locale]"
+              :placeholder="formContent.name.placeholder[locale]"
+              :disabled="submitting"
+            ></base-input>
+            <base-input
+              v-model="inputEmail"
+              type="email"
+              :required="true"
+              :label="formContent.email.label[locale]"
+              :placeholder="formContent.email.placeholder[locale]"
+              :feedback="emailFeedback"
+              :disabled="submitting"
+            ></base-input>
+              <!-- :feedback="formContent.email.feedback[locale]" -->
+            <base-dropdown
+              :value="budgetCategories"
+              @itemSelected="budgetSelected"
+              :label="formContent.budget.label[locale]"
+              :placeholder="formContent.budget.placeholder[locale]"
+              :disabled="submitting"
+            ></base-dropdown>
+            <base-textarea
+              v-model="inputDescription"
+              :required="true"
+              :label="formContent.description.label[locale]"
+              :placeholder="formContent.description.placeholder[locale]"
+              :disabled="submitting"
+              :maxLength="1000"
+            ></base-textarea>
+
+            <base-button
+              v-if="!submitted"
+              @click.prevent="submit"
+              :disabled="!allowSubmit"
+              :loading="!allowSubmit && submitting"
+              size="l"
+            >{{ formContent.submit[locale] }}</base-button>
+            <!-- <base-feedback v-if="submitted !== null">{{ this.mainFeedback }}</base-feedback> -->
+            <base-feedback v-else>{{ this.mainFeedback }}</base-feedback>
+          </base-spacer>
+        </base-form>
+      </template>
 
     </base-wrapper>
   </base-view>
 </template>
 
 <script>
+import editableContent from '@/components/editableContent'
 import { mapState } from 'vuex'
 import { validateEmail } from '@/utils/regex'
 import { genericTimeStamp } from '@/utils/time'
 
 export default {
   name: 'viewContact',
+
+  components: { editableContent },
 
   data() {
     return {
@@ -76,12 +90,13 @@ export default {
   computed: {
     ...mapState('app', ['isLoading', 'locale']),
 
-    content() {
-      return this.$store.state.content.text[this.$route.name]
+    formContent() {
+      let { main, ...formContent } = this.$store.state.content[this.$route.name]
+      return formContent
     },
 
     budgetCategories() {
-      let values = this.content.budget.values
+      let values = this.formContent.budget.values
       let categories = []
 
       for (let i = 0; i < values.length; i++) {
@@ -105,7 +120,7 @@ export default {
 
     emailFeedback() {
       return this.invalidEmail
-        ? this.content.email.feedback[this.locale]
+        ? this.formContent.email.feedback[this.locale]
         : ''
     },
 
@@ -114,7 +129,7 @@ export default {
       if (this.submitted === false) { status = 'error' }
       else if (this.submitted) { status = 'success' }
 
-      return this.content.completed[status][this.locale]
+      return this.formContent.completed[status][this.locale]
     }
   },
 
@@ -160,8 +175,9 @@ export default {
     },
 
     sendEmail(contact) {
+      const email = this.$store.state.content.meta.email
       const data = {
-        to: this.$store.state.content.meta.email.to || 'juuso.ville.henrikki@gmail.com',
+        to: email.to || 'juuso.ville.henrikki@gmail.com',
         from: 'juusoheino.com',
         subject: 'juusoheino.com - UUSI YHTEYDENOTTO',
         html: `<h3>Uusi yhteydenotto</h3>
@@ -176,7 +192,7 @@ export default {
 
       return new Promise((resolve, reject) => {
         const xmlhttp = new XMLHttpRequest() // to interact with server
-        const cloudSenderURL = this.$store.state.content.meta.email.cloudSenderURL || 'https://us-central1-constlet.cloudfunctions.net/emailMessage'
+        const cloudSenderURL = email.cloudSenderURL || 'https://us-central1-constlet.cloudfunctions.net/emailMessage'
 
         // Initialize a request
         xmlhttp.open('POST', cloudSenderURL)

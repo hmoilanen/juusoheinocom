@@ -145,8 +145,9 @@ $footer-color: $app-color--theme;
   display: flex;
   flex-direction: column;
   align-items:  center;
-  background-color: $footer-bg-color;
-  color: $footer-color;
+  //background-color: $footer-bg-color;
+  //color: $footer-color;
+  border-top: 1px solid rgb(240, 240, 240);
 
   .routes {
     & > * { display: block; }

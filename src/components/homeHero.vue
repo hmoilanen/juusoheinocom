@@ -1,8 +1,11 @@
 <template>
   <div class="home-hero">
-    <editable-content :path="editablePath" #default="{ content }">
-        <base-title>{{ content.title }}</base-title>
-        <base-text>{{ content.text }}</base-text>
+    <editable-content path="home.hero" #default="{ content }">
+        <base-title :size="6">{{ content.pretitle }}</base-title>
+        <base-title>{{ content[`title-${locale}`] }}</base-title>
+        <base-text>{{ content[`text-${locale}`] }}</base-text>
+        <base-link to="projects" m-r="s">{{ content[`link1-${locale}`] }}</base-link>
+        <base-link to="gallery">{{ content[`link2-${locale}`] }}</base-link>
     </editable-content>
   </div>
 </template>
@@ -16,9 +19,8 @@ export default {
   components: { editableContent },
 
   computed: {
-    editablePath() {
-      let locale = this.$store.state.app.locale
-      return 'home.hero.' + locale
+    locale() {
+      return this.$app.locale()
     }
   }
 }
@@ -26,8 +28,10 @@ export default {
 
 <style lang="scss" scoped>
 .home-hero {
-  // DUMMY-TYYLIT -> VAHTUU / POSTUU!!
-  min-height: 50vh;
+  min-height: 100vh;
+  padding: 1rem; //TEE TÄSTÄ DYNAAMINEN!!!
+  
+  // DUMMY-TYYLIT -> VAHTUU / POSTUU!!??
   background: $app-color--hl;
   display: flex;
   align-items: center;

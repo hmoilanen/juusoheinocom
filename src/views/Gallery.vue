@@ -1,11 +1,16 @@
 <template>
   <base-view class="view-gallery">
-    <template v-if="content">
+    <template v-if="!$app.isLoading()">
       <google-map
         :places="countries.places"
         :zoom="countries.zoom"
         mapStyle="light"
       ></google-map>
+
+      <editable-content path="gallery.main" #default="{ content }">
+        <base-title>{{ content[`title-${$app.locale()}`] }}</base-title>
+        <base-text>{{  content[`text-${$app.locale()}`] }}</base-text>
+      </editable-content>
 
       <div class="galleries">
         <div
@@ -36,6 +41,7 @@
 
 
 <script>
+import editableContent from '@/components/editableContent'
 import googleMap from '@/components/googleMap'
 import contentCarousel from '@/components/contentCarousel'
 import { randomString } from '@/utils/strings'
@@ -46,6 +52,7 @@ export default {
   name: 'viewGallery',
 
   components: {
+    editableContent,
     googleMap,
     contentCarousel
   },
@@ -92,7 +99,7 @@ export default {
   computed: {
     countries() {
       if (!this.$app.isLoading()) {
-        const gallery = this.$store.state.content.gallery
+        const { main, ...gallery } = this.$store.state.content.gallery
         let listOfCountries = []
 
         for (let country in gallery) {
@@ -119,7 +126,7 @@ export default {
     },
     
     content() {
-      if (!this.$store.state.app.isLoading) {
+      if (!this.$app.isLoading()) {
         const gallery = this.$store.state.content.gallery
         let countries = Object.keys(gallery)
         let currentGallery = this.$store.state.content.gallery[this.currentGallery]
@@ -184,7 +191,7 @@ export default {
   position: relative;
 
   .google-map {
-    //z-index: -1;
+    z-index: -1;
     //@extend %disabled;
     @extend %absolute-0000;
     height: 100vh; //MUUTTUU!?

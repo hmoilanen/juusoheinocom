@@ -316,7 +316,7 @@ $nav-top-dropdown--animation-duration: 0.3s;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
 
   .menu {
     position: absolute;

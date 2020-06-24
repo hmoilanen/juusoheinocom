@@ -1,11 +1,10 @@
 <template>
-  <base-view class="view-home">
+  <base-view class="view-home" :compensateNavTop="false">
     <template #hero>
       <home-hero></home-hero>
     </template>
-    <home-bio></home-bio>
+    <home-about></home-about>
     <home-projects></home-projects>
-    <!-- <home-travels></home-travels> -->
     <home-tools></home-tools>
     <home-contact></home-contact>
   </base-view>
@@ -13,9 +12,8 @@
 
 <script>
 import homeHero from '@/components/homeHero'
-import homeBio from '@/components/homeBio'
+import homeAbout from '@/components/homeAbout'
 import homeProjects from '@/components/homeProjects'
-/* import homeTravels from '@/components/homeTravels' */
 import homeTools from '@/components/homeTools'
 import homeContact from '@/components/homeContact'
 
@@ -24,9 +22,8 @@ export default {
 
   components: {
     homeHero,
-    homeBio,
+    homeAbout,
     homeProjects,
-    /* homeTravels, */
     homeTools,
     homeContact
   }

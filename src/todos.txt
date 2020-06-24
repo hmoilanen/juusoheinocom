@@ -45,9 +45,8 @@ BASE-BUTTON:
 ///////////////////////////////////////////////////////////////////////////
 R A N D O M:
 
-content.gallery[maa].info
-
-name-en: ,
-name-fi: ,
-coords: { lat: 0, lng: 0 },
-year: ,
+-muuta appActions api-kansiosta utils-kansioon -> tiedostonimi: prototype.js
+  -sirrä tänne myös apiActions-filusta isLogged()
+    -siirrä ko. state pois auth-modulista / app-moduliin
+    -> muuta riippuvaisuudet kaikkialla!
+-muuta .js -filut kaikki niin että niissä käytetään ;-merkkiä asianmukaisesti!

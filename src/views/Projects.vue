@@ -1,28 +1,28 @@
 <template>
   <base-view class="view-projects">
-    <template v-if="projects.intro">
-      <base-title>{{ projects.intro.title }}</base-title>
-      <base-text>{{ projects.intro.text }}</base-text>
-    </template>
+    <template v-if="!$app.isLoading()">
+      <editable-content path="projects.main" #default="{ content }">
+        <base-title>{{ content[`title-${$app.locale()}`] }}</base-title>
+        <base-text>{{ content[`text-${$app.locale()}`] }}</base-text>
+      </editable-content>
     
-    <base-button
-      v-if="$api.isLogged()"
-      @click="addProject"
-    >{{ this.buttonText }}</base-button>
-    <projects-item
-      v-for="(project, key) in projects.projects"
-      :key="key"
-      :item="project"
-      @click.native="showcaseProject(key)"
-    ></projects-item>
-      <!-- :item="{ project: project, key: key }" -->
+      <base-button @click="addProject">{{ this.buttonText }}</base-button>
+      <projects-item
+        v-for="(project, key) in projects"
+        :key="key"
+        :item="project"
+        @click.native="showcaseProject(key)"
+      ></projects-item>
+        <!-- :item="{ project: project, key: key }" -->
 
-    <projects-project v-if="$route.name === 'project'"></projects-project>
+      <projects-project v-if="$route.name === 'project'"></projects-project>
+    </template>
   </base-view>
 </template>
 
 
 <script>
+import editableContent from '@/components/editableContent'
 import projectsItem from '@/components/projectsItem'
 import projectsProject from '@/components/projectsProject'
 import { isImage } from '@/utils/regex'
@@ -31,19 +31,35 @@ export default {
   name: 'viewProjects',
 
   components: {
+    editableContent,
     projectsItem,
     projectsProject
   },
 
+  /* created() {
+    setTimeout(() => {
+      let projects = this.$store.state.content.projects
+      for (let project in projects) {
+        projects[project].link = ''
+        projects[project]['subtitle-en'] = ''
+        projects[project]['subtitle-fi'] = ''
+        console.log('projects[project]', projects[project]);
+        
+        this.$api.setDocument('projects', project, projects[project])
+      }
+    }, 10000);
+  }, */
+
   computed: {
     projects() {
-      let locale = this.$store.state.app.locale
+      let locale = this.$app.locale()
       if (!this.$store.state.app.isLoading) {
-        let { intro, ...projects } = this.$store.state.content.projects
-        return {
-          intro: intro[locale],
+        let { main, ...projects } = this.$store.state.content.projects
+        return projects
+        /* return {
+          main: main[locale],
           projects: projects
-        }
+        } */
       }
       return {}
     },
@@ -61,8 +77,9 @@ export default {
     },
 
     addProject() {
-      let { intro, ...projects } = this.$store.state.content.projects
-      let ids = Object.keys(projects)
+      //let { main, ...projects } = this.$store.state.content.projects
+      //let ids = Object.keys(projects.projects)
+      let ids = Object.keys(this.projects)
       let data = {
         'title-en': '',
         'title-fi': '',
@@ -75,8 +92,8 @@ export default {
       // If there is at least one project in database, create data object based on it.
       if (ids.length > 0) {
         data = {}
-        for (let key in projects[ids[0]]) {
-          data[key] = isImage.test(projects[ids[0]][key]) ? '.png' : ''
+        for (let key in this.projects[ids[0]]) {
+          data[key] = isImage.test(this.projects[ids[0]][key]) ? '.png' : ''
         }
       }
 

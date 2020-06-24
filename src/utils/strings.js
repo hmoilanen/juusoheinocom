@@ -1,5 +1,10 @@
 import { forSnakeCaseHyphens } from '@/utils/regex'
 
+export const upperCaseFirstLetter = function(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1)
+  //HUOM! PITÄSKÖ TÄTÄ KÄYTTÄÄ MYÖS NOISSA ALEMMMISSA?!?!?! TSEKKAA MYÖHEMMIN KOODIN SVOAMISEN YHTEYDESSÄ!
+}
+
 export const intoKebabCase = function(snakeCaseString) {
   const regex = forSnakeCaseHyphens;
   let convert =  function(matches) {

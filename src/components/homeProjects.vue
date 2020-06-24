@@ -1,23 +1,31 @@
 <template>
   <div class="home-projects">
-    <base-title>Projects</base-title>
-    <base-text m-b="l">Some projects I've done or taken part of. (VIIMEISTELE!)</base-text>
+    <editable-content path="home.projects" #default="{ content }">
+      <base-title>{{ content[`title-${$app.locale()}`] }}</base-title>
+      <base-link to="projects">{{ content[`link-${$app.locale()}`] }}</base-link>
+    </editable-content>
     
     <div class="grid" :style="styling">
       <div
         class="card"
-        v-for="(card, index) in 5"
-        :key="index"
+        v-for="(project, key) in projects"
+        :key="key"
       >
-        <span>card-{{ index + 1 }}</span>
+        <base-bg :source="bgSource(key, project.bg)" posY="top"></base-bg>
+        <!-- <base-title :center="true">{{ project['title-' + $app.locale()] }}</base-title> -->
+        <!-- <span>{{ project }}</span> -->
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import editableContent from '@/components/editableContent'
+
 export default {
   name: 'homeProjects',
+
+  components: { editableContent },
 
   data() {
     return {
@@ -25,6 +33,13 @@ export default {
   },
 
   computed: {
+    projects() {
+      if (!this.$app.isLoading()) {
+        let { intro, ...projects } = this.$store.state.content.projects
+        return projects
+      } else return null
+    },
+
     styling() {
       // HUOM! LAITA LOPUKSI GAP SYNKKAAMAAN base-view:N PADDINGIN KOON KANSSA!!!
       // HUOM! LAITA LOPUKSI GAP SYNKKAAMAAN base-view:N PADDINGIN KOON KANSSA!!!
@@ -41,6 +56,13 @@ export default {
         gridGap: gap + 'rem'
       }
     }
+  },
+
+  methods: {
+    bgSource(key, imageName) {
+      let imageURL = this.$store.getters['app/GET_URL'].imageURL
+      return `${imageURL}projects/${key}/${imageName}`
+    }
   }
 }
 </script>
@@ -56,12 +78,15 @@ export default {
   }
   
   .card {
+    position: relative;
+    height: 0;
+    padding-bottom: 56.25%;
     // DUMMY-TYYLIT -> VAHTUU / POSTUU!!
-    display: flex;
+    /* display: flex;
     align-items: center;
     justify-content: center;
     height: 50vh;
-    background: $app-color--hl;
+    background: $app-color--hl; */
   }
 }
 </style>
