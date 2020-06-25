@@ -22,7 +22,7 @@ export default {
 
   externals: [
     { title: 'Github', icon: 'github', link: 'https://github.com/' }, //HUOM! PÄIVITÄ LINKKI KUN TILI LUOTU
-    { title: 'LinkdIn', icon: 'linkedin', link: 'https://www.linkedin.com/in/heinojuuso/' },
+    { title: 'LinkedIn', icon: 'linkedin', link: 'https://www.linkedin.com/in/heinojuuso/' },
     { title: 'Constlet', icon: 'constlet', link: 'https://constlet.com' }
   ],
 

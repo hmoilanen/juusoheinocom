@@ -28,8 +28,7 @@ export default {
   components: { editableContent },
 
   props: {
-    titleSize: [String, Number],
-    //textSize: [String, Number]
+    titleSize: [String, Number]
   },
 
   data() {

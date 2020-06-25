@@ -102,23 +102,27 @@ $link-font: $app-font--link;
 .base-link {
   @extend %clickable;
 
-  &::v-deep > * { color: inherit !important; } // for child custom components
+  //&::v-deep > * { color: inherit !important; } // for child custom components
 
   &.style-set-0 {
-    font-size: 1.05em;
-    font-weight: 700;
-    font-family: $link-font;
-    color: $link-color;
+    //font-size: 1.05em;
+    //font-weight: 700;
+    //font-family: $link-font;
+    //color: $link-color;
     text-decoration: none;    
 
     &:hover {
-      color: $link-color--hover !important;
-      border-bottom-color: $link-color--hover; // TÄMÄ ON STYLE_SET -KAMAA!
-      text-decoration: underline;
+      //color: $link-color--hover !important;
+      color: initial;
+      //border-bottom-color: $link-color--hover; // TÄMÄ ON STYLE_SET -KAMAA!
+      //text-decoration: underline;
     }  
-    &:link { color: $link-color; } // unvisited link
-    &:visited { color: $link-color; } // visited link
-    &:active { color: $link-color--hover; } // link on click
+    //&:link { color: $link-color; } // unvisited link
+    &:link { color: initial; } // unvisited link
+    //&:visited { color: $link-color; } // visited link
+    &:visited { color: initial; } // visited link
+    //&:active { color: $link-color--hover; } // link on click
+    &:active { color: initial; } // link on click
   }
 }
 </style>

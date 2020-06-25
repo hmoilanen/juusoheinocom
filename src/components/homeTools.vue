@@ -4,7 +4,9 @@
       <editable-content path="home.tools.main" #default="{ content }">
         <base-title :size="titleSize">{{ content[`title-${$app.locale()}`] }}</base-title>
         <base-text :size="textSize">{{ content[`text-${$app.locale()}`] }}</base-text>
-        <base-text>* = {{ content[`nb-${$app.locale()}`] }}</base-text>
+        <base-title :size="4" m-t="m">
+          <span>*</span> = {{ content[`nb-${$app.locale()}`] }}
+        </base-title>
       </editable-content>
       <base-wrapper maxWidth="medium">
         <div class="grid">
@@ -57,28 +59,30 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$color--tools-asterisk: $app-color--hl;
+
 .home-tools {
   .grid {
     margin-top: 2rem; //POISTUU!!
-
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     grid-gap: 0.6rem;
   }
-
   .tool {
     position: relative;
-    //overflow: hidden;
     width: 70px;
-    //eight: 70px;
-    //border: 1px solid rgb(230, 230, 230);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     .base-icon {
       margin-bottom: 0.5rem;
-      //opacity: 0.7;
+    }
+  }
+  .base-title {
+    span {
+      font-size: 1.3em;
+      color: $color--tools-asterisk;
     }
   }
 }

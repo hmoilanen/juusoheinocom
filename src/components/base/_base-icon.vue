@@ -8,6 +8,7 @@
     :aria-labelledby="icon"
     role="presentation"
     class="base-icon"
+    :class="classing"
     :style="mixinMargins"
     v-on="listeners"
   >
@@ -41,6 +42,7 @@ export default {
     },
     size: [Number, String],
     tooltip: String,
+    clickable: Boolean
   },
 
   data() {
@@ -59,6 +61,12 @@ export default {
 
     listeners () {
       return { ...this.$listeners }
+    },
+
+    classing() {
+      return {
+        clickable: this.clickable
+      }
     }
   },
 
@@ -75,11 +83,14 @@ export default {
     iconJava: () => import("@/components/icons/iconJava"),
     iconJavascript: () => import("@/components/icons/iconJavascript"),
     iconJest: () => import("@/components/icons/iconJest"),
+    iconLocked: () => import("@/components/icons/iconLocked"),
+    iconLove: () => import("@/components/icons/iconLove"),
     iconPhotoshop: () => import("@/components/icons/iconPhotoshop"),
     iconQuote: () => import("@/components/icons/iconQuote"),
     iconReact: () => import("@/components/icons/iconReact"),
     iconSass: () => import("@/components/icons/iconSass"),
     iconSql: () => import("@/components/icons/iconSql"),
+    iconUnlocked: () => import("@/components/icons/iconUnlocked"),
     iconVue: () => import("@/components/icons/iconVue"),
     iconXd: () => import("@/components/icons/iconXd"),
 
@@ -143,6 +154,9 @@ export default {
 
 <style lang="scss">
 svg.base-icon {
+  &.clickable { @extend %clickable; }
+
+  //PITÄISIKÖ NÄMÄ KAIKKI SIIRTÄÄ MUUALLE / ITSE IKONI-FILUIHIN?!?!?!
   g[fill="juusoheino"] {
     #base-icon--color-juusoheino-main { fill: $app-color--main; }
     #base-icon--color-juusoheino-hl { fill: $app-color--hl; }

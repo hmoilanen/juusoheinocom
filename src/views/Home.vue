@@ -4,14 +4,13 @@
       <home-hero></home-hero>
     </template>
     <base-spacer :size="30">
+      <home-projects
+        :titleSize="titleSize"
+      ></home-projects>
       <home-about
         :titleSize="titleSize"
         :textSize="textSize"
       ></home-about>
-      <home-projects
-        :titleSize="titleSize"
-        :textSize="textSize"
-      ></home-projects>
       <home-tools
         :titleSize="titleSize"
         :textSize="textSize"

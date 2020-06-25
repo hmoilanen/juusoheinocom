@@ -1,15 +1,20 @@
 <template>
   <div class="app-footer" ref="footer">
-    <div class="routes">
+    <base-flex class="routes" :column="true">
+      <base-title :size="8">Go to</base-title>
       <base-link
         v-for="(link, index) in links.routes"
         :key="index"
         :to="link.path"
         mode="router"
       >{{ link.title }}</base-link>
-    </div>
+    </base-flex>
 
-    <div class="links">
+
+
+
+    <base-flex class="links" :column="true">
+      <base-title :size="8">See also</base-title>
       <base-link
         v-for="(link, index) in links.externals"
         :key="index"
@@ -17,13 +22,34 @@
         mode="tab"
       >
         <base-icon :size="12">{{ link.icon }}</base-icon>
+        <base-text>{{ link.title }}</base-text>
       </base-link>
-    </div>
+    </base-flex>
+
+
 
     <div class="legal">
-      <span>{{ this.official.watermark }}. Made with <span class="heart"> &#10085;</span></span>
+      <!-- <span>{{ this.official.watermark }}. Made with <span class="heart"> &#10085;</span></span> -->
+      <base-icon app="juusoheino" size="xl">juusoheino</base-icon>
+      <span>{{ this.official.watermark }}. Made with </span>
+      <base-icon class="love" :size="6">love</base-icon>
       <!-- <span>{{ this.official.disclaimer }}</span> -->
     </div>
+
+
+
+    <base-flex center="y" mT="m" mB="s">
+      <base-text
+        @click="copyEmail('jhcom-email')"
+        :clickable="true"
+        :size="7"
+        :weight="700"
+      >{{ this.email }}</base-text>
+      <input id="jhcom-email" type="hidden" :value="email">
+      <!-- <base-text v-if="showCopied" mL="l" :mT="1.5">Copied!</base-text> -->
+    </base-flex>
+
+
 
     <!-- TEE TÄMÄ JOTENKIN HIENOMMIN!!! -->
     <base-flex
@@ -36,15 +62,29 @@
       <base-icon icon="up" :size="6" mL="s"></base-icon>
     </base-flex>
 
-    <base-button @click="logging">{{ this.$api.isLogged() ? 'logout' : 'login' }}</base-button>
+
+
+    <base-icon
+      @click="logging"
+      :icon="$api.isLogged() ? 'unlocked' : 'locked'"
+      :clickable="true"
+    ></base-icon>
   </div>
 </template>
 
 <script>
 import { navLinks } from '@/utils/navigation'
+import { copyToClipboard, scrollToTop } from '@/utils/exec'
 
 export default {
   name: 'appFooter',
+
+  data() {
+    return {
+      email: 'email is pending...',
+      emailCopied: false
+    }
+  },
 
   mounted() {
     this.calcFooterHeight()
@@ -53,6 +93,19 @@ export default {
     this.$on('hook:beforeDestoy', () => {
       window.removeEventListener('resize', this.calcFooterHeight)
     })
+  },
+
+  watch: {
+    '$store.state.app.isLoading': { // This is for bluffing crawlers
+      immediate: true,
+      handler(newValue) {
+        if (!newValue) {
+          setTimeout(() => {
+            this.email = this.official.email
+          }, 3000);
+        }
+      }
+    }
   },
 
   computed: {
@@ -70,67 +123,39 @@ export default {
 
   methods: {
     calcFooterHeight() {
-      // store footer's height for ui adjustments
+      // Store footer's height for ui adjustments
       let footerHeight = this.$refs.footer.offsetHeight
       if (footerHeight) {
         this.$store.dispatch('SET_STATE', { data: footerHeight, path: 'ui.footerHeight' })
       }
     },
 
-    /* goTo(to) {
-      // TODO!: TEE TÄSTÄ UTIL ?!?!
-      if (to === '/support') {
-        this.$router.push(to)
-      } else this.$router.push({ name: to })
-    }, */
-
     logging() {
       let isLogged = this.$api.isLogged()
       if (isLogged) {
-        //this.$api.logout()
         this.$store.dispatch('modals/SET_MODAL', { active: 'logout' })
       } else {
-        //this.$api.login('mail@juusoheino.com', 'qwerty')
         this.$store.dispatch('modals/SET_MODAL', { active: 'login' })
       }
     },
 
-    returnToTop() {
-      let scrollDuration = 500
-      let cosParameter = window.scrollY / 2
-      let scrollCount = 0
-      let oldTimestamp = performance.now()
+    copyEmail(id) {
+      if (!this.emailCopied && this.email !== 'email is pending...') {
+        copyToClipboard(id)
 
-      function step(newTimestamp) {
-        scrollCount +=
-          Math.PI / (scrollDuration / (newTimestamp - oldTimestamp))
-        if (scrollCount >= Math.PI) window.scrollTo(0, 0)
-        if (window.scrollY === 0) return
-        window.scrollTo(
-          0,
-          Math.round(cosParameter + cosParameter * Math.cos(scrollCount))
-        )
-        oldTimestamp = newTimestamp
-        window.requestAnimationFrame(step)
+        this.emailCopied = true
+        this.email += ' - copied!'
+
+        setTimeout(() => {
+          this.emailCopied = false
+          this.email = this.official.email
+        }, 3000)
       }
+    },
 
-      window.requestAnimationFrame(step)
+    returnToTop() {
+      scrollToTop()
     }
-    /*
-      See: https://stackoverflow.com/questions/21474678/scrolltop-animation-without-jquery
-
-      Explanations:
-      - pi is the length/end point of the cosinus intervall (see above)
-      - newTimestamp indicates the current time when callbacks queued by requestAnimationFrame begin to fire.
-        (for more information see https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame)
-      - newTimestamp - oldTimestamp equals the duration
-
-        a * cos (bx + c) + d                      | c translates along the x axis = 0
-      = a * cos (bx) + d                          | d translates along the y axis = 1 -> only positive y values
-      = a * cos (bx) + 1                          | a stretches along the y axis = cosParameter = window.scrollY / 2
-      = cosParameter + cosParameter * (cos bx)    | b stretches along the x axis = scrollCount = Math.PI / (scrollDuration / (newTimestamp - oldTimestamp))
-      = cosParameter + cosParameter * (cos scrollCount * x)
-    */
   }
 }
 </script>
@@ -153,12 +178,25 @@ $footer-color: $app-color--theme;
     & > * { display: block; }
   }
   .links {
-    & > *:not(:last-child) { margin-right: 1rem; }
+    //& > *:not(:last-child) { margin-right: 1rem; }
+    a {
+      display: flex;
+      align-items: center;
+      .base-icon { margin-right: 0.4rem; }
+    }
   }
   .legal {
-    .heart {
-      display: inline-block;
-      transform: rotate(90deg);
+    .base-icon.love {
+      transition: transform 0.3s ease;
+      animation: pulse 1.6s infinite;
+
+    }
+    @keyframes pulse {
+      0%, 34% { transform: scale(1); }
+      35% { transform: scale(1.01); }
+      50% { transform: scale(1.25); }
+      65% { transform: scale(1.01); }
+      66%, 100% { transform: scale(1); }
     }
   }
 }

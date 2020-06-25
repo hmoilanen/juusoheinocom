@@ -22,9 +22,6 @@
           <base-text>{{ this.GET_OFFICIAL.watermark }}. Made with <span class="heart"> &#10085;</span></base-text>
           <base-loader></base-loader>
         </div>
-
-
-
       </div>
     </transition>
 
@@ -37,15 +34,6 @@
 </template>
 
 <script>
-// KUN TARPEEKSI KAPEA NÄYTTÖ -> PERUSLINKIT MENEE PIILOON JA MENU-IKONI TULEE TILALLE
-// LUUPPAA DROPDOWNIIN SAMAT LINKIT KUIN PERUSTILASSA
-// KORVAA MENU-IKONI ÄXÄLLÄ KUN DROPDOWN ON AUKI
-// POISTA "PASKA"-LUOKKA TAI NIMEÄ UUDELLEEN
-// TOTEUTA HTML NIIN, ETTÄ DROPDOWN-CONTAINER ON height:0 / overflow:hidden JA SIJOITETTU VARSINAISEN NAVIN ALAREUNAAN -> VÄLTTYY HÄKSYILTÄ MUUN NAVIN KANSSA
-// DROPDOWNIN KORKEUS TULEE MÄÄRITTYÄ SEN SIÄLLÖN PERUSTEELLA -> MÄÄRITÄ KUITENKIN min- JA max-height !!!
-
-// TEE ERILLINEN INTROANIMAATIO -> TAUSTAVÄRI FEIDAANTUU / TULEE NÄKYVIIN KKUN SKROLLATAAN, TMS
-
 import { mapState, mapGetters } from 'vuex'
 import { navLinks } from '@/utils/navigation'
 import menuToggler from '@/components/menuToggler'
