@@ -117,7 +117,7 @@ export default {
 
 <style lang="scss" scoped>
 .base-flex {
-  display: flex;
+  display: flex !important;
   & > *[flex-1] { flex: 1; }
   & > *[shrink-0] { flex-shrink: 0; }
 }

@@ -38,15 +38,14 @@ export default {
       let maxWidth = false
       let maxWidthDefault = 1200
       let padding = false
+      let widths = Object.keys(this.$store.state.ui.contentWidth)
 
       if (this.maxWidth) {
         if (typeof this.maxWidth === 'boolean') {
           maxWidth = ui.contentWidth.max + 'px' || maxWidthDefault + 'px'
         } else if (typeof this.maxWidth === 'string') {
-          if (this.maxWidth === 'paragraph') {
-            maxWidth = ui.contentWidth.paragraph + 'px'
-          } else if (this.maxWidth === 'medium') {
-            maxWidth = ui.contentWidth.medium + 'px'
+          if (widths.indexOf(this.maxWidth !== -1)) {
+            maxWidth = ui.contentWidth[this.maxWidth] + 'px'
           } else {
             maxWidth = this.maxWidth
           }

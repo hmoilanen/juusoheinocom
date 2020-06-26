@@ -11,7 +11,7 @@
   //darkMode: false,
   footerHeight: 0,
   navTopDisplayed: true,
-  navTopHeight: 70,
+  navTopHeight: 60,
   //navLeftDisplayed: true,
   //navLeftWidth: 160,
   //navRightDisplayed: true,

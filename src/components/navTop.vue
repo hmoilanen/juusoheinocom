@@ -10,7 +10,7 @@
           mode="router"
           @click.native="toggle"
         >
-          <base-title size="xl">{{ link.title }}</base-title>
+          <base-title :class="{ active: isActiveRoute(link.name) }" size="xl">{{ link.title }}</base-title>
         </base-link>
         <!-- <base-title
           v-for="(link, index) in navLinks"
@@ -75,6 +75,10 @@ export default {
   },
 
   methods: {
+    isActiveRoute(linkName) {
+      return linkName === this.$route.name
+    },
+
     swapLocale() { //POISTUU!!
       let localeState = this.$store.state.app.locale === 'en'
         ? 'fi'
@@ -293,6 +297,8 @@ export default {
 
 $nav-top--padding-sides: 1rem;
 $nav-top-dropdown--color-background: $app-color--main;
+$nav-top-dropdown--color-highlight: $app-color--hl;
+$nav-top-dropdown--color-highlight2: $app-color--hl2;
 $nav-top-dropdown--animation-duration: 0.3s;
 
 .nav-top {
@@ -304,7 +310,7 @@ $nav-top-dropdown--animation-duration: 0.3s;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.25);
 
   .menu {
     position: absolute;
@@ -314,8 +320,12 @@ $nav-top-dropdown--animation-duration: 0.3s;
     height: 100vh;
     //padding-top: ; // see: this.styling.dropdown
     //background: $app-color--main;
-    background: transparentize($nav-top-dropdown--color-background, 0.05);
+    background: transparentize($nav-top-dropdown--color-background, 0.03);
     transition: transform $nav-top-dropdown--animation-duration cubic-bezier(.09,.58,.36,1);
+    .base-title {
+      &:hover { color: $nav-top-dropdown--color-highlight2; }
+      &.active { color: $nav-top-dropdown--color-highlight; }
+    }
 
     //POSTIUU!!
     display: flex;
@@ -325,7 +335,7 @@ $nav-top-dropdown--animation-duration: 0.3s;
   }
 
   .base-icon { position: relative; }
-  .base-title { color: white !important; } //POISTUU!
+  .base-title { color: white; } //POISTUU!
 
   .dropdown-nav {
     /* z-index: -1;

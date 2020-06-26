@@ -38,7 +38,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$color--icon-quote: transparentize($app-color--hl, 0.75);
+$color--icon-quote: $app-color--hl2;
 
 .home-about {
   min-height: 50vh;

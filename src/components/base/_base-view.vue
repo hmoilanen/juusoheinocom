@@ -1,3 +1,4 @@
+
 <template>
   <div class="base-view" :style="styling.root">
     <slot name="hero"></slot>
@@ -52,9 +53,6 @@ export default {
         contentMinHeight -= footerHeight 
       }
 
-      /* if (breakpoint.index === 1) { padding = 32 } // = 'm'
-      else if (breakpoint.index === 2) { padding = 64 } // = 'l'
-      else if (breakpoint.index >= 3) { padding = 96 } // = 'xl' */
       if (breakpoint.index === 1) { padding *= 2 } // = 'm'
       else if (breakpoint.index === 2) { padding *= 4 } // = 'l'
       else if (breakpoint.index >= 3) { padding *= 6 } // = 'xl'

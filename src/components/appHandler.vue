@@ -10,14 +10,14 @@
 
 export default {
   async beforeCreate() {
-    // get data from firebase    
+    // Get data from firebase    
     await Promise.all([
       this.$api.getData('text', null, 'content'),
-      //this.$api.getData('images', null, 'content'),
       this.$api.getData('home', null, 'content'),
       this.$api.getData('contact', null, 'content'),
       this.$api.getData('projects', null, 'content'),
       this.$api.getData('gallery', null, 'content'),
+      this.$api.getData('footer', null, 'content'),
       this.$api.getData('meta', null, 'content')
     ])
 
