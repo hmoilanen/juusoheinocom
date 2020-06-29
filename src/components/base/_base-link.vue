@@ -29,7 +29,10 @@ export default {
     },
     mode: {
       type: String,
-      default: 'router' // '' = default <a/> / 'tab' =  <a/> + new tab / 'router' = <router-link/>
+      default: 'router', // '' or 'a' = default <a/> / 'tab' =  <a/> + new tab / 'router' = <router-link/>
+      validator(prop) {
+        return ['', 'a', 'tab', 'router'].indexOf(prop) !== -1
+      }
     },
     display: String
   },

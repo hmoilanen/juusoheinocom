@@ -37,7 +37,10 @@ export default [
       {
         path: ':id',
         name: 'project',
-        component: () => import('@/components/projectsProject')
+        component: () => import('@/components/projectsProject'),
+        /* meta: {
+          preventBodyScrolling: true
+        } */
       }
     ]
   },

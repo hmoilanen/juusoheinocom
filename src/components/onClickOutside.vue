@@ -10,6 +10,11 @@ export default {
 
   mounted () {
     const listener = event => {
+      const target = event.target
+      const el = this.$el
+      console.log('target', target);
+      console.log('el', el);
+      
       if (event.target === this.$el || this.$el.contains(event.target)) {
         return
       } else {

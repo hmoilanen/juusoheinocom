@@ -77,10 +77,12 @@ export default {
         position: this.position,
         backgroundImage: `url(${source})`,
         backgroundSize: this.fit, // 'cover' / 'contain'
-        backgroundPositionY:
-          this.parallax && !this.steady
-            ? this.offsetY * this.parallaxAmount + 'px'
-            : this.posY,
+        backgroundPositionX: this.posX
+          ? this.posX
+          : false,
+        backgroundPositionY: this.parallax && !this.steady
+          ? this.offsetY * this.parallaxAmount + 'px'
+          : this.posY,
         backgroundAttachment: this.steady ? 'fixed' : this.posX
       }
     }

@@ -1,13 +1,21 @@
 <template>
   <div
+    ref="outer"
     class="contact-link"
     :class="classing"
+    :style="[styling.outer, cssVars]"
     @mouseenter="expand"
     @mouseleave="expand(false)"
     @click="goToContact"
   >
-    <base-icon size="xl">contact</base-icon>
-    <base-text v-if="expanded" size="s">contact me</base-text>
+    <base-icon ref="icon" :style="styling.icon" size="xl">contact</base-icon>
+    <transition name="emerge">
+      <base-text
+        v-show="expanded"
+        ref="inner"
+        size="s"
+      >{{ this.text }}</base-text>
+    </transition>
   </div>
 </template>
 
@@ -18,8 +26,20 @@ export default {
   data() {
     return {
       expanded: false,
-      hidden: false
+      hidden: false,
+      height: 48, // = px
+      widthInner: 0,
+      widthIcon: 0,
+      animationDuration: 0.4,
+      animationDelay: 0.2
     }
+  },
+
+  mounted() {
+    this.widthIcon = this.$refs.icon.$el.getBoundingClientRect().width
+    this.$on('hook:updated', () => {
+      this.widthInner = this.$refs.inner.$el.offsetWidth  
+    })
   },
 
   watch: {
@@ -36,10 +56,45 @@ export default {
   },
 
   computed: {
+    text() {
+      return this.$app.isLoading()
+        ? ''
+        : this.$store.state.content.contact.link[this.$app.locale()]
+    },
+
     classing() {
       return {
         expanded: this.expanded,
         hidden: this.hidden
+      }
+    },
+
+    styling() {
+      let padding = this.height * 0.5
+
+      return {
+        outer: {
+          height: `${this.height}px`,
+          width: this.expanded
+            ? `${padding + padding + this.widthInner + (padding - (this.widthIcon / 3))}px`
+            : `${this.height}px`,
+          paddingLeft: this.expanded
+            ? false
+            : `${padding * 2}px`,
+          transition: this.expanded
+            ? `width ${this.animationDuration}s ease`
+            : `width ${this.animationDuration}s ease ${this.animationDelay}s`
+        },
+        icon: {
+          left: `${padding - (this.widthIcon / 2)}px`
+        }
+      }
+    },
+
+    cssVars() {
+      return {
+        '--animation-emerge--duration': this.animationDuration + 's',
+        '--animation-emerge--delay': this.animationDelay + 's'
       }
     }
   },
@@ -63,44 +118,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$contact-link--colour-bg: $app-color--hl;
-$link-height: 48px;
+$contact-link--color: $app-color--theme;
+$contact-link--color-bg: $app-color--hl;
 
 .contact-link {
+  // width / height / padding-left / transition: see, this.styling
+  overflow: hidden;
   position: fixed;
   right: 1rem;
   bottom: 1rem;
-  //width: $link-height;
-  width: auto;
-  height: $link-height;
-  //border-radius: calc(#{$link-height} / 2);
-  padding: 0 calc(#{$link-height} / 2);
   display: flex;
   align-items: center;
   @extend %clickable;
-  background: $contact-link--colour-bg;
-  color: white;
-  transition: width 1s ease;
-
-  .base-icon {
-    position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    //stroke: blue;
-    //stroke-width: .5em;
-  }
-  .base-text {
-    margin-left: 1rem;
-  }
-
-  &.expanded {
-    //background: orange;
-    //width: 
-  }
-
+  background: $contact-link--color-bg;
+  color: $contact-link--color;
   &.hidden {
     opacity: 0;
     @extend %disabled;
   }
+  .base-icon {
+    // left: see, this.styling
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .base-text {
+    white-space: nowrap;
+    font-weight: 700;
+    color: $contact-link--color;
+  }
+}
+
+.emerge-enter {
+  transform: translateY(-200%);
+  opacity: 0;
+}
+.emerge-leave-to {
+  transform: translateY(200%);
+  opacity: 0;
+}
+.emerge-enter-active {
+  //transition: all var(--animation-emerge--duration) ease var(--animation-emerge--duration);
+  transition: all var(--animation-emerge--duration) ease var(--animation-emerge--delay);
+}
+.emerge-leave-active {
+  transition: all var(--animation-emerge--duration) ease;
 }
 </style>

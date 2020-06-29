@@ -99,7 +99,7 @@ export default {
     this.calcFooterHeight()
 
     window.addEventListener('resize', this.calcFooterHeight)
-    this.$on('hook:beforeDestoy', () => {
+    this.$once('hook:beforeDestroy', () => {      
       window.removeEventListener('resize', this.calcFooterHeight)
     })
   },

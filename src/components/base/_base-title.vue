@@ -27,7 +27,8 @@ export default {
       default: 'h2'
     },
     center: Boolean, // for css
-    truncate: Boolean // for css
+    truncate: Boolean, // for css
+    //main: Boolean // about styling
   },
 
   data() {
@@ -54,7 +55,8 @@ export default {
       return {
         [`style-set-${this.dynamicStyleSet}`]: true, // see: utils/mixins.js
         truncate: this.truncate,
-        center: this.center
+        center: this.center,
+        main: this.main
       }
     },
 
@@ -86,6 +88,17 @@ $title-indicator-width: 0.2em;
   &.break-word { word-break: break-all; }
   &.truncate { @extend %truncate; }
   &.center { text-align: center; }
+  
+  /* &.main {
+    &::before {
+      content: "";
+      position: relative;
+      top: 50%;
+      width: 50px;
+      height: 5px;
+      background: black;
+    }
+  } */
 
   &.style-set-0 {
     font-weight: 900;

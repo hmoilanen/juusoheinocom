@@ -50,6 +50,18 @@ export default {
     }, 10000);
   }, */
 
+  /* watch: {
+    '$route': {
+      immediate: true,
+      deep: true,
+      handler(newValue) {
+        //return newValue
+        console.log(newValue);
+        
+      }
+    }
+  }, */
+
   computed: {
     projects() {
       let locale = this.$app.locale()

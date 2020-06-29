@@ -1,28 +1,49 @@
 <template>
-  <base-flex class="projects-project" :column="true" center="xy">
+  <div class="projects-project">      
     <base-loader v-if="loading"></base-loader>
-
     <template v-else>
       <editable-content :path="dynamicPath" #default="{ content }">
-        <base-bg :source="dynamicImage(content.bg)"></base-bg>
-        <base-image :src="dynamicImage(content.bg)"></base-image>
-        <base-title>PROJECT: {{ content['title-' + locale] }}</base-title>
-        <base-text>TEXT: {{ content['text-' + locale] }}</base-text>
-        <br>
-        <base-text>{{ content }}</base-text>
+        
+        <content-carousel :amount="3">
+          <base-image
+            v-for="(image, index) in 5"
+            :key="index"
+            :src="dynamicImage(content.bg)"
+          ></base-image>
+        </content-carousel>
+
+        <base-wrapper maxWidth="max" :padding="true">
+          
+          <!-- <base-title :size="48" m-t="xl">{{ content['title-' + locale] }}</base-title> -->
+          <base-title :size="40" m-t="xl">{{ content['title-' + locale] }}</base-title>
+          <base-title :size="12" m-b="l">{{ content['subtitle-' + locale] }}</base-title>
+          <base-button @click="goBack" m-t="l">back</base-button>
+          <base-flex>
+            <base-text>{{ content.year }}</base-text>
+            <base-link mode="tab" :to="content.link">
+              <base-icon>link</base-icon>
+            </base-link>
+          </base-flex>
+          <base-text>{{ content['text-' + locale] }}</base-text>
+        </base-wrapper>
+
       </editable-content>
     </template>
-    <base-button @click="goBack" m-t="l">back</base-button>
-  </base-flex>
+  </div>
 </template>
 
 <script>
+import store from '@/store/index'
 import editableContent from '@/components/editableContent'
+import contentCarousel from '@/components/contentCarousel'
 
 export default {
   name: 'projectsProject',
 
-  components: { editableContent },
+  components: {
+    editableContent,
+    contentCarousel
+  },
 
   data() {
     return {
@@ -35,6 +56,13 @@ export default {
   created() {
     this.routeName = this.$route.matched[0].name
     this.projectId = this.$route.params.id
+
+    const path = 'ui.preventBodyScrolling'
+
+    this.$store.dispatch('SET_STATE', { path: path, data: true })
+    this.$on('hook:beforeDestroy', () => {
+      this.$store.dispatch('SET_STATE', { path: path, data: false })
+    })
   },
 
   watch: {
@@ -73,16 +101,16 @@ export default {
 
 <style lang="scss" scoped>
 .projects-project {
+  position: relative;
+  overflow-y: auto;
 
   //POIISTUU!!
   @extend %absolute-0000;
   position: fixed;
-  background: pink;
-  opacity: 0.95;
-  .base-image {
-    opacity: 0.7;
+  background: rgba(255, 255, 255, 0.98);
+  /* .base-image {
     width: 200px;
     border: 2px solid red;
-  }
+  } */
 }
 </style>

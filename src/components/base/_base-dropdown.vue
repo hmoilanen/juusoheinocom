@@ -1,5 +1,5 @@
 <template>
-  <on-click-outside :do="close">
+  <!-- <on-click-outside :do="close"> -->
     <div ref="container" class="base-dropdown" :class="classing" :style="[styling.root, mixinMargins]">
       <base-label v-if="label" :required="required">{{ this.label }}</base-label>
 
@@ -32,7 +32,7 @@
 
       <base-feedback v-if="feedback" :mT="2">{{ this.feedback }}</base-feedback>
     </div>
-  </on-click-outside>
+  <!-- </on-click-outside> -->
 </template>
 
 <script>
@@ -74,6 +74,7 @@ export default {
       type: String,
       default: 'Select...'
     },
+    clear: Boolean
     /* maxWidth: {
       type: String,
       default: '100%'
@@ -95,12 +96,24 @@ export default {
     }
   },
 
+  watch: {
+    clear: {
+      immdiate: true,
+      handler(newValue) {
+        if (newValue) {
+          this.selected = '',
+          this.activeIndex = 0
+        }
+      }
+    }
+  },
+
   methods: {
     close() {
       this.showDropdown = false
     },
 
-    toggle() {
+    toggle() {      
       this.showDropdown = !this.showDropdown
       if (this.showDropdown) {
         this.$nextTick(() => {
@@ -257,8 +270,8 @@ $dropdown-font--placeholder: $app-font--placeholder;
       svg {
         flex-shrink: 0;
         display: inline-block;
-        width: 1.1em;
-        height: 1.1em;
+        width: 0.8em;
+        height: 0.8em;
         @extend %rotate-0;
       }
     }

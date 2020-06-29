@@ -8,11 +8,11 @@
           path="contact.main"
           #default="{ content }"
         >
-          <base-title>{{ content[`title-${$app.locale()}`] }}</base-title>
+          <base-title size="xl">{{ content[`title-${$app.locale()}`] }}</base-title>
           <base-text m-b="l">{{ content[`text-${$app.locale()}`] }}</base-text>
         </editable-content>
         
-        <base-form>
+        <base-form v-if="!submitted">
           <base-spacer :size="14">
             <base-input
               v-model="inputName"
@@ -30,13 +30,13 @@
               :feedback="emailFeedback"
               :disabled="submitting"
             ></base-input>
-              <!-- :feedback="formContent.email.feedback[locale]" -->
             <base-dropdown
               :value="budgetCategories"
               @itemSelected="budgetSelected"
               :label="formContent.budget.label[locale]"
               :placeholder="formContent.budget.placeholder[locale]"
               :disabled="submitting"
+              :clear="submitted"
             ></base-dropdown>
             <base-textarea
               v-model="inputDescription"
@@ -45,19 +45,19 @@
               :placeholder="formContent.description.placeholder[locale]"
               :disabled="submitting"
               :maxLength="1000"
+              :rows="4"
             ></base-textarea>
 
             <base-button
-              v-if="!submitted"
               @click.prevent="submit"
               :disabled="!allowSubmit"
               :loading="!allowSubmit && submitting"
               size="l"
             >{{ formContent.submit[locale] }}</base-button>
             <!-- <base-feedback v-if="submitted !== null">{{ this.mainFeedback }}</base-feedback> -->
-            <base-feedback v-else>{{ this.mainFeedback }}</base-feedback>
           </base-spacer>
         </base-form>
+        <base-feedback v-else size="l">{{ this.mainFeedback }}</base-feedback>        
       </template>
 
     </base-wrapper>
@@ -65,6 +65,8 @@
 </template>
 
 <script>
+// reCaptcha, see: https://developers.google.com/recaptcha/docs/display
+
 import editableContent from '@/components/editableContent'
 import { mapState } from 'vuex'
 import { validateEmail } from '@/utils/regex'
@@ -83,7 +85,8 @@ export default {
       inputDescription: '',
       invalidEmail: false,
       submitting: false,
-      submitted: null // false -> error, true -> success, see: this.submit()
+      submitted: null, // false -> error, true -> success, see: this.submit()
+      clear: false
     }
   },
 

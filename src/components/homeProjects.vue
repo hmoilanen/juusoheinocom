@@ -1,8 +1,8 @@
 <template>
   <div class="home-projects">
     <editable-content path="home.projects" #default="{ content }">
-      <base-title :size="titleSize">{{ content[`title-${$app.locale()}`] }}</base-title>
-      <base-link to="projects">{{ content[`link-${$app.locale()}`] }}</base-link>
+      <base-title :size="titleSize" :main="true">{{ content[`title-${$app.locale()}`] }}</base-title>
+      <base-link to="projects">{{ content[`link-${$app.locale()}`] }} &#8594;</base-link>
     </editable-content>
     
     <div class="grid" :style="styling">
@@ -11,9 +11,18 @@
         v-for="(project, key) in projects"
         :key="key"
       >
-        <base-bg :source="bgSource(key, project.bg)" posY="top"></base-bg>
-        <!-- <base-title :center="true">{{ project['title-' + $app.locale()] }}</base-title> -->
-        <!-- <span>{{ project }}</span> -->
+        <base-link :to="{ name: 'project', params: { id: key } }">
+          <div class="bg">
+            <base-bg :source="bgSource(key, project.bg)" posX="center" posY="top"></base-bg>
+          </div>
+        </base-link>
+        <div class="info">
+          <base-title :size="8">{{ project['title-' + $app.locale()] }}</base-title>
+          <base-text>{{ project.year }}</base-text>
+        </div>
+        <base-link class="link" :to="{ name: 'project', params: { id: key } }">
+          <base-text>more &#8594;</base-text>
+        </base-link>
       </div>
     </div>
   </div>
@@ -39,7 +48,7 @@ export default {
   computed: {
     projects() {
       if (!this.$app.isLoading()) {
-        let { intro, ...projects } = this.$store.state.content.projects
+        let { main, ...projects } = this.$store.state.content.projects        
         return projects
       } else return null
     },
@@ -72,9 +81,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$card--color-link-hover: $app-color--hl;
 .home-projects {
   
   .grid {
+    margin-top: 2rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     // grid-gap, see: this.styling
@@ -82,15 +93,24 @@ export default {
   }
   
   .card {
-    position: relative;
-    height: 0;
-    padding-bottom: 56.25%;
-    // DUMMY-TYYLIT -> VAHTUU / POSTUU!!
-    /* display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 50vh;
-    background: $app-color--hl; */
+    .bg {
+      position: relative;
+      height: 0;
+      padding-bottom: 100%;
+    }
+    .info {
+      margin-top: 0.8rem;
+      margin-bottom: 0.2rem;
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+  }
+    
+  //.base-link:hover .base-text { color: $card--color-link-hover; }
+  .base-link:hover {
+    &,
+    & .base-text { color: $card--color-link-hover; }
   }
 }
 </style>

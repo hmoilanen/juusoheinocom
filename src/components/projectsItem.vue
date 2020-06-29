@@ -1,10 +1,14 @@
 <template>
   <div class="projects-item">
-    <base-bg :source="imageURL(item.bg)"></base-bg>
+    <div class="bg">
+      <base-bg :source="imageURL(item.bg)" posY="top"></base-bg>
+    </div>
     <base-title>{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>
+    
     <template v-if="item">
       <base-text>{{ this.item.year }}</base-text>
       <base-text>{{ this.item['text-' + $app.locale()] }}</base-text>
+      <base-icon>search</base-icon>
     </template>
   </div>
 </template>
@@ -28,12 +32,12 @@ export default {
 
 <style lang="scss" scoped>
 .projects-item {
-  position: relative;
-  @extend %clickable;
-  
-  //POISTUU!
-  border: 1px solid lightgrey;
-  padding: 1rem;
-  .base-bg { opacity: 0.6; }
+  &:not(:last-child) { margin-bottom: 3rem; }
+  .bg {
+    position: relative;
+    @extend %clickable;
+    height: 0;
+    padding-bottom: 62.5%;
+  }
 }
 </style>
