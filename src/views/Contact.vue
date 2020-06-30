@@ -31,12 +31,12 @@
               :disabled="submitting"
             ></base-input>
             <base-dropdown
+              ref="budget"
               :value="budgetCategories"
               @itemSelected="budgetSelected"
               :label="formContent.budget.label[locale]"
               :placeholder="formContent.budget.placeholder[locale]"
               :disabled="submitting"
-              :clear="submitted"
             ></base-dropdown>
             <base-textarea
               v-model="inputDescription"
@@ -47,6 +47,12 @@
               :maxLength="1000"
               :rows="4"
             ></base-textarea>
+
+            <recaptcha
+              ref="recaptcha"
+              @verified="verify"
+              :disabled="submitting"
+            ></recaptcha>
 
             <base-button
               @click.prevent="submit"
@@ -65,9 +71,8 @@
 </template>
 
 <script>
-// reCaptcha, see: https://developers.google.com/recaptcha/docs/display
-
 import editableContent from '@/components/editableContent'
+import recaptcha from '@/components/recaptcha'
 import { mapState } from 'vuex'
 import { validateEmail } from '@/utils/regex'
 import { genericTimeStamp } from '@/utils/time'
@@ -75,7 +80,10 @@ import { genericTimeStamp } from '@/utils/time'
 export default {
   name: 'viewContact',
 
-  components: { editableContent },
+  components: {
+    editableContent,
+    recaptcha
+  },
 
   data() {
     return {
@@ -84,9 +92,9 @@ export default {
       inputBudget: '',
       inputDescription: '',
       invalidEmail: false,
+      recaptchaVerified: false,
       submitting: false,
-      submitted: null, // false -> error, true -> success, see: this.submit()
-      clear: false
+      submitted: null // false -> error, true -> success, see: this.submit()
     }
   },
 
@@ -116,7 +124,7 @@ export default {
     },
 
     allowSubmit() {
-      if (this.inputName && this.inputEmail && this.inputDescription && !this.submitting) {
+      if (this.inputName && this.inputEmail && this.inputDescription && this.recaptchaVerified && !this.submitting) {
         return true
       } else return false
     },
@@ -137,6 +145,10 @@ export default {
   },
 
   methods: {
+    verify(verified) {
+      this.recaptchaVerified = verified
+    },
+
     budgetSelected(budget) {
       this.inputBudget = budget
     },
@@ -160,7 +172,6 @@ export default {
       await this.$api.setDocument('contacts', null, contact)
       .then(() => {
         setTimeout(() => {
-        
           this.sendEmail(contact)
           this.submitting = false
           this.submitted = true
@@ -169,6 +180,7 @@ export default {
           this.inputBudget = ''
           this.inputDescription = ''
           this.invalidEmail = false
+          this.$refs.budget.clear()
         }, 3000);
       })
       .catch(error => {
@@ -199,16 +211,11 @@ export default {
 
         // Initialize a request
         xmlhttp.open('POST', cloudSenderURL)
-        // Tell the server what kind of data is sent
+        // Communicate with server what kind of data is sent
         xmlhttp.setRequestHeader('Content-Type', 'application/json;charset=UTF-8')
         xmlhttp.send(JSON.stringify(data))
         resolve()
       })
-    },
-
-    toggeloi() { //POISTUU!!!
-      let newLocale = this.locale === 'en' ? 'fi' : 'en'
-      this.$store.dispatch('SET_STATE', { data: newLocale, path: 'app.locale' })
     }
   }
 }

@@ -53,4 +53,5 @@ R A N D O M:
     -siirrä ko. state pois auth-modulista / app-moduliin
     -> muuta riippuvaisuudet kaikkialla!
 -muuta .js -filut kaikki niin että niissä käytetään ;-merkkiä asianmukaisesti!
--lisää contact-sivulle reCaptcha!
+
+<!-- <script async defer src="https://www.google.com/recaptcha/api.js?hl=<%= LOCALE %>"></script> -->

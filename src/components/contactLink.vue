@@ -31,7 +31,7 @@ export default {
       widthInner: 0,
       widthIcon: 0,
       animationDuration: 0.4,
-      animationDelay: 0.2
+      animationDelay: 0.25
     }
   },
 

@@ -41,7 +41,6 @@
 // PROP: SÄÄDÄ NIIN ETTÄ VOI ANTAA SEKÄ ARRAYN ETTÄ OBJEKTIN!!!
 // PROP: TEE NIIN ETTÄ VOI ANTAA NUMEROLLA MONTAKO VAIHTOEHTOA NÄKYY DEFAULTTINA KUN DD AVATAAN -> MÄÄRITÄ KORKEUS
 // DATA: JOS ARRAY (ACTIVEINDEX = INDEX), JOS OBJECT (ACTIVEIINDEX = INDEX.VALUE) -> KIRJOITA TÄSTÄ MYÖS OHJE
-// RANDOM: VOIKO DROPDOWNIN (TOGGLE-LAATIKON) 'RESETOIDA' ?!!?
 
 import Popper from 'popper.js'
 import { sizing, margins, dynamicStyleSet } from '@/utils/mixins'
@@ -74,7 +73,6 @@ export default {
       type: String,
       default: 'Select...'
     },
-    clear: Boolean
     /* maxWidth: {
       type: String,
       default: '100%'
@@ -96,19 +94,12 @@ export default {
     }
   },
 
-  watch: {
-    clear: {
-      immdiate: true,
-      handler(newValue) {
-        if (newValue) {
-          this.selected = '',
-          this.activeIndex = 0
-        }
-      }
-    }
-  },
-
   methods: {
+    clear() {
+      this.selected = '',
+      this.activeIndex = 0
+    },
+
     close() {
       this.showDropdown = false
     },
@@ -148,15 +139,12 @@ export default {
         this.select(this.value[this.activeIndex], this.activeIndex)
         this.$refs.toggle.focus()
       } else {
-        // just open dropdown if it's closed atm
+        // Open dropdown if it's closed atm
         this.showDropdown = true
       }
     },
 
     scrollToHighlighted() {
-      //let joo = this.$refs.list.children[this.activeIndex]
-      let joo = this.$refs.list.children
-      
       this.$refs.list.children[this.activeIndex].scrollIntoView({
         block: 'nearest'
       })
