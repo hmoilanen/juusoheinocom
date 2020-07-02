@@ -75,7 +75,7 @@
 
     <!-- <base-icon
       @click="logging"
-      :icon="$api.isLogged() ? 'unlocked' : 'locked'"
+      :icon="$app.isLogged() ? 'unlocked' : 'locked'"
       :clickable="true"
     ></base-icon> -->
   </div>
@@ -152,7 +152,7 @@ export default {
     },
 
     logging() {
-      let isLogged = this.$api.isLogged()
+      let isLogged = this.$app.isLogged()
       if (isLogged) {
         this.$store.dispatch('modals/SET_MODAL', { active: 'logout' })
       } else {

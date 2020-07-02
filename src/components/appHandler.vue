@@ -12,7 +12,7 @@ export default {
   async beforeCreate() {
     // Get data from firebase    
     await Promise.all([
-      this.$api.getData('text', null, 'content'),
+      this.$api.getData('text', null, 'content'), // POISTUU!
       this.$api.getData('home', null, 'content'),
       this.$api.getData('contact', null, 'content'),
       this.$api.getData('projects', null, 'content'),

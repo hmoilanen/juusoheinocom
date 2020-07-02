@@ -75,14 +75,14 @@ export default {
 
     classing() {
       return {
-        'is-editable': this.$api.isLogged()
+        'is-editable': this.$app.isLogged()
       }
     }
   },
 
   methods: {
     openEditModal() {
-      if (this.$api.isLogged()) {
+      if (this.$app.isLogged()) {
         this.$store.dispatch('modals/SET_MODAL', {
           active: 'editContent',
           data: { content: this.editableContent, path: this.path }

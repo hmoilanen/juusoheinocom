@@ -16,15 +16,19 @@
           
           <!-- <base-title :size="48" m-t="xl">{{ content['title-' + locale] }}</base-title> -->
           <base-title :size="40" m-t="xl">{{ content['title-' + locale] }}</base-title>
-          <base-title :size="12" m-b="l">{{ content['subtitle-' + locale] }}</base-title>
-          <base-button @click="goBack" m-t="l">back</base-button>
+          <base-flex align="baseline">
+            <base-title :size="12">{{ content['subtitle-' + locale] }}</base-title>
+            <base-text m-l="s">{{ content.year }}</base-text>
+          </base-flex>
+          <base-title :size="6" m-b="l">{{ content['type-' + locale] }}</base-title>
+          <base-list :list="content['role-' + locale]"></base-list>
           <base-flex>
-            <base-text>{{ content.year }}</base-text>
             <base-link mode="tab" :to="content.link">
               <base-icon>link</base-icon>
             </base-link>
           </base-flex>
           <base-text>{{ content['text-' + locale] }}</base-text>
+          <base-list :list="content['learning-' + locale]"></base-list>
         </base-wrapper>
 
       </editable-content>
@@ -90,10 +94,6 @@ export default {
     dynamicImage(image) {
       let imageURL = this.$store.getters['app/GET_URL'].imageURL
       return `${imageURL}${this.routeName}/${this.projectId}/${image}`
-    },
-
-    goBack() {
-      this.$router.push({ name: 'projects' })
     }
   }
 }

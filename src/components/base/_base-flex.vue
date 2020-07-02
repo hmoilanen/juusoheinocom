@@ -51,10 +51,10 @@ export default {
     
     styling () {
       let flexOptions = {
-        flexDirection: 'initial',
+        flexDirection: false,
         flexWrap: 'nowrap',
-        justifyContent: 'initial',
-        alignItems: 'initial',
+        justifyContent: false,
+        alignItems: false,
         width: this.width ? this.width : null
       }
 
@@ -106,7 +106,7 @@ export default {
       if (this.align) { // on cross axis of flex box
         if (this.align === 'start') { flexOptions.alignItems = 'flex-start' }
         else if (this.justify === 'end') { flexOptions.alignItems = 'flex-end' }
-        else { flexOptions.alignContent = this.align }
+        else { flexOptions.alignItems = this.align }
       }
 
       return flexOptions

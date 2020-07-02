@@ -72,7 +72,7 @@ export default {
 
     classing() {
       return {
-        'is-editable': this.$api.isLogged()
+        'is-editable': this.$app.isLogged()
       }
     }
   },

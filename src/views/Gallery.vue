@@ -21,7 +21,7 @@
       </div>
 
       <base-button
-        v-if="$api.isLogged()"
+        v-if="$app.isLogged()"
         @click="addImage"
       >{{ this.buttonText }}</base-button>
       <!-- <content-carousel :amount="content.amount">

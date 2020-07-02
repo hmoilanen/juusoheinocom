@@ -134,7 +134,7 @@ $loader-color--secondary: rgba(0, 0, 0, 0.45);
 
     position: relative;
     width: 120px;
-    height: 5px;
+    height: 3px;
     background: lightgrey;
     animation: flip calc(#{$kitt-duration} * 2) infinite;
 

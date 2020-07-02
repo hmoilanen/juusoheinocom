@@ -29,6 +29,10 @@
       <base-icon app="juusoheino" size="xl">juusoheino</base-icon>
       <base-button @click="swapLocale">swap</base-button>
     </base-flex>
+    <base-button
+      v-if="$route.name === 'project'"
+      @click="goToProjects"
+    >return</base-button>
     <menu-toggler :state="showDropdownNav" @click="toggle"></menu-toggler>
   </div>
 </template>
@@ -165,6 +169,10 @@ export default {
 
     toggle() {
       this.showDropdownNav = !this.showDropdownNav
+    },
+
+    goToProjects() {
+      this.$router.push({ name: 'projects' })
     }
   },
   

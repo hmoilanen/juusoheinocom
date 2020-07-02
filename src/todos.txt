@@ -53,5 +53,13 @@ R A N D O M:
     -siirrä ko. state pois auth-modulista / app-moduliin
     -> muuta riippuvaisuudet kaikkialla!
 -muuta .js -filut kaikki niin että niissä käytetään ;-merkkiä asianmukaisesti!
+-tee recaptchan kielenvalinnasta dynaaminen
+  - <script async defer src="https://www.google.com/recaptcha/api.js?hl=<%= LOCALE %>"></script> (KÄYTÄ TÄTÄ / EN SAANUT VIIMEKSI NOPEALLA YRITTÄMISELLÄ ENV-MUUTTUJAA SETATTUA DYNAAMSIESTI)
 
-<!-- <script async defer src="https://www.google.com/recaptcha/api.js?hl=<%= LOCALE %>"></script> -->
+//////////
+PROJEKCTS:
+-tee carusellista tietyn kokoinen
+-asemoi tekstit lightboxissa
+-tee animaatio/transition kun projektia hoveraa projects-sivulla
+-tee tekstit
+-teee draggable

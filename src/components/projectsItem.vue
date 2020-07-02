@@ -1,14 +1,12 @@
 <template>
   <div class="projects-item">
-    <div class="bg">
-      <base-bg :source="imageURL(item.bg)" posY="top"></base-bg>
-    </div>
-    <base-title>{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>
-    
     <template v-if="item">
+      <div class="bg">
+        <base-bg :source="imageURL(item.bg)" posY="top"></base-bg>
+      </div>
+      <base-title m-t="s">{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>  
       <base-text>{{ this.item.year }}</base-text>
       <base-text>{{ this.item['text-' + $app.locale()] }}</base-text>
-      <base-icon>search</base-icon>
     </template>
   </div>
 </template>

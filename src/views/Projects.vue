@@ -2,18 +2,18 @@
   <base-view class="view-projects">
     <template v-if="!$app.isLoading()">
       <editable-content path="projects.main" #default="{ content }">
-        <base-title>{{ content[`title-${$app.locale()}`] }}</base-title>
-        <base-text>{{ content[`text-${$app.locale()}`] }}</base-text>
+        <base-title size="l" m-b="m">{{ content[`title-${$app.locale()}`] }}</base-title>
+        <base-text m-b="xl">{{ content[`text-${$app.locale()}`] }}</base-text>
       </editable-content>
     
-      <base-button @click="addProject">{{ this.buttonText }}</base-button>
+      <base-button v-if="$app.isLogged()" @click="addProject">{{ this.buttonText }}</base-button>
+
       <projects-item
         v-for="(project, key) in projects"
         :key="key"
         :item="project"
         @click.native="showcaseProject(key)"
       ></projects-item>
-        <!-- :item="{ project: project, key: key }" -->
 
       <projects-project v-if="$route.name === 'project'"></projects-project>
     </template>

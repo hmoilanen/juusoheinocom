@@ -3,8 +3,8 @@
     <dropzone @emitFile="loadImage"></dropzone>
     <br><br>
     <!-- <div>{{ this.imagesFromStorage }}</div> -->
-    <!-- <base-icon v-if="$api.isLogged()" @click="editContent">edit</base-icon> -->
-    <template v-if="$api.isLogged()">
+    <!-- <base-icon v-if="$app.isLogged()" @click="editContent">edit</base-icon> -->
+    <template v-if="$app.isLogged()">
       <!-- <base-input :value="editableContent"></base-input> -->
       <base-input v-model="editedContent"></base-input>
       <base-text>{{ this.editableContent }}</base-text>

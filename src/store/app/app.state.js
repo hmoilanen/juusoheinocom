@@ -14,13 +14,14 @@ export default {
     null: null
   },
 
-  domain: 'https://juusoheino.com',
   //googleMapsAPIKey: 'AIzaSyCVrXF_Jh-nfPCeMYgYTkIPl3aP0o9HOyw', //-> TEE TÄSTÄ ENV_VAR JA KÄYTÄ index.html:SSÄ!!!
-  //isLogged: true, //KUN SRRETTY POIS auth.state:STA
+
+  domain: 'https://juusoheino.com',
   isLoading: true,
+  isLogged: false,
   locale: 'en',
 
-  externals: [
+  externals: [ //OLISIKO NÄMÄKIN FIKSU SIRTÄÄ KANTAAN? VAI MIHIN OLISI PARAS?
     { title: 'Github', icon: 'github', link: 'https://github.com/' }, //HUOM! PÄIVITÄ LINKKI KUN TILI LUOTU
     { title: 'LinkedIn', icon: 'linkedin', link: 'https://www.linkedin.com/in/heinojuuso/' },
     { title: 'Constlet', icon: 'constlet', link: 'https://constlet.com' }

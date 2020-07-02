@@ -244,17 +244,19 @@ const logout = () => {
   firebase.auth().signOut()
 }
 
-const isLogged = () => {
+/* const isLogged = () => {
   return store.state.auth.isLogged
-}
+} */
 
 function setFirebaseAuth() {
   firebase.auth().onAuthStateChanged(async (user) => {
     if (user) {
-      store.dispatch('SET_STATE', { data: true, path: 'auth.isLogged' })
+      store.dispatch('SET_STATE', { data: true, path: 'app.isLogged' })
+      //store.dispatch('SET_STATE', { data: true, path: 'auth.isLogged' })
       getDefer('logging').resolve()
     } else {
-      store.dispatch('SET_STATE', { data: false, path: 'auth.isLogged' })
+      store.dispatch('SET_STATE', { data: false, path: 'app.isLogged' })
+      //store.dispatch('SET_STATE', { data: false, path: 'auth.isLogged' })
     }
   })
 }
@@ -291,7 +293,7 @@ export default {
   deleteFromStorage,
   login,
   logout,
-  isLogged,
+  //isLogged,
   addDefer,
   getDefer
 }

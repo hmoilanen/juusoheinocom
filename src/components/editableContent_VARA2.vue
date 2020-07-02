@@ -1,7 +1,7 @@
 <template>
   <div class="editable-content">
-    <!-- <base-icon v-if="$api.isLogged()" @click="editContent">edit</base-icon> -->
-    <template v-if="$api.isLogged()">
+    <!-- <base-icon v-if="$app.isLogged()" @click="editContent">edit</base-icon> -->
+    <template v-if="$app.isLogged()">
       <!-- <base-input :value="editableContent"></base-input> -->
       <base-input v-model="input"></base-input>
       <base-flex m-t="s">

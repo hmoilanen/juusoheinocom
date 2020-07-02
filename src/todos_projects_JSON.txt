@@ -2,22 +2,33 @@ projects / references
 
 maja: {
   title: {
-    //en: 'MAJA - Finnish Housing Fair 2013, Hyvinkää',
-    //fi: 'MAJA - Asuntomessut 2013, Hyvinkää'
-    en: 'MAJA - House for a family of 4',
-    fi: 'MAJA - Koti nelihenkiselle perhelle'
+    en: 'MAJA, Finnish Housing Fair',
+    fi: 'MAJA, Asuntomessut'
+  },
+  subtitle: {
+    en: 'A house for a family of 4',
+    fi: 'Koti nelihenkiselle perhelle'
   },
   desription: {
+    en: 'Architecture',
+    fi: 'Arkkitehtuuri'
+  },
+  role: {
+    en: ['architect', 'designer'],
+    fi: ['arkkitehti', 'designer']
+  },
+  text: {
     en: '',
     fi: ''
   },
-  role: {
-    en: ['architecture', 'design'],
-    fi: ['arkkitehtuuri', 'design']
+  learning: {
+    en: [],
+    fi: []
   },
-  bg: '',
-  year: 2013
+  //bg: '',
+  //year: 2013
 }
+
 constlet: {
   title: {
     en: 'Homepage for the startup',
