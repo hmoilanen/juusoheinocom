@@ -5,7 +5,7 @@
       path="home.about"
       #default="{ content }"
     >
-      <base-title :size="titleSize" m-b="l">{{ content[`title-${locale}`] }}</base-title>
+      <app-title>{{ content[`title-${locale}`] }}</app-title>
       <base-text :size="textSize">{{ content[`text-${locale}`] }}</base-text>
       <div class="quote">
         <base-icon :size="90">quote</base-icon>
@@ -18,14 +18,17 @@
 
 <script>
 import editableContent from '@/components/editableContent'
+import appTitle from '@/components/appTitle'
 
 export default {
   name: 'homeAbout',
 
-  components: { editableContent },
+  components: {
+    editableContent,
+    appTitle
+  },
 
   props: {
-    titleSize: [String, Number],
     textSize: [String, Number]
   },
 

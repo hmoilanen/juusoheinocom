@@ -2,7 +2,7 @@
   <div class="home-tools">
     <template v-if="tools">
       <editable-content path="home.tools.main" #default="{ content }">
-        <base-title :size="titleSize">{{ content[`title-${$app.locale()}`] }}</base-title>
+        <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
         <base-text :size="textSize">{{ content[`text-${$app.locale()}`] }}</base-text>
         <base-title :size="4" m-t="m">
           <span>*</span> = {{ content[`nb-${$app.locale()}`] }}
@@ -29,14 +29,17 @@
 
 <script>
 import editableContent from '@/components/editableContent'
+import appTitle from '@/components/appTitle'
 
 export default {
   name: 'homeTools',
 
-  components: { editableContent },
+  components: {
+    editableContent,
+    appTitle
+  },
 
   props: {
-    titleSize: [String, Number],
     textSize: [String, Number]
   },
 

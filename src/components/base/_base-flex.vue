@@ -94,7 +94,7 @@ export default {
         }
       } 
 
-      // distribute content in flex box based on it's axis (could affect on this.center!)
+      // distribute content in flex box based on it's axis (could affect on this.center !)
       if (this.justify) { // on main axis of flex box
         if (this.justify === 'start') { flexOptions.justifyContent = 'flex-start' }
         else if (this.justify === 'end') { flexOptions.justifyContent = 'flex-end' }

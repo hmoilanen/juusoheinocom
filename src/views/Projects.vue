@@ -1,6 +1,9 @@
 <template>
   <base-view class="view-projects">
     <template v-if="!$app.isLoading()">
+      
+      <app-title></app-title>
+
       <editable-content path="projects.main" #default="{ content }">
         <base-title size="l" m-b="m">{{ content[`title-${$app.locale()}`] }}</base-title>
         <base-text m-b="xl">{{ content[`text-${$app.locale()}`] }}</base-text>
@@ -8,12 +11,14 @@
     
       <base-button v-if="$app.isLogged()" @click="addProject">{{ this.buttonText }}</base-button>
 
-      <projects-item
-        v-for="(project, key) in projects"
-        :key="key"
-        :item="project"
-        @click.native="showcaseProject(key)"
-      ></projects-item>
+      <base-spacer :size="20">
+        <projects-item
+          v-for="(project, key) in projects"
+          :key="key"
+          :item="project"
+          @click.native="showcaseProject(key)"
+        ></projects-item>
+      </base-spacer>
 
       <projects-project v-if="$route.name === 'project'"></projects-project>
     </template>
@@ -22,6 +27,7 @@
 
 
 <script>
+import appTitle from '@/components/appTitle'
 import editableContent from '@/components/editableContent'
 import projectsItem from '@/components/projectsItem'
 import projectsProject from '@/components/projectsProject'
@@ -31,6 +37,7 @@ export default {
   name: 'viewProjects',
 
   components: {
+    appTitle,
     editableContent,
     projectsItem,
     projectsProject

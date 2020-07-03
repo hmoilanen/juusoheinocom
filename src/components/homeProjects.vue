@@ -1,7 +1,7 @@
 <template>
   <div class="home-projects">
     <editable-content path="home.projects" #default="{ content }">
-      <base-title :size="titleSize" :main="true">{{ content[`title-${$app.locale()}`] }}</base-title>
+      <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
       <base-link to="projects">{{ content[`link-${$app.locale()}`] }} &#8594;</base-link>
     </editable-content>
     
@@ -30,14 +30,14 @@
 
 <script>
 import editableContent from '@/components/editableContent'
+import appTitle from '@/components/appTitle'
 
 export default {
   name: 'homeProjects',
 
-  components: { editableContent },
-
-  props: {
-    titleSize: [String, Number]
+  components: {
+    editableContent,
+    appTitle
   },
 
   data() {

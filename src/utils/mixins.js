@@ -41,8 +41,8 @@ export const sizing = { // Generic sizing mixin for components
       function ifScaling(size) {
         // expected prop values:
         // -boolean (true), where size is scaled based on default multiplier and app's breakpoints
-        // -array of numbers (1 = 0.125rem) which correlate with app's breakpoints (eg. [6, 8, 10])
-        // -object of key-value pairs, where keys are custom breakpoints and values numbers (eg. { '400': 6, '700': 8, '1000': 10 })
+        // -array of numbers (1 = 0.125rem) which correlate with app's breakpoints (eg. [6, 8, 10]), see: store.state.ui
+        // -object with key-value pairs, where keys are custom breakpoints and values numbers (eg. { '400': 6, '700': 8, '1000': 10 })
         // -number, where size is scaled based on it and app's breakpoints
 
         if (self.scaling) {
@@ -64,7 +64,7 @@ export const sizing = { // Generic sizing mixin for components
                 return self.scaling[breakpoint.index]
               }
             } else {
-              console.log('mixinSizing: scaling array has to contain only numbers')
+              console.log('mixinSizing.scaling: array has to contain only numbers')
               return size
             }
           } else if (type === 'object') {
@@ -86,7 +86,7 @@ export const sizing = { // Generic sizing mixin for components
                 }
               }
             } else {
-              console.log('mixinSizing: scaling object\'s values has to contain only numbers')
+              console.log('mixinSizing.scaling: object\'s values has to contain only numbers')
               return size
             }
           } else { // if number

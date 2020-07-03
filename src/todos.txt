@@ -61,5 +61,30 @@ PROJEKCTS:
 -tee carusellista tietyn kokoinen
 -asemoi tekstit lightboxissa
 -tee animaatio/transition kun projektia hoveraa projects-sivulla
--tee tekstit
 -teee draggable
+
+//////////
+DYNAMIC:
+-ottaa vastaan joko boleanin tai objektin ->
+  :dynamic="true" //= default steps, TAI
+  :dynamic="{
+    value: Number, // = mitä arvoa käytetään koon määrittämisessä
+    steps: Number, // = kuinka moneen breakpointiin reagoi
+    mode: "add" (= default) / "multiply"
+  }"
+    -jos jotain em. ei anneta objektissa, käytetään default-arvoja
+
+-dynamic näihin komponentteihin:
+  -base-button
+  -base-divider
+  -base-feedback
+  -base-icon
+  -base-input
+  -base-list
+  -base-select
+  -base-spacer
+  -base-tag
+  -base-text
+  -base-textarea
+  -base-title
+  -base-wrapper

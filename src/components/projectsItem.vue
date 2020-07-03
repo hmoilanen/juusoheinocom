@@ -4,9 +4,11 @@
       <div class="bg">
         <base-bg :source="imageURL(item.bg)" posY="top"></base-bg>
       </div>
-      <base-title m-t="s">{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>  
-      <base-text>{{ this.item.year }}</base-text>
-      <base-text>{{ this.item['text-' + $app.locale()] }}</base-text>
+      <base-flex align="baseline">
+        <base-title m-t="s">{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>  
+        <base-text m-l="s">{{ this.item.year }}</base-text>
+      </base-flex>
+      <base-title :size="6" m-b="l">{{ this.item['type-' + $app.locale()] }}</base-title>
     </template>
   </div>
 </template>
@@ -30,7 +32,7 @@ export default {
 
 <style lang="scss" scoped>
 .projects-item {
-  &:not(:last-child) { margin-bottom: 3rem; }
+  //&:not(:last-child) { margin-bottom: 3rem; }
   .bg {
     position: relative;
     @extend %clickable;

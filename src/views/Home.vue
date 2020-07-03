@@ -3,19 +3,13 @@
     <template #hero>
       <home-hero></home-hero>
     </template>
-    <base-spacer :size="30">
-      <home-projects
-        :titleSize="titleSize"
-      ></home-projects>
-      <home-about
-        :titleSize="titleSize"
-        :textSize="textSize"
-      ></home-about>
-      <home-tools
-        :titleSize="titleSize"
-        :textSize="textSize"
-      ></home-tools>
+    <base-spacer :size="45" :scaling="true">
+      <div></div> <!-- VÄLIAIKAINEN!!! -> RATKAISE JOTENKIN MUUTEN -->
+      <home-projects></home-projects>
+      <home-about :textSize="textSize"></home-about>
+      <home-tools :textSize="textSize"></home-tools>
       <home-contact></home-contact>
+      <div></div> <!-- VÄLIAIKAINEN!!! -> RATKAISE JOTENKIN MUUTEN -->
     </base-spacer>
   </base-view>
 </template>

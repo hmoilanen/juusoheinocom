@@ -13,8 +13,6 @@
         </content-carousel>
 
         <base-wrapper maxWidth="max" :padding="true">
-          
-          <!-- <base-title :size="48" m-t="xl">{{ content['title-' + locale] }}</base-title> -->
           <base-title :size="40" m-t="xl">{{ content['title-' + locale] }}</base-title>
           <base-flex align="baseline">
             <base-title :size="12">{{ content['subtitle-' + locale] }}</base-title>

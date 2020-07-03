@@ -8,6 +8,10 @@
 </template>
 
 <script>
+//LISÄÄ SCRIPTAAN TARKASTELU, ONKO LAPSI JOO VALMIIKSI BLOCK / FLEX / TMV...
+//JOS EI OLE, ANNA TYYLINÄ display: block;
+//MUUTA KOKO KOMPONENTTI RENDERLESSIKSI ?!
+
 import { sizing, margins, paddings } from '@/utils/mixins'
 
 export default {
@@ -16,7 +20,7 @@ export default {
   mixins: [sizing, margins, paddings],
 
   props: {
-    // uses prop "size" from mixin
+    // uses $prop.size from mixin, see: @/utils/mixins
   },
 
   computed: {
