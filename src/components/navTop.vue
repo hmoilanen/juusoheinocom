@@ -33,6 +33,7 @@
       v-if="$route.name === 'project'"
       @click="goToProjects"
     >return</base-button>
+    <nav-top-toggler :mode="togglerMode"></nav-top-toggler>
     <menu-toggler :state="showDropdownNav" @click="toggle"></menu-toggler>
   </div>
 </template>
@@ -40,6 +41,7 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import { navLinks } from '@/utils/navigation'
+import navTopToggler from '@/components/navTopToggler'
 import menuToggler from '@/components/menuToggler'
 //import navTopLink from '@/components/navTopLink'
 
@@ -47,6 +49,7 @@ export default {
   name: 'navTop',
 
   components: {
+    navTopToggler,
     menuToggler,
     //navTopLink
   },
@@ -180,6 +183,19 @@ export default {
     ...mapState('ui', ['navTopHeight', 'zIndex', 'window']),
     ...mapGetters('app', ['GET_OFFICIAL']),
 
+    togglerMode() {
+      let mode = 'menu'
+
+      if (this.showDropdownNav) {
+        mode = 'close'
+      }
+
+      /* setTimeout(() => {
+        mode = 'close'
+      }, 5000); */
+      return mode
+    },
+
     navLinks() {
       return navLinks()
     },
@@ -304,7 +320,8 @@ export default {
 }
 
 $nav-top--padding-sides: 1rem;
-$nav-top-dropdown--color-background: $app-color--main;
+//$nav-top-dropdown--color-background: $app-color--main;
+$nav-top-dropdown--color-background: yellow;
 $nav-top-dropdown--color-highlight: $app-color--hl;
 $nav-top-dropdown--color-highlight2: $app-color--hl2;
 $nav-top-dropdown--animation-duration: 0.3s;
