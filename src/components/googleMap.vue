@@ -23,12 +23,10 @@ export default {
     places: {
       type: Array,
       default: () => {
-        return [
-          { // Provide (array of) place props like this.
-            name: 'Koskipuisto',
-            position: { lat: 61.499656, lng: 23.764980 }
-          }
-        ]
+        return [{ // Provide (array of) place props like this.
+          name: 'Koskipuisto',
+          position: { lat: 61.499656, lng: 23.764980 }
+        }]
       }
     },
     zoom: {
@@ -68,7 +66,8 @@ export default {
           lat: this.places[0].position.lat,
           lng: this.places[0].position.lng
         },
-        zoom: this.zoom,
+        //zoom: this.zoom,
+        zoom: this.places[0].zoom,
         maxZoom: this.maxZoom,
         minZoom: this.minZoom,
         streetViewControl: this.streetView,
@@ -99,8 +98,12 @@ export default {
             anchor: new google.maps.Point(25, 50) // The anchor for of marker is x=25px y=50px.
           },
           //shape: shape,
-          title: country['title-' + this.$app.locale()],
+          title: country['name-' + this.$app.locale()],
           //zIndex: beach[3]
+        })
+
+        marker.addListener('click', () => {
+          this.$emit('marker-clicked', key)
         })
       }
     }
@@ -115,10 +118,10 @@ export default {
   position: relative;
   overflow: hidden;
   padding: 1px;
-  &::after {
+  /* &::after {
     content: '';
     @extend %absolute-0000;
     pointer-events: none;
-  }
+  } */
 }
 </style>

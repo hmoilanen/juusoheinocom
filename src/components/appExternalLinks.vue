@@ -10,7 +10,7 @@
       mode="tab">
       <base-icon
         :icon="link.icon"
-        :size="14"
+        :size="12"
         :scaling="true"
       ></base-icon>
     </base-link>

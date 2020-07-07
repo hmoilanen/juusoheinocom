@@ -28,10 +28,10 @@
 
     <!-- <base-flex class="brand" center="y"> -->
       <!-- <base-icon size="xl">juusoheino</base-icon> -->
-      <!-- <base-button @click="swapLocale" :size="4">swap</base-button> -->
     <!-- </base-flex> -->
 
     <nav-top-logo :alternative="showDropdownNav"></nav-top-logo>
+    <base-button @click="swapLocale" :size="4">swap</base-button> <!-- MUUTTUU / POISTUU!! -->
     <nav-top-toggler
       :mode="togglerMode"
       @click.native="toggle"
@@ -150,6 +150,8 @@ export default {
         this.closeDropdown()
       } else if (this.$route.name === 'project') {
         this.$router.push({ name: 'projects' })
+      } else if (this.$route.query.gallery) {
+        this.$router.push({ name: 'gallery' })
       } else {
         this.showDropdownNav = true
       }
@@ -177,11 +179,9 @@ export default {
         mode = 'initial'
       } else if (this.showDropdownNav) {
         mode = 'close'
-      } else if (this.$route.name === 'project') {
+      } else if (this.$route.name === 'project' || this.$route.query.gallery) {
         mode = 'back'
       }
-
-      console.log('mode:', mode);
       
       return mode
     },

@@ -41,6 +41,15 @@ export default {
       validator(prop) {
         return ['top', 'center', 'bottom', 'initial', 'inherit', 'unset'].indexOf(prop) !== -1
       }
+    },
+    repeat: {
+      type: [Boolean, String],
+      default: false,
+      validator(prop) {
+        if (typeof prop === 'string') {
+          return ['x', 'y', 'space', 'round', 'initial', 'inherit'].indexOf(prop) !== -1
+        } else return true
+      }
     }
   },
 
@@ -72,6 +81,19 @@ export default {
     },
     styling() {
       let source = encodeURI(this.source)
+      let repeat = 'no-repeat'
+
+      if (this.repeat) {
+        if (typeof this.repeat === 'boolean') {
+          repeat = 'repeat'
+        } else { // = 'string'
+          if (this.repeat === 'x' || this.repeat === 'y') {
+            repeat = `repeat-${this.repeat}`
+          } else {
+            repeat = this.repeat
+          }
+        }
+      }
 
       return {
         position: this.position,
@@ -83,7 +105,8 @@ export default {
         backgroundPositionY: this.parallax && !this.steady
           ? this.offsetY * this.parallaxAmount + 'px'
           : this.posY,
-        backgroundAttachment: this.steady ? 'fixed' : this.posX
+        backgroundAttachment: this.steady ? 'fixed' : this.posX,
+        backgroundRepeat: repeat
       }
     }
   }
@@ -99,7 +122,7 @@ export default {
   bottom: 0;
   position: relative;
   width: 100%;
-  background: lightgrey;
+  background: rgba(200, 200, 200, 0.2);
 
   &.steady {
     background-size: cover;

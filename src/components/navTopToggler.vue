@@ -61,9 +61,15 @@ export default {
 
   computed: {
     togglerText() {
+      let mode = this.mode
+
       if (this.mode !== 'initial') {
+        if (this.$route.query.gallery) {
+          mode = 'map'
+        }
+
         return !this.$app.isLoading()
-          ? this.$store.state.content.components.navTop[`toggler-${this.mode}-${this.$app.locale()}`]
+          ? this.$store.state.content.components.navTop[`toggler-${mode}-${this.$app.locale()}`]
           : ''
       } else return ''
     },

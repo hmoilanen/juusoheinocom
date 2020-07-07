@@ -2,38 +2,37 @@
   <base-view class="view-gallery">
     <template v-if="!$app.isLoading()">
       <google-map
-        :places="countries.places"
-        :zoom="countries.zoom"
+        :class="{ disabled: currentGallery }"
+        :places="countries"
+        :minZoom="3"
         mapStyle="light"
+        @marker-clicked="chooseGallery($event)"
       ></google-map>
 
-      <editable-content path="gallery.main" #default="{ content }">
-        <base-title>{{ content[`title-${$app.locale()}`] }}</base-title>
-        <base-text>{{  content[`text-${$app.locale()}`] }}</base-text>
-      </editable-content>
-
-      <div class="galleries">
-        <div
-          v-for="(gallery, index) in content.countries"
-          :key="index"
-          @click="choosegallery(gallery)"
-        >{{ gallery }}</div>
+      <div
+        v-if="currentGallery"
+        class="content-carousel-wrapper"
+      >
+        <content-carousel v-if="currentGallery" :key="currentGallery">
+          <div
+            v-for="(image, index) in images"
+            :key="image + index"
+            class="image"
+          >
+            <base-bg :source="image" fit="contain"></base-bg>
+          </div>
+        </content-carousel>
       </div>
 
-      <base-button
+      <!-- <editable-content path="gallery.main" #default="{ content }">
+        <base-title>{{ content[`title-${$app.locale()}`] }}</base-title>
+        <base-text>{{  content[`text-${$app.locale()}`] }}</base-text>
+      </editable-content> -->
+
+      <!-- <base-button
         v-if="$app.isLogged()"
         @click="addImage"
-      >{{ this.buttonText }}</base-button>
-      <!-- <content-carousel :amount="content.amount">
-        <base-image
-          v-for="(image, index) in content.images"
-          :key="image + index"
-          :src="image"
-        ></base-image>
-      </content-carousel> -->
-
-      <div class="joo">{{this.currentGallery}}</div>
-      <div>{{this.content.coords}}</div>
+      >{{ this.buttonText }}</base-button> -->
     </template>
 
   </base-view>
@@ -41,6 +40,13 @@
 
 
 <script>
+//JOS MITÄÄN ALUETTA EI OLE VALITTUNA, ZOOMAA KARTTA NIIN ETTÄ KAIKKI MAAT NÄKYY (TAI AIINAKIN SUURIIN OSA)
+//TEE "MAP"-NAPPI -> KUN PAINETAAN, PILOTA KARUSELLI JA ZOOMA TAKAISIN KOKONAISTILANTEESEEN
+//TE TARKASTELU JA ANNA ZOOMI AINA DYNAAMISESTI RIIPPUEN SIITÄ, MINKÄ KOKOINEN VEWPORT ON
+  //-> see: https://developers.google.com/maps/documentation/javascript/events
+    //-> map.fitBounds(bounds); ...
+//PILOTA KARTAN ZOOMINAPIT JA TERMSOFSERVICET JNE.
+
 import editableContent from '@/components/editableContent'
 import googleMap from '@/components/googleMap'
 import contentCarousel from '@/components/contentCarousel'
@@ -59,41 +65,38 @@ export default {
 
   data() {
     return {
-      currentGallery: 'hongkong'
+      currentGallery: ''
     }
   },
 
-  /* created() {
-    console.log(this.$app.isLoading())
-
-    setTimeout(() => {
-      console.log(this.$app.isLoading())
-    }, 4000);
-  }, */
-
-  /* async mounted() {
-    setTimeout(() => {
-      for (let country in countries) {
-        let info = countries[country]
-        let opj = {
-          info: info
-        }
-        //console.log('opj', opj);
-        this.$api.updateData('gallery', country, opj)
-      }
-    }, 5000);
-  }, */
+  created() {
+    const galleryQuery = this.$route.query.gallery
+    if (galleryQuery) {
+      this.currentGallery = galleryQuery
+    }
+  },
 
   watch: {
-    '$store.state.app.isLoading': {
-      immedate: true,
+    $route: {
+      immediate: true,
+      deep: true,
       handler(newValue) {
-        if (newValue === false) {
-          const countries = Object.keys(this.$store.state.content.gallery)
-          this.currentGallery = countries[randomIntegerFromInterval(0, countries.length)]
+        if (!newValue.query.gallery) {
+          this.currentGallery = ''
         }
       }
     }
+    /* '$store.state.app.isLoading': {
+      immedate: true,
+      handler(newValue) {
+        if (newValue === false) {
+          const countries = Object.keys(this.$store.state.content.gallery).filter(country => {
+            return country !== 'main'
+          })
+          this.currentGallery = countries[randomIntegerFromInterval(0, countries.length)]
+        }
+      }
+    } */
   },
 
   computed: {
@@ -103,29 +106,38 @@ export default {
         let listOfCountries = []
 
         for (let country in gallery) {
+          const { info, ...images } = gallery[country]
           listOfCountries.push({
             name: country,
             position: {
-              lat: gallery[country].info.latitude,
-              lng: gallery[country].info.longitude
-            }
+              lat: info.latitude,
+              lng: info.longitude
+            },
+            zoom: info.zoom,
+            images: images
           })
         }
 
-        return {
-          places: listOfCountries,
-          zoom: gallery[this.currentGallery].info.zoom
-        }
+        return listOfCountries
       } else return null
     },
 
     images() {
-      if (this.countries) {
-        return this.countries[this.currentCountry]
+      if (this.currentGallery) {
+        const imageURL = this.$store.getters['app/GET_URL'].imageURL
+        let currentImages = this.countries.filter(country => {
+          return country.name === this.currentGallery
+        })[0].images
+
+        for (const image in currentImages) {
+          currentImages[image] = `${imageURL}${this.$route.name}/${this.currentGallery}/${currentImages[image]}`
+        }
+
+        return currentImages
       } else return null
     },
     
-    content() {
+    /* content() {
       if (!this.$app.isLoading()) {
         const gallery = this.$store.state.content.gallery
         let countries = Object.keys(gallery)
@@ -156,9 +168,9 @@ export default {
           ]
         }
       } else return null
-    },
+    }, */
 
-    buttonText() {
+    buttonText() { //OTA TAKAISIN KÄYTTÖÖN, KS. TEMPLATE!
       return this.$store.state.app.locale === 'en'
         ? 'add image'
         : 'lisää kuva'
@@ -166,11 +178,14 @@ export default {
   },
 
   methods: {
-    choosegallery(gallery) {
-      this.currentGallery = gallery
+    chooseGallery(gallery) {
+      if (gallery && this.currentGallery !== gallery) {
+        this.currentGallery = gallery
+        this.$router.push({ name: 'gallery', query: { gallery: gallery } })
+      }
     },
 
-    addImage() {
+    addImage() { //OTA TAKAISIN KÄYTTÖÖN, KS. TEMPLATE!
       let randomKey = 'image-' + randomString(6)
       let data = { [randomKey]: '.png' }
       let path = `${this.$route.name}.${this.currentGallery}`
@@ -191,26 +206,30 @@ export default {
   position: relative;
 
   .google-map {
-    z-index: -1;
-    //@extend %disabled;
     @extend %absolute-0000;
-    height: 100vh; //MUUTTUU!?
-  }
-
-  .galleries {
-    position: relative;
-    display: flex;
-    div {
-      margin-right: 0.5rem;
-      padding: 0.3rem 0.5rem;
-      background: white;
-      border: 1px solid black;
-      font-size: 0.6rem;
+    transition: opacity 1.2s ease-in-out;
+    &.disabled {
+      @extend %disabled;
+      opacity: 0.1;
     }
   }
-
+  .content-carousel-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
   .content-carousel {
-    opacity: 0.2;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .image {
+    position: relative;
+    height: 0;
+    padding-bottom: 56.25%;
+    //background: rgba(200, 200, 200, 0.2);
   }
 }
 

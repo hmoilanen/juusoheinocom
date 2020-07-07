@@ -9,15 +9,10 @@
         <div
           :key="index"
           v-for="(dummy, index) in amount"
-          class="item"
+          class="dummy-item"
         >
           <span>{{ index + 1 }}</span>
         </div>
-        <!-- <base-image
-          v-for="(image, index) in images"
-          :key="image + index"
-          :src="image"
-        ></base-image> -->
       </slot>
     </Vue-slick-carousel>
 
@@ -34,9 +29,8 @@
 
 <script>
 import { margins } from '@/utils/mixins'
-// https://github.com/gs-shop/vue-slick-carousel
-import VueSlickCarousel from 'vue-slick-carousel'
-import 'vue-slick-carousel/dist/vue-slick-carousel.css' // import style
+import VueSlickCarousel from 'vue-slick-carousel' // https://github.com/gs-shop/vue-slick-carousel
+import 'vue-slick-carousel/dist/vue-slick-carousel.css' // default styles
 // import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css' // optional style for arrows & dots
 
 export default {
@@ -47,7 +41,6 @@ export default {
   mixins: [margins],
 
   props: {
-    //images: Array,
     amount: { // TEE TÄSTÄ 'max'
       type: Number,
       default: 6
@@ -113,12 +106,12 @@ export default {
 .content-carousel {
   position: relative;
 
-  .item {
+  .dummy-item {
     min-height: 40vh;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    background: grey;
+    //background: grey;
     span { font-weight: 700; }
   }
 }

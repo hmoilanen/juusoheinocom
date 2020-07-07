@@ -64,8 +64,8 @@ export default {
         },
         content: {
           minHeight: contentMinHeight + 'px',
-          //padding: `0 ${padding}px`
-          padding: `${padding}px`
+          padding: `0 ${padding}px`
+          //padding: `${padding}px`
         }
       }
     }
