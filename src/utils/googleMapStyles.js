@@ -19,6 +19,11 @@ export const googleMapStyles = {
       stylers: [{ color: '#f5f5f5' }]
     },
     {
+      featureType: 'administrative',
+      elementType: 'geometry',
+      stylers: [{ color: '#E7287A' }]
+    },
+    {
       featureType: 'administrative.land_parcel',
       elementType: 'labels.text.fill',
       stylers: [{ color: '#bdbdbd' }]
@@ -110,7 +115,7 @@ export const googleMapStyles = {
     {
       featureType: 'administrative',
       elementType: 'geometry',
-      stylers: [{ color: '#757575' }]
+      stylers: [{ color: '#ff0000' }]
     },
     {
       featureType: 'administrative.country',
@@ -184,7 +189,8 @@ export const googleMapStyles = {
     {
       featureType: 'water',
       elementType: 'geometry',
-      stylers: [{ color: '#000000' }]
+      //stylers: [{ color: '#000000' }]
+      stylers: [{ color: '#ffffff' }]
     },
     {
       featureType: 'water',

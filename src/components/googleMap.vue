@@ -44,6 +44,7 @@ export default {
     hideMarkers: Boolean, //POISTUUKO MYÖS KUN MARKER EI OLE ENÄÄ ERILLINEN KOMPONENTTI?!?!
     streetView: Boolean, // Enable 3d street view
     mapTypes: Boolean, // Default / satellite view
+    disableDefaultUi: Boolean,
     mapStyle: {
       type: String,
       validator: prop => {
@@ -72,7 +73,8 @@ export default {
         minZoom: this.minZoom,
         streetViewControl: this.streetView,
         mapTypeControl: this.mapTypes,
-        styles: this.mapStyle ? googleMapStyles[this.mapStyle] : false
+        styles: this.mapStyle ? googleMapStyles[this.mapStyle] : false,
+        disableDefaultUI: this.disableDefaultUi
       })
 
       if (!this.hideMarkers) {
@@ -123,5 +125,20 @@ export default {
     @extend %absolute-0000;
     pointer-events: none;
   } */
+
+  &::v-deep {
+    // hide google maps' tos etc. (not legal :)
+    .gm-style-cc {
+      display: none !important;
+    }
+    .gm-bundled-control {
+      display: none !important;
+      //top: 0 !important;
+      //left: 0 !important;
+      //right: unset !important;
+      //bottom: unset !important;
+      //margin: 10px 0 0 10px !important;
+    }
+  }
 }
 </style>

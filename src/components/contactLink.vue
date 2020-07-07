@@ -31,7 +31,7 @@ export default {
       widthInner: 0,
       widthIcon: 0,
       animationDuration: 0.4,
-      animationDelay: 0.25
+      animationDelay: 0.1
     }
   },
 
@@ -145,20 +145,22 @@ $contact-link--color-bg: $app-color--hl;
   .base-text {
     white-space: nowrap;
     font-weight: 700;
-    color: $contact-link--color;
+    color: $contact-link--color !important;
   }
 }
 
 .emerge-enter {
-  transform: translateY(-200%);
+  //transform: translateY(-200%);
+  transform: translateX(100%);
   opacity: 0;
 }
 .emerge-leave-to {
-  transform: translateY(200%);
+  //transform: translateY(200%);
+  //transform: translateX(100%);
   opacity: 0;
 }
 .emerge-enter-active {
-  //transition: all var(--animation-emerge--duration) ease var(--animation-emerge--duration);
+  //transition: all var(--animation-emerge--duration) ease var(--animation-emerge--delay);
   transition: all var(--animation-emerge--duration) ease var(--animation-emerge--delay);
 }
 .emerge-leave-active {

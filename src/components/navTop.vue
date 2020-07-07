@@ -26,12 +26,8 @@
       </div>
     </transition>
 
-    <!-- <base-flex class="brand" center="y"> -->
-      <!-- <base-icon size="xl">juusoheino</base-icon> -->
-    <!-- </base-flex> -->
-
     <nav-top-logo :alternative="showDropdownNav"></nav-top-logo>
-    <base-button @click="swapLocale" :size="4">swap</base-button> <!-- MUUTTUU / POISTUU!! -->
+    <locale-toggler :alternative="showDropdownNav"></locale-toggler>
     <nav-top-toggler
       :mode="togglerMode"
       @click.native="toggle"
@@ -44,6 +40,7 @@ import { mapState, mapGetters } from 'vuex'
 import { navLinks } from '@/utils/navigation'
 import navTopLogo from '@/components/navTopLogo'
 import navTopToggler from '@/components/navTopToggler'
+import localeToggler from '@/components/localeToggler'
 import appExternalLinks from '@/components/appExternalLinks'
 
 export default {
@@ -52,6 +49,7 @@ export default {
   components: {
     navTopLogo,
     navTopToggler,
+    localeToggler,
     appExternalLinks
   },
 
@@ -75,13 +73,6 @@ export default {
   methods: {
     isActiveRoute(linkName) {
       return linkName === this.$route.name
-    },
-
-    swapLocale() { //POISTUU!!
-      let localeState = this.$store.state.app.locale === 'en'
-        ? 'fi'
-        : 'en'
-      this.$store.dispatch('SET_STATE', { data: localeState, path: 'app.locale' })
     },
 
     stylingMethod(index) {

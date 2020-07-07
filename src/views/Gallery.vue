@@ -5,6 +5,7 @@
         :class="{ disabled: currentGallery }"
         :places="countries"
         :minZoom="3"
+        :disableDefaultUi="true"
         mapStyle="light"
         @marker-clicked="chooseGallery($event)"
       ></google-map>
