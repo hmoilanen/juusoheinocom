@@ -8,67 +8,58 @@
           :key="index"
           :to="link.path"
           mode="router"
-          @click.native="toggle"
+          @click.native="closeDropdown"
         >
-          <base-title :class="{ active: isActiveRoute(link.name) }" size="xl">{{ link.title }}</base-title>
+          <base-title
+            :class="{ active: isActiveRoute(link.name) }"
+            :size="22"
+            :scaling="true"
+          >{{ link.title }}</base-title>
         </base-link>
-        <!-- <base-title
-          v-for="(link, index) in navLinks"
-          :key="index"
-          @click.native="routeToLink(link.path)"
-        >{{ link.title }}</base-title> -->
 
-        <div class="legal">
-          <base-text>{{ this.GET_OFFICIAL.watermark }}. Made with <span class="heart"> &#10085;</span></base-text>
-          <base-loader></base-loader>
+        <div class="bottom">
+          <!-- <base-loader></base-loader> -->
+          <app-external-links :alternative="true"></app-external-links>
+          <base-text :size="6" m-t="m">{{ this.GET_OFFICIAL.watermark }}</span></base-text>
+          <!-- <base-text :size="6" m-t="m">{{ this.cursorOffsetX }}, {{ this.cursorOffsetY}}</span></base-text> -->
         </div>
       </div>
     </transition>
 
-    <base-flex center="y">
-      <base-icon app="juusoheino" size="xl">juusoheino</base-icon>
-      <base-button @click="swapLocale">swap</base-button>
-    </base-flex>
-    <base-button
-      v-if="$route.name === 'project'"
-      @click="goToProjects"
-    >return</base-button>
-    <nav-top-toggler :mode="togglerMode"></nav-top-toggler>
-    <menu-toggler :state="showDropdownNav" @click="toggle"></menu-toggler>
+    <!-- <base-flex class="brand" center="y"> -->
+      <!-- <base-icon size="xl">juusoheino</base-icon> -->
+      <!-- <base-button @click="swapLocale" :size="4">swap</base-button> -->
+    <!-- </base-flex> -->
+
+    <nav-top-logo :alternative="showDropdownNav"></nav-top-logo>
+    <nav-top-toggler
+      :mode="togglerMode"
+      @click.native="toggle"
+    ></nav-top-toggler>
   </div>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex'
 import { navLinks } from '@/utils/navigation'
+import navTopLogo from '@/components/navTopLogo'
 import navTopToggler from '@/components/navTopToggler'
-import menuToggler from '@/components/menuToggler'
-//import navTopLink from '@/components/navTopLink'
+import appExternalLinks from '@/components/appExternalLinks'
 
 export default {
   name: 'navTop',
 
   components: {
+    navTopLogo,
     navTopToggler,
-    menuToggler,
-    //navTopLink
+    appExternalLinks
   },
 
   data() {
     return {
-      logannu: false,
       showDropdownNav: false,
-      //narrowScreenBreakpoint: 450
-      //xxx: 0,
-      //yyy: 0,
-      //ruutuX: 0,
-      //ruutuY: 0,
-      //angle: 0,
-
       cursorOffsetX: 0,
-      cursorOffsetY: 0,
-      //cursorCoordinateX: 0,
-      //cursorCoordinateY: 0,
+      cursorOffsetY: 0
     }
   },
 
@@ -117,29 +108,13 @@ export default {
     trackMousePosition(e) {
       let wWidth = window.innerWidth
       let wHeight = window.innerHeight
-      //let angle
 
       if (e) {
-        //this.centerPosX = w / 2
-        //this.centerPosX = h / 2
-
         let cursorOffsetX = -(0.5 - e.pageX / wWidth)
         let cursorOffsetY = -(0.5 - e.pageY / wHeight)
-        //let cursorCoordinateX = e.pageX - (wWidth / 2)
-        //let cursorCoordinateY = e.pageY - (wHeight / 2)
 
         this.cursorOffsetX = cursorOffsetX
         this.cursorOffsetY = cursorOffsetY
-        //this.cursorCoordinateX = cursorCoordinateX
-        //this.cursorCoordinateY = cursorCoordinateY
-        
-        //angle = Math.atan2(cursorCoordinateY, cursorCoordinateX) * 180 / Math.PI
-
-        //console.log('cursorOffsetX', cursorOffsetX);
-        //console.log('cursorOffsetY', cursorOffsetY);
-        //console.log('cursorCoordinateX', cursorCoordinateX);
-        //console.log('cursorCoordinateY', cursorCoordinateY);
-        //console.log('angle', angle);
       }
 
       //if (angle < 0) { angle = angle + 360 }
@@ -171,7 +146,18 @@ export default {
     },
 
     toggle() {
+      if (this.showDropdownNav) {
+        this.closeDropdown()
+      } else if (this.$route.name === 'project') {
+        this.$router.push({ name: 'projects' })
+      } else {
+        this.showDropdownNav = true
+      }
+    },
+
+    closeDropdown() {
       this.showDropdownNav = !this.showDropdownNav
+      //this.showDropdownNav = false
     },
 
     goToProjects() {
@@ -181,58 +167,27 @@ export default {
   
   computed: {
     ...mapState('ui', ['navTopHeight', 'zIndex', 'window']),
+    ...mapState('app', ['externals']),
     ...mapGetters('app', ['GET_OFFICIAL']),
 
     togglerMode() {
       let mode = 'menu'
 
-      if (this.showDropdownNav) {
+      if (this.$app.isLoading()) {
+        mode = 'initial'
+      } else if (this.showDropdownNav) {
         mode = 'close'
+      } else if (this.$route.name === 'project') {
+        mode = 'back'
       }
 
-      /* setTimeout(() => {
-        mode = 'close'
-      }, 5000); */
+      console.log('mode:', mode);
+      
       return mode
     },
 
     navLinks() {
       return navLinks()
-    },
-
-    /* styling() {
-      let angle = -(0.5 - (this.xxx / this.ruutuX))
-      return {
-        transform: `rotateY(${angle})`
-      }
-    }, */
-
-    /* dynamicLinks() {
-      let routes = this.$router.options.routes
-      let filteredRoutes = []
-
-      routes.forEach(route => {
-        if (route.meta && route.meta.navLink) {
-          filteredRoutes.push({
-            title: route.meta.navLinkTitle,
-            to: route.name
-          })
-        }
-      })
-
-      return filteredRoutes
-    }, */
-
-    /* narrowScreen() {
-      if (this.window.width < this.narrowScreenBreakpoint) {
-        return true
-      } else return false
-    }, */
-
-    classing() {
-      return {
-        hidden: !this.showDropdownNav
-      }
     },
 
     styling() {
@@ -320,8 +275,8 @@ export default {
 }
 
 $nav-top--padding-sides: 1rem;
-//$nav-top-dropdown--color-background: $app-color--main;
-$nav-top-dropdown--color-background: yellow;
+$nav-top-dropdown--color: $app-color--theme;
+$nav-top-dropdown--color-background: $app-color--main;
 $nav-top-dropdown--color-highlight: $app-color--hl;
 $nav-top-dropdown--color-highlight2: $app-color--hl2;
 $nav-top-dropdown--animation-duration: 0.3s;
@@ -337,6 +292,13 @@ $nav-top-dropdown--animation-duration: 0.3s;
   justify-content: space-between;
   background: rgba(255, 255, 255, 0.25);
 
+  .brand {
+    .base-icon {
+      position: relative;
+      &::v-deep path { fill: blue !important; }
+    }
+  }
+
   .menu {
     position: absolute;
     top: 0;
@@ -346,8 +308,10 @@ $nav-top-dropdown--animation-duration: 0.3s;
     //padding-top: ; // see: this.styling.dropdown
     //background: $app-color--main;
     background: transparentize($nav-top-dropdown--color-background, 0.03);
+    //background: blue;
     transition: transform $nav-top-dropdown--animation-duration cubic-bezier(.09,.58,.36,1);
     .base-title {
+      color: $nav-top-dropdown--color;
       &:hover { color: $nav-top-dropdown--color-highlight2; }
       &.active { color: $nav-top-dropdown--color-highlight; }
     }
@@ -359,8 +323,9 @@ $nav-top-dropdown--animation-duration: 0.3s;
     justify-content: center;
   }
 
-  .base-icon { position: relative; }
-  .base-title { color: white; } //POISTUU!
+  
+
+  .base-title { color: $nav-top-dropdown--color; } //POISTUU!
 
   .dropdown-nav {
     /* z-index: -1;
@@ -405,13 +370,16 @@ $nav-top-dropdown--animation-duration: 0.3s;
     }
   }
 
-  .legal {
+  .bottom {
     position: absolute;
-    left: 50%;
-    bottom: 5vmin;
-    transform: translateX(-50%);
-
-    .base-text { color: white; }
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding-bottom: 5vmin;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .base-text { color: $nav-top-dropdown--color; }
   }
 }
 

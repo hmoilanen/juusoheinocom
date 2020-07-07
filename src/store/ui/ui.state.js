@@ -23,7 +23,7 @@
     modalHandler: 100000,
     contentHandler: 10000,
     navLeft: 1000,
-    navTop: 100,
+    navTop: 100000000000,
     //navRight: 10,
   },
 

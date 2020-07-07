@@ -1,30 +1,16 @@
 <template>
-  <div class="nav-top-toggler">
-    <!-- <base-flex center="x" :column="true">
-      <div>now: {{ this.mode }}</div>
-      <div>prev: {{ this.previousMode }}</div>
-    </base-flex> -->
-    <base-title>{{ this.togglerText }}</base-title>
+  <div class="nav-top-toggler" :class="{ 'dd-open': mode === 'close' }">
+    <base-title
+      class="text"
+      :size="5"
+      :m-r="5"
+    >{{ this.togglerText }}</base-title>
 
-    <div class="bars">
-      <div class="top" :style=styling.top></div>
-      <div class="mid" :style=styling.mid></div>
-      <div class="bot" :style=styling.bot></div>
+    <div class="bars" :style="styling.bars">
+      <div class="top" :style="styling.top"></div>
+      <div class="mid" :style="styling.mid"></div>
+      <div class="bot" :style="styling.bot"></div>
     </div>
-
-    <!-- POISTUU!!! -->
-    <!-- POISTUU!!! -->
-    <!-- POISTUU!!! -->
-    <!-- <base-flex class="napit" center="x">
-      <base-button
-        v-for="(nappi, index) in modes"
-        :key="nappi"
-        @click="mode = nappi"
-        m-r="s"
-        :empty="index === 0"
-      >{{ nappi }}</base-button>
-    </base-flex> -->
-
   </div>
 </template>
 
@@ -32,6 +18,7 @@
 //LISÄÄ TÄNNE TARKASTELU KOSKA navTopDd ON AUKI
 //...JA SIIRRÄ KO. animationSTATE STOREEN, KOSKA SITÄ TIETOA TARVITAAN MUUALLAKIN
 //... JA KUN SE ON AUKI, MUUTA TOGGLERIN VÄRI !!!
+
 export default {
   name: 'navTopToggler',
 
@@ -47,8 +34,6 @@ export default {
 
   data() {
     return {
-      //modes: ['centered', 'initial', 'menu', 'close', 'back'], //POISTUU!!!
-      //mode: 'initial',
       animationState: 'initial',
       previousMode: '',
       animationStateChangeDuration: 0.4 // = s
@@ -59,12 +44,17 @@ export default {
     mode: {
       immediate: true,
       handler(newValue, oldValue) {
-        this.previousMode = oldValue
-        this.animationState = ''
-        setTimeout(() => {
-          this.previousMode = ''
-          this.animationState = newValue
-        }, this.animationStateChangeDuration * 1000)
+        if (this.$app.isLoading()) { // During app initiation
+          this.animationState = 'initial'  
+        } else {
+          this.previousMode = oldValue
+          this.animationState = ''
+          setTimeout(() => {
+            this.previousMode = ''
+            this.animationState = newValue
+          }, this.animationStateChangeDuration * 1000)
+        }
+        
       }
     }
   },
@@ -72,26 +62,24 @@ export default {
   computed: {
     togglerText() {
       if (this.mode !== 'initial') {
-        return this.mode 
+        return !this.$app.isLoading()
+          ? this.$store.state.content.components.navTop[`toggler-${this.mode}-${this.$app.locale()}`]
+          : ''
       } else return ''
     },
 
     styling() {
-      let width = 25 // = px
-      let height = 4 // = px
-      let gapY = 10 // = px
-      let top = {
+      let width = 20 // = px
+      let height = 3 // = px
+      let gapY = 8 // = px
+      let bar = {
         width: width + 'px',
-        height: height + 'px'
+        height: height + 'px',
+        transition: `width ${this.animationStateChangeDuration}s ease, transform ${this.animationStateChangeDuration}s ease`
       }
-      let mid = {
-        width: width + 'px',
-        height: height + 'px'
-      }
-      let bot = {
-        width: width + 'px',
-        height: height + 'px'
-      }
+      let top = Object.assign({}, bar)
+      let mid = Object.assign({}, bar)
+      let bot = Object.assign({}, bar)
 
       if (this.animationState === 'initial') {
         top.width = `${height}px`
@@ -115,6 +103,7 @@ export default {
       }
 
       return {
+        bars: { width: width + 'px' },
         top: top,
         mid: mid,
         bot: bot
@@ -125,26 +114,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$bars--color-bg: $app-color--main;
+$bars--color: $app-color--main;
+$bars--color-secondary: $app-color--theme;
 
 .nav-top-toggler {
   position: relative;
   height: 50px;
   display: flex;
   align-items: center;
+  @extend %clickable;
+  //.text { transition: color 1s ease; }
   .bars {
+    // see: this.styling
     height: 100%;
     display: flex;
     align-items: center;
-    background: pink;
+    justify-content: center;
+    color: $bars--color;
   }
   .top,
   .mid,
   .bot {
     // see: this.styling
-    transition: width 0.6s ease, transform 0.4s ease-in-out;
     position: absolute;
-    background: $bars--color-bg;
+    //transition: background-color 2s ease;
+    background-color: $bars--color;
+  }
+  &.dd-open {
+    .text { color: $bars--color-secondary !important; }
+    .top,
+    .mid,
+    .bot { background-color: $bars--color-secondary; }
   }
 }
 </style>

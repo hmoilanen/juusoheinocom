@@ -4,16 +4,7 @@
       
       <base-grid colMin="240px" fillType="fill">
         <base-spacer class="about" size="xl">
-          <base-flex class="externals">
-            <base-link
-              v-for="(link, index) in links.externals"
-              :key="index"
-              :to="link.link"
-              mode="tab"
-            >
-              <base-icon :size="16" m-r="m">{{ link.icon }}</base-icon>
-            </base-link>
-          </base-flex>
+          <app-external-links></app-external-links>
 
           <div>
             <base-text
@@ -47,7 +38,7 @@
           <!-- <base-title :size="8">Go to</base-title> -->
           <base-spacer>
             <base-link
-              v-for="(link, index) in links.routes"
+              v-for="(link, index) in links"
               :key="index"
               :to="link.path"
               mode="router"
@@ -72,21 +63,18 @@
       </base-flex>
 
     </base-wrapper>
-
-    <!-- <base-icon
-      @click="logging"
-      :icon="$app.isLogged() ? 'unlocked' : 'locked'"
-      :clickable="true"
-    ></base-icon> -->
   </div>
 </template>
 
 <script>
 import { navLinks } from '@/utils/navigation'
 import { copyToClipboard, scrollToTop } from '@/utils/exec'
+import appExternalLinks from '@/components/appExternalLinks'
 
 export default {
   name: 'appFooter',
+
+  components: { appExternalLinks },
 
   data() {
     return {
@@ -119,10 +107,7 @@ export default {
 
   computed: {
     links() {
-      return {
-        routes: navLinks(),
-        externals: this.$store.state.app.externals
-      }
+      return navLinks()
     },
 
     official() {
@@ -163,8 +148,7 @@ export default {
     copyEmail(id) {
       if (!this.emailCopied && this.email !== 'email is pending...') {
         copyToClipboard(id)
-
-        let copiedText = this.$store.state.content.footer.copied[`text-${this.$app.locale()}`]
+        let copiedText = this.$store.state.content.components.footer[`copied-${this.$app.locale()}`]
         this.email += ` - ${copiedText}!`
         this.emailCopied = true
 

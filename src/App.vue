@@ -1,7 +1,10 @@
 <template>
   <div id="app">
-    <router-view :key="$route.fullPath"></router-view>
+    <!-- <router-view :key="$route.fullPath"></router-view> -->
+    <!-- HUOM! KEY OTETTU POIS navTopToggler:N TAKIA -> JOS ONGELMIA ILMENEE NIIN PISTÄ KEY TAKAISIN JA SIIRRÄ navTop KOKONAAN POIS baseView:STÄ! -->
+    <router-view></router-view>
     <app-curtain v-if="componentControl.curtain"></app-curtain>
+    <app-ui></app-ui>
     <modal-handler v-if="componentControl.modalHandler"></modal-handler>
     <app-handler></app-handler>
 
@@ -11,6 +14,7 @@
 
 <script>
 import appCurtain from '@/components/appCurtain'
+import appUi from '@/components/appUi'
 import appHandler from '@/components/appHandler'
 
 export default {
@@ -18,6 +22,7 @@ export default {
 
   components: {
     appCurtain,
+    appUi,
     appHandler,
     modalHandler: () => import('@/components/modalHandler'),
     //contentHandler: () => import('@/components/contentHandler'),

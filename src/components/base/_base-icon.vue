@@ -157,10 +157,6 @@ svg.base-icon {
   &.clickable { @extend %clickable; }
 
   //PITÄISIKÖ NÄMÄ KAIKKI SIIRTÄÄ MUUALLE / ITSE IKONI-FILUIHIN?!?!?!
-  g[fill="juusoheino"] {
-    #base-icon--color-juusoheino-main { fill: $app-color--main; }
-    #base-icon--color-juusoheino-hl { fill: $app-color--hl; }
-  }
   g[fill="discord"] { fill: colorlist("custom", "discord"); }
   g[fill="facebook"] { fill: colorlist("custom", "facebook"); }
   g[fill="linkedin"] { fill: colorlist("custom", "linkedin"); }

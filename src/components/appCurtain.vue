@@ -79,7 +79,7 @@ $app-curtain--color-bg: $app-color--main;
   justify-content: center;
   //background: $app-curtain--color-bg;
   //background: white;
-  background: rgba(255, 255, 255, 1.555);
+  background: rgba(255, 255, 255, 0.555);
   color: $app-curtain--color;
   border-bottom: 1px solid grey;
 

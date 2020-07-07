@@ -1,4 +1,3 @@
-
 <template>
   <div class="base-view" :style="styling.root">
     <slot name="hero"></slot>
@@ -8,20 +7,20 @@
       </base-wrapper>
     </div>
     <app-footer v-if="displayFooter"></app-footer>
-    <app-ui></app-ui>
+    <!-- <app-ui></app-ui> -->
   </div>
 </template>
 
 <script>
-import appCurtain from '@/components/appCurtain'
+//import appCurtain from '@/components/appCurtain'
 
 export default {
   name: 'baseView',
 
   components: {
-    appCurtain,
+    //appCurtain,
     appFooter: () => import('@/components/appFooter'),
-    appUi: () => import('@/components/appUi'),
+    //appUi: () => import('@/components/appUi'),
     //appCurtain: () => import('@/components/appCurtain')
   },
 

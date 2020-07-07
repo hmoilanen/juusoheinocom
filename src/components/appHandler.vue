@@ -13,11 +13,11 @@ export default {
     // Get data from firebase    
     await Promise.all([
       this.$api.getData('text', null, 'content'), // POISTUU!
+      this.$api.getData('components', null, 'content'),
       this.$api.getData('home', null, 'content'),
       this.$api.getData('contact', null, 'content'),
       this.$api.getData('projects', null, 'content'),
       this.$api.getData('gallery', null, 'content'),
-      this.$api.getData('footer', null, 'content'),
       this.$api.getData('meta', null, 'content')
     ])
 
