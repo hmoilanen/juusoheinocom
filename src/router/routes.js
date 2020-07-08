@@ -7,7 +7,7 @@ export default [
     component: () => import('@/views/Home'),
     meta: {
       navLink: true,
-      navLinkTitle: 'Front',
+      navLinkTitle: 'Home',
       navLinkTitleFi: 'Etusivu',
       displayFooter: true
     }

@@ -20,7 +20,7 @@
         <div class="bottom">
           <!-- <base-loader></base-loader> -->
           <app-external-links :alternative="true"></app-external-links>
-          <base-text :size="6" m-t="m">{{ this.GET_OFFICIAL.watermark }}</span></base-text>
+          <base-text :size="6" m-t="m">{{ this.GET_OFFICIAL.watermark }}</base-text>
           <!-- <base-text :size="6" m-t="m">{{ this.cursorOffsetX }}, {{ this.cursorOffsetY}}</span></base-text> -->
         </div>
       </div>

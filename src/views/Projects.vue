@@ -2,11 +2,12 @@
   <base-view class="view-projects">
     <template v-if="!$app.isLoading()">
       
-      <app-title></app-title>
 
       <editable-content path="projects.main" #default="{ content }">
-        <base-title size="l" m-b="m">{{ content[`title-${$app.locale()}`] }}</base-title>
-        <base-text m-b="xl">{{ content[`text-${$app.locale()}`] }}</base-text>
+        <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
+        <app-text>{{ content[`text-${$app.locale()}`] }}</app-text>
+        <!-- <base-title size="l" m-b="m">{{ content[`title-${$app.locale()}`] }}</base-title> -->
+        <!-- <base-text m-b="xl">{{ content[`text-${$app.locale()}`] }}</base-text> -->
       </editable-content>
     
       <base-button v-if="$app.isLogged()" @click="addProject">{{ this.buttonText }}</base-button>
@@ -28,6 +29,7 @@
 
 <script>
 import appTitle from '@/components/appTitle'
+import appText from '@/components/appText'
 import editableContent from '@/components/editableContent'
 import projectsItem from '@/components/projectsItem'
 import projectsProject from '@/components/projectsProject'
@@ -38,6 +40,7 @@ export default {
 
   components: {
     appTitle,
+    appText,
     editableContent,
     projectsItem,
     projectsProject

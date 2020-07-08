@@ -8,12 +8,16 @@
           path="contact.main"
           #default="{ content }"
         >
-          <base-title size="xl">{{ content[`title-${$app.locale()}`] }}</base-title>
-          <base-text m-b="l">{{ content[`text-${$app.locale()}`] }}</base-text>
+          <app-title :m-b="16">{{ content[`title-${$app.locale()}`] }}</app-title>
+          <app-text
+            v-if="!submitted"
+            :size="8"
+            :m-b="16"
+          >{{ content[`text-${$app.locale()}`] }}</app-text>
         </editable-content>
         
         <base-form v-if="!submitted">
-          <base-spacer :size="14">
+          <base-spacer :size="15">
             <base-input
               v-model="inputName"
               :required="true"
@@ -60,10 +64,9 @@
               :loading="!allowSubmit && submitting"
               size="l"
             >{{ formContent.submit[locale] }}</base-button>
-            <!-- <base-feedback v-if="submitted !== null">{{ this.mainFeedback }}</base-feedback> -->
           </base-spacer>
         </base-form>
-        <base-feedback v-else size="l">{{ this.mainFeedback }}</base-feedback>        
+        <app-text v-else :size="8">{{ this.mainFeedback }}</app-text>
       </template>
 
     </base-wrapper>
@@ -71,6 +74,8 @@
 </template>
 
 <script>
+import appTitle from '@/components/appTitle'
+import appText from '@/components/appText'
 import editableContent from '@/components/editableContent'
 import recaptcha from '@/components/recaptcha'
 import { mapState } from 'vuex'
@@ -81,6 +86,8 @@ export default {
   name: 'viewContact',
 
   components: {
+    appTitle,
+    appText,
     editableContent,
     recaptcha
   },

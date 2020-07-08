@@ -1,5 +1,5 @@
 <template>
-  <div class="app-title">
+  <div class="app-title" :style="mixinMargins">
     <div class="line"></div>
     <base-title :size="size" :scaling="true">
       <slot>appTitle.vue</slot>
@@ -8,8 +8,12 @@
 </template>
 
 <script>
+import { margins } from '@/utils/mixins'
+
 export default {
   name: 'appTitle',
+
+  mixins: [margins],
 
   /* components: {
     customComponent: () => import('@/components/customComponent')

@@ -4,11 +4,11 @@
       <div class="bg">
         <base-bg :source="imageURL(item.bg)" posY="top"></base-bg>
       </div>
-      <base-flex align="baseline">
-        <base-title m-t="s">{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>  
-        <base-text m-l="s">{{ this.item.year }}</base-text>
-      </base-flex>
-      <base-title :size="6" m-b="l">{{ this.item['type-' + $app.locale()] }}</base-title>
+      <base-title m-t="s">{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>  
+      <base-title
+        :size="7"
+        m-b="l"
+      >{{ this.item['type-' + $app.locale()] }}, {{ this.item.year }}</base-title>
     </template>
   </div>
 </template>

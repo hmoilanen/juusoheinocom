@@ -88,6 +88,7 @@ export default {
     iconPhotoshop: () => import("@/components/icons/iconPhotoshop"),
     iconQuote: () => import("@/components/icons/iconQuote"),
     iconReact: () => import("@/components/icons/iconReact"),
+    iconRedirect: () => import("@/components/icons/iconRedirect"),
     iconSass: () => import("@/components/icons/iconSass"),
     iconSql: () => import("@/components/icons/iconSql"),
     iconUnlocked: () => import("@/components/icons/iconUnlocked"),

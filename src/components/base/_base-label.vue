@@ -32,7 +32,7 @@ $label-font: $app-font--label;
   color: $label-color;
 
   span {
-    font-size: 1.35em;
+    font-size: 1.45em;
     color: $label-color--required;
   }
 }

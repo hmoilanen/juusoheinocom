@@ -28,6 +28,14 @@ export default {
     },
     center: Boolean, // for css
     truncate: Boolean, // for css
+    lineHeight: { // for css
+      type: [String, Number],
+      default: '1.4em'
+    },
+    uppercase: {
+      type: Boolean,
+      default: true
+    }
     //main: Boolean // about styling
   },
 
@@ -61,9 +69,18 @@ export default {
     },
 
     styling() {
+      let lineHeight = this.lineHeight
+      
+      if (typeof this.lineHeight === 'number') {
+        lineHeight += 'em'
+      }
+
       return {
         fontSize: this.mixinSizing,
-        lineHeight: '1.4em',
+        lineHeight: lineHeight,
+        textTransform: this.uppercase
+          ? 'uppercase'
+          : false
       }
     },
 
@@ -84,8 +101,9 @@ $title-indicator-width: 0.2em;
 .base-title {
   position: relative;
   overflow-wrap: break-word; // !
+  word-break: break-word;
 
-  &.break-word { word-break: break-all; }
+  //&.break-word { word-break: break-all; }
   &.truncate { @extend %truncate; }
   &.center { text-align: center; }
   
@@ -104,7 +122,7 @@ $title-indicator-width: 0.2em;
     font-weight: 900;
     font-family: $title-font;
     letter-spacing: 0.02em;
-    text-transform: uppercase;
+    //text-transform: uppercase;
     color: $title-color;
     &::selection {
       background: $title-color--active;

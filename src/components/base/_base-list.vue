@@ -2,9 +2,13 @@
   <component
     :is="type"
     class="base-list"
-    :style="[styling, mixinMargins, mixinPaddings]"
+    :style="[styling.list, mixinMargins, mixinPaddings]"
   >
-    <li v-for="(item, index) in list" :key="index">
+    <li
+      v-for="(item, index) in list"
+      :key="index"
+      :style="styling.item"
+    >
       <slot :item="item">{{ item }}</slot>
     </li>
   </component>
@@ -14,12 +18,12 @@
 // TODOS:
 // -CHANGE BINDED KEY SO IT CAN BE DECIDED BY USER FROM LIST-PROP VALUES
 
-import { sizing, margins, paddings } from '@/utils/mixins'
+import { margins, paddings } from '@/utils/mixins'
 
 export default {
   name: 'baseList',
 
-  mixins: [sizing, margins, paddings],
+  mixins: [margins, paddings],
 
   props: {
     list: [Array, Object],
@@ -36,6 +40,10 @@ export default {
       type: String,
       default: 'outside',
       validator: prop => { return ['outside', 'inside'].indexOf(prop) !== -1 }
+    },
+    lineHeight: {
+      type: [String, Number],
+      default: '2em'
     },
   },
 
@@ -60,7 +68,12 @@ export default {
 
   computed: {
     styling() {
-      let marker
+      let marker = false
+      let lineHeight = this.lineHeight
+      
+      if (typeof this.lineHeight === 'number') {
+        lineHeight += 'em'
+      }
 
       if (this.marker) {
         marker = this.marker
@@ -73,9 +86,14 @@ export default {
       }
 
       return {
-        'list-style-type': marker,
-        'list-style-position': this.position ? this.position : false,
-        fontSize: this.fontSize ? this.fontSize : false
+        list: {
+          'list-style-type': marker,
+          'list-style-position': this.position ? this.position : false,
+          fontSize: this.fontSize ? this.fontSize : false
+        },
+        item: {
+          lineHeight: lineHeight
+        }
       }
     }
   }
@@ -84,9 +102,7 @@ export default {
 
 <style lang="scss" scoped>
 .base-list {
-  padding-left: 2em;
-
-  li { line-height: 1.6em; }
+  padding-left: 1.2em;
 
   /* @at-root {
     ol#{&} {}
