@@ -67,13 +67,17 @@ export default {
           lat: this.places[0].position.lat,
           lng: this.places[0].position.lng
         },
-        //zoom: this.zoom,
         zoom: this.places[0].zoom,
         maxZoom: this.maxZoom,
         minZoom: this.minZoom,
-        streetViewControl: this.streetView,
-        mapTypeControl: this.mapTypes,
         styles: this.mapStyle ? googleMapStyles[this.mapStyle] : false,
+        // Map control UI:
+        //zoomControl: boolean,
+        mapTypeControl: this.mapTypes,
+        //scaleControl: boolean,
+        streetViewControl: this.streetView,
+        //rotateControl: boolean,
+        //fullscreenControl: boolean
         disableDefaultUI: this.disableDefaultUi
       })
 

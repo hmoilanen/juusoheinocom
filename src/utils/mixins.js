@@ -6,14 +6,20 @@ import { dataType } from '@/utils/data'
 
 export const sizing = { // Generic sizing mixin for components
   props: {
-    size: [Number, String],
+    size: {
+      type: [Number, String],
+      default: 's',
+      validator(prop) {
+        if (typeof prop === 'string') {
+          return ['s', 'm', 'l', 'xl'].indexOf(prop) !== -1
+        } else return true
+      }
+    },
     sizeUnit: {
       type: String,
       default: 'rem'
     },
-    scaling: {
-      type: [Boolean, Array, Object, Number]
-    }
+    scaling: [Boolean, Array, Object, Number]
   },
 
   data() {
@@ -31,9 +37,10 @@ export const sizing = { // Generic sizing mixin for components
       // Sizing based on predetermined categories
       function sizeCategory(size) {
         if (typeof size === 'string') {
-          if (size === 's' || size === 'm' || size === 'l' || size === 'xl') {
-            return self.mixinSizeCategories[size]
-          } else return self.mixinSizeCategories.m
+          return self.mixinSizeCategories[size]
+          //JÄTIN TÄN VIELÄ TÄHÄN KOSKA VAIHIDOIN TARKASTELUN PROPIN VALIDATORIIIN JA JOS TULE ONGELMIA NIIN PALAA TÄHÄN!!!!
+          /* if (size === 's' || size === 'm' || size === 'l' || size === 'xl') {
+          } else return self.mixinSizeCategories.m */
         } else return size // = number
       }
 
@@ -89,7 +96,7 @@ export const sizing = { // Generic sizing mixin for components
               console.log('mixinSizing.scaling: object\'s values has to contain only numbers')
               return size
             }
-          } else { // if number
+          } else { // if number);
             return size + (breakpoint.index * self.scaling)
           }
         } else return size

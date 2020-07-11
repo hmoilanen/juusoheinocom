@@ -1,7 +1,7 @@
 <template>
   <base-view class="view-contact">
-    <base-wrapper max-width="paragraph">
-
+    <!-- <base-wrapper max-width="paragraph"> -->
+    <app-content-wrapper max-width="paragraph">
       <template v-if="!isLoading">
         <editable-content
           v-if="!$app.isLoading()"
@@ -68,12 +68,15 @@
         </base-form>
         <app-text v-else :size="8">{{ this.mainFeedback }}</app-text>
       </template>
+    </app-content-wrapper>
 
-    </base-wrapper>
+
+    <!-- </base-wrapper> -->
   </base-view>
 </template>
 
 <script>
+import appContentWrapper from '@/components/appContentWrapper'
 import appTitle from '@/components/appTitle'
 import appText from '@/components/appText'
 import editableContent from '@/components/editableContent'
@@ -86,6 +89,7 @@ export default {
   name: 'viewContact',
 
   components: {
+    appContentWrapper,
     appTitle,
     appText,
     editableContent,

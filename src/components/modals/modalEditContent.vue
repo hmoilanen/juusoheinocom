@@ -11,6 +11,7 @@
           :value="editable.data"
           :label="key"
           @updated="updateContentToEdit($event, key)"
+          :rows="1"
         ></component>
         <base-button
           v-if="allowUndo(key)"
@@ -82,7 +83,7 @@ export default {
           content.is = 'dropzone'
           content.data = { name: content.data, path: this.modalData.path }
         } else {
-          content.is = 'base-input'
+          content.is = 'base-textarea'
         }
       }
 

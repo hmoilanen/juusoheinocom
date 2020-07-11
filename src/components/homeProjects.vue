@@ -1,34 +1,42 @@
 <template>
   <div class="home-projects">
-    <editable-content path="home.projects" #default="{ content }">
-      <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
-      <base-link to="projects">{{ content[`link-${$app.locale()}`] }} &#8594;</base-link>
-    </editable-content>
-    
-    <div class="grid" :style="styling">
-      <div
-        class="card"
-        v-for="(project, key) in projects"
-        :key="key"
-      >
-        <base-link :to="{ name: 'project', params: { id: key } }">
-          <div class="bg">
-            <base-bg :source="bgSource(key, project.bg)" posX="center" posY="top"></base-bg>
+    <app-content-wrapper :maxHeight="false">
+      <editable-content path="home.projects" #default="{ content }">
+        <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
+        <base-link :to="{ name: 'projects' }">
+          <base-flex center="y">
+            <base-title :size="7">{{ content[`link-${$app.locale()}`] }}</base-title>
+            <base-icon class="redirect">redirect</base-icon>
+          </base-flex>
+        </base-link>
+      </editable-content>
+      
+      <div class="grid" :style="styling">
+        <div
+          class="card"
+          v-for="(project, key) in projects"
+          :key="key"
+        >
+          <base-link :to="{ name: 'project', params: { id: key } }">
+            <div class="bg">
+              <base-bg :source="bgSource(key, project.bg)" posX="center" posY="top"></base-bg>
+            </div>
+          </base-link>
+          <div class="info">
+            <base-title :size="8">{{ project['title-' + $app.locale()] }}</base-title>
+            <base-text>{{ project.year }}</base-text>
           </div>
-        </base-link>
-        <div class="info">
-          <base-title :size="8">{{ project['title-' + $app.locale()] }}</base-title>
-          <base-text>{{ project.year }}</base-text>
+          <base-link class="link" :to="{ name: 'project', params: { id: key } }">
+            <base-text>more &#8594;</base-text>
+          </base-link>
         </div>
-        <base-link class="link" :to="{ name: 'project', params: { id: key } }">
-          <base-text>more &#8594;</base-text>
-        </base-link>
       </div>
-    </div>
+    </app-content-wrapper>
   </div>
 </template>
 
 <script>
+import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
 import appTitle from '@/components/appTitle'
 
@@ -36,6 +44,7 @@ export default {
   name: 'homeProjects',
 
   components: {
+    appContentWrapper,
     editableContent,
     appTitle
   },
@@ -81,9 +90,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$card--color-link-hover: $app-color--hl;
+$home-projects--color-hl: $app-color--hl;
+
 .home-projects {
-  
+  .redirect {
+    margin-left: 0.5rem;
+    margin-top: -0.1rem;
+    @extend %clickable;
+    color: $home-projects--color-hl;
+  }
+
   .grid {
     margin-top: 2rem;
     display: grid;
@@ -91,7 +107,6 @@ $card--color-link-hover: $app-color--hl;
     // grid-gap, see: this.styling
     transition: grid-gap 0.3s ease;
   }
-  
   .card {
     .bg {
       position: relative;
@@ -106,11 +121,10 @@ $card--color-link-hover: $app-color--hl;
       justify-content: space-between;
     }
   }
-    
-  //.base-link:hover .base-text { color: $card--color-link-hover; }
+  //.base-link:hover .base-text { color: $home-projects--color-hl; }
   .base-link:hover {
     &,
-    & .base-text { color: $card--color-link-hover; }
+    & .base-text { color: $home-projects--color-hl; }
   }
 }
 </style>

@@ -1,9 +1,10 @@
 <template>
   <div class="base-view" :style="styling.root">
+    <slot name="hero"></slot>
     <div class="content" :style="styling.content">
-      <slot>{{ $options.name }}</slot>
-      <!-- <base-wrapper :maxWidth="true">
-      </base-wrapper> -->
+      <base-wrapper :maxWidth="true">
+        <slot>{{ $options.name }}</slot>
+      </base-wrapper>
     </div>
     <app-footer v-if="displayFooter"></app-footer>
     <!-- <app-ui></app-ui> -->
@@ -51,9 +52,9 @@ export default {
         contentMinHeight -= footerHeight 
       }
 
-      /* if (breakpoint.index === 1) { padding *= 2 } // = 'm'
+      if (breakpoint.index === 1) { padding *= 2 } // = 'm'
       else if (breakpoint.index === 2) { padding *= 4 } // = 'l'
-      else if (breakpoint.index >= 3) { padding *= 6 } // = 'xl' */
+      else if (breakpoint.index >= 3) { padding *= 6 } // = 'xl'
 
       return {
         root: {
@@ -63,7 +64,7 @@ export default {
         },
         content: {
           minHeight: contentMinHeight + 'px',
-          //padding: `0 ${padding}px`
+          padding: `0 ${padding}px`
           //padding: `${padding}px`
         }
       }

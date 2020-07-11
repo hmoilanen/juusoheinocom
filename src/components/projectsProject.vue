@@ -39,7 +39,7 @@
             </div>
 
             <div>
-              <base-title :size="textTitleSize">{{ subtitle('about') }}</base-title>
+              <base-title :size="textTitleSize" :m-b="2">{{ subtitle('about') }}</base-title>
               <app-text v-html="content['text-' + locale]"></app-text>
             </div>
 

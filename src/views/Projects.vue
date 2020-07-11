@@ -1,33 +1,34 @@
 <template>
   <base-view class="view-projects">
-    <template v-if="!$app.isLoading()">
+    <app-content-wrapper>
+      <template v-if="!$app.isLoading()">
+        <editable-content path="projects.main" #default="{ content }">
+          <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
+          <app-text :size="8">{{ content[`text-${$app.locale()}`] }}</app-text>
+          <!-- <base-title size="l" m-b="m">{{ content[`title-${$app.locale()}`] }}</base-title> -->
+          <!-- <base-text m-b="xl">{{ content[`text-${$app.locale()}`] }}</base-text> -->
+        </editable-content>
       
+        <base-button v-if="$app.isLogged()" @click="addProject">{{ this.buttonText }}</base-button>
 
-      <editable-content path="projects.main" #default="{ content }">
-        <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
-        <app-text>{{ content[`text-${$app.locale()}`] }}</app-text>
-        <!-- <base-title size="l" m-b="m">{{ content[`title-${$app.locale()}`] }}</base-title> -->
-        <!-- <base-text m-b="xl">{{ content[`text-${$app.locale()}`] }}</base-text> -->
-      </editable-content>
-    
-      <base-button v-if="$app.isLogged()" @click="addProject">{{ this.buttonText }}</base-button>
+        <base-spacer :size="20">
+          <projects-item
+            v-for="(project, key) in projects"
+            :key="key"
+            :item="project"
+            @click.native="showcaseProject(key)"
+          ></projects-item>
+        </base-spacer>
 
-      <base-spacer :size="20">
-        <projects-item
-          v-for="(project, key) in projects"
-          :key="key"
-          :item="project"
-          @click.native="showcaseProject(key)"
-        ></projects-item>
-      </base-spacer>
-
-      <projects-project v-if="$route.name === 'project'"></projects-project>
-    </template>
+        <projects-project v-if="$route.name === 'project'"></projects-project>
+      </template>
+    </app-content-wrapper>
   </base-view>
 </template>
 
 
 <script>
+import appContentWrapper from '@/components/appContentWrapper'
 import appTitle from '@/components/appTitle'
 import appText from '@/components/appText'
 import editableContent from '@/components/editableContent'
@@ -39,6 +40,7 @@ export default {
   name: 'viewProjects',
 
   components: {
+    appContentWrapper,
     appTitle,
     appText,
     editableContent,

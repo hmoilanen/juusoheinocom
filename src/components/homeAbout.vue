@@ -1,36 +1,42 @@
 <template>
   <div class="home-about">
-    <editable-content
-      v-if="!$app.isLoading()"
-      path="home.about"
-      #default="{ content }"
-    >
-      <app-title>{{ content[`title-${locale}`] }}</app-title>
-      <base-text :size="textSize">{{ content[`text-${locale}`] }}</base-text>
-      <div class="quote">
-        <base-icon :size="90">quote</base-icon>
-        <base-title :center="true" :size="10">"{{ content[`quote-${locale}`] }}"</base-title>
-      </div>
-      <!-- <base-link to="gallery">{{ content[`link-${locale}`] }}</base-link> -->
-    </editable-content>
+    <app-content-wrapper max-width="paragraph">
+      <editable-content
+        v-if="!$app.isLoading()"
+        path="home.about"
+        #default="{ content }"
+      >
+        <app-title>{{ content[`title-${locale}`] }}</app-title>
+        <app-text :size="8">{{ content[`text-${locale}`] }}</app-text>
+        <div class="quote">
+          <base-icon :size="90">quote</base-icon>
+          <base-title :center="true" :size="10">"{{ content[`quote-${locale}`] }}"</base-title>
+        </div>
+        <!-- <base-link to="gallery">{{ content[`link-${locale}`] }}</base-link> -->
+      </editable-content>
+    </app-content-wrapper>
   </div>
 </template>
 
 <script>
+import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
 import appTitle from '@/components/appTitle'
+import appText from '@/components/appText'
 
 export default {
   name: 'homeAbout',
 
   components: {
+    appContentWrapper,
     editableContent,
-    appTitle
+    appTitle,
+    appText
   },
 
-  props: {
+  /* props: {
     textSize: [String, Number]
-  },
+  }, */
 
   computed: {
     locale() {

@@ -1,7 +1,7 @@
 <template>
   <div class="app-footer" ref="footer" :style="styling">
-    <base-wrapper maxWidth="max" :padding="true">
-      
+    <!-- <base-wrapper maxWidth="max" :padding="true"> -->
+    <app-content-wrapper :min-height="false">
       <base-grid colMin="240px" fillType="fill">
         <base-spacer class="about" size="xl">
           <app-external-links></app-external-links>
@@ -61,20 +61,26 @@
       >
         <base-icon icon="up" :size="10" mL="s" :clickable="true"></base-icon>
       </base-flex>
+    </app-content-wrapper>
+      
 
-    </base-wrapper>
+    <!-- </base-wrapper> -->
   </div>
 </template>
 
 <script>
 import { navLinks } from '@/utils/navigation'
 import { copyToClipboard, scrollToTop } from '@/utils/exec'
+import appContentWrapper from '@/components/appContentWrapper'
 import appExternalLinks from '@/components/appExternalLinks'
 
 export default {
   name: 'appFooter',
 
-  components: { appExternalLinks },
+  components: {
+    appContentWrapper,
+    appExternalLinks
+  },
 
   data() {
     return {

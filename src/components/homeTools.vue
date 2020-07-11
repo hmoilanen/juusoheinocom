@@ -1,42 +1,49 @@
 <template>
   <div class="home-tools">
-    <template v-if="tools">
-      <editable-content path="home.tools.main" #default="{ content }">
-        <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
-        <base-text :size="textSize">{{ content[`text-${$app.locale()}`] }}</base-text>
-        <base-title :size="4" m-t="m">
-          <span>*</span> = {{ content[`nb-${$app.locale()}`] }}
-        </base-title>
-      </editable-content>
-      <base-wrapper maxWidth="medium">
-        <div class="grid">
-          <div
-            class="tool"
-            v-for="(tool, key) in tools"
-            :key="key"
-          >
-            <base-icon size="xl">{{ key }}</base-icon>
-            <base-title :size="4" :truncate="true">
-              {{ tool.title }}
-              <span v-if="!tool.advanced">*</span>
-            </base-title>
+    <app-content-wrapper max-width="paragraph">
+      <template v-if="tools">
+        <editable-content path="home.tools.main" #default="{ content }">
+          <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
+          <app-text :size="8">{{ content[`text-${$app.locale()}`] }}</app-text>
+          <!-- <base-text :size="textSize">{{ content[`text-${$app.locale()}`] }}</base-text> -->
+          <base-title :size="4" m-t="m">
+            <span>*</span> = {{ content[`nb-${$app.locale()}`] }}
+          </base-title>
+        </editable-content>
+        <!-- <base-wrapper maxWidth="medium"> -->
+          <div class="grid">
+            <div
+              class="tool"
+              v-for="(tool, key) in tools"
+              :key="key"
+            >
+              <base-icon size="xl">{{ key }}</base-icon>
+              <base-title :size="4" :truncate="true">
+                {{ tool.title }}
+                <span v-if="!tool.advanced">*</span>
+              </base-title>
+            </div>
           </div>
-        </div>
-      </base-wrapper>
-    </template>
+        <!-- </base-wrapper> -->
+      </template>
+    </app-content-wrapper>
   </div>
 </template>
 
 <script>
+import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
 import appTitle from '@/components/appTitle'
+import appText from '@/components/appText'
 
 export default {
   name: 'homeTools',
 
   components: {
+    appContentWrapper,
     editableContent,
-    appTitle
+    appTitle,
+    appText
   },
 
   props: {

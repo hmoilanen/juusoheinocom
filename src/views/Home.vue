@@ -1,16 +1,12 @@
 <template>
   <base-view class="view-home" :compensateNavTop="false">
-    <template #hero>
-      <home-hero></home-hero>
-    </template>
-    <base-spacer :size="45" :scaling="true">
-      <div></div> <!-- VÄLIAIKAINEN!!! -> RATKAISE JOTENKIN MUUTEN -->
+    <home-hero></home-hero>
+    <!-- <base-spacer :size="45" :scaling="true"> -->
       <home-projects></home-projects>
-      <home-about :textSize="textSize"></home-about>
-      <home-tools :textSize="textSize"></home-tools>
+      <home-about></home-about>
+      <home-tools></home-tools>
       <home-contact></home-contact>
-      <div></div> <!-- VÄLIAIKAINEN!!! -> RATKAISE JOTENKIN MUUTEN -->
-    </base-spacer>
+    <!-- </base-spacer> -->
   </base-view>
 </template>
 
@@ -30,13 +26,6 @@ export default {
     homeProjects,
     homeTools,
     homeContact
-  },
-
-  data() {
-    return {
-      titleSize: 'l',
-      textSize: 'l'
-    }
   }
 }
 </script>
