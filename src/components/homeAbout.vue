@@ -1,6 +1,6 @@
 <template>
   <div class="home-about">
-    <app-content-wrapper max-width="paragraph">
+    <app-content-wrapper>
       <editable-content
         v-if="!$app.isLoading()"
         path="home.about"
@@ -50,10 +50,7 @@ export default {
 $color--icon-quote: $app-color--hl2;
 
 .home-about {
-  min-height: 50vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  @extend %home-sections--default-style;
 
   .quote {
     margin: 0 auto;

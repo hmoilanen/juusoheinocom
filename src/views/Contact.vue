@@ -1,5 +1,5 @@
 <template>
-  <base-view class="view-contact">
+  <base-view class="view-contact" content-padding-y="y">
     <!-- <base-wrapper max-width="paragraph"> -->
     <app-content-wrapper max-width="paragraph">
       <template v-if="!isLoading">

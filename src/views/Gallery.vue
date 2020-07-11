@@ -12,17 +12,19 @@
 
       <div
         v-if="currentGallery"
-        class="content-carousel-wrapper"
+        class="content-carousel-container"
       >
-        <content-carousel v-if="currentGallery" :key="currentGallery">
-          <div
-            v-for="(image, index) in images"
-            :key="image + index"
-            class="image"
-          >
-            <base-bg :source="image" fit="contain"></base-bg>
-          </div>
-        </content-carousel>
+        <app-content-wrapper>
+          <content-carousel v-if="currentGallery" :key="currentGallery">
+            <div
+              v-for="(image, index) in images"
+              :key="image + index"
+              class="image"
+            >
+              <base-bg :source="image" fit="contain"></base-bg>
+            </div>
+          </content-carousel>
+        </app-content-wrapper>
       </div>
 
       <!-- <editable-content path="gallery.main" #default="{ content }">
@@ -48,8 +50,9 @@
     //-> map.fitBounds(bounds); ...
 //PILOTA KARTAN ZOOMINAPIT JA TERMSOFSERVICET JNE.
 
-import editableContent from '@/components/editableContent'
+//import editableContent from '@/components/editableContent'
 import googleMap from '@/components/googleMap'
+import appContentWrapper from '@/components/appContentWrapper'
 import contentCarousel from '@/components/contentCarousel'
 import { randomString } from '@/utils/strings'
 import { randomIntegerFromInterval } from '@/utils/math'
@@ -59,8 +62,9 @@ export default {
   name: 'viewGallery',
 
   components: {
-    editableContent,
+    //editableContent,
     googleMap,
+    appContentWrapper,
     contentCarousel
   },
 
@@ -214,12 +218,15 @@ export default {
       opacity: 0.1;
     }
   }
-  .content-carousel-wrapper {
+  .content-carousel-container {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
   }
   .content-carousel {
     position: relative;

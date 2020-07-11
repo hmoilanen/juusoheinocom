@@ -1,7 +1,7 @@
 <template>
   <div class="app-title" :style="mixinMargins">
     <div class="line"></div>
-    <base-title :size="size" :scaling="true">
+    <base-title :size="size" :scaling="1">
       <slot>appTitle.vue</slot>
     </base-title>
   </div>
@@ -43,14 +43,15 @@ export default {
 
 <style lang="scss" scoped>
 .app-title {
+  margin-bottom: 1em;
   display: flex;
   align-items: center;
 
   .line {
     margin-right: 0.5rem;
-    width: 8vmin;
-    min-width: 25px;
-    max-width: 40px;
+    width: 6vmin;
+    min-width: 20px;
+    max-width: 30px;
     height: 4px;
     background: black;
   }

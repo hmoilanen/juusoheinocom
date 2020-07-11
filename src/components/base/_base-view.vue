@@ -27,6 +27,12 @@ export default {
     compensateNavTop: {
       type: Boolean,
       default: true
+    },
+    contentPaddingY: {
+      type: String,
+      validator(prop) {
+        return ['top', 'bottom', 'both', 'y'].indexOf(prop) !== -1
+      }
     }
   },
 
@@ -36,12 +42,14 @@ export default {
     },
 
     styling() {
+      let breakpoint = this.$store.getters['ui/GET_BREAKPOINT']
       let ui = this.$store.state.ui
       let navTopHeight = ui.navTopHeight || 50
       let footerHeight = ui.footerHeight || 50
       let contentMinHeight = ui.window.height
-      let breakpoint = this.$store.getters['ui/GET_BREAKPOINT']
-      let padding = ui.contentPaddingDefault
+      let contentPaddingTop = false
+      let contentPaddingBottom = false
+      //let padding = ui.contentPaddingDefault
 
       if (ui.navTopDisplayed && this.compensateNavTop) {
         contentMinHeight -= navTopHeight
@@ -49,6 +57,18 @@ export default {
 
       if (this.displayFooter) {
         contentMinHeight -= footerHeight 
+      }
+      
+      let ps = 5 // = 'vmax'
+      if (this.contentPaddingY) {
+        if (this.contentPaddingY === 'top') {
+          contentPaddingTop = ps
+        } else if (this.contentPaddingY === 'top') {
+          contentPaddingBottom = ps * 2
+        } else {
+          contentPaddingTop = ps
+          contentPaddingBottom = ps * 2
+        }
       }
 
       /* if (breakpoint.index === 1) { padding *= 2 } // = 'm'
@@ -63,6 +83,8 @@ export default {
         },
         content: {
           minHeight: contentMinHeight + 'px',
+          paddingTop: contentPaddingTop + 'vmax',
+          paddingBottom: contentPaddingBottom + 'vmax'
           //padding: `0 ${padding}px`
           //padding: `${padding}px`
         }

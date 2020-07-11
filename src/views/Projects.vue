@@ -1,24 +1,24 @@
 <template>
-  <base-view class="view-projects">
+  <base-view class="view-projects" content-padding-y="y">
     <app-content-wrapper>
       <template v-if="!$app.isLoading()">
         <editable-content path="projects.main" #default="{ content }">
           <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
-          <app-text :size="8">{{ content[`text-${$app.locale()}`] }}</app-text>
-          <!-- <base-title size="l" m-b="m">{{ content[`title-${$app.locale()}`] }}</base-title> -->
-          <!-- <base-text m-b="xl">{{ content[`text-${$app.locale()}`] }}</base-text> -->
+          <app-text :m-b="25">{{ content[`text-${$app.locale()}`] }}</app-text>
         </editable-content>
       
         <base-button v-if="$app.isLogged()" @click="addProject">{{ this.buttonText }}</base-button>
 
-        <base-spacer :size="20">
+        <!-- <base-spacer :size="20" m-t="xl"> -->
+        <div class="grid">
           <projects-item
             v-for="(project, key) in projects"
             :key="key"
             :item="project"
             @click.native="showcaseProject(key)"
           ></projects-item>
-        </base-spacer>
+        </div>
+        <!-- </base-spacer> -->
 
         <projects-project v-if="$route.name === 'project'"></projects-project>
       </template>
@@ -48,42 +48,12 @@ export default {
     projectsProject
   },
 
-  /* created() {
-    setTimeout(() => {
-      let projects = this.$store.state.content.projects
-      for (let project in projects) {
-        projects[project].link = ''
-        projects[project]['subtitle-en'] = ''
-        projects[project]['subtitle-fi'] = ''
-        console.log('projects[project]', projects[project]);
-        
-        this.$api.setDocument('projects', project, projects[project])
-      }
-    }, 10000);
-  }, */
-
-  /* watch: {
-    '$route': {
-      immediate: true,
-      deep: true,
-      handler(newValue) {
-        //return newValue
-        console.log(newValue);
-        
-      }
-    }
-  }, */
-
   computed: {
     projects() {
       let locale = this.$app.locale()
       if (!this.$store.state.app.isLoading) {
         let { main, ...projects } = this.$store.state.content.projects
         return projects
-        /* return {
-          main: main[locale],
-          projects: projects
-        } */
       }
       return {}
     },
@@ -101,8 +71,6 @@ export default {
     },
 
     addProject() {
-      //let { main, ...projects } = this.$store.state.content.projects
-      //let ids = Object.keys(projects.projects)
       let ids = Object.keys(this.projects)
       let data = {
         'title-en': '',
@@ -132,5 +100,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.view-projects {}
+.view-projects {
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    grid-gap: 1rem;
+  }
+}
 </style>

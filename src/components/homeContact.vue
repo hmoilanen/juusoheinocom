@@ -1,24 +1,25 @@
 <template>
-  <app-content-wrapper max-width="paragraph">
-    <editable-content
-      v-if="!$app.isLoading()"
-      path="home.contact"
-      #default="{ content }"
-    >
-      <base-flex class="home-contact" :column="true" center="x" p-y="l">
+  <div class="home-contact">
+    <app-content-wrapper>
+      <editable-content
+        v-if="!$app.isLoading()"
+        path="home.contact"
+        #default="{ content }"
+      >
         <base-title
           size="xl"
           :center="true"
-          m-b="m"
+          :m-b="20"
         >{{ content[`title-${$app.locale()}`] }}</base-title>
         <base-button
           @click="toContact"
           size="xl"  
+          :center="true"
           :highlight="true"
         >{{ content[`link-${$app.locale()}`] }}</base-button>
-      </base-flex>
-    </editable-content>
-  </app-content-wrapper>
+      </editable-content>
+    </app-content-wrapper>
+  </div>
 </template>
 
 <script>
@@ -42,5 +43,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.home-contact {}
+.home-contact {
+  @extend %home-sections--default-style;
+}
 </style>

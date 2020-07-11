@@ -86,7 +86,7 @@ export default {
     styling() {
       return {
         fontSize: this.mixinSizing,
-        lineHeight: '1.3em',
+        //lineHeight: '1.3em',
         fontWeight: this.weight ? this.weight : false,
         display: this.display ? this.display : false
       }
@@ -109,6 +109,8 @@ $text-font--handle: $app-font--handle;
 
 .base-text {
   position: relative;
+  line-height: 1.4em;
+
   &.clickable { @extend %clickable; }
 
   &.style-set-0 {

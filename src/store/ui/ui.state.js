@@ -3,9 +3,9 @@
   breakpoints: [420, 768, 900], // default amount is 2, max 3 (if unique layout for super wide screen is provided)
   contentPaddingDefault: 16, // 16px / 1rem
   contentWidth: {
-    max: 1200,
+    max: 1100,
     medium: 900,
-    paragraph: 600,
+    paragraph: 460,
   },
   curtainDisplayed: true,
   //darkMode: false,

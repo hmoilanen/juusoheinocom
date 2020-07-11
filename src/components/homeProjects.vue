@@ -1,6 +1,6 @@
 <template>
   <div class="home-projects">
-    <app-content-wrapper :maxHeight="false">
+    <app-content-wrapper>
       <editable-content path="home.projects" #default="{ content }">
         <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
         <base-link :to="{ name: 'projects' }">

@@ -1,30 +1,31 @@
 <template>
   <div class="home-tools">
-    <app-content-wrapper max-width="paragraph">
+    <app-content-wrapper>
       <template v-if="tools">
         <editable-content path="home.tools.main" #default="{ content }">
           <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
           <app-text :size="8">{{ content[`text-${$app.locale()}`] }}</app-text>
           <!-- <base-text :size="textSize">{{ content[`text-${$app.locale()}`] }}</base-text> -->
-          <base-title :size="4" m-t="m">
-            <span>*</span> = {{ content[`nb-${$app.locale()}`] }}
-          </base-title>
-        </editable-content>
-        <!-- <base-wrapper maxWidth="medium"> -->
-          <div class="grid">
-            <div
-              class="tool"
-              v-for="(tool, key) in tools"
-              :key="key"
-            >
-              <base-icon size="xl">{{ key }}</base-icon>
-              <base-title :size="4" :truncate="true">
-                {{ tool.title }}
-                <span v-if="!tool.advanced">*</span>
-              </base-title>
+        
+          <base-wrapper max-width="460px">
+            <div class="grid">
+              <div
+                class="tool"
+                v-for="(tool, key) in tools"
+                :key="key"
+              >
+                <base-icon size="xl">{{ key }}</base-icon>
+                <base-title :size="4" :truncate="true">
+                  {{ tool.title }}
+                  <span v-if="!tool.advanced">*</span>
+                </base-title>
+              </div>
             </div>
-          </div>
-        <!-- </base-wrapper> -->
+            <base-title :size="4" m-t="m">
+              <span>*</span> = {{ content[`nb-${$app.locale()}`] }}
+            </base-title>
+          </base-wrapper>
+        </editable-content>
       </template>
     </app-content-wrapper>
   </div>
@@ -72,8 +73,10 @@ export default {
 $color--tools-asterisk: $app-color--hl;
 
 .home-tools {
+  @extend %home-sections--default-style;
+
   .grid {
-    margin-top: 2rem; //POISTUU!!
+    margin-top: 2rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     grid-gap: 0.6rem;

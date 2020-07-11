@@ -1,14 +1,16 @@
 <template>
   <div class="projects-item">
     <template v-if="item">
+      
       <div class="bg">
         <base-bg :source="imageURL(item.bg)" posY="top"></base-bg>
       </div>
-      <base-title m-t="s">{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>  
-      <base-title
-        :size="7"
-        m-b="l"
-      >{{ this.item['type-' + $app.locale()] }}, {{ this.item.year }}</base-title>
+
+      <div class="info">
+        <base-title :size="11">{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>  
+        <base-title :size="7">{{ this.item['type-' + $app.locale()] }}, {{ this.item.year }}</base-title>
+      </div>
+
     </template>
   </div>
 </template>
@@ -32,12 +34,20 @@ export default {
 
 <style lang="scss" scoped>
 .projects-item {
-  //&:not(:last-child) { margin-bottom: 3rem; }
+  @extend %clickable;
+  //background: rgba(0, 0, 0, 1);
+  border: 3px solid black;
+  //padding: 0.5rem;
+  .info {
+    padding: 1rem 0.6rem;
+    //.base-title,
+    //.base-text { color: white; }
+  }
   .bg {
     position: relative;
-    @extend %clickable;
     height: 0;
-    padding-bottom: 62.5%;
+    //padding-bottom: 62.5%;
+    padding-bottom: 80%;
   }
 }
 </style>

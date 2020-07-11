@@ -1,22 +1,38 @@
 <template>
   <div class="home-hero">
-    <editable-content path="home.hero" #default="{ content }">
-        <base-title :size="6">{{ content.pretitle }}</base-title>
-        <base-title>{{ content[`title-${locale}`] }}</base-title>
-        <base-text>{{ content[`text-${locale}`] }}</base-text>
+    <app-content-wrapper>
+      <editable-content path="home.hero" #default="{ content }">
+        <base-title :size="8" m-b="s" class="black">{{ content.pretitle }}</base-title>
+        <base-title
+          :size="17"
+          :scaling="true"
+          m-b="l"
+        >{{ content[`title-${locale}`] }}</base-title>
+        <base-flex justify="start">
+          <base-wrapper max-width="paragraph" :disable-margins="true">
+            <app-text :scaling="0.8" >{{ content[`text-${locale}`] }}</app-text>
+          </base-wrapper>
+        </base-flex>
         <base-link to="projects" m-r="s">{{ content[`link1-${locale}`] }}</base-link>
-        <base-link to="gallery">{{ content[`link2-${locale}`] }}</base-link>
-    </editable-content>
+        <base-link to="contact">{{ content[`link2-${locale}`] }}</base-link>
+      </editable-content>
+    </app-content-wrapper>
   </div>
 </template>
 
 <script>
+import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
+import appText from '@/components/appText'
 
 export default {
   name: 'homeHero',
 
-  components: { editableContent },
+  components: {
+    appContentWrapper,
+    editableContent,
+    appText
+  },
 
   computed: {
     locale() {
@@ -27,14 +43,19 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$home-hero--color: $app-color--theme;
+
 .home-hero {
   min-height: 100vh;
-  padding: 1rem; //TEE TÄSTÄ DYNAAMINEN!!!
-  
-  // DUMMY-TYYLIT -> VAHTUU / POSTUU!!??
   background: $app-color--hl;
   display: flex;
   align-items: center;
-  justify-content: center;
+  .app-content-wrapper { flex: 1; }
+  .base-title,
+  .base-text {
+    &:not(.black) {
+      color: $home-hero--color;
+    }
+  }
 }
 </style>

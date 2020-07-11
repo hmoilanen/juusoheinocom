@@ -1,6 +1,6 @@
 <template>
-  <div class="app-content-wrapper" :style="styling">
-    <base-wrapper :maxWidth="maxWidth">
+  <div class="app-content-wrapper" :style="styling.outer">
+    <base-wrapper :style="styling.inner" :max-width="maxWidth">
       <slot></slot>
     </base-wrapper>
   </div>
@@ -16,9 +16,9 @@ export default {
   mixins: [sizing],
 
   props: {
-    size: {
+    size: { // = dynamic size of side paddings
       type: [Number, String],
-      default: 8,
+      default: 8, // 8 * 0.125rem = 1rem = 16px
       validator(prop) {
         if (typeof prop === 'string') {
           return ['s', 'm', 'l', 'xl'].indexOf(prop) !== -1
@@ -33,38 +33,30 @@ export default {
       type: [Boolean, String],
       default: true
     },
-    minHeight: {
-      type: [String, Boolean],
-      default: '100vh'
-    },
-    maxHeight: {
+    center: { // center content base on axis (Note!: could be overwritten if this.align of this.justify is specified)
       type: String,
-      default: true
+      validator: prop => { return ['x', 'y', 'xy'].indexOf(prop) !== -1 }
     }
   },
 
   computed: {
     styling() {
-      let minHeight = '100vh'
-      let maxHeight = false
-
-      if (typeof this.minHeight === 'string') {  
-        minHeight = this.minHeight
-      } else if (!this.miinHeight) {
-        minHeight = false
-      }
-
-      if (this.maxHeight) {  
-        maxHeight = this.maxHeight
-      }
-
-      console.log('this.maxHeight', this.maxHeight);
-      console.log('maxHeight', maxHeight);
+      let justifyContent = this.center === 'x' || this.center === 'xy'
+        ? 'center'
+        : false
+      let alignItems = this.center === 'y' || this.center === 'xy'
+        ? 'center'
+        : false
 
       return {
-        padding: `0 ${this.mixinSizing}`,
-        minHeight: minHeight,
-        maxHeight: maxHeight
+        outer: {
+          padding: `0 ${this.mixinSizing}`
+        },
+        /* inner: {
+          display: this.center ? 'flex' : false,
+          justifyContent: justifyContent,
+          alignItems: alignItems
+        } */
       }
     }
   }
@@ -73,12 +65,13 @@ export default {
 
 <style lang="scss" scoped>
 .app-content-wrapper {
-  //background: lightblue;
-  border-bottom: solid 1px rgba(0,0,0,0.15);
-
-  //min-height: ; // see: this.styling
-  //max-height: ; // see: this.styling
-  //display: flex;
-  //align-items: center;
+  position: relative; // for enabling centering of inner content with transform
+  display: flex;
+  align-items: stretch;
+  .base-wrapper {
+    flex: 1;
+    width: 100%;
+    //background: pink;
+  }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="app-footer" ref="footer" :style="styling">
     <!-- <base-wrapper maxWidth="max" :padding="true"> -->
-    <app-content-wrapper :min-height="false">
+    <app-content-wrapper>
       <base-grid colMin="240px" fillType="fill">
         <base-spacer class="about" size="xl">
           <app-external-links></app-external-links>
@@ -10,7 +10,7 @@
             <base-text
               @click="copyEmail('jhcom-email')"
               :clickable="true"
-              :size="7"
+              :size="8"
               :weight="700"
             >{{ this.email }}</base-text>
             <input id="jhcom-email" type="hidden" :value="email">
@@ -45,7 +45,7 @@
             >
               <base-title
                 :class="{ active: isActiveRoute(link.name) }"
-                :size="7"
+                :size="8"
                 :weight="900"
               >{{ link.title.toUpperCase() }}</base-title>
             </base-link>
@@ -121,10 +121,13 @@ export default {
     },
 
     styling() {
-      let defaultPadding = this.$store.state.ui.contentPaddingDefault
+      //let defaultPadding = this.$store.state.ui.contentPaddingDefault
+      let defaultPadding = 5
       return {
         //padding: `${defaultPadding * 2}px ${defaultPadding}px ${defaultPadding}px ${defaultPadding}px`
-        paddingTop: `${defaultPadding * 2}px`
+        //paddingTop: `${defaultPadding * 2}px`
+        paddingTop: `${defaultPadding}vmax`,
+        paddingBottom: `${defaultPadding * 1}vmax`
       }
     }
   },

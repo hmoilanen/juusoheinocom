@@ -1,7 +1,7 @@
 <template>
   <div class="projects-project">      
     <base-loader v-if="loading"></base-loader>
-    <template v-else>
+    <app-content-wrapper v-else>
       <base-wrapper maxWidth="medium" :padding="true">
         <editable-content :path="dynamicPath" #default="{ content }">
 
@@ -22,7 +22,7 @@
           <base-flex center="y" :m-b="18">
             <base-title :size="textTitleSize">{{ content['type-' + locale] }}, {{ content.year }}</base-title>
             <base-link mode="tab" :to="content.link">
-              <base-icon class="redirect">redirect</base-icon>
+              <base-icon class="redirect-icon">redirect</base-icon>
             </base-link>
           </base-flex>
           
@@ -57,12 +57,13 @@
 
         </editable-content>
       </base-wrapper>
-    </template>
+    </app-content-wrapper>
   </div>
 </template>
 
 <script>
 import store from '@/store/index'
+import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
 import contentCarousel from '@/components/contentCarousel'
 import appText from '@/components/appText'
@@ -71,6 +72,7 @@ export default {
   name: 'projectsProject',
 
   components: {
+    appContentWrapper,
     editableContent,
     contentCarousel,
     appText
@@ -149,7 +151,7 @@ $projects-project--color-hl: $app-color--hl;
   bottom: 0;
   background: $projects-project--color-bg;
 
-  .redirect {
+  .redirect-icon {
     margin-left: 0.5rem;
     margin-top: 0.2rem;
     @extend %clickable;

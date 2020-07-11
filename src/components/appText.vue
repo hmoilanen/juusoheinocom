@@ -2,6 +2,7 @@
   <base-text
     class="app-text"
     :size="size"
+    :scaling="scaling"
     :weight="weight"
     :style="mixinMargins"
   >
@@ -27,6 +28,7 @@ export default {
         } else return true
       }
     },
+    scaling: [Boolean, Array, Object, Number],
     weight: {
       type: Number,
       default: 500
@@ -36,5 +38,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.app-text {}
+.app-text {
+  &.base-text { line-height: 1.7em !important; }
+}
 </style>
