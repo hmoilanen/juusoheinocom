@@ -2,7 +2,7 @@
   <div class="app-footer" ref="footer" :style="styling">
     <!-- <base-wrapper maxWidth="max" :padding="true"> -->
     <app-content-wrapper>
-      <base-grid colMin="240px" fillType="fill">
+      <base-grid colMin="240px" fillType="fill" :gap="{ x: '4rem', y: '2rem' }">
         <base-spacer class="about" size="xl">
           <app-external-links></app-external-links>
 
@@ -16,7 +16,7 @@
             <input id="jhcom-email" type="hidden" :value="email">
           </div>
 
-          <locale-toggler :alternative="showDropdownNav"></locale-toggler>
+          <locale-toggler></locale-toggler>
           
           <base-flex center="y">
             <base-icon
@@ -36,32 +36,28 @@
           </base-flex>
         </base-spacer>
 
-        <base-flex class="routes" :column="true">
+        <base-flex :column="true">
           <!-- <base-title :size="8">Go to</base-title> -->
-          <base-spacer>
-            <base-link
+          <base-spacer size="m">
+            <footer-link
               v-for="(link, index) in links"
               :key="index"
               :to="link.path"
-              mode="router"
+              :active="isActiveRoute(link.name)"
             >
-              <base-title
-                :class="{ active: isActiveRoute(link.name) }"
-                :size="8"
-                :weight="900"
-              >{{ link.title.toUpperCase() }}</base-title>
-            </base-link>
+              {{ link.title.toUpperCase() }}
+            </footer-link>
           </base-spacer>
         </base-flex>
       </base-grid>
       
       <base-flex
-        class="scroller"
-        @click="returnToTop"
+        class="backtotop"
+        @click="backToTop"
         center="x"
         m-t="xl"
       >
-        <base-icon icon="up" :size="10" :clickable="true"></base-icon>
+        <base-icon :size="10" :clickable="true">backtotop</base-icon>
       </base-flex>
     </app-content-wrapper>
       
@@ -76,6 +72,7 @@ import { copyToClipboard, scrollToTop } from '@/utils/exec'
 import appContentWrapper from '@/components/appContentWrapper'
 import appExternalLinks from '@/components/appExternalLinks'
 import localeToggler from '@/components/localeToggler'
+import footerLink from '@/components/footerLink'
 import appText from '@/components/appText'
 
 export default {
@@ -85,6 +82,7 @@ export default {
     appContentWrapper,
     appExternalLinks,
     localeToggler,
+    footerLink,
     appText
   },
 
@@ -174,7 +172,7 @@ export default {
       }
     },
 
-    returnToTop() {
+    backToTop() {
       scrollToTop()
     }
   }
@@ -189,26 +187,6 @@ $footer--color-highlight: $app-color--hl;
   position: relative;
   border-top: 1px solid rgb(240, 240, 240);
   background: $footer--color-bg;
-
-  .grid {
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    grid-gap: 2rem;
-  }
-
-  .externals {
-    .base-icon:hover {
-      color: $footer--color-highlight;
-    }
-  }
-
-  .routes {
-    .base-title {
-      &:hover { color: $footer--color-highlight; }
-      &.active { color: $footer--color-highlight; }
-    }
-  }
   
   .love {
     .base-icon {
@@ -216,12 +194,30 @@ $footer--color-highlight: $app-color--hl;
       animation: pulse 1.6s infinite;
       color: $footer--color-highlight;
     }
+
     @keyframes pulse {
       0%, 34% { transform: scale(1); }
       35% { transform: scale(1.01); }
       50% { transform: scale(1.25); }
       65% { transform: scale(1.01); }
       66%, 100% { transform: scale(1); }
+    }
+  }
+
+  .backtotop {
+    &::v-deep {
+      .base-icon {
+        fill: transparent;
+        color: transparent;
+        stroke: $footer--color-highlight;
+        stroke-width: 5px;
+        &:hover {
+          .backtotop-move {
+            transform: translateY(-15%);
+          }
+        }
+        .backtotop-move { transition: all 0.5s ease; }
+      }
     }
   }
 }

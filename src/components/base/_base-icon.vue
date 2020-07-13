@@ -73,6 +73,7 @@ export default {
   components: {
     iconAftereffects: () => import("@/components/icons/iconAftereffects"),
     iconArchicad: () => import("@/components/icons/iconArchicad"),
+    iconBacktotop: () => import("@/components/icons/iconBacktotop"),
     iconContact: () => import("@/components/icons/iconContact"),
     iconCss: () => import("@/components/icons/iconCss"),
     iconFirebase: () => import("@/components/icons/iconFirebase"),

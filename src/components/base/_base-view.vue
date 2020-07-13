@@ -4,7 +4,7 @@
       <slot>{{ $options.name }}</slot>
       <!-- <base-wrapper :maxWidth="true">
       </base-wrapper> -->
-      <div class="scroll-indicator"></div>
+      <div v-if="displayScrollIndicator" class="scroll-indicator"></div>
     </div>
     <app-footer v-if="displayFooter"></app-footer>
     <!-- <app-ui></app-ui> -->
@@ -40,6 +40,12 @@ export default {
   computed: {
     displayFooter() {
       return this.$route.meta.displayFooter || false
+    },
+
+    displayScrollIndicator() {
+      if (this.$route.name === 'gallery' || this.$route.name === 'project') {
+        return false
+      } else return true
     },
 
     styling() {
