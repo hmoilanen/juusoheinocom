@@ -4,7 +4,7 @@
       <template v-if="tools">
         <editable-content path="home.tools.main" #default="{ content }">
           <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
-          <app-text :size="8">{{ content[`text-${$app.locale()}`] }}</app-text>
+          <app-text :size="8" :m-b="30">{{ content[`text-${$app.locale()}`] }}</app-text>
           <!-- <base-text :size="textSize">{{ content[`text-${$app.locale()}`] }}</base-text> -->
         
           <base-wrapper max-width="460px">
