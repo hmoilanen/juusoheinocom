@@ -59,7 +59,7 @@
         center="x"
         m-t="xl"
       >
-        <base-icon icon="up" :size="10" mL="s" :clickable="true"></base-icon>
+        <base-icon icon="up" :size="10" :clickable="true"></base-icon>
       </base-flex>
     </app-content-wrapper>
       
@@ -176,10 +176,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$footer--color-bg: $app-color--theme;
 $footer--color-highlight: $app-color--hl;
 
 .app-footer {
+  position: relative;
   border-top: 1px solid rgb(240, 240, 240);
+  background: $footer--color-bg;
 
   .grid {
     margin: 0 auto;

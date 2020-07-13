@@ -39,7 +39,8 @@ export default {
 
 <style lang="scss" scoped>
 $loader-color--highlight: $app-color--hl;
-$loader-color--secondary: rgba(0, 0, 0, 0.45);
+$loader-color--secondary: $app-color--secondary;
+//$loader-color--secondary: rgba(0, 0, 0, 0.45);
 
 .base-loader {
   display: flex;

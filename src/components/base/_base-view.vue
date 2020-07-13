@@ -4,6 +4,7 @@
       <slot>{{ $options.name }}</slot>
       <!-- <base-wrapper :maxWidth="true">
       </base-wrapper> -->
+      <div class="scroll-indicator"></div>
     </div>
     <app-footer v-if="displayFooter"></app-footer>
     <!-- <app-ui></app-ui> -->
@@ -49,7 +50,6 @@ export default {
       let contentMinHeight = ui.window.height
       let contentPaddingTop = false
       let contentPaddingBottom = false
-      //let padding = ui.contentPaddingDefault
 
       if (ui.navTopDisplayed && this.compensateNavTop) {
         contentMinHeight -= navTopHeight
@@ -71,10 +71,6 @@ export default {
         }
       }
 
-      /* if (breakpoint.index === 1) { padding *= 2 } // = 'm'
-      else if (breakpoint.index === 2) { padding *= 4 } // = 'l'
-      else if (breakpoint.index >= 3) { padding *= 6 } // = 'xl' */
-
       return {
         root: {
           paddingTop: this.compensateNavTop
@@ -85,8 +81,6 @@ export default {
           minHeight: contentMinHeight + 'px',
           paddingTop: contentPaddingTop + 'vmax',
           paddingBottom: contentPaddingBottom + 'vmax'
-          //padding: `0 ${padding}px`
-          //padding: `${padding}px`
         }
       }
     }
@@ -95,9 +89,36 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$base-view--color-secondary: $app-color--secondary;
+$base-view--color-hl: $app-color--hl;
+$base-view--scroll-indicator--width: 5px;
+$base-view--scroll-indicator--height: 27px;
+
 .base-view {
-  /* .content {
-    padding: 16px;
-  } */
+  //.content {}
+
+  .scroll-indicator {
+    overflow: hidden;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: $base-view--scroll-indicator--width;
+    height: $base-view--scroll-indicator--height;
+    background: $base-view--color-secondary;
+    &::after {
+      content: "";
+      position: absolute;
+      width: $base-view--scroll-indicator--width;
+      height: $base-view--scroll-indicator--width;
+      background: $base-view--color-hl;
+      animation: scroll 1.6s ease-out infinite;
+    }
+
+    @keyframes scroll {
+      0%, 10% { transform: translateY(-#{$base-view--scroll-indicator--width}); }
+      80%, 100% { transform: translateY(#{$base-view--scroll-indicator--height}); }
+    }
+  }
 }
 </style>
