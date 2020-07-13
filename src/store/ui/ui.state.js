@@ -18,12 +18,13 @@
   preventBodyScrolling: false,
 
   zIndex: {
-    appCurtain: 1000000,
+    appCurtain: 100000,
+    modalHandler: 10000,
+    navTop: 1000,
+    //contactLink: 100,
+    contentHandler: 10,
     //errorHandler: 1000000,
-    modalHandler: 100000,
-    contentHandler: 10000,
-    navLeft: 1000,
-    navTop: 100000000000,
+    //navLeft: 1000,
     //navRight: 10,
   },
 

@@ -8,7 +8,14 @@
           path="contact.main"
           #default="{ content }"
         >
-          <app-title :m-b="16">{{ content[`title-${$app.locale()}`] }}</app-title>
+          <app-title :m-b="16">
+            <template #default>
+              {{ content[`title-${$app.locale()}`] }}
+            </template>
+            <template #icon>
+              <contact-success-animation v-if="submitted"></contact-success-animation>
+            </template>
+          </app-title>
           <app-text
             v-if="!submitted"
             :size="8"
@@ -66,7 +73,12 @@
             >{{ formContent.submit[locale] }}</base-button>
           </base-spacer>
         </base-form>
-        <app-text v-else :size="8">{{ this.mainFeedback }}</app-text>
+        <div v-else>
+          <!-- <base-flex center="x">
+            <contact-success-animation @animation-completed="jou"></contact-success-animation>
+          </base-flex> -->
+          <app-text :size="8">{{ this.mainFeedback }}</app-text>
+        </div>
       </template>
     </app-content-wrapper>
 
@@ -76,6 +88,7 @@
 </template>
 
 <script>
+import contactSuccessAnimation from '@/components/contactSuccessAnimation'
 import appContentWrapper from '@/components/appContentWrapper'
 import appTitle from '@/components/appTitle'
 import appText from '@/components/appText'
@@ -89,6 +102,7 @@ export default {
   name: 'viewContact',
 
   components: {
+    contactSuccessAnimation,
     appContentWrapper,
     appTitle,
     appText,
@@ -156,6 +170,10 @@ export default {
   },
 
   methods: {
+    jou(value) {
+      console.log('valmis', value);
+    },
+
     verify(verified) {
       this.recaptchaVerified = verified
     },
@@ -233,4 +251,41 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$view-contact--color-hl: $app-color--hl;
+$saissi: 50px;
+.view-contact {
+  .ikonit {
+    width: $saissi;
+    height: $saissi;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    //background: pink;
+  }
+  .base-icon {
+    position: absolute;
+    width: $saissi;
+    height: $saissi;
+    color: transparent;
+    stroke: $view-contact--color-hl;
+    stroke-width: 5px;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: jooo 3s ease forwards 2s;
+
+    @keyframes jooo {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+
+    &.eka { stroke-width: 10px; }
+    &.toka {
+      transform: rotate(-45deg);
+      transform-origin: calc(19.67 / 50 * 100%) calc(35.66 / 50 * 100%);
+    }
+    
+  }
+}
 </style>

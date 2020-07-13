@@ -1,7 +1,7 @@
 <template>
   <div class="app-ui">
     <nav-top v-if="displayNav.top"></nav-top>
-    <contact-link></contact-link>
+    <contact-link v-if="!$app.isLoading"></contact-link>
     <!-- <nav-left></nav-left> -->
     <!-- <nav-right></nav-right> -->
   </div>

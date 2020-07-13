@@ -4,6 +4,7 @@
     <base-title :size="size" :scaling="1">
       <slot>appTitle.vue</slot>
     </base-title>
+    <slot name="icon"></slot>
   </div>
 </template>
 
@@ -15,29 +16,11 @@ export default {
 
   mixins: [margins],
 
-  /* components: {
-    customComponent: () => import('@/components/customComponent')
-  }, */
-
-  /* props: {
-    size: [String, Number]
-  }, */
-
   data() {
     return {
       size: 's'
     }
-  },
-
-  //computed: {},
-
-  //methods: {}
-
-  // IN-COMPONENT ROUTE GUARDS:
-  // See: https://router.vuejs.org/guide/advanced/navigation-guards.html#in-component-guards
-  // beforeRouteEnter (to, from, next) {}
-  // beforeRouteUpdate (to, from, next) {}
-  // beforeRouteLeave (to, from, next) {}
+  }
 }
 </script>
 
@@ -55,5 +38,7 @@ export default {
     height: 4px;
     background: black;
   }
+
+  .base-title { margin-right: 0.85rem; }
 }
 </style>

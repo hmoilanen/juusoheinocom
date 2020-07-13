@@ -91,6 +91,8 @@ export default {
     iconRedirect: () => import("@/components/icons/iconRedirect"),
     iconSass: () => import("@/components/icons/iconSass"),
     iconSql: () => import("@/components/icons/iconSql"),
+    iconSuccessFrame: () => import("@/components/icons/iconSuccessFrame"),
+    iconSuccessInner: () => import("@/components/icons/iconSuccessInner"),
     iconUnlocked: () => import("@/components/icons/iconUnlocked"),
     iconVue: () => import("@/components/icons/iconVue"),
     iconXd: () => import("@/components/icons/iconXd"),
