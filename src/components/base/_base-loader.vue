@@ -136,7 +136,7 @@ $loader-color--secondary: $app-color--secondary;
     position: relative;
     width: 120px;
     height: 3px;
-    background: lightgrey;
+    background: $loader-color--secondary;
     animation: flip calc(#{$kitt-duration} * 2) infinite;
 
     @keyframes flip {

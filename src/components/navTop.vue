@@ -20,14 +20,14 @@
         <div class="bottom">
           <!-- <base-loader></base-loader> -->
           <app-external-links :alternative="true"></app-external-links>
-          <base-text :size="6" m-t="m">{{ this.GET_OFFICIAL.watermark }}</base-text>
+          <locale-toggler :size="6" :alternative="true"></locale-toggler>
+          <app-text :size="6">{{ this.GET_OFFICIAL.watermark }}</app-text>
           <!-- <base-text :size="6" m-t="m">{{ this.cursorOffsetX }}, {{ this.cursorOffsetY}}</span></base-text> -->
         </div>
       </div>
     </transition>
 
     <nav-top-logo :alternative="showDropdownNav"></nav-top-logo>
-    <locale-toggler :alternative="showDropdownNav"></locale-toggler>
     <nav-top-toggler
       :mode="togglerMode"
       @click.native="toggle"
@@ -40,8 +40,9 @@ import { mapState, mapGetters } from 'vuex'
 import { navLinks } from '@/utils/navigation'
 import navTopLogo from '@/components/navTopLogo'
 import navTopToggler from '@/components/navTopToggler'
-import localeToggler from '@/components/localeToggler'
 import appExternalLinks from '@/components/appExternalLinks'
+import localeToggler from '@/components/localeToggler'
+import appText from '@/components/appText'
 
 export default {
   name: 'navTop',
@@ -49,8 +50,9 @@ export default {
   components: {
     navTopLogo,
     navTopToggler,
+    appExternalLinks,
     localeToggler,
-    appExternalLinks
+    appText
   },
 
   data() {
@@ -145,12 +147,14 @@ export default {
         this.$router.push({ name: 'gallery' })
       } else {
         this.showDropdownNav = true
+        this.$store.dispatch('SET_STATE', { data: true, path: 'ui.preventBodyScrolling' })
       }
     },
 
     closeDropdown() {
-      this.showDropdownNav = !this.showDropdownNav
       //this.showDropdownNav = false
+      this.showDropdownNav = !this.showDropdownNav
+      this.$store.dispatch('SET_STATE', { data: false, path: 'ui.preventBodyScrolling' })
     },
 
     goToProjects() {
@@ -291,11 +295,12 @@ $nav-top-dropdown--animation-duration: 0.3s;
   }
 
   .menu {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: 100vh;
+    bottom: 0;
+    //height: 100vh;
     //padding-top: ; // see: this.styling.dropdown
     //background: $app-color--main;
     background: transparentize($nav-top-dropdown--color-background, 0.03);
@@ -370,7 +375,12 @@ $nav-top-dropdown--animation-duration: 0.3s;
     display: flex;
     flex-direction: column;
     align-items: center;
-    .base-text { color: $nav-top-dropdown--color; }
+    & > * {
+      &:not(:last-child) {
+        margin-bottom: 0.6rem;
+      }
+    }
+    .app-text { color: $nav-top-dropdown--color; }
   }
 }
 

@@ -5,7 +5,7 @@
       v-for="locale in localeList"
       :key="locale"
       @click="chooseLocale(locale)"
-      :size="6"
+      :size="size"
       :class="{
         active: currentLocale === locale,
         disabled: locale === '/',
@@ -20,6 +20,10 @@ export default {
   name: 'localeToggler',
 
   props: {
+    size: {
+      type: Number,
+      default: 8
+    },
     alternative: Boolean
   },
 

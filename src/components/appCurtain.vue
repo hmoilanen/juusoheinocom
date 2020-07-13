@@ -100,8 +100,8 @@ $app-curtain--color-hl: $app-color--hl;
   display: flex;
   align-items: center;
   justify-content: center;
-  //background: $app-curtain--color-bg;
-  background: rgba(255, 255, 255, 0.9);
+  background: $app-curtain--color-bg;
+  //background: rgba(255, 255, 255, 0.9);
   color: $app-curtain--color;
   border-bottom: 1px solid grey;
 

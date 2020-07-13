@@ -15,6 +15,8 @@
             >{{ this.email }}</base-text>
             <input id="jhcom-email" type="hidden" :value="email">
           </div>
+
+          <locale-toggler :alternative="showDropdownNav"></locale-toggler>
           
           <base-flex center="y">
             <base-icon
@@ -25,11 +27,11 @@
               :m-r="4"
             >juusoheino</base-icon>
             <base-flex :column="true" :m-t="1">
-              <base-text>{{ this.official.watermark }}</base-text>
-              <base-text class="love">
+              <app-text>{{ this.official.watermark }}</app-text>
+              <app-text class="love">
                 Made with
                 <base-icon :size="5">love</base-icon>
-              </base-text>
+              </app-text>
             </base-flex>
           </base-flex>
         </base-spacer>
@@ -73,13 +75,17 @@ import { navLinks } from '@/utils/navigation'
 import { copyToClipboard, scrollToTop } from '@/utils/exec'
 import appContentWrapper from '@/components/appContentWrapper'
 import appExternalLinks from '@/components/appExternalLinks'
+import localeToggler from '@/components/localeToggler'
+import appText from '@/components/appText'
 
 export default {
   name: 'appFooter',
 
   components: {
     appContentWrapper,
-    appExternalLinks
+    appExternalLinks,
+    localeToggler,
+    appText
   },
 
   data() {
