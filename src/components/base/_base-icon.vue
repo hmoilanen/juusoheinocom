@@ -21,10 +21,7 @@
 </template>
 
 <script>
-// TODOS:
-// PROP - IMPLEMENTOI KAIKKI PROJEKTIVÄRIT TÄHÄN SISÄÄN ?
-
-import { sizing, margins } from "@/utils/mixins";
+import { sizing, margins } from "@/utils/mixins"
 
 export default {
   name: "baseIcon",
@@ -73,85 +70,32 @@ export default {
   components: {
     iconAftereffects: () => import("@/components/icons/iconAftereffects"),
     iconArchicad: () => import("@/components/icons/iconArchicad"),
-    iconBacktotop: () => import("@/components/icons/iconBacktotop"),
+		iconBacktotop: () => import("@/components/icons/iconBacktotop"),
+		iconConstlet: () => import("@/components/icons/iconConstlet"),
     iconContact: () => import("@/components/icons/iconContact"),
-    iconCss: () => import("@/components/icons/iconCss"),
+		iconCss: () => import("@/components/icons/iconCss"),
     iconFirebase: () => import("@/components/icons/iconFirebase"),
     iconGit: () => import("@/components/icons/iconGit"),
-    iconHtml: () => import("@/components/icons/iconHtml"),
+		iconGithub: () => import("@/components/icons/iconGithub"),
+		iconHtml: () => import("@/components/icons/iconHtml"),
     iconIllustrator: () => import("@/components/icons/iconIllustrator"),
     iconIndesign: () => import("@/components/icons/iconIndesign"),
     iconJava: () => import("@/components/icons/iconJava"),
     iconJavascript: () => import("@/components/icons/iconJavascript"),
-    iconJest: () => import("@/components/icons/iconJest"),
-    iconLocked: () => import("@/components/icons/iconLocked"),
+		iconJest: () => import("@/components/icons/iconJest"),
+		iconJuusoheino: () => import("@/components/icons/iconJuusoheino"),
+		iconLinkedin: () => import("@/components/icons/iconLinkedin"),
     iconLove: () => import("@/components/icons/iconLove"),
     iconPhotoshop: () => import("@/components/icons/iconPhotoshop"),
-    iconQuote: () => import("@/components/icons/iconQuote"),
+		iconQuote: () => import("@/components/icons/iconQuote"),
     iconReact: () => import("@/components/icons/iconReact"),
     iconRedirect: () => import("@/components/icons/iconRedirect"),
     iconSass: () => import("@/components/icons/iconSass"),
     iconSql: () => import("@/components/icons/iconSql"),
-    iconSuccessFrame: () => import("@/components/icons/iconSuccessFrame"),
+		iconSuccessFrame: () => import("@/components/icons/iconSuccessFrame"),
     iconSuccessInner: () => import("@/components/icons/iconSuccessInner"),
-    iconUnlocked: () => import("@/components/icons/iconUnlocked"),
     iconVue: () => import("@/components/icons/iconVue"),
     iconXd: () => import("@/components/icons/iconXd"),
-
-    iconAccount: () => import("@/components/icons/iconAccount"),
-    iconAdd: () => import("@/components/icons/iconAdd"),
-    iconAdmin: () => import("@/components/icons/iconAdmin"),
-    iconAlert: () => import("@/components/icons/iconAlert"),
-    iconAvatar: () => import("@/components/icons/iconAvatar"),
-    iconClose: () => import("@/components/icons/iconClose"),
-    iconCog: () => import("@/components/icons/iconCog"),
-    iconComment: () => import("@/components/icons/iconComment"),
-    iconConstlet: () => import("@/components/icons/iconConstlet"),
-    iconContent: () => import("@/components/icons/iconContent"),
-    iconDelete: () => import("@/components/icons/iconDelete"),
-    iconDiscord: () => import("@/components/icons/iconDiscord"),
-    iconDown: () => import("@/components/icons/iconDown"),
-    iconDownload: () => import("@/components/icons/iconDownload"),
-    iconDrag: () => import("@/components/icons/iconDrag"),
-    iconE: () => import("@/components/icons/iconE"),
-    iconEdit: () => import("@/components/icons/iconEdit"),
-    iconFacebook: () => import("@/components/icons/iconFacebook"),
-    iconGithub: () => import("@/components/icons/iconGithub"),
-    iconInstagram: () => import("@/components/icons/iconInstagram"),
-    iconJuusoheino: () => import("@/components/icons/iconJuusoheino"),
-    iconLeft: () => import("@/components/icons/iconLeft"),
-    iconLink: () => import("@/components/icons/iconLink"),
-    iconLinkedin: () => import("@/components/icons/iconLinkedin"),
-    iconMenu: () => import("@/components/icons/iconMenu"),
-    iconMixer: () => import("@/components/icons/iconMixer"),
-    iconNode: () => import("@/components/icons/iconNode"),
-    iconPad: () => import("@/components/icons/iconPad"),
-    iconReddit: () => import("@/components/icons/iconReddit"),
-    iconRedirect: () => import("@/components/icons/iconRedirect"),
-    iconRefresh: () => import("@/components/icons/iconRefresh"),
-    iconRight: () => import("@/components/icons/iconRight"),
-    iconSearch: () => import("@/components/icons/iconSearch"),
-    iconSend: () => import("@/components/icons/iconSend"),
-    iconShare: () => import("@/components/icons/iconShare"),
-    iconSort: () => import("@/components/icons/iconSort"),
-    iconSpot: () => import("@/components/icons/iconSpot"),
-    iconSquad: () => import("@/components/icons/iconSquad"),
-    iconTag: () => import("@/components/icons/iconTag"),
-    iconTime: () => import("@/components/icons/iconTime"),
-    iconTwitch: () => import("@/components/icons/iconTwitch"),
-    iconTwitter: () => import("@/components/icons/iconTwitter"),
-    iconUp: () => import("@/components/icons/iconUp"),
-    iconUpload: () => import("@/components/icons/iconUpload"),
-    iconYoutube: () => import("@/components/icons/iconYoutube"),
-
-    // games
-    iconCsgo: () => import("@/components/icons/iconCsgo"),
-    iconDota2: () => import("@/components/icons/iconDota2"),
-    iconFortnite: () => import("@/components/icons/iconFortnite"),
-    iconLol: () => import("@/components/icons/iconLol"),
-    iconOverwatch: () => import("@/components/icons/iconOverwatch"),
-    iconPubg: () => import("@/components/icons/iconPubg"),
-    iconRocket: () => import("@/components/icons/iconRocket")
   }
 };
 </script>
@@ -159,18 +103,5 @@ export default {
 <style lang="scss">
 svg.base-icon {
   &.clickable { @extend %clickable; }
-
-  //PITÄISIKÖ NÄMÄ KAIKKI SIIRTÄÄ MUUALLE / ITSE IKONI-FILUIHIN?!?!?!
-  g[fill="discord"] { fill: colorlist("custom", "discord"); }
-  g[fill="facebook"] { fill: colorlist("custom", "facebook"); }
-  g[fill="linkedin"] { fill: colorlist("custom", "linkedin"); }
-  g[fill="reddit"] { fill: colorlist("custom", "reddit"); }
-  g[fill="twitch"] { fill: colorlist("custom", "twitch"); }
-  g[fill="twitter"] { fill: colorlist("custom", "twitter"); }
-  g[fill="youtube"] { fill: colorlist("custom", "youtube"); }
-  g[fill="mixer"] {
-    #main { fill: colorlist("custom", "mixer--blue"); }
-    #sub { fill: colorlist("custom", "mixer--blue-light"); }
-  }
 }
 </style>

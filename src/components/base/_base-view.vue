@@ -97,8 +97,8 @@ export default {
 <style lang="scss" scoped>
 $base-view--color-secondary: $app-color--secondary;
 $base-view--color-hl: $app-color--hl;
-$base-view--scroll-indicator--width: 5px;
-$base-view--scroll-indicator--height: 27px;
+$base-view--scroll-indicator--width: 3px;
+$base-view--scroll-indicator--height: 25px;
 
 .base-view {
   //.content {}
