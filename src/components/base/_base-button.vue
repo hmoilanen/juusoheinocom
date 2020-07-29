@@ -116,11 +116,11 @@ $disabled-button-opacity--default: 0.4;
     right: 0.5em;
   }
 
-  &.discord { background-color: colorlist("custom", "discord") !important; }
-  &.facebook { background-color: colorlist("custom", "facebook") !important; }
-  &.twitch { background-color: colorlist("custom", "twitch") !important; }
-  &.twitter { background-color: colorlist("custom", "twitter") !important; }
-  &.youtube { background-color: colorlist("custom", "youtube") !important; }
+  //&.discord { background-color: colorlist("custom", "discord") !important; }
+  //&.facebook { background-color: colorlist("custom", "facebook") !important; }
+  //&.twitch { background-color: colorlist("custom", "twitch") !important; }
+  //&.twitter { background-color: colorlist("custom", "twitter") !important; }
+  //&.youtube { background-color: colorlist("custom", "youtube") !important; }
 
   &.disabled {
     //pointer-events: none !important;
