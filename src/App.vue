@@ -4,12 +4,10 @@
     <!-- HUOM! KEY OTETTU POIS navTopToggler:N TAKIA -> JOS ONGELMIA ILMENEE NIIN PISTÄ KEY TAKAISIN JA SIIRRÄ navTop KOKONAAN POIS baseView:STÄ! -->
     <router-view></router-view>
     <!-- <app-curtain v-if="componentControl.curtain"></app-curtain> -->
-    <app-curtain></app-curtain>
     <app-ui></app-ui>
+    <app-curtain></app-curtain>
     <modal-handler v-if="componentControl.modalHandler"></modal-handler>
     <app-handler></app-handler>
-
-    <!-- <content-handler v-if="componentControl.contentHandler"></content-handler> --> <!-- OLISIKO PAREMPI LEIPOA VIEWEIHIN?!?! -->
   </div>
 </template>
 
@@ -25,8 +23,7 @@ export default {
     appCurtain,
     appUi,
     appHandler,
-    modalHandler: () => import('@/components/modalHandler'),
-    //contentHandler: () => import('@/components/contentHandler'),
+    modalHandler: () => import('@/components/modalHandler')
   },
 
   computed: {

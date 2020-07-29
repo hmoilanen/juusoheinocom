@@ -2,8 +2,6 @@
   <div class="app-ui">
     <nav-top v-if="displayNav.top"></nav-top>
     <contact-link v-if="!$app.isLoading"></contact-link>
-    <!-- <nav-left></nav-left> -->
-    <!-- <nav-right></nav-right> -->
   </div>
 </template>
 
@@ -23,9 +21,7 @@ export default {
       let ui = this.$store.state.ui
       
       return {
-        top: ui.navTopDisplayed,
-        //left: ui.navLeftDisplayed,
-        //right: ui.navRightDisplayed,
+        top: ui.navTopDisplayed
       }
     }
   }

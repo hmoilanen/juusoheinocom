@@ -6,5 +6,5 @@
 </template>
 
 <style lang="scss" scoped>
-  .icon--linkedin { fill: colorlist("custom", "linkedin"); }
+  //.icon--linkedin { fill: colorlist("custom", "linkedin"); }
 </style>

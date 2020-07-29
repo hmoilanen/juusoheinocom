@@ -25,7 +25,7 @@ export default {
     homeAbout,
     homeProjects,
     homeTools,
-    homeContact
+		homeContact
   }
 }
 </script>
