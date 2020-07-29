@@ -244,10 +244,6 @@ const logout = () => {
   firebase.auth().signOut()
 }
 
-/* const isLogged = () => {
-  return store.state.auth.isLogged
-} */
-
 function setFirebaseAuth() {
   firebase.auth().onAuthStateChanged(async (user) => {
     if (user) {
