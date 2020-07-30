@@ -4,17 +4,17 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Imported fonts
 
-@import url('https://fonts.googleapis.com/css?family=Alata&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Alatsi&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Comfortaa:400,700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Overpass:700,900&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Alata&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Alatsi&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Comfortaa:400,700&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Montserrat:400,700,900&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Overpass:700,900&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap');
 @import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Sintony:400,700&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Sintony:400,700&display=swap');
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -45,51 +45,51 @@
 
 // Sans-serif: (formal, stylistic / generally low contrast / typically proportionately-spaced)
 // In other languages: 'sans-serif' = Gothic (Japanese), Hei (Chinese), Gulim (Korean)
-$font--alata: "Alata", sans-serif; // Google font
-$font--alatsi: "Alatsi", sans-serif; // Google font
-$font--arial: "Arial", sans-serif; // SAFE!
-$font--arial-black: "Arial Black", sans-serif; // SAFE!
-$font--avenir: "Avenir", sans-serif;
-$font--bebas-neue: "Bebas Neue", sans-serif;
+//$font--alata: "Alata", sans-serif; // Google font
+//$font--alatsi: "Alatsi", sans-serif; // Google font
+//$font--arial: "Arial", sans-serif; // SAFE!
+//$font--arial-black: "Arial Black", sans-serif; // SAFE!
+//$font--avenir: "Avenir", sans-serif;
+//$font--bebas-neue: "Bebas Neue", sans-serif;
 //$font--bebas-neue: "BebasNeue web", sans-serif;
-$font--futura: "Futura", sans-serif;
-$font--helvetica: "Helvetica", sans-serif;
-$font--helvetica-neue: "Helvetica Neue", sans-serif;
-$font--montserrat: "Montserrat", sans-serif;; // Google font
-$font--open-sans: "Open Sans", sans-serif; // Google font
-$font--overpass: "Overpass", sans-serif; // Google font
-$font--roboto: "Roboto", sans-serif; // Google font
-$font--roboto-condensed: "Roboto Condensed", sans-serif; // Google font
-$font--sintony: "Sintony", sans-serif; // Google font
-$font--trebuchet-ms: "Trebuchet MS", sans-serif;
+//$font--futura: "Futura", sans-serif;
+//$font--helvetica: "Helvetica", sans-serif;
+//$font--helvetica-neue: "Helvetica Neue", sans-serif;
+//$font--montserrat: "Montserrat", sans-serif;; // Google font
+//$font--open-sans: "Open Sans", sans-serif; // Google font
+//$font--overpass: "Overpass", sans-serif; // Google font
+//$font--roboto: "Roboto", sans-serif; // Google font
+//$font--roboto-condensed: "Roboto Condensed", sans-serif; // Google font
+//$font--sintony: "Sintony", sans-serif; // Google font
+//$font--trebuchet-ms: "Trebuchet MS", sans-serif;
 
 // Serif: (formal or generic text style / typically proportionately-spaced / greater variation between thick and thin strokes than in ‘sans-serif’)
 // In other languages: 'serif' = Mincho (Japanese), Sung or Song (Chinese), Batang (Korean), Naskh (Arabic)
-$font--constantia: "Constantia", serif;
-$font--georgia: "Georgia", serif; // SAFE!
-$font--lucida-bright: "Lucida Bright", serif;
-$font--lucida-serif: "Lucida Serif", serif;
-$font--times-new-roman: "Times New Roman", serif; // SAFE!
+//$font--constantia: "Constantia", serif;
+//$font--georgia: "Georgia", serif; // SAFE!
+//$font--lucida-bright: "Lucida Bright", serif;
+//$font--lucida-serif: "Lucida Serif", serif;
+//$font--times-new-roman: "Times New Roman", serif; // SAFE!
 
 // Monospaced: (all letters have same fixed width / style: computer code, typing machine, old newspaper)
-$font--andale-mono: "Andale-mono", monospace;
-$font--consolas: "Consolas", monospace;
-$font--courier-new: "Courier New", monospace; // SAFE!
-$font--menlo: "Menlo", monospace;
-$font--roboto-mono: "Roboto Mono", monospace; // Google font
+//$font--andale-mono: "Andale-mono", monospace;
+//$font--consolas: "Consolas", monospace;
+//$font--courier-new: "Courier New", monospace; // SAFE!
+//$font--menlo: "Menlo", monospace;
+//$font--roboto-mono: "Roboto Mono", monospace; // Google font
 
 // Other (fantasy, cursive, ...): e.g. decorative / expressive:
-$font--comfortaa: "Comfortaa", cursive; // Google font
-$font--fredoka-one: "Fredoka One", cursive; // Google font
+//$font--comfortaa: "Comfortaa", cursive; // Google font
+//$font--fredoka-one: "Fredoka One", cursive; // Google font
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Font sets
 
-$font-set--serif: "Constantia", "Lucida Bright", "Lucida Serif", "Georgia", serif;
+//$font-set--serif: "Constantia", "Lucida Bright", "Lucida Serif", "Georgia", serif;
 $font-set--sans: "Avenir", "Helvetica", "Arial", sans-serif;
 $font-set--mono: "Roboto Mono", "Andale-mono", "Menlo", "Consolas", "Courier New", monospace;
-$font-set--caps: "Bebas Neue", "Arial Black", sans-serif;
+//$font-set--caps: "Bebas Neue", "Arial Black", sans-serif;
 //$font-set--custom-1: ;
 //$font-set--custom-2: ;
 //$font-set--custom-3: ;

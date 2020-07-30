@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routes'
-//import store from '@/store/index'
-//import axios from 'axios'
 
 Vue.use(Router)
 

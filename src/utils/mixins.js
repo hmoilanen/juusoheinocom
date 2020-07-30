@@ -311,21 +311,3 @@ export const editableContent = { // Generic 'tooling' for base components wrappe
     }
   }
 }
-
-/* export const isOwner = {
-  computed: {
-    isOwner () {
-      let user = this.$store.state.auth.main
-      let route = this.$route.params
-
-      if (user.type === route.entity && user.slug === route.id) {
-        return true
-      }
-      return false
-    }
-  }
-} */
-
-/* export const coloring = {
-  // onko tämä omansa? / tarvitaanko tälläistä?
-} */

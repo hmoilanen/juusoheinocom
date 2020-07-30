@@ -16,6 +16,11 @@
 </template>
 
 <script>
+// TEE TÄSTÄ EI-BASE-BOMPONENTTII!!!
+// TEE TÄSTÄ EI-BASE-BOMPONENTTII!!!
+// TEE TÄSTÄ EI-BASE-BOMPONENTTII!!!
+// KÄYTÖASSÄ VAIN contentCarousel:SSA
+
 export default {
   name: 'baseIndexIndicator',
 

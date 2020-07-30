@@ -1,4 +1,8 @@
 <script>
+//TÄMÄ EI TÄLLÄ HETKELLÄ MISSÄÄN KÄYTÖSSÄ!
+//TÄMÄ EI TÄLLÄ HETKELLÄ MISSÄÄN KÄYTÖSSÄ!
+//TÄMÄ EI TÄLLÄ HETKELLÄ MISSÄÄN KÄYTÖSSÄ!
+
 // https://github.com/wnr/element-resize-detector
 // $ npm install element-resize-detector --save
 import elementResizeDetectorMaker from 'element-resize-detector'
@@ -21,8 +25,7 @@ export default {
       this.height = el.offsetHeight
     })
   },
-
-
+ 
   render() {
     return this.$scopedSlots.default({
       width: this.width,

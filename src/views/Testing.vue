@@ -70,7 +70,6 @@
 
 <script>
 import contentCarousel from '@/components/contentCarousel'
-import indexIndicator from '@/components/indexIndicator'
 import editableContent from '@/components/editableContent'
 
 export default {
@@ -78,7 +77,6 @@ export default {
 
   components: {
     contentCarousel,
-    indexIndicator,
     editableContent
   },
 

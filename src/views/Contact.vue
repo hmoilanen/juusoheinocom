@@ -23,7 +23,7 @@
           >{{ content[`text-${$app.locale()}`] }}</app-text>
         </editable-content>
         
-        <base-form v-if="!submitted">
+        <form v-if="!submitted" @submit.prevent>
           <base-spacer :size="15">
             <base-input
               v-model="inputName"
@@ -72,7 +72,7 @@
               size="l"
             >{{ formContent.submit[locale] }}</base-button>
           </base-spacer>
-        </base-form>
+        </form>
         <div v-else>
           <!-- <base-flex center="x">
             <contact-success-animation @animation-completed="jou"></contact-success-animation>

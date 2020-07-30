@@ -12,6 +12,8 @@
 </template>
 
 <script>
+// TÄMÄ EI OLE MISSÄÄN KÄYTÖSSÄ MUTTA(!) EI MYÖSKÄÄN KÄYTETTYNÄ MISSÄÄN MUUSSA PROJEKTISSAKAAN!!!
+// -> PITÄÄ LAITTAA JOHONKIN TALTEEN
 export default {
   name: 'tabBar',
 

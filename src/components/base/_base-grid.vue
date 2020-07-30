@@ -44,24 +44,18 @@ export default {
       } else if (typeof this.gap === 'string') {
         gap = this.gap
       } else { // if object
-        console.log('is object');
         gap = {}
         for (let key in this.gap) {
           if (typeof this.gap[key] === 'number') {
-            console.log('is number');
             gap[key] = this.gap[key] * 0.125 + 'rem'
           } else if (typeof this.gap[key] === 'string') {
-            console.log('is string');
             gap[key] = this.gap[key]
           } else {
-            console.log('is else / object');
+            //console.log('is else / object');
             console.log('baseGrid: provide $props.gap values as strings or numbers!')
           }
         }
       }
-
-      console.log('gap', gap);
-      
 
       return {
         gridTemplateColumns: `repeat(auto-${this.fillType}, minmax(${this.colMin}, ${this.colMax}))`,

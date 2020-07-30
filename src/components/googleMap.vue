@@ -1,7 +1,5 @@
 <template>
-  <div class="google-map">
-    <!-- <google-map-marker v-if="!hideMarkers" :places="places"></google-map-marker> -->
-  </div>
+  <div class="google-map"></div>
 </template>
 
 <script>
