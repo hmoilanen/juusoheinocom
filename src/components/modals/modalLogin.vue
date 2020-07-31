@@ -1,9 +1,26 @@
 <template>
   <div class="modal-login" :class="classing">
     <base-title size="l" mB="xl">Login</base-title>
-    <base-input v-model="inputEmail" label="email" mB="m"></base-input>
-    <base-input v-model="inputPassword" type="password" label="password" mB="xl"></base-input>
-    <base-button @click="login">submit</base-button>
+		<base-spacer :size="10">
+			<base-input
+				id="modal-login--email"
+				v-model="inputEmail"
+				label="email"
+				mB="m"
+			></base-input>
+			<base-input
+				id="modal-login--password"
+				v-model="inputPassword"
+				type="password"
+				label="password"
+				mB="xl"
+			></base-input>
+			<base-feedback v-if="!loading && feedback">{{ feedback }}</base-feedback>
+			<base-button
+				id="modal-login--submit"
+				@click="login"
+			>submit</base-button>
+		</base-spacer>
 
     <base-loader v-if="loading" :fulfill="true"></base-loader>
   </div>
@@ -17,7 +34,8 @@ export default {
     return {
       inputEmail: '',
       inputPassword: '',
-      loading: false
+			loading: false,
+			feedback: ''
     }
   },
 
@@ -25,16 +43,19 @@ export default {
     async login() {
       this.loading = true
       let result = await this.$api.login(this.inputEmail, this.inputPassword)
-      .then(result => {
-        console.log(result)
+      .then(response => {
+				console.log(response)
+				this.feedback = ''
+      	this.$emit('close-modal')
+				this.loading = false
       })
       .catch(err => {
         console.log(err)
-        alert('Wrong email or password.')
+				//alert('Wrong email or password.')
+				this.feedback = 'Wrong email or password!'
+				this.loading = false
       })
       // await this.$api.getDefer('logging') // this code waits logging as well
-      this.loading = false
-      this.$emit('close-modal')
     }
   },
 

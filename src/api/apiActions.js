@@ -227,10 +227,11 @@ const deleteFromStorage = path => {
 
 const login = (email, password) => {
   return new Promise((resolve, reject) => {
-    addDefer('logging')
+    //addDefer('logging')
     firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(async () => {
-      await getDefer('logging')
+    .then(() => {
+    //.then(async () => {
+      //await getDefer('logging')
       resolve('logged in')
     })
     .catch(error => {
@@ -245,11 +246,12 @@ const logout = () => {
 }
 
 function setFirebaseAuth() {
-  firebase.auth().onAuthStateChanged(async (user) => {
+  firebase.auth().onAuthStateChanged((user) => {
+  //firebase.auth().onAuthStateChanged(async (user) => {
     if (user) {
       store.dispatch('SET_STATE', { data: true, path: 'app.isLogged' })
       //store.dispatch('SET_STATE', { data: true, path: 'auth.isLogged' })
-      getDefer('logging').resolve()
+      //getDefer('logging').resolve()
     } else {
       store.dispatch('SET_STATE', { data: false, path: 'app.isLogged' })
       //store.dispatch('SET_STATE', { data: false, path: 'auth.isLogged' })

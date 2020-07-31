@@ -11,7 +11,7 @@ import { dataType } from '@/utils/data'
 
 Vue.use(Vuex)
 
-export default new Vuex.Store({
+const store = new Vuex.Store({
 	strict: process.env.NODE_ENV !== 'production',
 	
   modules: {
@@ -23,7 +23,8 @@ export default new Vuex.Store({
   },
 
   state: {},
-
+	getters: {},
+	
   // HUOM! PITÄSIKÖ TEHDÄ ERIKSEEN 'GET_STATE',
     //...JOHON VOI ANTAA POLUN SAMALLA TAVALLA KUIN 'SET_STATE':EN (STRING TAI REFERENSSI)
 
@@ -34,7 +35,7 @@ export default new Vuex.Store({
   },
 
   mutations: {
-    SET_STATE: (state, {data, path, property, update}) => {
+    SET_STATE: (state, { data, path, property, update }) => {
       if (data === undefined) return
 
       let stateToSet = path
@@ -97,3 +98,9 @@ export default new Vuex.Store({
     }
   }
 })
+
+if (window.Cypress) {
+  window.__store__ = store
+}
+
+export default store

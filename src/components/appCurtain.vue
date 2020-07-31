@@ -10,6 +10,7 @@
         ></div>
       </template>
       <base-loader v-if="showLoader" class="curtain-loader"></base-loader>
+			<div class="app-curtain--reset" @click="proceed"></div>
     </div>
   </transition>
 </template>
@@ -103,7 +104,15 @@ $app-curtain--color-hl: $app-color--hl;
   background: $app-curtain--color-bg;
   //background: rgba(255, 255, 255, 0.9);
   color: $app-curtain--color;
-  border-bottom: 1px solid grey;
+	border-bottom: 1px solid grey;
+	
+	.app-curtain--reset {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 1px;
+		height: 1px;
+	}
 
   $pixel-size: 20px;
 
