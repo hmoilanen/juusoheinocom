@@ -4,10 +4,16 @@
     :class="classing"
     :style="[styling, mixinMargins]"
   >
-    <base-flex>
-      <base-label v-if="label" :required="required" flex-1>{{ this.label }}</base-label>
-      <div v-if="maxLength" class="counter">{{ this.currentLength }} / {{ this.maxLength }}</div>
-    </base-flex>
+    <div class="top">
+      <base-label
+				v-if="label"
+				:required="required"
+			>{{ this.label }}</base-label>
+      <div
+				v-if="maxLength"
+				class="counter"
+			>{{ this.currentLength }} / {{ this.maxLength }}</div>
+    </div>
 
     <textarea
       ref="textarea"
@@ -146,7 +152,11 @@ $textarea-font--placeholder: $app-font--placeholder;
 .base-textarea {
   width: 100%;
   // font-size: ; // see: this.styling
-  &.disabled { @extend %input--disabled; }
+	&.disabled { @extend %input--disabled; }
+	.top {
+		display: flex;
+		justify-content: space-between;
+	}
 
   &.style-set-0 {
     textarea {

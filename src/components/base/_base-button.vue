@@ -1,6 +1,7 @@
 <template>
   <button
     v-on="listeners"
+		@click="buttonClicked"
     class="base-button"
     :class="[classing]"
     :style="[styling, mixinMargins]"
@@ -60,7 +61,13 @@ export default {
         lineHeight: '1.4em'
       }
     }
-  }
+	},
+	
+	methods: {
+		buttonClicked() {
+			this.$emit('clicked')
+		}
+	}
 };
 </script>
 
