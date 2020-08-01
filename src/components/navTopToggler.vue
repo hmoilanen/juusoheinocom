@@ -1,5 +1,9 @@
 <template>
-  <div class="nav-top-toggler" :class="{ 'dd-open': mode === 'close' }">
+  <div
+		class="nav-top-toggler"
+		:class="{ 'dd-open': mode === 'close' }"
+		v-on="listeners"
+	>
     <base-title
       class="text"
       :size="5"
@@ -60,6 +64,10 @@ export default {
   },
 
   computed: {
+		listeners() {
+			return { ...this.$listeners }
+		},
+
     togglerText() {
       let mode = this.mode
 

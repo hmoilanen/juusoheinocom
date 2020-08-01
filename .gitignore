@@ -1,11 +1,14 @@
 .DS_Store
-node_modules
+/node_modules
 /dist
 
+# testing related files
 /tests/e2e/videos/
 /tests/e2e/screenshots/
+/serviceAccount.js
 
 # local env files
+.env
 .env.local
 .env.*.local
 

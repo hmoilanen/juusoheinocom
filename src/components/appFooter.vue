@@ -20,6 +20,7 @@
           
           <base-flex center="y">
             <base-icon
+							class="login--juusoheino"
               @click="logging"
               app="juusoheino"
               :size="18"

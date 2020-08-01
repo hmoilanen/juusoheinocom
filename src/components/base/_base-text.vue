@@ -46,7 +46,7 @@ export default {
     }
   },
 
-  watch: {
+  /* watch: {
     sizing: {
       immediate: true,
       deep: true,
@@ -56,10 +56,10 @@ export default {
         }
       }
     }
-  },
+  }, */
 
   computed: {
-    ...mapState('base', ['sizing']),
+    //...mapState('base', ['sizing']),
 
     textContent() {
       if (this.lorem && typeof this.lorem === 'boolean') { // if boolean and true     

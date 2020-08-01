@@ -30,7 +30,8 @@ export const sizing = { // Generic sizing mixin for components
 
   computed: {
     mixinSizing() {
-      let baseDimension = this.$store.state.ui.baseDimension
+      //let baseDimension = this.$store.state.ui.baseDimension
+      let baseDimension = 0.125
       let sizingBaseValue = baseDimension ? baseDimension : 0.125
       let self = this
 
@@ -142,7 +143,8 @@ export const margins = { // Generic margin mixin for components
         marginTop: false,
         marginBottom: false
       }
-      let baseDimension = this.$store.state.ui.baseDimension
+      //let baseDimension = this.$store.state.ui.baseDimension
+      let baseDimension = 0.125
       let marginBaseValue = baseDimension ? baseDimension : 0.125
       let self = this
 
@@ -225,7 +227,8 @@ export const paddings = { // Generic padding mixin for components
         paddingTop: false,
         paddingBottom: false
       }
-      let baseDimension = this.$store.state.ui.baseDimension
+      //let baseDimension = this.$store.state.ui.baseDimension
+      let baseDimension = 0.125
       let paddingBaseValue = baseDimension ? baseDimension : 0.125
       let self = this
 
@@ -282,7 +285,8 @@ export const dynamicStyleSet = { // Generic styling for base components
   computed: {
     dynamicStyleSet() {
       let componentName = this.$options.name      
-      let defaultStyleSet = this.$store.state.base.styleSet[componentName]
+      //let defaultStyleSet = this.$store.state.base.styleSet[componentName] || 0
+      let defaultStyleSet = 0
     
       if (this.resetStyle) {
         return 'reset'

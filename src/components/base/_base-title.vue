@@ -45,14 +45,14 @@ export default {
     }
   },
 
-  watch: {
+  /* watch: {
     '$store.state.base.sizing.baseTitle': {
       immediate: true,
       handler: function() {
         this.mixinSizeCategories = this.$store.state.base.sizing.baseTitle
       }
     }
-  },
+  }, */
 
   computed: {
     /* mixinSizeCategories() {

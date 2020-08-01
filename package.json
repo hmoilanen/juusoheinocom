@@ -6,8 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
+    "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
-		"test:unit": "jest"
+    "test": "cypress run"
   },
   "dependencies": {
     "@amcharts/amcharts4": "^4.9.17",
@@ -34,9 +35,13 @@
     "@vue/eslint-config-prettier": "^5.0.0",
     "@vue/test-utils": "^1.0.0-beta.29",
     "babel-eslint": "^10.0.3",
+    "cypress": "^4.11.0",
+    "cypress-firebase": "^1.4.3",
     "eslint": "^5.16.0",
+    "eslint-plugin-cypress": "^2.11.1",
     "eslint-plugin-prettier": "^3.1.1",
     "eslint-plugin-vue": "^5.0.0",
+    "firebase-admin": "^9.0.0",
     "lint-staged": "^9.4.3",
     "node-sass": "^4.14.1",
     "prettier": "^1.19.1",
@@ -82,12 +87,12 @@
     ],
     "transform": {
       ".*\\.(vue)$": "vue-jest"
-		},
-		"testURL": "http://localhost/",
+    },
+    "testURL": "http://localhost/",
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
     },
-    "collectCoverage": true,
+    "collectCoverage": false,
     "collectCoverageFrom": [
       "**/*.{js,vue}",
       "!**/node_modules/**"

@@ -4,6 +4,7 @@
     <transition name="toggle">
       <div v-if="showDropdownNav" class="menu">
         <base-link
+					class="nav-top-link"
           v-for="(link, index) in navLinks"
           :key="index"
           :to="link.path"
@@ -21,7 +22,7 @@
           <!-- <base-loader></base-loader> -->
           <app-external-links :alternative="true"></app-external-links>
           <locale-toggler :size="6" :alternative="true"></locale-toggler>
-          <app-text :size="6">{{ this.GET_OFFICIAL.watermark }}</app-text>
+          <!-- <app-text :size="6">{{ this.GET_OFFICIAL.watermark }}</app-text> -->
           <!-- <base-text :size="6" m-t="m">{{ this.cursorOffsetX }}, {{ this.cursorOffsetY}}</span></base-text> -->
         </div>
       </div>
@@ -30,7 +31,7 @@
     <nav-top-logo :alternative="showDropdownNav"></nav-top-logo>
     <nav-top-toggler
       :mode="togglerMode"
-      @click.native="toggle"
+      @click="toggle"
     ></nav-top-toggler>
   </div>
 </template>
