@@ -1,16 +1,16 @@
 <template>
   <base-view class="view-home" :compensateNavTop="false">
+    <hero-canvas></hero-canvas>
     <home-hero></home-hero>
-    <!-- <base-spacer :size="45" :scaling="true"> -->
-      <home-projects></home-projects>
-      <home-about></home-about>
-      <home-tools></home-tools>
-      <home-contact></home-contact>
-    <!-- </base-spacer> -->
+		<home-projects></home-projects>
+		<home-about></home-about>
+		<home-tools></home-tools>
+		<home-contact></home-contact>
   </base-view>
 </template>
 
 <script>
+import heroCanvas from '@/components/heroCanvas'
 import homeHero from '@/components/homeHero'
 import homeAbout from '@/components/homeAbout'
 import homeProjects from '@/components/homeProjects'
@@ -21,6 +21,7 @@ export default {
   name: 'viewHome',
 
   components: {
+    heroCanvas,
     homeHero,
     homeAbout,
     homeProjects,
