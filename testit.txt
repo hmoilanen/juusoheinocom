@@ -1,0 +1,50 @@
+TESTAA, ETTÄ:
+
+Yleiset:
+-login toimii
+-logout toimii
+-kamat tulee firebasesta niin kuin kuuluu
+-kuvan lataaminen storagesta toimii
+
+Käyttäminen
+-sekä contact-formi / post toimii, että kaikki inputit toimii ja data liikkuu
+-yhteydenotto-mailin lähettäminen toimii
+-contactLink:n painaminen vie contact-sivulle
+-projektin klikkaaminen avaa projektin tietoineen
+-maan lipun klikkaaminen galleriassa avaa tarvittavat kuvat / karusellin
+
+Komponentit:
+-navTopToggle avaa ylävalikon / muu toiminnallisuus
+//-nappi antaa klikin
+//-baseText / -Title rendaa tekstit
+//-baseInput palauttaa arvon
+-baseLink routtaa kunnolla
+
+Ui:
+-että joka routessa window.width ei ole pienempi kuin view.width
+
+///////
+"test:unit": "vue-cli-service test:unit",
+"test:unit": "jest"
+
+-REVERTTAA MIXINS.JS KUN TESTIT ON MUUTEN KUNNOSSA TAI RATKAISE ONGELMA!!!
+-REVERTTAA MIXINS.JS KUN TESTIT ON MUUTEN KUNNOSSA TAI RATKAISE ONGELMA!!!
+-REVERTTAA MIXINS.JS KUN TESTIT ON MUUTEN KUNNOSSA TAI RATKAISE ONGELMA!!!
+-REVERTTAA MIXINS.JS KUN TESTIT ON MUUTEN KUNNOSSA TAI RATKAISE ONGELMA!!!
+
+
+
+
+-lisää kuutioiideen tuhoaminen/syntyminen renderissä
+	-...tuhotaan ensin
+	//-...ja luodaan vasta sen jälkeen
+//-tee materiaalin tuntu materiaalilla ja valoilla
+-tee hohtoefekti (joihinkn) pinkkeihin kuutioihin
+-liikuta kameraa kun hiiri liikkuuu
+-? tee hover-hohto kun hiiri osuu (johonkin?) kuutioon
+
+-pysäytä animaatio kun se eii näy ruudulla
+-lisää GUI
+-kameran liikutttaminen smootisti esim kun hiiri tule ruutuun ihan toisesta reunasta
+-liikuta hiirellä kameraa objektin sijasata
+-tee objektista "syllinteri"
