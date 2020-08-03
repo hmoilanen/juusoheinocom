@@ -8,6 +8,7 @@ import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 //import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
+import { onScreen } from '@/utils/display'
 
 // const scene = new THREE.scene()
 // TAI:
@@ -19,31 +20,27 @@ import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPa
 //MUUTA LOPUKSI KAIKKI MATH.RANDOMIT NIIN ETTEI NIISSÄ OLE MILJOONAA DESIMAALIA!
 //MUUTA LOPUKSI KAIKKI MATH.RANDOMIT NIIN ETTEI NIISSÄ OLE MILJOONAA DESIMAALIA!
 //MUUTA LOPUKSI KAIKKI MATH.RANDOMIT NIIN ETTEI NIISSÄ OLE MILJOONAA DESIMAALIA!
-//MUUTA LOPUKSI KAIKKI MATH.RANDOMIT NIIN ETTEI NIISSÄ OLE MILJOONAA DESIMAALIA!
-//MUUTA LOPUKSI KAIKKI MATH.RANDOMIT NIIN ETTEI NIISSÄ OLE MILJOONAA DESIMAALIA!
 
 export default {
 	name: 'heroCanvas',
 
   data() {
     return {
-			initated: false,
+			initiated: false,
 			scene: null,
 			camera: null,
 			renderer: null,
 			geometry: null,
 			material: null,
-			//cubes: [],
-			//cubeAttrs: [],
-			amount: 2000,
-			planeWidth: 2000,
-			planeHeight: 1000,
-			planeDepth: 5000,
+			amount: 1000,
+			planeWidth: 3000,
+			planeHeight: 3000,
+			planeDepth: 10000,
 			bloomPass: null,
 			bloomComposer: null,
-
-			mouseX: 0,
-			mouseY: 0,
+			//mouseX: 0,
+			//mouseY: 0,
+			playing: true,
 		}
 	},
 
@@ -56,10 +53,15 @@ export default {
 		this.init()
 		this.animate()
 
-		//console.log(this.scene);
-
 		window.addEventListener('resize', this.onWindowResize, false)
+		window.addEventListener('scroll', this.onWindowScroll, false)
 		this.$refs.heroCanvas.addEventListener('mousemove', this.onMousemove, false)
+		
+		this.$on('hook:beforeDestroy', () => {
+			window.removeEventListener('resize', this.onWindowResize)
+			window.removeEventListener('scroll', this.onWindowScroll)
+			this.$refs.heroCanvas.removeEventListener('mousemove', this.onMousemove)
+		})
 	},
 
   methods: {
@@ -74,13 +76,12 @@ export default {
 			this.setBloomPass()
 			this.setBloomComposer()
 
-
 			// Create meshes
 			for (let i = 0; i < this.amount; i++) {
 				this.createCube()
 			}
 
-			this.initated = true
+			this.initiated = true
 		},
 
 		setRenderer() {
@@ -92,37 +93,28 @@ export default {
 		},
 
 		setCamera() {
-			this.camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 10000)
+			this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, this.planeDepth)
 			//this.camera = new THREE.StereoCamera(70, window.innerWidth / window.innerHeight, 0.1, 10000)
-			this.camera.position.set(1000, 0, 1200)
+			this.camera.position.set(this.planeDepth / 2, 0, 0)
+			this.camera.lookAt(this.planeDepth / -2, 0, 0)
+			//this.camera.lookAt(new THREE.Vector3(this.planeDepth / 2, 0, 0))
 			//this.camera.focus(3)
-
-			//this.camera.position.z = 5
-			//this.camera.lookAt( scene.position )
-			//this.camera.lookAt(0, 0, 0)
-			//this.camera.rotation.y = 90 * Math.PI / 180
 		},
 
 		setScene() {
 			this.scene = new THREE.Scene()
 			this.scene.background = new THREE.Color(0xffffff)
+			this.scene.fog = new THREE.FogExp2(0xffffff, 0.00014)
+			//this.renderer.setClearColor(this.scene.fog.color) //EI HUOMAA MITÄÄN EROO / POIMITTU JOSTAIN
 			//this.scene.fog = new THREE.Fog(0x000000, 1, 1500)
 			//this.scene.fog = new THREE.FogExp2(0x000000, 0.0012)
-			this.scene.fog = new THREE.FogExp2(0xffffff, 0.0005)
-			this.renderer.setClearColor(this.scene.fog.color) //EI HUOMAA MITÄÄN EROO / POIMITTU JOSTAIN
+			
 		},
 
 		setLights() {
 			const amibientLight = new THREE.AmbientLight(0xffffff, 1)
 			amibientLight.castShadow = true
 			this.scene.add(amibientLight)
-			//let light = new THREE.DirectionalLight(0xff0000, 0.35)
-			//light.position.set(1, 1, 1).normalize()
-			//this.scene.add(light)
-			
-			//const light = new THREE.SpotLight('#da0463', 2, 1000)
-      //light.position.set(0, 0, 30)
-			//this.scene.add(light)
 			
 			//Create a DirectionalLight and turn on shadows for the light
 			const spotLight = new THREE.DirectionalLight(0xffffff, 1, 100)
@@ -158,15 +150,17 @@ export default {
 			const renderPass = new RenderPass(this.scene, this.camera)
 
 			this.bloomComposer = new EffectComposer(this.renderer)
-			//this.bloomComposer.renderToScreen = true //TUTKI!!!
+			//this.bloomComposer.renderToScreen = true
 			this.bloomComposer.addPass(renderPass)
 			this.bloomComposer.addPass(this.bloomPass)
 		},
 
 		animate() {
-			requestAnimationFrame(this.animate)
-			this.updateCubes()
-			this.render()
+			if (this.playing) {
+				requestAnimationFrame(this.animate)
+				this.updateCubes()
+				this.render()
+			}
 		},
 
 		render() {
@@ -177,26 +171,28 @@ export default {
 		updateCubes() {
 			let time = performance.now() * 0.000002
 
-			// Randomly create new cube
-			if (Math.random() < 0.15) {
-				this.createCube()
-			}
-
 			// Animating cubes
 			this.$options.cubes.forEach((cube, index) => {
-				const attrs = this.$options.cubeAttrs[index]
-				const rotationAddition = time * attrs.rotationSpeed
-
-				// Rotation of cubes
-				if (cube.rotation.x > 0) { cube.rotation.x += rotationAddition }
-				if (cube.rotation.y > 0) { cube.rotation.y += rotationAddition }
-				if (cube.rotation.z > 0) { cube.rotation.z += rotationAddition }
-				
-				// Moving of cubes
-				cube.position.z += attrs.speed * (10 + attrs.acceleration)
+				// Delete cube if it's positioned behind camera + buffer
+				if (cube.position.x > this.planeDepth / 2 + 100) {
+					this.$options.cubes.splice(index, 1)
+					this.$options.cubeAttrs.splice(index, 1)
+				} else {
+					const attrs = this.$options.cubeAttrs[index]
+					const rotationAddition = time * attrs.rotationSpeed
+	
+					// Rotation of cubes
+					if (cube.rotation.x > 0) { cube.rotation.x += rotationAddition }
+					if (cube.rotation.y > 0) { cube.rotation.y += rotationAddition }
+					if (cube.rotation.z > 0) { cube.rotation.z += rotationAddition }
+					
+					// Moving of cubes
+					cube.position.x += attrs.speed * (attrs.acceleration)
+				}
 			})
 
-			//this.renderer.render(this.scene, this.camera)
+			// Randomly create new cube
+			if (Math.random() < 0.015) { this.createCube() }
 		},
 
 		onWindowResize() {
@@ -207,68 +203,76 @@ export default {
 			this.renderer.setSize(window.innerWidth, window.innerHeight)
 		},
 
+		onWindowScroll() {
+			// Check if canvas is vertically visible on screen
+			// and play this.animation() if so
+			const canvasOnScreen = this.$refs.heroCanvas.getBoundingClientRect()
+
+			if (onScreen(canvasOnScreen)) {
+				if (!this.playing) {
+					this.playing = true
+					this.animate() // Restart animation
+				}
+			} else {
+				this.playing = false
+			}
+		},
+
 		onMousemove(event) {
 			event.preventDefault()
 
-			let deltaX = event.clientX - this.mouseX
-			let deltaY = event.clientY - this.mouseY
-			
-			this.mouseX = event.clientX
-			this.mouseY = event.clientY
+			const cameraLookAtRadius = 6000
+			const cursorOffsetX = -(0.5 - event.clientX / window.innerWidth)
+			const cursorOffsetY = -(0.5 - event.clientY / window.innerHeight)
 
-			//this.rotateScene(deltaX, deltaY)
-			
-			// Rotate container of cubes
-			this.$options.containerObject.rotation.y += deltaX / 5000
-			this.$options.containerObject.rotation.x += deltaY / 5000
-			//https://github.com/mrdoob/three.js/blob/master/examples/misc_lookat.html
-			/* camera.position.x += ( mouseX - camera.position.x ) * .05;
-				camera.position.y += ( - mouseY - camera.position.y ) * .05;
-				camera.lookAt( scene.position ); */
+			this.camera.lookAt(
+				this.planeDepth / -2,
+				-cursorOffsetY * cameraLookAtRadius,
+				-cursorOffsetX * cameraLookAtRadius
+			)
 		},
 
 		createCube() {
 			let attrs = {
-				position: { x: 0, y: null, z: null },
 				speed: 0.1, // 0.1-1
-				acceleration: 0, // 0-1
-				rotation: { x: null, y: null, z: null },
 				rotationSpeed: 0.1, // 0.1-1
+				acceleration: 0 // 0-1
 			}
 			const dispersion = {
-				acceleration: 10,
+				acceleration: 20,
 				rotationSpeed: 0.3,
 				size: 4,
 				speed: 10,
 			}
 
 			const defaultMaterial = new THREE.MeshLambertMaterial({ color: 0x800f40 })
-			const glossyMaterial = new THREE.MeshPhongMaterial( { 
+			const glossyMaterial = new THREE.MeshPhongMaterial({ 
 				color: 0x000000,
 				//envMap: envMap, // optional environment map
 				specular: 0xa78191,
 				shininess: 1
 			})
+
 			let cube
 
-
-			if (Math.random() < 0.25) {
+			if (Math.random() < 0.10) {
 				cube = new THREE.Mesh(this.geometry, defaultMaterial)
 			} else {
 				cube = new THREE.Mesh(this.geometry, glossyMaterial)
 			}
 
 			// Set cube's position on plane
-			cube.position.y = attrs.y = Math.random() * this.planeWidth - (this.planeWidth / 2)
-			cube.position.z = attrs.z = Math.random() * this.planeHeight - (this.planeHeight / 2)
+			cube.position.x = this.planeDepth / -2
+			cube.position.y = Math.random() * this.planeHeight - (this.planeHeight / 2)
+			cube.position.z = Math.random() * this.planeWidth - (this.planeWidth / 2)
 
 			// Position cube depth-wise on it's first render
-			if (!this.initiated) { cube.position.x = attrs.x = Math.random() * this.planeDepth }
+			if (!this.initiated) { cube.position.x = Math.random() * this.planeDepth - (this.planeDepth / 2) }
 
 			// Set cube's rotation
-			if (Math.random() > 0.4) { cube.rotation.x = attrs.rotation.x = Math.random() }
-			if (Math.random() > 0.4) { cube.rotation.y = attrs.rotation.y = Math.random() }
-			if (Math.random() > 0.4) { cube.rotation.z = attrs.rotation.z = Math.random() }
+			if (Math.random() > 0.4) { cube.rotation.x = Math.random() }
+			if (Math.random() > 0.4) { cube.rotation.y = Math.random() }
+			if (Math.random() > 0.4) { cube.rotation.z = Math.random() }
 			if (Math.random() > 0.4) { attrs.rotationSpeed = Math.random() * dispersion.rotationSpeed }
 
 			// Set cube's speed and acceleration
@@ -277,11 +281,6 @@ export default {
 
 			// Set cube's size
 			cube.scale.setScalar(Math.random() * dispersion.size, )
-			//const joo = Math.random() * dispersion.size
-			//cube.scale(joo, joo, joo * 3)
-			/* if (Math.random() < 0.25) {
-				cube.scale.setScalar(1, 1, 3)
-			} */
 
 			cube.castShadow = true
 			cube.receiveShadow = false

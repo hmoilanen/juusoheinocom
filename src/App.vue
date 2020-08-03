@@ -60,16 +60,9 @@ body {
   font-variant-ligatures: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 { margin: 0; }
+h1, h2, h3, h4, h5, h6 { margin: 0; }
 
-ol,
-ul,
-li {
+ol, ul, li {
   margin: 0;
   padding: 0;
 }
@@ -78,4 +71,6 @@ p {
   margin: 0;
   padding: 0;
 }
+
+canvas { display: block; }
 </style>

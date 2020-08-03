@@ -35,16 +35,12 @@ Ui:
 
 
 
--lisää kuutioiideen tuhoaminen/syntyminen renderissä
-	-...tuhotaan ensin
-	//-...ja luodaan vasta sen jälkeen
-//-tee materiaalin tuntu materiaalilla ja valoilla
+
 -tee hohtoefekti (joihinkn) pinkkeihin kuutioihin
--liikuta kameraa kun hiiri liikkuuu
--? tee hover-hohto kun hiiri osuu (johonkin?) kuutioon
+//-liikuta kameraa kun hiiri liikkuuu
+	EI! -? tee hover-hohto kun hiiri osuu (johonkin?) kuutioon
 
 -pysäytä animaatio kun se eii näy ruudulla
 -lisää GUI
 -kameran liikutttaminen smootisti esim kun hiiri tule ruutuun ihan toisesta reunasta
--liikuta hiirellä kameraa objektin sijasata
--tee objektista "syllinteri"
+//-liikuta hiirellä kameraa objektin sijasata
