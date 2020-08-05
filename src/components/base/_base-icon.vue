@@ -31,7 +31,7 @@ export default {
   props: {
     icon: { // Note: use prop instead of slot in case of dynamic icon!
       type: String,
-      default: "spot"
+      default: "love"
     },
     app: { // e.g. twitter / twitch / other external apps
       type: String,
@@ -75,6 +75,8 @@ export default {
     iconContact: () => import("@/components/icons/iconContact"),
 		iconCss: () => import("@/components/icons/iconCss"),
     iconFirebase: () => import("@/components/icons/iconFirebase"),
+    iconFill: () => import("@/components/icons/iconFill"),
+    iconFit: () => import("@/components/icons/iconFit"),
     iconGit: () => import("@/components/icons/iconGit"),
 		iconGithub: () => import("@/components/icons/iconGithub"),
 		iconHtml: () => import("@/components/icons/iconHtml"),

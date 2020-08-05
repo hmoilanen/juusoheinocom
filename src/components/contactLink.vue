@@ -27,7 +27,7 @@ export default {
     return {
       expanded: false,
       hidden: false,
-      height: 48, // = px
+      height: 48, // = px / 3rem
       widthInner: 0,
       widthIcon: 0,
       animationDuration: 0.4,

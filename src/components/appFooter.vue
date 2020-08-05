@@ -208,10 +208,11 @@ $footer--color-highlight: $app-color--hl;
   .backtotop {
     &::v-deep {
       .base-icon {
-        fill: transparent;
+				@extend %icon--only-stroke;
+        /* fill: transparent;
         color: transparent;
         stroke: $footer--color-highlight;
-        stroke-width: 5px;
+        stroke-width: 5px; */
         &:hover {
           .backtotop-move {
             transform: translateY(-15%);
