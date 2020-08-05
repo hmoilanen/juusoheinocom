@@ -1,19 +1,26 @@
 <template>
   <base-view class="view-gallery">
     <template v-if="!$app.isLoading()">
-      <google-map
-        :class="{ disabled: currentGallery }"
-        :places="countries"
-        :minZoom="3"
-        :disableDefaultUi="true"
-        mapStyle="light"
-        @marker-clicked="chooseGallery($event)"
-      ></google-map>
+			<div class="map-container" :class="{ disabled: currentGallery }">
+				<google-map
+					ref="googleMap"
+					:places="countries"
+					:minZoom="3"
+					:disableDefaultUi="true"
+					mapStyle="light"
+					@marker-clicked="chooseGallery($event)"
+					@map-centered="trackMapPosition"
+				></google-map>
+				<transition name="toggle">
+					<div v-if="!mapIsCentered" class="fit-container">
+						<div class="fit" @click="centerMap">
+							<base-icon :size="12">fill</base-icon>
+						</div>
+					</div>
+				</transition>
+			</div>
 
-      <div
-        v-if="currentGallery"
-        class="content-carousel-container"
-      >
+      <div v-if="currentGallery" class="content-carousel-container">
         <app-content-wrapper>
           <content-carousel v-if="currentGallery" :key="currentGallery">
             <div
@@ -56,7 +63,7 @@ import appContentWrapper from '@/components/appContentWrapper'
 import contentCarousel from '@/components/contentCarousel'
 import { randomString } from '@/utils/strings'
 import { randomIntegerFromInterval } from '@/utils/math'
-import { countries } from '@/api/countries'
+//import { countries } from '@/api/countries'
 
 export default {
   name: 'viewGallery',
@@ -70,7 +77,8 @@ export default {
 
   data() {
     return {
-      currentGallery: ''
+			currentGallery: '',
+			mapIsCentered: false
     }
   },
 
@@ -108,11 +116,11 @@ export default {
     countries() {
       if (!this.$app.isLoading()) {
         const { main, ...gallery } = this.$store.state.content.gallery
-        let listOfCountries = []
+        let listOfCountries = {}
 
         for (let country in gallery) {
           const { info, ...images } = gallery[country]
-          listOfCountries.push({
+          /* listOfCountries.push({
             name: country,
             position: {
               lat: info.latitude,
@@ -120,7 +128,15 @@ export default {
             },
             zoom: info.zoom,
             images: images
-          })
+          }) */
+					//listOfCountries.push(info)
+
+					const countryName = info['name-en'].toLowerCase().split(' ').join('')
+					
+					listOfCountries[countryName] = {
+						...info,
+						images
+					}
         }
 
         return listOfCountries
@@ -130,9 +146,10 @@ export default {
     images() {
       if (this.currentGallery) {
         const imageURL = this.$store.getters['app/GET_URL'].imageURL
-        let currentImages = this.countries.filter(country => {
+        /* let currentImages = this.countries.filter(country => {
           return country.name === this.currentGallery
-        })[0].images
+				})[0].images */
+				const currentImages = this.countries[this.currentGallery].images
 
         for (const image in currentImages) {
           currentImages[image] = `${imageURL}${this.$route.name}/${this.currentGallery}/${currentImages[image]}`
@@ -183,12 +200,26 @@ export default {
   },
 
   methods: {
+		/* googleCenterMap() {
+			this.$refs.googleMap.centerMap()
+		}, */
+
     chooseGallery(gallery) {
       if (gallery && this.currentGallery !== gallery) {
         this.currentGallery = gallery
         this.$router.push({ name: 'gallery', query: { gallery: gallery } })
       }
-    },
+		},
+
+		centerMap() {
+			this.$refs.googleMap.fitMap()
+		},
+		
+		trackMapPosition(state) {
+			if (this.mapIsCentered !== state) {
+				this.mapIsCentered = state
+			}
+		},
 
     addImage() { //OTA TAKAISIN KÄYTTÖÖN, KS. TEMPLATE!
       let randomKey = 'image-' + randomString(6)
@@ -210,9 +241,18 @@ export default {
 .view-gallery {
   position: relative;
 
-  .google-map {
+  /* .google-map {
     @extend %absolute-0000;
     transition: opacity 1.2s ease-in-out;
+    &.disabled {
+      @extend %disabled;
+      opacity: 0.1;
+    }
+  } */
+  .map-container {
+    @extend %absolute-0000;
+		transition: opacity 1s ease-in-out;
+		.google-map { @extend %absolute-0000; }
     &.disabled {
       @extend %disabled;
       opacity: 0.1;
@@ -238,7 +278,37 @@ export default {
     height: 0;
     padding-bottom: 56.25%;
     //background: rgba(200, 200, 200, 0.2);
-  }
+	}
+	.fit-container {
+		$fit-markers--size: 3rem;
+
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		padding-left: 1rem;
+		padding-bottom: 1rem;
+		.fit {
+			width: $fit-markers--size;
+			height: $fit-markers--size;
+			//border-radius: 50%;
+			background: rgba(255, 255, 255, 0.75);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			@extend %clickable;
+			transition: background 0.4s ease;
+			&:hover { background: rgba(255, 255, 255, 0.95); }
+			
+			.base-icon {
+				@extend %icon--only-stroke;
+			}
+		}
+	}
 }
 
+$toggle-animation--duration: 0.2s;
+.toggle-enter { transform: translateX(-100%); }
+.toggle-leave-to { transform: translateX(-100%); }
+.toggle-enter-active { transition: transform $toggle-animation--duration ease; }
+.toggle-leave-active { transition: transform $toggle-animation--duration cubic-bezier(0.46, 0.07, 0.83, 0.45); }
 </style>
