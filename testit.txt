@@ -40,7 +40,8 @@ Ui:
 //-liikuta kameraa kun hiiri liikkuuu
 	EI! -? tee hover-hohto kun hiiri osuu (johonkin?) kuutioon
 
--pysäytä animaatio kun se eii näy ruudulla
+//-pysäytä animaatio kun se eii näy ruudulla
 -lisää GUI
--kameran liikutttaminen smootisti esim kun hiiri tule ruutuun ihan toisesta reunasta
+//-kameran liikutttaminen smootisti esim kun hiiri tule ruutuun ihan toisesta reunasta
 //-liikuta hiirellä kameraa objektin sijasata
+-liikuta kameraa automaattisesti/randomilla jos ei hiiri-inputtia (= tabletti / kosketusnäyttö)
