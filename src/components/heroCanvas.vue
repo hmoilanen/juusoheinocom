@@ -26,82 +26,43 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 export default {
 	name: 'heroCanvas',
 
-  data() {
-    return {
-			initiated: false,
-			animating: true,
-			scene: null,
-			camera: null,
-			renderer: null,
-			geometry: null, // = cube
-			geometry2: null, // = cuboid
-			material: null,
-			
-			amount: 5000,
-			planeWidth: 3000,
-			planeHeight: 3000,
-			planeDepth: 10000,
+	// Using $options for preventing Vue's reactivity
+	initiated: false,
+	animating: true,
+	scene: null,
+	camera: null,
+	renderer: null,
+	geometryCube: null,
+	geometryCuboid: null,
 
-			mouseRelativeX: 0,
-			mouseRelativeY: 0,
-			cameraLookAtY: 0,
-			cameraLookAtZ: 0,
-
-			bloomPass: null,
-			bloomComposer: null,
-			bloomParams: {
-				exposure: 1,
-				bloomThreshold: 0,
-				bloomStrength: 2,
-				bloomRadius: 0
-			},
-
-			stats: null,
-
-			testi: 'testi',
-			testi2: {
-				other: 'other',
-				inner: {
-					text: 'text'
-				}
-			}
-		}
-	},
-
-	// Not reactive
 	cubes: [],
 	cubeAttrs: [],
 	containerObject: null,
 	
+	amount: 1400,
+	planeWidth: 4000,
+	planeHeight: 4000,
+	planeDepth: 10000,
+
+	mouseRelativeX: 0,
+	mouseRelativeY: 0,
+	cameraLookAtY: 0,
+	cameraLookAtZ: 0,
+
+	bloomPass: null,
+	bloomComposer: null,
+	bloomParams: {
+		exposure: 1,
+		threshold: 0,
+		strength: 2,
+		radius: 0
+	},
+
+	stats: null,
+	
 	mounted() {
-		/* console.log('this.testi', this.testi);
-		this.testi = 'muutettu testi'
-		console.log('this.testi', this.testi);
-		console.log('this.$data', this.$data);
-
-		console.log('this.testi2', this.testi2);
-		console.log('this.testi2.other', this.testi2.other);
-		this.testi2.other = 'muutettu testi2.other'
-		console.log('this.testi2.other', this.testi2.other); */
-		console.log('this.testi2', this.testi2);
-
-		/* console.log('this.testi2', this.testi2);
-		console.log('this.testi2.inner.text', this.testi2.inner.text);
-		this.testi2.inner.text = 'muutettu testi2.inner.text'
-		console.log('this.testi2.inner.text', this.testi2.inner.text);
-		console.log('this.testi2', this.testi2); */
-		console.log('this.testi2', this.testi2);
-		console.log('this.testi2.inner', this.testi2.inner);
-		this.testi2.inner = { joo: 'jee' }
-		this.$set(this.testi2, 'reactive', { joo: 'jee' })
-		console.log('this.testi2.inner', this.testi2.inner);
-		console.log('this.testi2', this.testi2);
-
 		this.init()
 		this.animate()
-
-		console.log('this.$options.cubes', this.$options.cubes);
-		console.log('this.$options.cubeAttrs', this.$options.cubeAttrs);
 
 		window.addEventListener('resize', this.onWindowResize, false)
 		window.addEventListener('scroll', this.onWindowScroll, false)
@@ -119,9 +80,9 @@ export default {
 			this.setRenderer()
 			this.setCamera()
 			this.setScene()
-			//this.setLights()
+			this.setLights()
 			this.setGeometry()
-			//this.setContainer()
+			this.setContainer()
 
 			//this.setBloomPass()
 			//this.setBloomComposer()
@@ -129,94 +90,82 @@ export default {
 			//this.setGUI()
 
 			// Create meshes
-			for (let i = 0; i < this.amount; i++) {
+			for (let i = 0; i < this.$options.amount; i++) {
 				this.createCube()
 			}
 
-			this.initiated = true
+			this.$options.initiated = true
 
-			this.stats = new Stats()
-			this.$refs.heroCanvas.appendChild(this.stats.dom)
+			//POISTUU!
+			this.$options.stats = new Stats()
+			this.$refs.heroCanvas.appendChild(this.$options.stats.dom)
 		},
 
 		setRenderer() {
-			//this.renderer = new THREE.WebGLRenderer({ antialias: false })
-			this.renderer = new THREE.WebGLRenderer()
-			this.renderer.setSize(window.innerWidth, window.innerHeight)
-			this.renderer.setPixelRatio(window.devicePixelRatio)
+			this.$options.renderer = new THREE.WebGLRenderer({ antialias: true })
+			this.$options.renderer.setSize(window.innerWidth, window.innerHeight)
+			this.$options.renderer.setPixelRatio(window.devicePixelRatio)
 			//this.renderer.toneMapping = THREE.LinearToneMapping
-			this.$refs.heroCanvas.appendChild(this.renderer.domElement)
-
-			/* renderer = new THREE.WebGLRenderer();
-			renderer.setPixelRatio( window.devicePixelRatio );
-			renderer.setSize( window.innerWidth, window.innerHeight );
-			container.appendChild( renderer.domElement ); */
+			this.$refs.heroCanvas.appendChild(this.$options.renderer.domElement)
 		},
 
 		setCamera() {
-			this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, this.planeDepth)
-			//this.camera = new THREE.StereoCamera(70, window.innerWidth / window.innerHeight, 0.1, 10000)
-			this.camera.position.set(this.planeDepth / 2, 1000, 0)
-			this.camera.lookAt(this.planeDepth / -2, 1000, 0)
-			//this.camera.lookAt(new THREE.Vector3(this.planeDepth / 2, 0, 0))
-			//this.camera.focus(3)
+			this.$options.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, this.$options.planeDepth)
+			this.$options.camera.position.set(this.$options.planeDepth / 2, 0, 0)
+			this.$options.camera.lookAt(this.$options.planeDepth / -2, 0, 0)
 		},
 
 		setScene() {
-			this.scene = new THREE.Scene()
-			this.scene.background = new THREE.Color(0xffffff)
-			//this.scene.fog = new THREE.FogExp2(0xffffff, 0.00016)
-			//this.renderer.setClearColor(this.scene.fog.color) //EI HUOMAA MITÄÄN EROO / POIMITTU JOSTAIN
-			//this.scene.fog = new THREE.Fog(0x000000, 1, 1500)
-			//this.scene.fog = new THREE.FogExp2(0x000000, 0.0012)
+			this.$options.scene = new THREE.Scene()
+			this.$options.scene.background = new THREE.Color(0xffffff)
+			this.$options.scene.fog = new THREE.FogExp2(0xffffff, 0.00016)
 			
 			//this.scene.add(new THREE.AxisHelper(10000)) // AxisHelper(size)
     	//this.scene.add(new THREE.GridHelper(100000, 1000)) // GridHelper(size, step)
 		},
 
 		setLights() {
-			const amibientLight = new THREE.AmbientLight(0xffffff, 1)
-			amibientLight.castShadow = true
-			this.scene.add(amibientLight)
+			const ambientLight = new THREE.AmbientLight(0xffffff, 1)
+			ambientLight.castShadow = true
+			this.$options.scene.add(ambientLight)
 			
 			//Create a DirectionalLight and turn on shadows for the light
 			const spotLight = new THREE.DirectionalLight(0xffffff, 1, 100)
-			spotLight.position.set(0, 1, 0) // default; light shining from top
-			//spotLight.castShadow = true // default false
-			this.scene.add(spotLight)
+			spotLight.position.set(0, 1, 0) // default = light shining from top
+			//spotLight.castShadow = true
+			this.$options.scene.add(spotLight)
 			
 			const spotLight2 = new THREE.DirectionalLight(0xffffff, 1, 100)
-			spotLight2.position.set(1, 1, 1) // default; light shining from top
-			//spotLight2.castShadow = true // default false
-			this.scene.add(spotLight2)
+			spotLight2.position.set(1, 1, 1)
+			//spotLight2.castShadow = true
+			this.$options.scene.add(spotLight2)
 		},
 
 		setGeometry() {
-			this.geometry = new THREE.BoxBufferGeometry(20, 20, 20)
-			this.geometry2 = new THREE.BoxBufferGeometry(20, 20, 60)
+			this.$options.geometryCube = new THREE.BoxBufferGeometry(20, 20, 20)
+			this.$options.geometryCuboid = new THREE.BoxBufferGeometry(20, 20, 60)
 		},
 
 		setContainer() {
 			const containerObject = new THREE.Object3D()
 			this.$options.containerObject = containerObject
-			this.scene.add(containerObject)
+			this.$options.scene.add(containerObject)
 		},
 
 		setBloomPass() {
-			this.bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
-			this.bloomPass.threshold = this.bloomParams.threshold
-			this.bloomPass.strength = this.bloomParams.strength
-			this.bloomPass.radius = this.bloomParams.radius
+			this.$options.bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
+			this.$options.bloomPass.threshold = this.$options.bloomParams.threshold
+			this.$options.bloomPass.strength = this.$options.bloomParams.strength
+			this.$options.bloomPass.radius = this.$options.bloomParams.radius
 			//this.renderer.toneMappingExposure = Math.pow(1.05, 4.0)
 		},
 
 		setBloomComposer() {
-			const renderPass = new RenderPass(this.scene, this.camera)
+			const renderPass = new RenderPass(this.$options.scene, this.$options.camera)
 
-			this.bloomComposer = new EffectComposer(this.renderer)
-			//this.bloomComposer.renderToScreen = true
-			this.bloomComposer.addPass(renderPass)
-			this.bloomComposer.addPass(this.bloomPass)
+			this.$options.bloomComposer = new EffectComposer(this.$options.renderer)
+			this.$options.bloomComposer.addPass(renderPass)
+			this.$options.bloomComposer.addPass(this.$options.bloomPass)
 		},
 
 		setGUI() {
@@ -224,20 +173,20 @@ export default {
 
 			const bloomFolder = gui.addFolder('Bloom Parameters')
 
-			bloomFolder.add(this.bloomParams, 'exposure', 0.1, 2).onChange((newValue) => {
+			/* bloomFolder.add(this.$options.bloomParams, 'exposure', 0.1, 2).onChange((newValue) => {
 				//this.renderer.toneMappingExposure = Math.pow(newValue, 4.0)
 				//this.render()
-			})
-			bloomFolder.add(this.bloomParams, 'bloomThreshold', 0, 1).onChange((newValue) => {
-				this.bloomParams = newValue
+			}) */
+			bloomFolder.add(this.$options.bloomParams, 'bloomThreshold', 0, 1).onChange((newValue) => {
+				this.$options.bloomParams = newValue
 				//this.render()
 			})
-			bloomFolder.add(this.bloomParams, 'bloomStrength', 0, 3).onChange((newValue) => {
-				this.bloomParams = newValue
+			bloomFolder.add(this.$options.bloomParams, 'bloomStrength', 0, 3).onChange((newValue) => {
+				this.$options.bloomParams = newValue
 				//this.render()
 			})
-			bloomFolder.add(this.bloomParams, 'bloomRadius', 0, 1).onChange((newValue) => {
-				this.bloomParams = newValue
+			bloomFolder.add(this.$options.bloomParams, 'bloomRadius', 0, 1).onChange((newValue) => {
+				this.$options.bloomParams = newValue
 				//this.render()
 			})
 			this.render()	
@@ -245,118 +194,17 @@ export default {
 			bloomFolder.open()
 		},
 
-		animate() {
-			if (this.animating) {
-				requestAnimationFrame(this.animate)
-				this.render()
-				//this.updateCubes()
-				//this.updateCamera()
-				this.stats.update()
-			}
-		},
-
-		render() {
-			this.renderer.render(this.scene, this.camera)
-			//this.bloomComposer.render()
-		},
-
-		updateCubes() {
-			//let time = performance.now() * 0.000002
-
-			// Animating cubes
-			for (let index = 0; index < this.$options.cubes.length; index ++) {
-			//this.$options.cubes.forEach((cube, index) => {
-				const cube = this.$options.cubes[index]
-				// Delete cube if it's positioned behind camera + buffer
-				if (cube.position.x > this.planeDepth / 2 + 100) {
-					this.$options.cubes.splice(index, 1)
-					this.$options.cubeAttrs.splice(index, 1)
-					
-					// Create a new cube every time other is deleted
-					this.createCube()
-
-					/* this.renderer.forceContextLoss()
-					this.renderer.context = null
-					this.renderer.domElement = null
-					this.renderer = null */
-				} else {
-					const attrs = this.$options.cubeAttrs[index]
-					//const rotationAddition = time * attrs.rotationSpeed
-	
-					//const rotationAddition = attrs.rotationSpeed
-					// Rotation of cubes
-					//if (cube.rotation.x > 0) { cube.rotation.x += rotationAddition }
-					//if (cube.rotation.y > 0) { cube.rotation.y += rotationAddition }
-					//if (cube.rotation.z > 0) { cube.rotation.z += rotationAddition }
-					
-					// Moving of cubes
-					cube.position.x += attrs.speed * (attrs.acceleration)
-				}
-			}//)
-
-			// Randomly create new cube
-			//if (Math.random() < 0.015) { this.createCube() }
-		},
-
-		updateCamera() {
-			const cameraLookAtDiameter = 4000
-
-			// Camera's current target on plane
-			this.cameraLookAtY += (-(this.mouseRelativeY * cameraLookAtDiameter) - this.cameraLookAtY) * 0.1
-			this.cameraLookAtZ += (-(this.mouseRelativeX * cameraLookAtDiameter) - this.cameraLookAtZ) * 0.1
-
-			// Pointing of camera
-			this.camera.lookAt(
-				this.planeDepth / -2,
-				this.cameraLookAtY,
-				this.cameraLookAtZ
-			)
-		},
-
-		onMousemove(event) {
-			event.preventDefault()
-
-			// Calculate mouse's relative position on screen:
-			// mid point = (0, 0)
-			// min / max = -0.5 / 0.5
-			this.mouseRelativeX = -(0.5 - event.clientX / window.innerWidth)
-			this.mouseRelativeY = -(0.5 - event.clientY / window.innerHeight)
-		},
-
-		onWindowResize() {
-			this.camera.aspect = window.innerWidth / window.innerHeight
-			this.camera.updateProjectionMatrix()
-			
-			this.bloomComposer.setSize(window.innerWidth, window.innerHeight)
-			this.renderer.setSize(window.innerWidth, window.innerHeight)
-		},
-
-		onWindowScroll() {
-			// Check if canvas is vertically visible on screen
-			// and play this.animation() if so
-			const canvasOnScreen = this.$refs.heroCanvas.getBoundingClientRect()
-
-			if (onScreen(canvasOnScreen)) {
-				if (!this.animating) {
-					this.animating = true
-					this.animate() // Restart animation
-				}
-			} else {
-				this.animating = false
-			}
-		},
-
 		createCube() {
 			let attrs = {
-				speed: 0.1, // 0.1-1
-				//rotationSpeed: 0.001, // 0.1-1
-				acceleration: 0 // 0-1
+				speed: 1, // 0.1-1
+				rotationSpeed: 0.001, // 0.1-1
+				acceleration: 1 // 0-1
 			}
 			const dispersion = {
-				acceleration: 20,
+				acceleration: 0.1,
 				rotationSpeed: 0.05,
-				size: 4,
-				speed: 15,
+				size: 5,
+				speed: 0.2,
 			}
 
 			const defaultMaterial = new THREE.MeshLambertMaterial({ color: 0x800f40 })
@@ -369,34 +217,33 @@ export default {
 
 			let cube
 
-			cube = new THREE.Mesh(this.geometry, defaultMaterial)
-			/* if (Math.random() < 0.10) {
-				cube = new THREE.Mesh(this.geometry, defaultMaterial)
+			if (Math.random() < 0.10) {
+				cube = new THREE.Mesh(this.$options.geometryCube, defaultMaterial)
 			} else {
 				if (Math.random() < 0.10) {
-					cube = new THREE.Mesh(this.geometry2, glossyMaterial)
+					cube = new THREE.Mesh(this.$options.geometryCuboid, glossyMaterial)
 				} else {
-					cube = new THREE.Mesh(this.geometry, glossyMaterial)
+					cube = new THREE.Mesh(this.$options.geometryCube, glossyMaterial)
 				}
-			} */
+			}
 
 			// Set cube's position on plane
 			cube.position.x = this.planeDepth / -2
-			cube.position.y = Math.random() * this.planeHeight - (this.planeHeight / 2)
-			cube.position.z = Math.random() * this.planeWidth - (this.planeWidth / 2)
+			cube.position.y = Math.random() * this.$options.planeHeight - (this.$options.planeHeight / 2)
+			cube.position.z = Math.random() * this.$options.planeWidth - (this.$options.planeWidth / 2)
 
 			// Position cube depth-wise on it's first render
-			if (!this.initiated) { cube.position.x = Math.random() * this.planeDepth - (this.planeDepth / 2) }
+			if (!this.$options.initiated) { cube.position.x = Math.random() * this.$options.planeDepth - (this.$options.planeDepth / 2) }
 
 			// Set cube's rotation
-			//if (Math.random() > 0.4) { cube.rotation.x = Math.random() }
-			//if (Math.random() > 0.4) { cube.rotation.y = Math.random() }
-			//if (Math.random() > 0.4) { cube.rotation.z = Math.random() }
-			//if (Math.random() > 0.4) { attrs.rotationSpeed = Math.random() * dispersion.rotationSpeed }
+			if (Math.random() > 0.4) { cube.rotation.x = Math.random() }
+			if (Math.random() > 0.4) { cube.rotation.y = Math.random() }
+			if (Math.random() > 0.4) { cube.rotation.z = Math.random() }
+			if (Math.random() > 0.4) { attrs.rotationSpeed = Math.random() * dispersion.rotationSpeed }
 
 			// Set cube's speed and acceleration
 			if (Math.random() > 0.4) { attrs.speed += Math.random() / dispersion.speed }
-			if (Math.random() > 0.4) { attrs.acceleration = Math.random() * dispersion.acceleration }
+			if (Math.random() > 0.4) { attrs.acceleration += Math.random() * dispersion.acceleration }
 
 			// Set cube's size
 			cube.scale.setScalar(Math.random() * dispersion.size)
@@ -404,15 +251,104 @@ export default {
 			cube.castShadow = false
 			cube.receiveShadow = false
 
-			//this.$options.cubes.push(cube)
-			//this.$options.cubeAttrs.push(attrs)
-			this.$options.cubes[this.$options.cubes.length] = cube
-			this.$options.cubeAttrs[this.$options.cubeAttrs.length] = attrs
-			//this.$options.cubes[this.$options.cubes.length] = JSON.parse(JSON.stringify(cube))
-			//this.$options.cubeAttrs[this.$options.cubeAttrs.length] = JSON.parse(JSON.stringify(attrs))
+			this.$options.cubes.push(cube)
+			this.$options.cubeAttrs.push(attrs)
+			//this.$options.cubes[this.$options.cubes.length] = cube
+			//this.$options.cubeAttrs[this.$options.cubeAttrs.length] = attrs
 
-			this.scene.add(cube)
-			//this.$options.containerObject.add(cube)
+			//this.scene.add(cube)
+			this.$options.containerObject.add(cube)
+		},
+
+		animate() {
+			if (this.$options.animating) {
+				requestAnimationFrame(this.animate)
+				this.updateCubes()
+				this.updateCamera()
+				this.$options.stats.update()
+				this.render()
+			}
+		},
+
+		render() {
+			this.$options.renderer.render(this.$options.scene, this.$options.camera)
+			//this.bloomComposer.render()
+		},
+
+		updateCubes() {
+			for (let index = 0; index < this.$options.cubes.length; index ++) {
+				const cube = this.$options.cubes[index]
+				
+				// Delete cube if it's positioned behind camera + buffer
+				if (cube.position.x > this.$options.planeDepth / 2 + 100) {
+					this.$options.cubes.splice(index, 1)
+					this.$options.cubeAttrs.splice(index, 1)
+					//POISTA KAMAA OIKEALLLA TAVALLA:
+					/* this.renderer.forceContextLoss()
+					this.renderer.context = null
+					this.renderer.domElement = null
+					this.renderer = null */
+					
+					// Create a new cube every time one is deleted
+					this.createCube()
+				} else {
+					const attrs = this.$options.cubeAttrs[index]
+
+					// Rotation of cubes
+					if (cube.rotation.x > 0) { cube.rotation.x += attrs.rotationSpeed }
+					if (cube.rotation.y > 0) { cube.rotation.y += attrs.rotationSpeed }
+					if (cube.rotation.z > 0) { cube.rotation.z += attrs.rotationSpeed }
+					
+					// Moving of cubes
+					cube.position.x += attrs.speed * attrs.acceleration
+				}
+			}
+		},
+
+		updateCamera() {
+			const cameraLookAtDiameter = 5000
+
+			// Camera's current target on plane
+			this.$options.cameraLookAtY += (-(this.$options.mouseRelativeY * cameraLookAtDiameter) - this.$options.cameraLookAtY) * 0.1
+			this.$options.cameraLookAtZ += (-(this.$options.mouseRelativeX * cameraLookAtDiameter) - this.$options.cameraLookAtZ) * 0.1
+
+			// Pointing of camera
+			this.$options.camera.lookAt(
+				this.$options.planeDepth / -2,
+				this.$options.cameraLookAtY,
+				this.$options.cameraLookAtZ
+			)
+		},
+
+		onMousemove(event) {
+			event.preventDefault()
+
+			// Calculate mouse's relative position on screen:
+			this.$options.mouseRelativeX = -(0.5 - event.clientX / window.innerWidth)
+			this.$options.mouseRelativeY = -(0.5 - event.clientY / window.innerHeight)
+		},
+
+		onWindowResize() {
+			this.$options.camera.aspect = window.innerWidth / window.innerHeight
+			this.$options.camera.updateProjectionMatrix()
+			
+			this.$options.bloomComposer.setSize(window.innerWidth, window.innerHeight)
+			this.$options.renderer.setSize(window.innerWidth, window.innerHeight)
+		},
+
+		onWindowScroll() {
+			// Check if canvas is vertically visible on screen,
+			// and run .animation() if so
+			const canvasOnScreen = this.$refs.heroCanvas.getBoundingClientRect()
+
+			if (onScreen(canvasOnScreen)) {
+				if (!this.$options.animating) {
+					this.$options.animating = true
+					this.animate() // Run animation again
+				}
+			} else {
+				this.$options.animating = false
+			}
 		}
 	}
 }
