@@ -13,7 +13,7 @@
         >
           <base-title
             :class="{ active: isActiveRoute(link.name) }"
-            :size="22"
+            :size="20"
             :scaling="true"
           >{{ link.title }}</base-title>
         </base-link>
@@ -378,7 +378,7 @@ $nav-top-dropdown--animation-duration: 0.3s;
     align-items: center;
     & > * {
       &:not(:last-child) {
-        margin-bottom: 0.6rem;
+        margin-bottom: 1.4rem;
       }
     }
     .app-text { color: $nav-top-dropdown--color; }

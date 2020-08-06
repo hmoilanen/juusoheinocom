@@ -58,7 +58,7 @@ const getData = (collectionName, document, path, asArray) => {
 
 const setDocument = (collectionName, doc, dataObject, merge = true) => {
   // Use to create or override documents for certain collection.
-  // If doc is given, add document for collection with that id,
+  // If doc is given, add document to collection with that id,
   // else, add document for collection with random id.
   // Note: if doc already exists, override it's data.
   // Note: dataObject is always required as object (can also be empty).

@@ -49,7 +49,7 @@ export default {
 
   props: {
     textSize: [String, Number]
-  },
+	},
 
   computed: {
     tools() {
@@ -63,7 +63,6 @@ export default {
 
         return reorderedTools
       } else return null
-
     }
   }
 }
