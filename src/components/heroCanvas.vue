@@ -6,11 +6,11 @@
 import * as THREE from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
-//import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
+//import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module.js';
-import { onScreen } from '@/utils/display'
 import Stats from 'three/examples/jsm/libs/stats.module.js';
+import { onScreen } from '@/utils/display'
 
 // const scene = new THREE.scene()
 // TAI:
@@ -52,9 +52,9 @@ export default {
 	bloomPass: null,
 	bloomComposer: null,
 	bloomParams: {
-		exposure: 1,
-		threshold: 0,
-		strength: 2,
+		exposure: 0.9,
+		threshold: 0.9,
+		strength: 0.45,
 		radius: 0
 	},
 
@@ -84,10 +84,10 @@ export default {
 			this.setGeometry()
 			this.setContainer()
 
-			//this.setBloomPass()
-			//this.setBloomComposer()
+			this.setGUI()
+			this.setBloomPass()
+			this.setBloomComposer()
 
-			//this.setGUI()
 
 			// Create meshes
 			for (let i = 0; i < this.$options.amount; i++) {
@@ -105,7 +105,7 @@ export default {
 			this.$options.renderer = new THREE.WebGLRenderer({ antialias: true })
 			this.$options.renderer.setSize(window.innerWidth, window.innerHeight)
 			this.$options.renderer.setPixelRatio(window.devicePixelRatio)
-			//this.renderer.toneMapping = THREE.LinearToneMapping
+			this.$options.renderer.toneMapping = THREE.LinearToneMapping
 			this.$refs.heroCanvas.appendChild(this.$options.renderer.domElement)
 		},
 
@@ -118,7 +118,7 @@ export default {
 		setScene() {
 			this.$options.scene = new THREE.Scene()
 			this.$options.scene.background = new THREE.Color(0xffffff)
-			this.$options.scene.fog = new THREE.FogExp2(0xffffff, 0.00016)
+			//this.$options.scene.fog = new THREE.FogExp2(0xffffff, 0.00016)
 			
 			//this.scene.add(new THREE.AxisHelper(10000)) // AxisHelper(size)
     	//this.scene.add(new THREE.GridHelper(100000, 1000)) // GridHelper(size, step)
@@ -153,6 +153,7 @@ export default {
 		},
 
 		setBloomPass() {
+			//this.$options.bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0, 0, 0)
 			this.$options.bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
 			this.$options.bloomPass.threshold = this.$options.bloomParams.threshold
 			this.$options.bloomPass.strength = this.$options.bloomParams.strength
@@ -173,23 +174,23 @@ export default {
 
 			const bloomFolder = gui.addFolder('Bloom Parameters')
 
-			/* bloomFolder.add(this.$options.bloomParams, 'exposure', 0.1, 2).onChange((newValue) => {
-				//this.renderer.toneMappingExposure = Math.pow(newValue, 4.0)
-				//this.render()
-			}) */
-			bloomFolder.add(this.$options.bloomParams, 'bloomThreshold', 0, 1).onChange((newValue) => {
-				this.$options.bloomParams = newValue
-				//this.render()
+			bloomFolder.add(this.$options.bloomParams, 'exposure', 0, 2).onChange((newValue) => {
+				this.$options.renderer.toneMappingExposure = Math.pow(newValue, 4.0)
+				this.render()
 			})
-			bloomFolder.add(this.$options.bloomParams, 'bloomStrength', 0, 3).onChange((newValue) => {
-				this.$options.bloomParams = newValue
-				//this.render()
+			bloomFolder.add(this.$options.bloomParams, 'threshold', 0, 2).onChange((newValue) => {
+				this.$options.bloomPass.threshold = Number(newValue)
+				this.render()
 			})
-			bloomFolder.add(this.$options.bloomParams, 'bloomRadius', 0, 1).onChange((newValue) => {
-				this.$options.bloomParams = newValue
-				//this.render()
+			bloomFolder.add(this.$options.bloomParams, 'strength', 0, 2).onChange((newValue) => {
+				this.$options.bloomPass.strength = Number(newValue)
+				this.render()
 			})
-			this.render()	
+			bloomFolder.add(this.$options.bloomParams, 'radius', 0, 10).onChange((newValue) => {
+				this.$options.bloomPass.radius = Number(newValue)
+				this.render()
+			})
+			//this.render()	
 			
 			bloomFolder.open()
 		},
@@ -207,12 +208,13 @@ export default {
 				speed: 0.2,
 			}
 
-			const defaultMaterial = new THREE.MeshLambertMaterial({ color: 0x800f40 })
+			//const defaultMaterial = new THREE.MeshLambertMaterial({ color: 0x800f40 })
+			const defaultMaterial = new THREE.MeshLambertMaterial({ color: 0x2b0113 })
 			const glossyMaterial = new THREE.MeshPhongMaterial({ 
 				color: 0x000000,
 				//envMap: envMap, // optional environment map
-				specular: 0xa78191,
-				shininess: 1
+				specular: 0x413339,
+				shininess: 0.5
 			})
 
 			let cube
@@ -220,11 +222,12 @@ export default {
 			if (Math.random() < 0.10) {
 				cube = new THREE.Mesh(this.$options.geometryCube, defaultMaterial)
 			} else {
-				if (Math.random() < 0.10) {
-					cube = new THREE.Mesh(this.$options.geometryCuboid, glossyMaterial)
+				const cubeType = Math.random() < 0.10 ? 'geometryCuboid' : 'geometryCube'
+				cube = new THREE.Mesh(this.$options[cubeType], glossyMaterial)
+				/* if (Math.random() < 0.10) {
 				} else {
 					cube = new THREE.Mesh(this.$options.geometryCube, glossyMaterial)
-				}
+				} */
 			}
 
 			// Set cube's position on plane
@@ -271,8 +274,8 @@ export default {
 		},
 
 		render() {
-			this.$options.renderer.render(this.$options.scene, this.$options.camera)
-			//this.bloomComposer.render()
+			//this.$options.renderer.render(this.$options.scene, this.$options.camera)
+			this.$options.bloomComposer.render()
 		},
 
 		updateCubes() {
@@ -280,7 +283,7 @@ export default {
 				const cube = this.$options.cubes[index]
 				
 				// Delete cube if it's positioned behind camera + buffer
-				if (cube.position.x > this.$options.planeDepth / 2 + 100) {
+				if (cube.position.x > this.$options.planeDepth / 2 + 300) {
 					this.$options.cubes.splice(index, 1)
 					this.$options.cubeAttrs.splice(index, 1)
 					//POISTA KAMAA OIKEALLLA TAVALLA:
