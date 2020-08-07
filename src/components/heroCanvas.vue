@@ -1,5 +1,7 @@
 <template>
-  <div class="hero-canvas" ref="heroCanvas"></div>
+  <div class="hero-canvas" ref="heroCanvas">
+		<div class="joku">tämä oon tekstiä</div>
+	</div>
 </template>
 
 <script>
@@ -19,9 +21,8 @@ import { onScreen } from '@/utils/display'
 // Also, see other popular parts of the library:
 // '@/node_modules/three/examples/jsm/...
 
-//MUUTA LOPUKSI KAIKKI MATH.RANDOMIT NIIN ETTEI NIISSÄ OLE MILJOONAA DESIMAALIA!
-//MUUTA LOPUKSI KAIKKI MATH.RANDOMIT NIIN ETTEI NIISSÄ OLE MILJOONAA DESIMAALIA!
-//MUUTA LOPUKSI KAIKKI MATH.RANDOMIT NIIN ETTEI NIISSÄ OLE MILJOONAA DESIMAALIA!
+// Add text:
+// https://threejs.org/docs/#manual/en/introduction/Creating-text
 
 export default {
 	name: 'heroCanvas',
@@ -105,7 +106,8 @@ export default {
 			this.$options.renderer = new THREE.WebGLRenderer({ antialias: true })
 			this.$options.renderer.setSize(window.innerWidth, window.innerHeight)
 			this.$options.renderer.setPixelRatio(window.devicePixelRatio)
-			this.$options.renderer.toneMapping = THREE.LinearToneMapping
+			//this.$options.renderer.toneMapping = THREE.LinearToneMapping
+			this.$options.renderer.toneMapping = THREE.ReinhardToneMapping
 			this.$refs.heroCanvas.appendChild(this.$options.renderer.domElement)
 		},
 
@@ -358,5 +360,14 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.hero-canvas {}
+.hero-canvas {
+	.joku {
+		position: absolute;
+		top: 50%;
+		width: 100%;
+		text-align: center;
+		z-index: 100;
+		display:block;
+	}
+}
 </style>
