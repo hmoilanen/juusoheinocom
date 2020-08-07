@@ -1,11 +1,11 @@
 <template>
   <base-view class="view-home" :compensateNavTop="false">
-    <!-- <home-hero></home-hero> -->
     <hero-canvas></hero-canvas>
-		<!-- <home-projects></home-projects>
+    <home-hero></home-hero>
+		<home-projects></home-projects>
 		<home-about></home-about>
 		<home-tools></home-tools>
-		<home-contact></home-contact> -->
+		<home-contact></home-contact>
   </base-view>
 </template>
 

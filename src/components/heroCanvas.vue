@@ -1,7 +1,5 @@
 <template>
-  <div class="hero-canvas" ref="heroCanvas">
-		<div class="joku">tämä oon tekstiä</div>
-	</div>
+  <div class="hero-canvas" ref="heroCanvas"></div>
 </template>
 
 <script>

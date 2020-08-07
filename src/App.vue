@@ -3,10 +3,10 @@
     <!-- <router-view :key="$route.fullPath"></router-view> -->
     <!-- HUOM! KEY OTETTU POIS navTopToggler:N TAKIA -> JOS ONGELMIA ILMENEE NIIN PISTÄ KEY TAKAISIN JA SIIRRÄ navTop KOKONAAN POIS baseView:STÄ! -->
     <router-view></router-view>
-    <!-- <app-curtain v-if="componentControl.curtain"></app-curtain> -->
-    <!-- <app-ui></app-ui> -->
+    <app-curtain v-if="componentControl.curtain"></app-curtain>
+    <app-ui></app-ui>
     <!-- <app-curtain></app-curtain> -->
-    <!-- <modal-handler v-if="componentControl.modalHandler"></modal-handler> -->
+    <modal-handler v-if="componentControl.modalHandler"></modal-handler>
     <app-handler></app-handler>
   </div>
 </template>
