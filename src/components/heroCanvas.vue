@@ -83,7 +83,6 @@ export default {
 			this.setGeometry()
 			this.setContainer()
 
-			this.setGUI()
 			this.setBloomPass()
 			this.setBloomComposer()
 
@@ -96,8 +95,9 @@ export default {
 			this.$options.initiated = true
 
 			//POISTUU!
-			this.$options.stats = new Stats()
-			this.$refs.heroCanvas.appendChild(this.$options.stats.dom)
+			//this.setGUI()
+			//this.$options.stats = new Stats()
+			//this.$refs.heroCanvas.appendChild(this.$options.stats.dom)
 		},
 
 		setRenderer() {
@@ -268,7 +268,7 @@ export default {
 				requestAnimationFrame(this.animate)
 				this.updateCubes()
 				this.updateCamera()
-				this.$options.stats.update()
+				//this.$options.stats.update()
 				this.render()
 			}
 		},
