@@ -3,9 +3,9 @@
     <!-- <router-view :key="$route.fullPath"></router-view> -->
     <!-- HUOM! KEY OTETTU POIS navTopToggler:N TAKIA -> JOS ONGELMIA ILMENEE NIIN PISTÄ KEY TAKAISIN JA SIIRRÄ navTop KOKONAAN POIS baseView:STÄ! -->
     <router-view></router-view>
-    <!-- <app-curtain v-if="componentControl.curtain"></app-curtain> -->
+    <app-curtain v-if="componentControl.curtain"></app-curtain>
     <app-ui></app-ui>
-    <app-curtain></app-curtain>
+    <!-- <app-curtain></app-curtain> -->
     <modal-handler v-if="componentControl.modalHandler"></modal-handler>
     <app-handler></app-handler>
   </div>
@@ -60,16 +60,9 @@ body {
   font-variant-ligatures: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 { margin: 0; }
+h1, h2, h3, h4, h5, h6 { margin: 0; }
 
-ol,
-ul,
-li {
+ol, ul, li {
   margin: 0;
   padding: 0;
 }
@@ -78,4 +71,6 @@ p {
   margin: 0;
   padding: 0;
 }
+
+canvas { display: block; }
 </style>

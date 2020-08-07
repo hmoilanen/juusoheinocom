@@ -5,7 +5,7 @@
 
 // Note!: remember to change color for mobile browser UIs to match app color, see: vue.config.js' pwa object
 $app-color--main: colorlist("grey", "darken-15"); // e.g. ui / modals / tooltips
-$app-color--secondary: lighten($app-color--main, 90%); // e.g. ui / modals / tooltips
+$app-color--secondary: lighten($app-color--main, 75%); // e.g. ui / modals / tooltips
 $app-color--bg: desaturate(lighten($app-color--main, 100%), 10%); // background color
 $app-color--theme: colorlist("white", "base"); // e.g. icons / buttons
 $app-color--hl: colorlist("custom", "juusoheino-hl"); // all other colors, as many as needed
