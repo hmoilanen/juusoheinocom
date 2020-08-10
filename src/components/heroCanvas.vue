@@ -358,14 +358,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.hero-canvas {
-	.joku {
-		position: absolute;
-		top: 50%;
-		width: 100%;
-		text-align: center;
-		z-index: 100;
-		display:block;
-	}
-}
+.hero-canvas {}
 </style>
