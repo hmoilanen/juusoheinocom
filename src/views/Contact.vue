@@ -129,14 +129,13 @@ export default {
 	},
 	
 	mounted() {
-		tl
-			.from('.gsap-contact-form', {
-				stagger: 0.2,
-				duration: 0.8,
-				y: 70,
-				opacity: 0,
-				ease: 'power2.out'
-			}, 0.35)
+		tl.from('.gsap-contact-form', {
+			stagger: 0.2,
+			duration: 0.8,
+			y: 70,
+			opacity: 0,
+			ease: 'power2.out'
+		}, 0.35)
 	},
 
 	watch: {

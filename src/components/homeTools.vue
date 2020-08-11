@@ -3,14 +3,14 @@
     <app-content-wrapper>
       <template v-if="tools">
         <editable-content path="home.tools.main" #default="{ content }">
-          <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
+          <app-title class="gsap--tools-trigger">{{ content[`title-${$app.locale()}`] }}</app-title>
           <app-text :size="8" :m-b="30">{{ content[`text-${$app.locale()}`] }}</app-text>
           <!-- <base-text :size="textSize">{{ content[`text-${$app.locale()}`] }}</base-text> -->
         
           <base-wrapper max-width="460px">
             <div class="grid">
               <div
-                class="tool"
+                class="tool gsap--tool"
                 v-for="(tool, key) in tools"
                 :key="key"
               >
@@ -36,6 +36,11 @@ import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
 import appTitle from '@/components/appTitle'
 import appText from '@/components/appText'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
+//const tl = gsap.timeline()
 
 export default {
   name: 'homeTools',
@@ -49,6 +54,24 @@ export default {
 
   props: {
     textSize: [String, Number]
+	},
+
+	mounted() {
+		gsap.from('.gsap--tool', {
+			scrollTrigger: {
+				//trigger: '.home-tools .grid',
+				trigger: '.gsap--tools-trigger',
+				//markers: true,
+				start: 'top center',
+				toggleActions: 'restart reset reset reset'
+			},
+			stagger: 0.06,
+			duration: 0.6,
+			scale: 1.8,
+			opacity: 0,
+			//ease: 'power2.inOut'
+			ease: 'Back.easeOut.config(1.7)'
+		}, 0.35)
 	},
 
   computed: {
