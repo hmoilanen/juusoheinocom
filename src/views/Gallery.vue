@@ -1,6 +1,6 @@
 <template>
   <base-view class="view-gallery">
-    <template v-if="!$app.isLoading()">
+    <!-- <template v-if="!$app.isLoading()"> -->
 			<div class="map-container" :class="{ disabled: currentGallery }">
 				<google-map
 					ref="googleMap"
@@ -43,7 +43,17 @@
         v-if="$app.isLogged()"
         @click="addImage"
       >{{ this.buttonText }}</base-button> -->
-    </template>
+    <!-- </template> -->
+
+		<div class="intro-animation gsap--intro-animation" :style="styling">
+			<div
+				v-for="piece in introPieceMultiplier"
+				:key="piece"
+				class="piece gsap--intro-piece"
+			></div>
+		</div>
+
+		<base-button class="se" @click="teeSe">toggle</base-button>
 
   </base-view>
 </template>
@@ -63,7 +73,9 @@ import appContentWrapper from '@/components/appContentWrapper'
 import contentCarousel from '@/components/contentCarousel'
 import { randomString } from '@/utils/strings'
 import { randomIntegerFromInterval } from '@/utils/math'
-//import { countries } from '@/api/countries'
+import { gsap } from 'gsap'
+
+const tl = gsap.timeline({ reversed: true })
 
 export default {
   name: 'viewGallery',
@@ -72,13 +84,14 @@ export default {
     //editableContent,
     googleMap,
     appContentWrapper,
-    contentCarousel
+		contentCarousel
   },
 
   data() {
     return {
 			currentGallery: '',
-			mapIsCentered: false
+			mapIsCentered: false,
+			introPieceMultiplier: 12
     }
   },
 
@@ -87,7 +100,28 @@ export default {
     if (galleryQuery) {
       this.currentGallery = galleryQuery
     }
-  },
+	},
+	
+	mounted() {
+		tl
+			.to('.gsap--intro-animation', 0, { rotate: 180 })
+			.to('.gsap--intro-piece', {
+				stagger: 0.05,
+				duration:1,
+				//rotate: 180,
+				opacity: 0,
+				//skewY: 2,
+				//width: 0,
+				scaleX: 0,
+				ease: 'power2.out'
+				//scale: 0.5
+				//transformOrigin: '100% 50%'
+				//css: { transformOrigin: '100% 0%' }
+			})
+			.to('.gsap--intro-animation', {
+				css: { display: 'none' }
+			})
+	},
 
   watch: {
     $route: {
@@ -196,13 +230,20 @@ export default {
       return this.$store.state.app.locale === 'en'
         ? 'add image'
         : 'lisää kuva'
-    }
+		},
+		
+		styling() {
+			return {
+				//gridTemplateColumns: `repeat(${this.introPieceMultiplier}, 1fr)`,
+				gridTemplateRows: `repeat(${this.introPieceMultiplier}, 1fr)`
+			}
+		}
   },
 
   methods: {
-		/* googleCenterMap() {
-			this.$refs.googleMap.centerMap()
-		}, */
+		teeSe() {
+			tl.restart()
+		},
 
     chooseGallery(gallery) {
       if (gallery && this.currentGallery !== gallery) {
@@ -303,6 +344,24 @@ export default {
 				@extend %icon--only-stroke;
 			}
 		}
+	}
+
+	.intro-animation {
+		@extend %absolute-0000;
+		display: grid;
+		//border: 10px solid red;
+		//direction: rtl;
+		//grid-template-columns: repeat(§, 1fr);
+		//grid-template-rows: repeat(3, 1fr);
+		.piece {
+			background: white;
+		}
+	}
+
+	.se {
+		position: absolute;
+		top: 50%;
+		left: 50%;
 	}
 }
 

@@ -113,10 +113,7 @@ export default {
 			//this.map.fitBounds(this.bounds)
 			this.fitMap()
 
-			this.map.addListener('center_changed', () => {
-				console.log('center_changed');
-				this.$emit('map-centered', false)
-			})
+			this.map.addListener('center_changed', () => this.$emit('map-centered', false))
 			/* this.map.addListenerOnce('idle', () => {
 				console.log('idle');
 				//this.$emit('map-centered', false)
@@ -126,10 +123,7 @@ export default {
 			google.maps.event.addListenerOnce(
 				this.map,
 				'idle',
-				() => {
-					console.log('idle');
-					this.$emit('map-centered', true)
-				}
+				() => this.$emit('map-centered', true)
 			)
 
 			// Because Google doesn't provide event for knowing when the map has fully loaded,

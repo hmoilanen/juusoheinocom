@@ -63,7 +63,7 @@ export default {
 				trigger: '.gsap--tools-trigger',
 				//markers: true,
 				start: 'top center',
-				toggleActions: 'restart reset reset reset'
+				//toggleActions: 'restart reset reset reset'
 			},
 			stagger: 0.06,
 			duration: 0.6,
