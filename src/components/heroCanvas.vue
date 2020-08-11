@@ -1,5 +1,7 @@
 <template>
-  <div class="hero-canvas" ref="heroCanvas"></div>
+  <div class="hero-canvas" ref="heroCanvas">
+		<slot></slot>
+	</div>
 </template>
 
 <script>

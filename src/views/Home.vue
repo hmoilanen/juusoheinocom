@@ -1,7 +1,8 @@
 <template>
   <base-view class="view-home" :compensateNavTop="false">
-    <hero-canvas></hero-canvas>
-    <home-hero></home-hero>
+    <hero-canvas>
+    	<home-hero></home-hero>
+		</hero-canvas>
 		<home-projects></home-projects>
 		<home-about></home-about>
 		<home-tools></home-tools>

@@ -197,7 +197,7 @@ export default {
   },
 
   methods: {
-    verify(verified) {
+		verify(verified) {
       this.recaptchaVerified = verified
     },
 
