@@ -2,9 +2,9 @@
   <base-view class="view-contact" content-padding-y="y">
     <!-- <base-wrapper max-width="paragraph"> -->
     <app-content-wrapper max-width="paragraph">
-      <template v-if="!isLoading">
+      <!-- <template v-if="!isLoading"> -->
+          <!-- v-if="!$app.isLoading()" -->
         <editable-content
-          v-if="!$app.isLoading()"
           path="contact.main"
           #default="{ content }"
         >
@@ -26,6 +26,7 @@
         <form v-if="!submitted" @submit.prevent>
           <base-spacer :size="15">
             <base-input
+							class="gsap-contact-form gsap-name"
               v-model="inputName"
               :required="true"
               :label="formContent.name.label[locale]"
@@ -33,6 +34,7 @@
               :disabled="submitting"
             ></base-input>
             <base-input
+							class="gsap-contact-form gsap-email"
               v-model="inputEmail"
               type="email"
               :required="true"
@@ -43,6 +45,7 @@
             ></base-input>
             <base-dropdown
               ref="budget"
+							class="gsap-contact-form gsap-budget"
               :value="budgetCategories"
               @itemSelected="budgetSelected"
               :label="formContent.budget.label[locale]"
@@ -50,6 +53,7 @@
               :disabled="submitting"
             ></base-dropdown>
             <base-textarea
+							class="gsap-contact-form gsap-descr"
               v-model="inputDescription"
               :required="true"
               :label="formContent.description.label[locale]"
@@ -60,12 +64,14 @@
             ></base-textarea>
 
             <recaptcha
+							class="gsap-contact-form gsap-recaptcha"
               ref="recaptcha"
               @verified="verify"
               :disabled="submitting"
             ></recaptcha>
 
             <base-button
+							class="gsap-contact-form gsap-submit"
               @click.prevent="submit"
               :disabled="!allowSubmit"
               :loading="!allowSubmit && submitting"
@@ -74,14 +80,10 @@
           </base-spacer>
         </form>
         <div v-else>
-          <!-- <base-flex center="x">
-            <contact-success-animation @animation-completed="jou"></contact-success-animation>
-          </base-flex> -->
           <app-text :size="8">{{ this.mainFeedback }}</app-text>
         </div>
-      </template>
+      <!-- </template> -->
     </app-content-wrapper>
-
 
     <!-- </base-wrapper> -->
   </base-view>
@@ -97,6 +99,9 @@ import recaptcha from '@/components/recaptcha'
 import { mapState } from 'vuex'
 import { validateEmail } from '@/utils/regex'
 import { genericTimeStamp } from '@/utils/time'
+import { gsap } from 'gsap'
+
+const tl = gsap.timeline({ paused: true })
 
 export default {
   name: 'viewContact',
@@ -121,7 +126,29 @@ export default {
       submitting: false,
       submitted: null // false -> error, true -> success, see: this.submit()
     }
-  },
+	},
+	
+	mounted() {
+		tl
+			.from('.gsap-contact-form', {
+				stagger: 0.2,
+				duration: 0.8,
+				y: 70,
+				opacity: 0,
+				ease: 'power2.out'
+			}, 0.35)
+	},
+
+	watch: {
+		'$store.state.ui.curtainDisplayed': {
+			immediate: true,
+			handler(newValue, oldValue) {
+				if (newValue === false) {
+					tl.restart() // For playing the animation also when returned to the page
+				}
+			}
+		}
+	},
 
   computed: {
     ...mapState('app', ['isLoading', 'locale']),
@@ -170,10 +197,6 @@ export default {
   },
 
   methods: {
-    jou(value) {
-      console.log('valmis', value);
-    },
-
     verify(verified) {
       this.recaptchaVerified = verified
     },

@@ -1,5 +1,5 @@
 <template>
-  <transition name="exit" v-if="$store.state.ui.curtainDisplayed">
+  <!-- <transition name="exit" v-if="$store.state.ui.curtainDisplayed"> -->
     <div class="app-curtain" :style="[styling, cssVars]">
       <template v-if="showAnimation">
         <div
@@ -12,7 +12,7 @@
       <base-loader v-if="showLoader" class="curtain-loader"></base-loader>
 			<div class="app-curtain--reset" @click="proceed"></div>
     </div>
-  </transition>
+  <!-- </transition> -->
 </template>
 
 <script>
@@ -44,7 +44,7 @@ export default {
   watch: {
     animationPassed() {
       if (!this.isLoading) {
-        this.proceed()
+				this.proceed()
       }
     },
 
