@@ -1,21 +1,24 @@
 <template>
-  <!-- <transition name="exit" v-if="$store.state.ui.curtainDisplayed"> -->
-    <div class="app-curtain" :style="[styling, cssVars]">
-      <template v-if="showAnimation">
-        <div
-          v-for="(pixel, index) in 4"
-          :key="index"
-          class="pixel"
-          :class="`pixel-${index}`"
-        ></div>
-      </template>
-      <base-loader v-if="showLoader" class="curtain-loader"></base-loader>
-			<div class="app-curtain--reset" @click="proceed"></div>
-    </div>
-  <!-- </transition> -->
+	<div class="app-curtain" :style="[styling, cssVars]">
+		<div
+			v-for="(pixel, index) in 4"
+			:key="index"
+			class="pixel"
+			:class="`pixel-${index}`"
+		></div>
+		<!-- <base-loader v-if="showLoader" class="curtain-loader"></base-loader> -->
+		<div class="app-curtain--reset" @click="proceed"></div>
+	</div>
+
 </template>
 
 <script>
+// TÄSSÄ KOMPONENTISSA ON VIEÄ PALJON POISTETTAVAA VANHAA KOODIA...
+// OLI KIIRE NIIN JÄI SIVOOMATTA :)
+import { gsap } from 'gsap'
+
+const tl = gsap.timeline({ paused: false, delay: 1 })
+
 export default {
   name: 'appCurtain',
 
@@ -24,7 +27,7 @@ export default {
       inOutDelay: 300,
       showAnimation: false,
       showLoader: false,
-      animationDuration: 2200,
+      animationDuration: 22000000,
       animationDelay: 600,
       animationPassed: false,
     }
@@ -38,7 +41,37 @@ export default {
     
     setTimeout(() => {
       this.animationPassed = true
-    }, this.inOutDelay + this.animationDuration)
+		}, this.inOutDelay + this.animationDuration)
+		
+		const phaseDuration = 0.5
+		tl
+			//.from('.pixel', 0, {}, 0.5)
+			.to('.pixel-0', phaseDuration, { x: -20, ease: 'power2.inOut' }, 'phase-1')
+			.to('.pixel-1', phaseDuration, { x: -20, ease: 'power2.inOut' }, 'phase-1')
+			.to('.pixel-2', phaseDuration, { x: 20, ease: 'power2.inOut' }, 'phase-1')
+			.to('.pixel-3', phaseDuration, { x: 20, ease: 'power2.inOut' }, 'phase-1'
+			)
+			.to('.pixel-0', phaseDuration, { y: -20, ease: 'power2.inOut' }, 'phase-2')
+			.to('.pixel-1', phaseDuration, { y: 20, ease: 'power2.inOut' }, 'phase-2')
+			.to('.pixel-2', phaseDuration, { y: -20, ease: 'power2.inOut' }, 'phase-2')
+			.to('.pixel-3', phaseDuration, { y: 20, ease: 'power2.inOut' }, 'phase-2')
+
+			.to('.pixel-1', phaseDuration, { scaleY: 3, ease: 'power4.in' })
+			.to('.pixel-0', 0, { css: { backgroundColor: '#E7287A' } })
+			.to('.pixel-0', phaseDuration, {
+				y: -40,
+				ease: 'power2.out',
+			})
+			.to('.app-curtain', 0.5, {
+				opacity: 0,
+				scale: 20,
+				ease: 'power3.in',
+				onComplete: () => {
+					this.proceed()
+					/* setTimeout(() => {
+					}, 0); */
+				}
+			})
   },
 
   watch: {
@@ -52,7 +85,7 @@ export default {
       if (this.animationPassed) {
         this.proceed()
       }
-    },
+		}
   },
 
   computed: {
@@ -116,66 +149,12 @@ $app-curtain--color-hl: $app-color--hl;
 
   $pixel-size: 20px;
 
-  .pixel {
+	.pixel {
     position: absolute;
     width: $pixel-size;
     height: $pixel-size;
-    background: $app-curtain--color;
-    animation-timing-function: ease-in-out;
-    animation-duration: var(--animation-duration);
-    animation-fill-mode: forwards;
-    animation-delay: var(--animation-delay);
-    &.pixel-0 { animation-name: move-0; }
-    &.pixel-1 { animation-name: move-1; }
-    &.pixel-2 { animation-name: move-2; }
-    &.pixel-3 { animation-name: move-3; }
-
-  }
-
-  @keyframes move-0 { // left top
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(-#{$pixel-size}, 0); }
-    50% { transform: translate(-#{$pixel-size}, -#{$pixel-size}); }
-    74.9% { background: $app-curtain--color; }
-    75%, 100% {
-      animation-timing-function: ease-out; 
-      transform: translate(-#{$pixel-size}, -#{$pixel-size});
-      background: $app-curtain--color-hl;
-    }
-    100% {
-      transform: translate(-#{$pixel-size}, #{$pixel-size * -2});
-      background: $app-curtain--color-hl;
-    }
-  }
-  @keyframes move-1 { // left bottom
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(-#{$pixel-size}, 0); }
-    49.9% { height: 20px; }
-    50% {
-      transform: translate(-#{$pixel-size}, #{$pixel-size});
-    }
-    75% {
-      animation-timing-function: ease-in;
-      //transform: translate(-#{$pixel-size}, #{$pixel-size}) scaleY(3);
-      transform: translate(-#{$pixel-size}, #{$pixel-size});
-      height: 60px;
-    }
-    100% {
-      //transform: translate(-#{$pixel-size}, #{$pixel-size}) scaleY(3);
-      transform: translate(-#{$pixel-size}, #{$pixel-size});
-      height: 60px;
-    }
-  }
-  @keyframes move-2 { // right top
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(#{$pixel-size}, 0); }
-    50%, 100% { transform: translate(#{$pixel-size}, -#{$pixel-size}); }
-  }
-  @keyframes move-3 { // right bottom
-    0% { transform: translate(0, 0); }
-    25% { transform: translate(#{$pixel-size}, 0); }
-    50%, 100% { transform: translate(#{$pixel-size}, #{$pixel-size}); }
-  }
+		background: $app-curtain--color;
+	}
 
   .curtain-loader {
     position: absolute;
@@ -183,13 +162,5 @@ $app-curtain--color-hl: $app-color--hl;
     transform: translateX(-50%);
     bottom: 10vh;
   }
-}
-
-.exit-leave-active {
-  transition: transform 0.4s cubic-bezier(0.83, 0.01, 0.86, 0.59);
-}
-.exit-leave-to {
-  //transform: translateY(-100%);
-  transform: scale(0, 0);
 }
 </style>

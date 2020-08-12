@@ -60,16 +60,17 @@ export default {
 		gsap.from('.gsap--tool', {
 			scrollTrigger: {
 				//trigger: '.home-tools .grid',
-				trigger: '.gsap--tools-trigger',
+				//trigger: '.gsap--tools-trigger',
+				trigger: '.home-tools',
+				start: 'top top',
 				//markers: true,
-				start: 'top center',
 				//toggleActions: 'restart reset reset reset'
 			},
-			stagger: 0.06,
+			stagger: 0.04,
 			duration: 0.6,
+			y: -10,
 			scale: 1.8,
 			opacity: 0,
-			//ease: 'power2.inOut'
 			ease: 'Back.easeOut.config(1.7)'
 		}, 0.35)
 	},

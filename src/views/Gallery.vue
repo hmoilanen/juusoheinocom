@@ -45,13 +45,13 @@
       >{{ this.buttonText }}</base-button> -->
     <!-- </template> -->
 
-		<div class="intro-animation gsap--intro-animation" :style="styling">
+		<!-- <div class="intro-animation gsap--intro-animation" :style="styling">
 			<div
 				v-for="piece in introPieceMultiplier"
 				:key="piece"
 				class="piece gsap--intro-piece"
 			></div>
-		</div>
+		</div> -->
 
 		<base-button class="se" @click="teeSe">toggle</base-button>
 
