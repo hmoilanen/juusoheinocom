@@ -46,7 +46,7 @@ export default {
 			duration: 0.8,
 			y: 70,
 			opacity: 0,
-			ease: 'power2.out'
+			ease: 'Power2.out'
 		}, 0.35)
 	},
 

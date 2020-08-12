@@ -36,14 +36,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-/* ScrollTrigger.create({
-	animation: tl,
-	trigger: '.gsap--home-contact-button',
-	markers: true,
-	start: 'top center',
-	toggleActions: 'restart reset reset reset'
-}) */
-
 export default {
   name: 'homeContact',
 
@@ -56,8 +48,8 @@ export default {
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '.home-contact',
-				//markers: true,
 				start: 'top top',
+				//markers: true,
 				//toggleActions: 'restart reset reset reset'
 			}
 		})
@@ -72,24 +64,8 @@ export default {
 			.from('.gsap--home-contact--button', {
 				duration: 1.1,
 				y: -150,
-				//opacity: 0,
-				//ease: 'Back.easeOut.config(4)'
-				//ease: 'Elastic.easeOut.config(1, 0.3)'
 				ease: 'Bounce.easeOut'
 			}, 0.8)
-		/* gsap.from('.gsap--home-contact-button', {
-			scrollTrigger: {
-				trigger: '.vittu',
-				markers: true,
-				start: 'top top',
-				toggleActions: 'restart reset reset reset'
-			},
-			duration: 0.6,
-			y: -100,
-			ease: 'Back.easeOut.config(1.7)'
-		}) */
-		/* this.$nextTick(() => {
-		}) */
 	},
 
   methods: {
