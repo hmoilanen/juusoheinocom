@@ -8,7 +8,7 @@
           path="contact.main"
           #default="{ content }"
         >
-          <app-title :m-b="16">
+          <app-title class="gsap--view-contact--title" :m-b="16">
             <template #default>
               {{ content[`title-${$app.locale()}`] }}
             </template>
@@ -18,6 +18,7 @@
           </app-title>
           <app-text
             v-if="!submitted"
+						class="gsap--view-contact--title"
             :size="8"
             :m-b="16"
           >{{ content[`text-${$app.locale()}`] }}</app-text>
@@ -26,7 +27,7 @@
         <form v-if="!submitted" @submit.prevent>
           <base-spacer :size="15">
             <base-input
-							class="gsap-contact-form gsap-name"
+							class="gsap--view-contact--form"
               v-model="inputName"
               :required="true"
               :label="formContent.name.label[locale]"
@@ -34,7 +35,7 @@
               :disabled="submitting"
             ></base-input>
             <base-input
-							class="gsap-contact-form gsap-email"
+							class="gsap--view-contact--form"
               v-model="inputEmail"
               type="email"
               :required="true"
@@ -45,7 +46,7 @@
             ></base-input>
             <base-dropdown
               ref="budget"
-							class="gsap-contact-form gsap-budget"
+							class="gsap--view-contact--form"
               :value="budgetCategories"
               @itemSelected="budgetSelected"
               :label="formContent.budget.label[locale]"
@@ -53,7 +54,7 @@
               :disabled="submitting"
             ></base-dropdown>
             <base-textarea
-							class="gsap-contact-form gsap-descr"
+							class="gsap--view-contact--form"
               v-model="inputDescription"
               :required="true"
               :label="formContent.description.label[locale]"
@@ -64,14 +65,14 @@
             ></base-textarea>
 
             <recaptcha
-							class="gsap-contact-form gsap-recaptcha"
+							class="gsap--view-contact--form"
               ref="recaptcha"
               @verified="verify"
               :disabled="submitting"
             ></recaptcha>
 
             <base-button
-							class="gsap-contact-form gsap-submit"
+							class="gsap--view-contact--form"
               @click.prevent="submit"
               :disabled="!allowSubmit"
               :loading="!allowSubmit && submitting"
@@ -129,13 +130,21 @@ export default {
 	},
 	
 	mounted() {
-		tl.from('.gsap-contact-form', {
-			stagger: 0.2,
-			duration: 0.8,
-			y: 70,
-			opacity: 0,
-			ease: 'power2.out'
-		}, 0.35)
+		tl
+			.from('.gsap--view-contact--title', {
+				stagger: 0.2,
+				duration: 0.5,
+				y: 70,
+				opacity: 0,
+				ease: 'Power3.out'
+			}, 0.25)
+			.from('.gsap--view-contact--form', {
+				stagger: 0.2,
+				duration: 0.8,
+				y: 70,
+				opacity: 0,
+				ease: 'power2.out'
+			}, 1.4)
 	},
 
 	watch: {

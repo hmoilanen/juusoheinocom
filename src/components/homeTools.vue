@@ -89,20 +89,6 @@ export default {
 				opacity: 0,
 				ease: 'Power2.out'
 			})
-		/* gsap.from('.gsap--home-tools--tool', {
-			scrollTrigger: {
-				trigger: '.home-tools',
-				start: 'top top',
-				//markers: true,
-				//toggleActions: 'restart reset reset reset'
-			},
-			stagger: 0.04,
-			duration: 0.6,
-			y: -10,
-			scale: 1.8,
-			opacity: 0,
-			ease: 'Back.easeOut.config(1.7)'
-		}, 0.35) */
 	},
 
   computed: {

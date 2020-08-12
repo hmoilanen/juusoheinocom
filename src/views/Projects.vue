@@ -3,8 +3,8 @@
     <app-content-wrapper>
       <template v-if="!$app.isLoading()">
         <editable-content path="projects.main" #default="{ content }">
-          <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
-          <app-text :m-b="25">{{ content[`text-${$app.locale()}`] }}</app-text>
+          <app-title class="gsap--view-projects--title">{{ content[`title-${$app.locale()}`] }}</app-title>
+          <app-text class="gsap--view-projects--title" :m-b="25">{{ content[`text-${$app.locale()}`] }}</app-text>
         </editable-content>
       
         <base-button v-if="$app.isLogged()" @click="addProject">{{ this.buttonText }}</base-button>
@@ -35,6 +35,9 @@ import editableContent from '@/components/editableContent'
 import projectsItem from '@/components/projectsItem'
 import projectsProject from '@/components/projectsProject'
 import { isImage } from '@/utils/regex'
+import { gsap } from 'gsap'
+
+const tl = gsap.timeline({ paused: true })
 
 export default {
   name: 'viewProjects',
@@ -46,7 +49,29 @@ export default {
     editableContent,
     projectsItem,
     projectsProject
-  },
+	},
+
+	mounted() {
+		tl
+			.from('.gsap--view-projects--title', {
+				stagger: 0.2,
+				duration: 0.8,
+				y: 70,
+				opacity: 0,
+				ease: 'Power3.out'
+			}, 0.25)
+	},
+	
+	watch: {
+		'$store.state.ui.curtainDisplayed': {
+			immediate: true,
+			handler(newValue, oldValue) {
+				if (newValue === false) {
+					tl.restart() // For playing the animation also when returned to the page
+				}
+			}
+		}
+	},
 
   computed: {
     projects() {

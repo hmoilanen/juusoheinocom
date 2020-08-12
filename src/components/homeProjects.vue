@@ -2,9 +2,9 @@
   <div class="home-projects">
     <app-content-wrapper>
       <editable-content path="home.projects" #default="{ content }">
-        <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
+        <app-title class="gsap--home-projects--title">{{ content[`title-${$app.locale()}`] }}</app-title>
         <base-link :to="{ name: 'projects' }">
-          <base-flex center="y">
+          <base-flex class="gsap--home-projects--title" center="y">
             <base-title :size="7">{{ content[`link-${$app.locale()}`] }}</base-title>
             <base-icon class="redirect">redirect</base-icon>
           </base-flex>
@@ -39,6 +39,10 @@
 import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
 import appTitle from '@/components/appTitle'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default {
   name: 'homeProjects',
@@ -49,10 +53,25 @@ export default {
     appTitle
   },
 
-  data() {
-    return {
-    }
-  },
+  mounted() {
+		const tl = gsap.timeline({
+			scrollTrigger: {
+				trigger: '.home-projects',
+				start: 'top center',
+				//markers: true,
+				//toggleActions: 'restart reset reset reset'
+			}
+		})
+
+		tl
+			.from('.gsap--home-projects--title', {
+				stagger: 0.2,
+				duration: 0.5,
+				y: 70,
+				opacity: 0,
+				ease: 'Power3.out'
+			})
+	},
 
   computed: {
     projects() {

@@ -11,9 +11,6 @@
           size="xl"
           :center="true"
         >{{ content[`title-${$app.locale()}`] }}</base-title>
-          <!-- :m-b="20" -->
-				<!-- <div class="perseq"><span>perseq</span></div> -->
-				<!-- <div class="perseq">perseq</div> -->
 				<div class="button-container">
 					<base-button
 						class="gsap--home-contact--button"
@@ -79,18 +76,12 @@ export default {
 <style lang="scss" scoped>
 .home-contact {
 	@extend %home-sections--default-style;
+	//background: $app-color--hl-complementary;
 	
 	.button-container {
 		overflow: hidden;
 		padding-top: 58px;
 		margin-top: -18px,
 	}
-	/* .perseq {
-		width: 200px;
-		height: 100px;
-		background: red;
-		//display: inline-block;
-		//margin: 0 auto;
-	} */
 }
 </style>

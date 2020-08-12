@@ -2,19 +2,23 @@
   <div class="home-hero">
     <app-content-wrapper>
       <editable-content path="home.hero" #default="{ content }">
-        <base-title :size="8" m-b="s" class="gsap-hero black">{{ content.pretitle }}</base-title>
-        <base-title
-					class="gsap-hero"
+        <base-title :size="8" m-b="s" class="name gsap--home-hero">{{ content.pretitle }}</base-title>
+        <!-- <base-title
+					class="text-shadow gsap--home-hero"
           :size="17"
           :scaling="true"
-          m-b="l"
+        >{{ content[`title-${locale}`] }}</base-title> -->
+        <base-title
+					class="gsap--home-hero"
+          :size="17"
+          :scaling="true"
         >{{ content[`title-${locale}`] }}</base-title>
-        <base-flex class="gsap-hero" justify="start">
+        <base-flex class="gsap--home-hero" justify="start" m-t="l">
           <base-wrapper max-width="paragraph" :disable-margins="true">
             <app-text :scaling="0.8" >{{ content[`text-${locale}`] }}</app-text>
           </base-wrapper>
         </base-flex>
-				<div class="gsap-hero">
+				<div class="links gsap--home-hero">
 					<base-link to="projects" m-r="s">{{ content[`link1-${locale}`] }}</base-link>
 					<base-link to="contact">{{ content[`link2-${locale}`] }}</base-link>
 				</div>
@@ -41,9 +45,9 @@ export default {
 	},
 	
 	mounted() {
-		tl.from('.gsap-hero', {
+		tl.from('.gsap--home-hero', {
 			stagger: 0.2,
-			duration: 0.8,
+			duration: 0.6,
 			y: 70,
 			opacity: 0,
 			ease: 'Power2.out'
@@ -71,6 +75,7 @@ export default {
 
 <style lang="scss" scoped>
 $home-hero--color: $app-color--theme;
+$home-hero--color-hl: $app-color--hl;
 
 .home-hero {
 	//min-height: 100vh;
@@ -80,12 +85,19 @@ $home-hero--color: $app-color--theme;
   //background: $app-color--hl;
   display: flex;
   align-items: center;
-  .app-content-wrapper { flex: 1; }
+	.app-content-wrapper { flex: 1; }
   .base-title,
   .base-text {
     &:not(.black) {
       //color: $home-hero--color;
     }
-  }
+	}
+	.name { color: $home-hero--color-hl; }
+	.links { color: $home-hero--color-hl; }
+	/* .text-shadow {
+		position: absolute;
+		transform: translate(4px, 3px);
+		color: rgba(120, 120, 120, 0.4);
+	} */
 }
 </style>
