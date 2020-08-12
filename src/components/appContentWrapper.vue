@@ -1,6 +1,6 @@
 <template>
-  <div class="app-content-wrapper" :style="styling.outer">
-    <base-wrapper :style="styling.inner" :max-width="maxWidth">
+  <div class="app-content-wrapper" :style="styling">
+    <base-wrapper :max-width="maxWidth">
       <slot></slot>
     </base-wrapper>
   </div>
@@ -49,14 +49,7 @@ export default {
         : false
 
       return {
-        outer: {
-          padding: `0 ${this.mixinSizing}`
-        },
-        /* inner: {
-          display: this.center ? 'flex' : false,
-          justifyContent: justifyContent,
-          alignItems: alignItems
-        } */
+				padding: `0 ${this.mixinSizing}`
       }
     }
   }

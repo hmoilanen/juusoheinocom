@@ -18,6 +18,7 @@ export default {
 		curtainDisplayed: true,
 		//darkMode: false,
 		footerHeight: 0,
+		galleryIntroSeen: false,
 		navTopDisplayed: true,
 		navTopHeight: 60,
 		//navLeftDisplayed: true,

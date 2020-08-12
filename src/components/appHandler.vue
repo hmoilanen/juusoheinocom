@@ -56,7 +56,7 @@ export default {
           document.body.style.removeProperty('overflow')
         }
       }
-    }
+		}
   },
 
   methods: {

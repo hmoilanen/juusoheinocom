@@ -86,7 +86,7 @@ export const googleMapStyles = {
     {
       featureType: 'water',
       elementType: 'geometry',
-      stylers: [{ color: '#888888' }]
+      stylers: [{ color: '#302c2e' }]
     },
     {
       featureType: 'water',

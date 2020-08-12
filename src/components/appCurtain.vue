@@ -31,7 +31,11 @@ export default {
       animationDelay: 600,
       animationPassed: false,
     }
-  },
+	},
+
+	created() {
+		this.$store.dispatch('SET_STATE', { data: true, path: 'ui.preventBodyScrolling' })
+	},
 
   mounted() {
     setTimeout(() => {
@@ -113,7 +117,8 @@ export default {
     proceed() {
       this.showLoader = false
       setTimeout(() => { // For visual purposes (hide loader and then proceed)
-        this.$store.dispatch('SET_STATE', { data: false, path: 'ui.curtainDisplayed' })
+				this.$store.dispatch('SET_STATE', { data: false, path: 'ui.curtainDisplayed' })
+				this.$store.dispatch('SET_STATE', { data: false, path: 'ui.preventBodyScrolling' })
       }, this.inOutDelay)
     }
   }
