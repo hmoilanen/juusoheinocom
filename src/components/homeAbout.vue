@@ -66,8 +66,8 @@ export default {
 				ease: 'SlowMo.ease.config(0.7, 0.7, false)'
 			}, 1.4)
 			.from('.gsap--home-about--icon', {
-				duration: 0.6,
-				x: 25,
+				duration: 0.4,
+				x: 10,
 				opacity: 0,
 				ease: 'SlowMo.ease.config(0.7, 0.7, false)'
 			}, '-=1.9')

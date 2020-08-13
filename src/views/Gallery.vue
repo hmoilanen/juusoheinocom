@@ -76,7 +76,6 @@ import { randomIntegerFromInterval } from '@/utils/math'
 import { gsap } from 'gsap'
 
 const tl = gsap.timeline({ paused: true })
-const tl2 = gsap.timeline({ paused: true })
 
 export default {
   name: 'viewGallery',
@@ -107,20 +106,21 @@ export default {
 	},
 	
 	mounted() {
-		tl
-			.from('.gsap--view-gallery--intro-text', {
-				duration: 0.5,
-				y: 70,
-				opacity: 0,
-				ease: 'Power3.out'
-			}, 0.25)
-			.pause()
-			.from('.gsap--view-gallery--intro-skip', {
-				duration: 0.3,
-				y: 10,
-				opacity: 0,
-				ease: 'Power3.out'
-			}, 0.7)
+		if (!this.galleryIntroSeen) {
+			tl
+				.from('.gsap--view-gallery--intro-text', {
+					duration: 0.5,
+					y: 70,
+					opacity: 0,
+					ease: 'Power3.out'
+				}, 0.25)
+				.from('.gsap--view-gallery--intro-skip', {
+					duration: 0.3,
+					y: 10,
+					opacity: 0,
+					ease: 'Power3.out'
+				}, 0.7)
+		}
 	},
 
   watch: {
@@ -137,7 +137,9 @@ export default {
 		'$store.state.ui.curtainDisplayed': {
 			immediate: true,
 			handler(newValue, oldValue) {
-				if (newValue === false) {
+				console.log(newValue);
+				if (newValue === false && !this.galleryIntroSeen) {
+					console.log('tl', tl);
 					tl.restart() // For playing the animation also when returned to the page
 				}
 			}
@@ -198,7 +200,7 @@ export default {
   methods: {
 		skipIntro() {
 			gsap.to('.gsap--view-gallery--tile', {
-				duration: 'random(0.05, 1.2)',
+				duration: 'random(0.05, 1.1)',
 				opacity: 0,
 				ease: 'power2.in',
 				repeatRefresh: true,

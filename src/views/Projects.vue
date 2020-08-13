@@ -20,7 +20,8 @@
         </div>
         <!-- </base-spacer> -->
 
-        <projects-project v-if="$route.name === 'project'"></projects-project>
+        <!-- <projects-project v-if="$route.name === 'project'"></projects-project> -->
+				<router-view></router-view>
       </template>
     </app-content-wrapper>
   </base-view>
