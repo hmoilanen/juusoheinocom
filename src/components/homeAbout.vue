@@ -85,7 +85,7 @@ export default {
 $color--icon-quote: $app-color--hl2;
 
 .home-about {
-  @extend %home-sections--default-style;
+	@extend %home-sections--default-style;
 
   .quote {
     margin: 0 auto;

@@ -1,15 +1,18 @@
 <template>
   <base-view class="view-projects" content-padding-y="y">
     <app-content-wrapper>
-      <template v-if="!$app.isLoading()">
+      <!-- <template v-if="!$app.isLoading()"> -->
         <editable-content path="projects.main" #default="{ content }">
           <app-title class="gsap--view-projects--title">{{ content[`title-${$app.locale()}`] }}</app-title>
-          <app-text class="gsap--view-projects--title" :m-b="25">{{ content[`text-${$app.locale()}`] }}</app-text>
+          <app-text
+						class="gsap--view-projects--title"
+						:size="8"
+						:m-b="25"
+					>{{ content[`text-${$app.locale()}`] }}</app-text>
         </editable-content>
       
         <base-button v-if="$app.isLogged()" @click="addProject">{{ this.buttonText }}</base-button>
 
-        <!-- <base-spacer :size="20" m-t="xl"> -->
         <div class="grid">
           <projects-item
             v-for="(project, key) in projects"
@@ -18,11 +21,10 @@
             @click.native="showcaseProject(key)"
           ></projects-item>
         </div>
-        <!-- </base-spacer> -->
 
-        <!-- <projects-project v-if="$route.name === 'project'"></projects-project> -->
 				<router-view></router-view>
-      </template>
+
+      <!-- </template> -->
     </app-content-wrapper>
   </base-view>
 </template>
@@ -37,6 +39,9 @@ import projectsItem from '@/components/projectsItem'
 import projectsProject from '@/components/projectsProject'
 import { isImage } from '@/utils/regex'
 import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const tl = gsap.timeline({ paused: true })
 
@@ -61,6 +66,10 @@ export default {
 				opacity: 0,
 				ease: 'Power3.out'
 			}, 0.25)
+
+		gsap.utils.toArray('.projects-item').forEach(item => {
+			item.style.visibility = 'hidden'
+		})
 	},
 	
 	watch: {
@@ -69,6 +78,25 @@ export default {
 			handler(newValue, oldValue) {
 				if (newValue === false) {
 					tl.restart() // For playing the animation also when returned to the page
+					
+					setTimeout(() => {
+						ScrollTrigger.batch('.projects-item', {
+							once: true,
+							start: '30% bottom',
+							onEnter: batch => {
+								gsap.fromTo(batch, {
+									autoAlpha: 0,
+									y: 70
+								}, {
+									//delay: 1.5,
+									duration: 0.6,
+									stagger: 0.3,
+									autoAlpha: 1,
+									y: 0
+								})
+							}
+						})
+					}, 1500)
 				}
 			}
 		}
@@ -129,7 +157,7 @@ export default {
 .view-projects {
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
     grid-gap: 1rem;
   }
 }

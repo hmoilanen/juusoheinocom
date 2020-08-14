@@ -11,7 +11,7 @@
         </base-link>
       </editable-content>
       
-      <div class="grid" :style="styling">
+      <!-- <div class="grid" :style="styling">
         <div
           class="card"
           v-for="(project, key) in projects"
@@ -30,7 +30,7 @@
             <base-text>more &#8594;</base-text>
           </base-link>
         </div>
-      </div>
+      </div> -->
     </app-content-wrapper>
   </div>
 </template>
@@ -112,13 +112,14 @@ export default {
 $home-projects--color-hl: $app-color--hl;
 
 .home-projects {
+	@extend %home-sections--default-style;
+
   .redirect {
     margin-left: 0.5rem;
     margin-top: -0.1rem;
     @extend %clickable;
     color: $home-projects--color-hl;
   }
-
   .grid {
     margin-top: 2rem;
     display: grid;

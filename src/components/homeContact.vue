@@ -76,7 +76,6 @@ export default {
 <style lang="scss" scoped>
 .home-contact {
 	@extend %home-sections--default-style;
-	//background: $app-color--hl-complementary;
 	
 	.button-container {
 		overflow: hidden;

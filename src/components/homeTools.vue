@@ -112,7 +112,7 @@ export default {
 $color--tools-asterisk: $app-color--hl;
 
 .home-tools {
-  @extend %home-sections--default-style;
+	@extend %home-sections--default-style;
 
   .grid {
     margin-top: 2rem;

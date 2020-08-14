@@ -113,7 +113,7 @@ export default {
 					scroller: '.projects-project',
 					trigger: info,
 					start: 'top 95%',
-					markers: true
+					//markers: true
 				},
 				opacity: 0,
 				y: 70,

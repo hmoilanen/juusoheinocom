@@ -137,9 +137,7 @@ export default {
 		'$store.state.ui.curtainDisplayed': {
 			immediate: true,
 			handler(newValue, oldValue) {
-				console.log(newValue);
 				if (newValue === false && !this.galleryIntroSeen) {
-					console.log('tl', tl);
 					tl.restart() // For playing the animation also when returned to the page
 				}
 			}
