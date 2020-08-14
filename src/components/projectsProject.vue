@@ -112,7 +112,8 @@ export default {
 				scrollTrigger: {
 					scroller: '.projects-project',
 					trigger: info,
-					start: 'top 95%',
+					//start: 'top 95%',
+					start: '30% bottom',
 					//markers: true
 				},
 				opacity: 0,
