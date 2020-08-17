@@ -21,7 +21,7 @@ export default {
     appUi,
     appHandler,
     modalHandler: () => import('@/components/modalHandler')
-  },
+	},
 
   computed: {
     componentControl() {      

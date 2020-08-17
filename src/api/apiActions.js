@@ -166,7 +166,7 @@ const uploadToStorage = (dataURL, path) => {
     // create a reference to the path of the file, eg. 'images/image.jpg'
     const ref = storageRef.child(path)
 
-    // upload the encoded string
+    // upload the data_url encoded string
     ref.putString(dataURL, 'data_url')
     .then(snapshot => {
       console.log('$api.uploadToStorage - success')
