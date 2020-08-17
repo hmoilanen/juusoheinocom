@@ -157,8 +157,15 @@ export default {
 .view-projects {
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(370px, 1fr));
-    grid-gap: 1rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+		grid-gap: 1rem;
+		
   }
+}
+
+@media only screen and (min-width: 800px) {
+	.view-projects .grid {
+		grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+	}
 }
 </style>

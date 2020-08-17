@@ -59,12 +59,18 @@ export default {
         pauseOnHover: false,
         speed: 390,
         waitForAnimate: false
-      }
+			},
+			imageWidth: 0,
+			imageHeight: 0
     }
   },
 
   mounted() {
-    let interval = setInterval(() => {
+		this.handleImageSizing()
+
+		window.addEventListener('resize', this.handleImageSizing)
+
+    const interval = setInterval(() => {
       if (!this.paused) {
         this.$refs.carousel.next()
       } else {
@@ -73,8 +79,9 @@ export default {
     }, this.duration)
 
     this.$on('hook:beforeDestroy', () => {
-      clearInterval(interval)
-    })
+			window.clearInterval('resize', this.handleImageSizing)
+			clearInterval(interval)
+		})
   },
 
   methods: {
@@ -82,10 +89,17 @@ export default {
       this.paused = true
       this.$refs.carousel.pause()
       this.$refs.carousel.goTo(index)
-    }
+		},
+		
+		handleImageSizing() {
+			const imageWidth = this.$el.offsetWidth
+			
+			this.imageWidth = imageWidth
+			this.imageHeight = imageWidth * (9 / 16)
+		}
   },
 
-  computed: {
+  /* computed: {
     images() {
       let gallery = this.$store.state.content.gallery
       let imageURL = this.$store.getters['app/GET_URL'].imageURL
@@ -93,25 +107,31 @@ export default {
 
       for (let image in gallery) {
         let URL = imageURL + 'gallery/india/' + image
+        //const URL = imageURL + 'gallery/india/' + image
+        //const URL = `${imageURL}${this.$route.name}/`
         images.push(URL)
       }
 
       return images
     }
-  }
+  } */
 }
 </script>
 
 <style lang="scss" scoped>
 .content-carousel {
-  position: relative;
+	position: relative;
+	//background: rgba(0, 0, 0, 0.1);
+	/* .slick-list {
+		height: 200px !important;
+	} */
 
   .dummy-item {
     min-height: 40vh;
     display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    //background: grey;
+    background: rgba(0, 0, 0, 0.1);
     span { font-weight: 700; }
   }
 }

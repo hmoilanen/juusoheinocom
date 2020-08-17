@@ -2,19 +2,41 @@
   <div class="projects-project">      
     <base-loader v-if="loading"></base-loader>
     <app-content-wrapper v-else>
-      <base-wrapper maxWidth="medium">
-        <editable-content :path="dynamicPath" #default="{ content }">
+      <editable-content :path="dynamicPath" #default="{ content }">
+				
+				<content-carousel :amount="3">
+					<div
+						v-for="(image, index) in content.images"
+						:key="image + index"
+						class="image"
+					>
+						<div class="PASKA" style="z-index: 1; position: relative;">{{dynamicImage(image)}}</div>
+						<base-bg :source="dynamicImage(image)" fit="contain"></base-bg>
+					</div>
+					<!-- <base-image
+						v-for="(image, index) in content.images"
+						:key="index"
+						:src="dynamicImage(image)"
+					></base-image> -->
+					<!-- <div
+						class="toi"
+						style="position: relative; height: 300px;"
+						v-for="(image, index) in content.images"
+						:key="index"
+					>
+						<base-bg
+							:source="dynamicImage(image)"
+							fit="contain"
+						></base-bg>
+					</div> -->
+					<!-- <div
+						v-for="(image, index) in 5"
+						:key="index"
+					>{{content}}</div> -->
+				</content-carousel>
 
-          <!-- <content-carousel :amount="3">
-            <base-image
-              v-for="(image, index) in 5"
-              :key="index"
-              :src="dynamicImage(content.bg)"
-            ></base-image>
-          </content-carousel> -->
-
-					<div style="height: 0; padding-bottom: 56.25%; background: pink;"></div>
-
+      	<base-wrapper maxWidth="medium">
+					<!-- <div style="height: 0; padding-bottom: 56.25%; background: pink;"></div> -->
           <base-title
 						class="gsap--projects-project--info"
             :size="22"
@@ -58,8 +80,8 @@
             </div>
           </base-spacer>
 
-        </editable-content>
-      </base-wrapper>
+      	</base-wrapper>
+      </editable-content>
     </app-content-wrapper>
   </div>
 </template>
@@ -174,6 +196,12 @@ $projects-project--color-hl: $app-color--hl;
 	bottom: 0;
 	//height: 100vh;
 	background: $projects-project--color-bg;
+
+	.image {
+    position: relative;
+    height: 0;
+    padding-bottom: 56.25%;
+	}
 	
   .redirect-icon {
 		margin-left: 0.5rem;
