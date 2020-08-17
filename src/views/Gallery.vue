@@ -50,6 +50,7 @@
 						:key="image + index"
 						class="image"
 					>
+						<div>{{image}}</div>
 						<base-bg :source="image" fit="contain"></base-bg>
 					</div>
 				</content-carousel>
@@ -155,7 +156,8 @@ export default {
         let listOfCountries = {}
 
         for (let country in gallery) {
-          const { info, ...images } = gallery[country]
+					const { info, ...images } = gallery[country]
+					console.log(images);
 					const countryName = info['name-en'].toLowerCase().split(' ').join('')
 					
 					listOfCountries[countryName] = {
@@ -171,7 +173,10 @@ export default {
     images() {
       if (this.currentGallery) {
         const imageURL = this.$store.getters['app/GET_URL'].imageURL
-				const currentImages = this.countries[this.currentGallery].images
+				const currentImages = JSON.parse(JSON.stringify(this.countries[this.currentGallery].images))
+
+				console.log('imageURL', imageURL);
+				console.log('currentImages', currentImages);
 
         for (const image in currentImages) {
           currentImages[image] = `${imageURL}${this.$route.name}/${this.currentGallery}/${currentImages[image]}`

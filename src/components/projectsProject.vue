@@ -10,29 +10,8 @@
 						:key="image + index"
 						class="image"
 					>
-						<div class="PASKA" style="z-index: 1; position: relative;">{{dynamicImage(image)}}</div>
 						<base-bg :source="dynamicImage(image)" fit="contain"></base-bg>
 					</div>
-					<!-- <base-image
-						v-for="(image, index) in content.images"
-						:key="index"
-						:src="dynamicImage(image)"
-					></base-image> -->
-					<!-- <div
-						class="toi"
-						style="position: relative; height: 300px;"
-						v-for="(image, index) in content.images"
-						:key="index"
-					>
-						<base-bg
-							:source="dynamicImage(image)"
-							fit="contain"
-						></base-bg>
-					</div> -->
-					<!-- <div
-						v-for="(image, index) in 5"
-						:key="index"
-					>{{content}}</div> -->
 				</content-carousel>
 
       	<base-wrapper maxWidth="medium">

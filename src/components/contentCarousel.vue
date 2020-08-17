@@ -55,7 +55,7 @@ export default {
         accessibility: false,
         arrows: false,
         cssEase: 'cubic-bezier(0, 0.65, 0.25, 1)',
-        //fade: true,
+				//fade: true,
         pauseOnHover: false,
         speed: 390,
         waitForAnimate: false
