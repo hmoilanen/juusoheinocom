@@ -175,9 +175,6 @@ export default {
         const imageURL = this.$store.getters['app/GET_URL'].imageURL
 				const currentImages = JSON.parse(JSON.stringify(this.countries[this.currentGallery].images))
 
-				console.log('imageURL', imageURL);
-				console.log('currentImages', currentImages);
-
         for (const image in currentImages) {
           currentImages[image] = `${imageURL}${this.$route.name}/${this.currentGallery}/${currentImages[image]}`
         }
