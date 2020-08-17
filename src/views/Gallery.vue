@@ -1,84 +1,100 @@
 <template>
   <base-view class="view-gallery">
-    <template v-if="!$app.isLoading()">
-			<div class="map-container" :class="{ disabled: currentGallery }">
-				<google-map
-					ref="googleMap"
-					:places="countries"
-					:minZoom="3"
-					:disableDefaultUi="true"
-					mapStyle="light"
-					@marker-clicked="chooseGallery($event)"
-					@map-centered="trackMapPosition"
-				></google-map>
-				<transition name="toggle">
-					<div v-if="!mapIsCentered" class="fit-container">
-						<div class="fit" @click="centerMap">
-							<base-icon :size="12">fill</base-icon>
-						</div>
+
+		<div class="map-container" :class="{ disabled: currentGallery }">
+			<google-map
+				ref="googleMap"
+				:places="countries"
+				:minZoom="3"
+				:disableDefaultUi="true"
+				mapStyle="light"
+				@marker-clicked="chooseGallery($event)"
+				@map-centered="trackMapPosition"
+			></google-map>
+			<transition name="toggle">
+				<div v-if="!mapIsCentered" class="fit-container">
+					<div class="fit" @click="centerMap">
+						<base-icon :size="12">fill</base-icon>
 					</div>
-				</transition>
+				</div>
+			</transition>
+		</div>
+
+		<div v-if="!galleryIntroSeen" class="intro gsap--view-gallery--intro">
+			<div class="tiles" :style="styling">
+				<div
+					class="tile gsap--view-gallery--tile"
+					v-for="tile in luku * luku"
+					:key="tile"
+				></div>
 			</div>
+			<base-wrapper max-width="paragraph">
+				<editable-content path="gallery.main" #default="{ content }">
+					<app-text class="gsap--view-gallery--intro-text">{{ content[`text-${$app.locale()}`] }}</app-text>
+					<base-title
+						class="skip gsap--view-gallery--intro-skip"
+						@click="skipIntro"
+						:center="true"
+						:size="6"
+						:m-t="30"
+					>{{ content[`proceed-${$app.locale()}`] }}</base-title>
+				</editable-content>
+			</base-wrapper>
+		</div>
 
-      <div v-if="currentGallery" class="content-carousel-container">
-        <app-content-wrapper>
-          <content-carousel v-if="currentGallery" :key="currentGallery">
-            <div
-              v-for="(image, index) in images"
-              :key="image + index"
-              class="image"
-            >
-              <base-bg :source="image" fit="contain"></base-bg>
-            </div>
-          </content-carousel>
-        </app-content-wrapper>
-      </div>
+		<div v-if="currentGallery" class="content-carousel-container">
+			<app-content-wrapper>
+				<content-carousel v-if="currentGallery" :key="currentGallery">
+					<div
+						v-for="(image, index) in images"
+						:key="image + index"
+						class="image"
+					>
+						<base-bg :source="image" fit="contain"></base-bg>
+					</div>
+				</content-carousel>
+			</app-content-wrapper>
+		</div>
 
-      <!-- <editable-content path="gallery.main" #default="{ content }">
-        <base-title>{{ content[`title-${$app.locale()}`] }}</base-title>
-        <base-text>{{  content[`text-${$app.locale()}`] }}</base-text>
-      </editable-content> -->
-
-      <!-- <base-button
-        v-if="$app.isLogged()"
-        @click="addImage"
-      >{{ this.buttonText }}</base-button> -->
-    </template>
-
+		<!-- <base-button
+			v-if="$app.isLogged()"
+			@click="addImage"
+		>{{ this.buttonText }}</base-button> -->
   </base-view>
 </template>
 
 
 <script>
-//JOS MITÄÄN ALUETTA EI OLE VALITTUNA, ZOOMAA KARTTA NIIN ETTÄ KAIKKI MAAT NÄKYY (TAI AIINAKIN SUURIIN OSA)
-//TEE "MAP"-NAPPI -> KUN PAINETAAN, PILOTA KARUSELLI JA ZOOMA TAKAISIN KOKONAISTILANTEESEEN
-//TE TARKASTELU JA ANNA ZOOMI AINA DYNAAMISESTI RIIPPUEN SIITÄ, MINKÄ KOKOINEN VEWPORT ON
-  //-> see: https://developers.google.com/maps/documentation/javascript/events
-    //-> map.fitBounds(bounds); ...
-//PILOTA KARTAN ZOOMINAPIT JA TERMSOFSERVICET JNE.
-
-//import editableContent from '@/components/editableContent'
+import editableContent from '@/components/editableContent'
 import googleMap from '@/components/googleMap'
 import appContentWrapper from '@/components/appContentWrapper'
 import contentCarousel from '@/components/contentCarousel'
+import appTitle from '@/components/appTitle'
+import appText from '@/components/appText'
 import { randomString } from '@/utils/strings'
 import { randomIntegerFromInterval } from '@/utils/math'
-//import { countries } from '@/api/countries'
+import { gsap } from 'gsap'
+
+const tl = gsap.timeline({ paused: true })
 
 export default {
   name: 'viewGallery',
 
   components: {
-    //editableContent,
+    editableContent,
     googleMap,
     appContentWrapper,
-    contentCarousel
+		contentCarousel,
+		appTitle,
+    appText
   },
 
   data() {
     return {
+			introMinimumDuration: 4000,
 			currentGallery: '',
-			mapIsCentered: false
+			mapIsCentered: false,
+			luku: 8
     }
   },
 
@@ -87,7 +103,25 @@ export default {
     if (galleryQuery) {
       this.currentGallery = galleryQuery
     }
-  },
+	},
+	
+	mounted() {
+		if (!this.galleryIntroSeen) {
+			tl
+				.from('.gsap--view-gallery--intro-text', {
+					duration: 0.5,
+					y: 70,
+					opacity: 0,
+					ease: 'Power3.out'
+				}, 0.25)
+				.from('.gsap--view-gallery--intro-skip', {
+					duration: 0.3,
+					y: 10,
+					opacity: 0,
+					ease: 'Power3.out'
+				}, 0.7)
+		}
+	},
 
   watch: {
     $route: {
@@ -98,21 +132,23 @@ export default {
           this.currentGallery = ''
         }
       }
-    }
-    /* '$store.state.app.isLoading': {
-      immedate: true,
-      handler(newValue) {
-        if (newValue === false) {
-          const countries = Object.keys(this.$store.state.content.gallery).filter(country => {
-            return country !== 'main'
-          })
-          this.currentGallery = countries[randomIntegerFromInterval(0, countries.length)]
-        }
-      }
-    } */
+		},
+
+		'$store.state.ui.curtainDisplayed': {
+			immediate: true,
+			handler(newValue, oldValue) {
+				if (newValue === false && !this.galleryIntroSeen) {
+					tl.restart() // For playing the animation also when returned to the page
+				}
+			}
+		}
   },
 
   computed: {
+		galleryIntroSeen() {
+			return this.$store.state.ui.galleryIntroSeen
+		},
+
     countries() {
       if (!this.$app.isLoading()) {
         const { main, ...gallery } = this.$store.state.content.gallery
@@ -120,17 +156,6 @@ export default {
 
         for (let country in gallery) {
           const { info, ...images } = gallery[country]
-          /* listOfCountries.push({
-            name: country,
-            position: {
-              lat: info.latitude,
-              lng: info.longitude
-            },
-            zoom: info.zoom,
-            images: images
-          }) */
-					//listOfCountries.push(info)
-
 					const countryName = info['name-en'].toLowerCase().split(' ').join('')
 					
 					listOfCountries[countryName] = {
@@ -146,9 +171,6 @@ export default {
     images() {
       if (this.currentGallery) {
         const imageURL = this.$store.getters['app/GET_URL'].imageURL
-        /* let currentImages = this.countries.filter(country => {
-          return country.name === this.currentGallery
-				})[0].images */
 				const currentImages = this.countries[this.currentGallery].images
 
         for (const image in currentImages) {
@@ -158,51 +180,39 @@ export default {
         return currentImages
       } else return null
     },
-    
-    /* content() {
-      if (!this.$app.isLoading()) {
-        const gallery = this.$store.state.content.gallery
-        let countries = Object.keys(gallery)
-        let currentGallery = this.$store.state.content.gallery[this.currentGallery]
-        let { info, ...images } = currentGallery
-        let imageURL = this.$store.getters['app/GET_URL'].imageURL
-        let routeName = this.$route.name
-        let imageURLs = []
-  
-        for (let image in images) {
-          let URL = `${imageURL}${routeName}/${this.currentGallery}/${currentGallery[image]}`
-          imageURLs.push(URL)
-        }
-  
-        return {
-          countries: countries, // Array of all countries
-          images: imageURLs, // Array of images of active country
-          amount: imageURLs.length || 0, // Amount of images
-          info: info,
-          coords: [
-            {
-              name: info['name-en'],
-              position: {
-                lat: info.latitude,
-                lng: info.longitude
-              }
-            }
-          ]
-        }
-      } else return null
-    }, */
 
-    buttonText() { //OTA TAKAISIN KÄYTTÖÖN, KS. TEMPLATE!
+    /* buttonText() { //OTA TAKAISIN KÄYTTÖÖN, KS. TEMPLATE!
       return this.$store.state.app.locale === 'en'
         ? 'add image'
         : 'lisää kuva'
-    }
+		}, */
+
+		styling() {
+			return {
+				gridTemplateColumns: `repeat(${this.luku}, 1fr)`,
+				gridTemplateRows: `repeat(${this.luku}, 1fr)`
+			}
+		}
   },
 
   methods: {
-		/* googleCenterMap() {
-			this.$refs.googleMap.centerMap()
-		}, */
+		skipIntro() {
+			gsap.to('.gsap--view-gallery--tile', {
+				duration: 'random(0.05, 1.1)',
+				opacity: 0,
+				ease: 'power2.in',
+				repeatRefresh: true,
+				onComplete: () => {
+					this.$store.dispatch('SET_STATE', { data: true, path: 'ui.galleryIntroSeen' })
+				}
+			})
+
+			gsap.to('.gsap--view-gallery--intro-text, .gsap--view-gallery--intro-skip', {
+				duration: 0.1,
+				opacity: 0,
+				ease: 'power2.in'
+			})
+		},
 
     chooseGallery(gallery) {
       if (gallery && this.currentGallery !== gallery) {
@@ -221,7 +231,7 @@ export default {
 			}
 		},
 
-    addImage() { //OTA TAKAISIN KÄYTTÖÖN, KS. TEMPLATE!
+    /* addImage() { //OTA TAKAISIN KÄYTTÖÖN, KS. TEMPLATE!
       let randomKey = 'image-' + randomString(6)
       let data = { [randomKey]: '.png' }
       let path = `${this.$route.name}.${this.currentGallery}`
@@ -231,24 +241,36 @@ export default {
         active: 'editContent',
         data: { content: data, path: path }
       })
-    }
+    } */
   }
 }
 </script>
 
 <style lang="scss" scoped>
+$view-gallery--color-bg--tile: $app-color--theme;
 
 .view-gallery {
   position: relative;
 
-  /* .google-map {
-    @extend %absolute-0000;
-    transition: opacity 1.2s ease-in-out;
-    &.disabled {
-      @extend %disabled;
-      opacity: 0.1;
-    }
-  } */
+  .intro {
+		@extend %absolute-0000;
+		display: flex;
+		align-items: center;
+		.skip {
+			@extend %clickable;
+			&:hover { color: $app-color--hl; }
+		}
+		.tiles {
+			@extend %absolute-0000;
+			display: grid;
+			// grid-template-columns: ; // see: this.styling
+			// grid-template-rows: ; // see: this.styling
+			.tile {
+				background: $view-gallery--color-bg--tile;
+			}
+		}
+	}
+
   .map-container {
     @extend %absolute-0000;
 		transition: opacity 1s ease-in-out;
@@ -257,13 +279,10 @@ export default {
       @extend %disabled;
       opacity: 0.1;
     }
-  }
+	}
+	
   .content-carousel-container {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+		@extend %absolute-0000;
     display: flex;
     align-items: stretch;
     justify-content: center;
@@ -277,8 +296,8 @@ export default {
     position: relative;
     height: 0;
     padding-bottom: 56.25%;
-    //background: rgba(200, 200, 200, 0.2);
 	}
+
 	.fit-container {
 		$fit-markers--size: 3rem;
 
@@ -290,7 +309,6 @@ export default {
 		.fit {
 			width: $fit-markers--size;
 			height: $fit-markers--size;
-			//border-radius: 50%;
 			background: rgba(255, 255, 255, 0.75);
 			display: flex;
 			align-items: center;
@@ -298,10 +316,7 @@ export default {
 			@extend %clickable;
 			transition: background 0.4s ease;
 			&:hover { background: rgba(255, 255, 255, 0.95); }
-			
-			.base-icon {
-				@extend %icon--only-stroke;
-			}
+			.base-icon { @extend %icon--only-stroke; }
 		}
 	}
 }

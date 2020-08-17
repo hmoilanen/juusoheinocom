@@ -6,6 +6,7 @@ export default [
     name: 'home',
     component: () => import('@/views/Home'),
     meta: {
+			title: 'Front',
       navLink: true,
       navLinkTitle: 'Home',
       navLinkTitleFi: 'Etusivu',
@@ -17,6 +18,7 @@ export default [
     name: 'contact',
     component: () => import('@/views/Contact'),
     meta: {
+			title: 'Contact me',
       navLink: true,
       navLinkTitle: 'Contact',
       navLinkTitleFi: 'Ota yhteyttä',
@@ -28,6 +30,7 @@ export default [
     name: 'projects',
     component: () => import('@/views/Projects'),
     meta: {
+			title: 'Projects',
       navLink: true,
       navLinkTitle: 'Projects',
       navLinkTitleFi: 'Projektit',
@@ -38,9 +41,10 @@ export default [
         path: ':id',
         name: 'project',
         component: () => import('@/components/projectsProject'),
-        /* meta: {
+        meta: {
+					title: 'Project',
           preventBodyScrolling: true
-        } */
+        }
       }
     ]
   },
@@ -49,6 +53,7 @@ export default [
     name: 'gallery',
     component: () => import('@/views/Gallery'),
     meta: {
+			title: 'Gallery',
       navLink: true,
       navLinkTitle: 'Gallery',
       navLinkTitleFi: 'Galleria'

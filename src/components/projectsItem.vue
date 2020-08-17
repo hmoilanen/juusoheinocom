@@ -1,53 +1,102 @@
 <template>
-  <div class="projects-item">
-    <template v-if="item">
+  <div class="projects-item" :class="classing">
+    <!-- <template v-if="item"> -->
       
       <div class="bg">
         <base-bg :source="imageURL(item.bg)" posY="top"></base-bg>
       </div>
 
       <div class="info">
-        <base-title :size="11">{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>  
-        <base-title :size="7">{{ this.item['type-' + $app.locale()] }}, {{ this.item.year }}</base-title>
+        <base-title :size="11" :scaling="0.5">{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>  
+        <base-title :size="6" :scaling="0.5">{{ this.item['type-' + $app.locale()] }}, {{ this.item.year }}</base-title>
+				<!-- <base-title>{{ joo }}</base-title> -->
       </div>
 
-    </template>
+    <!-- </template> -->
   </div>
 </template>
 
 <script>
+import { isTouchDevice } from '@/utils/system'
+
 export default {
   name: 'projectsItem',
 
   props: {
-    item: Object
-  },
+    item: {
+			type: Object,
+			required: true
+		}
+	},
+
+	/* data() {
+		return {
+			joo: 'eio'
+		}
+	}, */
+	
+	/* mounted() {
+		if (isTouchDevice()) {
+			this.joo = 'on kosketusjuttu'
+		}
+	}, */
 
   methods: {
     imageURL(URL) {
       let imageURL = this.$store.getters['app/GET_URL'].imageURL
       return `${imageURL}${this.$route.name}/${this.$vnode.key}/${URL}`
     }
-  }
+	},
+	
+	computed: {
+		classing() {
+			return {
+				'is-touch-device': isTouchDevice() ? true : false
+			}
+		}
+	}
 }
 </script>
 
 <style lang="scss" scoped>
 .projects-item {
+	overflow: hidden;
+	position: relative;
   @extend %clickable;
-  //background: rgba(0, 0, 0, 1);
-  border: 3px solid black;
-  //padding: 0.5rem;
+	transition: box-shadow 0.1s ease-in-out;
+	box-shadow:
+		0 0 5px rgba(0, 0, 0, 0.05),
+		0 0 16px rgba(0, 0, 0, 0.04);
+	&:hover {
+		box-shadow:
+			0 3px 5px rgba(0, 0, 0, 0.1),
+			0 6px 18px rgba(0, 0, 0, 0.3);
+		.bg { opacity: 0.95; }
+		.info { transform: translateY(0); }
+	}
+
   .info {
-    padding: 1rem 0.6rem;
-    //.base-title,
-    //.base-text { color: white; }
-  }
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 1.4rem;
+		background: rgba(0, 0, 0, 0.5);
+		transition: transform 0.2s ease-in-out;
+		transform: translateY(100%);
+		&::v-deep * { color: white; }
+	}
+	
   .bg {
     position: relative;
     height: 0;
     //padding-bottom: 62.5%;
-    padding-bottom: 80%;
-  }
+		padding-bottom: 100%;
+		transition: opacity 0.2s ease-in-out;
+	}
+	
+	&.is-touch-device {
+		.info { transform: translateY(0); }
+	}
 }
 </style>

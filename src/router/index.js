@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routes'
+import store from '@/store/index'
 
 Vue.use(Router)
 
@@ -20,6 +21,19 @@ const router = new Router({
       return { x: 0, y: 0 }
     }
   }
+})
+
+router.beforeEach((to, from, next) => {
+	const inner = store.state.app.official.appName
+	const separator = '|'
+	const complement = to.meta && to.meta.title
+		? to.meta.title
+		: null
+	
+	if (complement) { document.title = `${complement} ${separator} ${inner}` }
+	else { document.title = inner }
+
+	next()
 })
 
 // GLOBAL ROUTE GUARDS

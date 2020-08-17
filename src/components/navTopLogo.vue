@@ -1,45 +1,39 @@
 <template>
-  <div class="nav-top-logo" :class="{ alternative: alternative }">
+  <div
+		class="nav-top-logo"
+		:class="{ alternative: alternative }"
+		@click="toHome"
+	>
     <base-icon size="xl">juusoheino</base-icon>
   </div>
 </template>
 
 <script>
-// import customComponent from '@/components/customComponent'
-
 export default {
-  name: 'navTopLogo',
-
-  /* components: {
-    customComponent: () => import('@/components/customComponent')
-  }, */
-
+	name: 'navTopLogo',
+	
   props: {
     alternative: Boolean
-  },
-
-  /* data() {
-    return {}
-  }, */
-
-  //computed: {},
-
-  //methods: {}
-
-  // IN-COMPONENT ROUTE GUARDS:
-  // See: https://router.vuejs.org/guide/advanced/navigation-guards.html#in-component-guards
-  // beforeRouteEnter (to, from, next) {}
-  // beforeRouteUpdate (to, from, next) {}
-  // beforeRouteLeave (to, from, next) {}
+	},
+	
+  methods: {
+		toHome() {
+			if (this.$route.name !== 'home') {
+				this.$router.push('/')
+			}
+		}
+	}
 }
 </script>
 
 <style lang="scss" scoped>
 $nav-to-logo--color-alternative: $app-color--theme;
+
 .nav-top-logo {
   position: relative;
   display: flex;
-  align-items: center;
+	align-items: center;
+	@extend %clickable;
   &.alternative {
     .base-icon {
       &::v-deep path { fill: $nav-to-logo--color-alternative; }

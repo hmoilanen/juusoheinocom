@@ -2,32 +2,35 @@
   <div class="projects-project">      
     <base-loader v-if="loading"></base-loader>
     <app-content-wrapper v-else>
-      <base-wrapper maxWidth="medium" :padding="true">
+      <base-wrapper maxWidth="medium">
         <editable-content :path="dynamicPath" #default="{ content }">
 
-          <content-carousel :amount="3">
+          <!-- <content-carousel :amount="3">
             <base-image
               v-for="(image, index) in 5"
               :key="index"
               :src="dynamicImage(content.bg)"
             ></base-image>
-          </content-carousel>
+          </content-carousel> -->
+
+					<div style="height: 0; padding-bottom: 56.25%; background: pink;"></div>
 
           <base-title
+						class="gsap--projects-project--info"
             :size="22"
             :scaling="true"
             lineHeight="1.2em"
             m-t="xl"
           >{{ content['title-' + locale] }}</base-title>
-          <base-flex center="y" :m-b="18">
+          <base-flex class="gsap--projects-project--info" center="y" :m-b="18">
             <base-title :size="textTitleSize">{{ content['type-' + locale] }}, {{ content.year }}</base-title>
-            <base-link mode="tab" :to="content.link">
+            <base-link mode="tab" :to="content.link" class="redirect">
               <base-icon class="redirect-icon">redirect</base-icon>
             </base-link>
           </base-flex>
           
           <base-spacer size="xl" :scaling="3">
-            <div>
+            <div class="gsap--projects-project--info">
               <base-title :size="textTitleSize">{{ subtitle('role') }}</base-title>
               <base-list
                 :list="content['role-' + locale]"
@@ -38,12 +41,12 @@
               </base-list>
             </div>
 
-            <div>
+            <div class="gsap--projects-project--info">
               <base-title :size="textTitleSize" :m-b="2">{{ subtitle('about') }}</base-title>
               <app-text v-html="content['text-' + locale]"></app-text>
             </div>
 
-            <div>
+            <div class="gsap--projects-project--info">
               <base-title :size="textTitleSize">{{ subtitle('learned') }}</base-title>
               <base-list
                 :list="content['learning-' + locale]"
@@ -67,6 +70,10 @@ import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
 import contentCarousel from '@/components/contentCarousel'
 import appText from '@/components/appText'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default {
   name: 'projectsProject',
@@ -97,7 +104,24 @@ export default {
     this.$on('hook:beforeDestroy', () => {
       this.$store.dispatch('SET_STATE', { path: path, data: false })
     })
-  },
+	},
+	
+	mounted() {
+		gsap.utils.toArray('.gsap--projects-project--info').forEach(info => {
+			gsap.from(info, 0.6, {
+				scrollTrigger: {
+					scroller: '.projects-project',
+					trigger: info,
+					//start: 'top 95%',
+					start: '30% bottom',
+					//markers: true
+				},
+				opacity: 0,
+				y: 70,
+				ease: 'power3.out',
+			}, '+=0.2')
+		})
+	},
 
   watch: {
     '$store.state.app.isLoading': {
@@ -140,22 +164,24 @@ $projects-project--color-bg: $app-color--theme;
 $projects-project--color-hl: $app-color--hl;
 
 .projects-project {
-  position: relative;
   overflow-y: auto;
   padding-top: 60px;
   padding-bottom: 3rem;
-  position: fixed;
+  position: fixed !important;
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
-  background: $projects-project--color-bg;
-
+	bottom: 0;
+	//height: 100vh;
+	background: $projects-project--color-bg;
+	
   .redirect-icon {
-    margin-left: 0.5rem;
+		margin-left: 0.5rem;
     margin-top: 0.2rem;
     @extend %clickable;
-    color: $projects-project--color-hl;
+		color: $projects-project--color-hl;
+		transition: margin 0.4s ease;
   }
+	.redirect:hover .redirect-icon { margin-left: 13px; }
 }
 </style>

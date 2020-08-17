@@ -3,14 +3,16 @@
     <app-content-wrapper>
       <template v-if="tools">
         <editable-content path="home.tools.main" #default="{ content }">
-          <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
-          <app-text :size="8" :m-b="30">{{ content[`text-${$app.locale()}`] }}</app-text>
-          <!-- <base-text :size="textSize">{{ content[`text-${$app.locale()}`] }}</base-text> -->
-        
+          <app-title class="gsap--home-tools--title">{{ content[`title-${$app.locale()}`] }}</app-title>
+          <app-text
+						class="gsap--home-tools--title"
+						:size="8"
+						:m-b="30"
+					>{{ content[`text-${$app.locale()}`] }}</app-text>
           <base-wrapper max-width="460px">
             <div class="grid">
               <div
-                class="tool"
+                class="tool gsap--home-tools--tool"
                 v-for="(tool, key) in tools"
                 :key="key"
               >
@@ -21,8 +23,8 @@
                 </base-title>
               </div>
             </div>
-            <base-title :size="4" m-t="m">
-              <span>*</span> = {{ content[`nb-${$app.locale()}`] }}
+            <base-title class="gsap--home-tools--note" :size="4" m-t="xl">
+              <span>*</span> : {{ content[`nb-${$app.locale()}`] }}
             </base-title>
           </base-wrapper>
         </editable-content>
@@ -36,6 +38,10 @@ import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
 import appTitle from '@/components/appTitle'
 import appText from '@/components/appText'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default {
   name: 'homeTools',
@@ -49,6 +55,40 @@ export default {
 
   props: {
     textSize: [String, Number]
+	},
+
+	mounted() {
+		const tl = gsap.timeline({
+			scrollTrigger: {
+				trigger: '.home-tools',
+				start: 'top top',
+				//markers: true,
+				//toggleActions: 'restart reset reset reset'
+			}
+		})
+
+		tl
+			.from('.gsap--home-tools--title', {
+				stagger: 0.2,
+				duration: 0.5,
+				y: 70,
+				opacity: 0,
+				ease: 'Power3.out'
+			})
+			.from('.gsap--home-tools--tool', {
+				stagger: 0.04,
+				duration: 0.6,
+				y: -10,
+				scale: 1.8,
+				opacity: 0,
+				ease: 'Back.easeOut.config(1.7)'
+			}, 1)
+			.from('.gsap--home-tools--note', {
+				duration: 0.4,
+				x: 30,
+				opacity: 0,
+				ease: 'Power2.out'
+			})
 	},
 
   computed: {
@@ -72,7 +112,7 @@ export default {
 $color--tools-asterisk: $app-color--hl;
 
 .home-tools {
-  @extend %home-sections--default-style;
+	@extend %home-sections--default-style;
 
   .grid {
     margin-top: 2rem;

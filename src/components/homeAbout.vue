@@ -6,11 +6,15 @@
         path="home.about"
         #default="{ content }"
       >
-        <app-title>{{ content[`title-${locale}`] }}</app-title>
-        <app-text :size="8">{{ content[`text-${locale}`] }}</app-text>
+        <app-title class="gsap--home-about--title">{{ content[`title-${locale}`] }}</app-title>
+        <app-text class="gsap--home-about--title" :size="8">{{ content[`text-${locale}`] }}</app-text>
         <div class="quote">
-          <base-icon :size="90">quote</base-icon>
-          <base-title :center="true" :size="10">"{{ content[`quote-${locale}`] }}"</base-title>
+          <base-icon class="gsap--home-about--icon" :size="90">quote</base-icon>
+          <base-title
+						class="gsap--home-about--quote"
+						:center="true"
+						:size="10"
+					>"{{ content[`quote-${locale}`] }}"</base-title>
         </div>
         <!-- <base-link to="gallery">{{ content[`link-${locale}`] }}</base-link> -->
       </editable-content>
@@ -23,6 +27,10 @@ import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
 import appTitle from '@/components/appTitle'
 import appText from '@/components/appText'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default {
   name: 'homeAbout',
@@ -34,9 +42,36 @@ export default {
     appText
   },
 
-  /* props: {
-    textSize: [String, Number]
-  }, */
+	mounted() {
+		const tl = gsap.timeline({
+			scrollTrigger: {
+				trigger: '.home-about',
+				start: 'top top',
+				//markers: true,
+				//toggleActions: 'restart reset reset reset'
+			}
+		})
+
+		tl
+			.from('.gsap--home-about--title', {
+				stagger: 0.2,
+				duration: 0.5,
+				y: 70,
+				opacity: 0,
+				ease: 'Power3.out'
+			})
+			.from('.gsap--home-about--quote', {
+				duration: 2,
+				opacity: 0,
+				ease: 'SlowMo.ease.config(0.7, 0.7, false)'
+			}, 1.4)
+			.from('.gsap--home-about--icon', {
+				duration: 0.4,
+				x: 10,
+				opacity: 0,
+				ease: 'SlowMo.ease.config(0.7, 0.7, false)'
+			}, '-=1.9')
+	},
 
   computed: {
     locale() {
@@ -50,7 +85,7 @@ export default {
 $color--icon-quote: $app-color--hl2;
 
 .home-about {
-  @extend %home-sections--default-style;
+	@extend %home-sections--default-style;
 
   .quote {
     margin: 0 auto;
