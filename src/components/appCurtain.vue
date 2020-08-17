@@ -131,6 +131,7 @@ $app-curtain--color-bg: $app-color--theme;
 $app-curtain--color-hl: $app-color--hl;
 
 .app-curtain {
+	opacity: 0.5;
   position: fixed;
   top: 0;
   left: 0;

@@ -4,7 +4,8 @@
     <app-content-wrapper v-else>
       <editable-content :path="dynamicPath" #default="{ content }">
 				
-				<content-carousel :amount="3">
+				<div style="height: 1000px; background: pink;"></div>
+				<content-carousel>
 					<div
 						v-for="(image, index) in content.images"
 						:key="image + index"
@@ -15,7 +16,6 @@
 				</content-carousel>
 
       	<base-wrapper maxWidth="medium">
-					<!-- <div style="height: 0; padding-bottom: 56.25%; background: pink;"></div> -->
           <base-title
 						class="gsap--projects-project--info"
             :size="22"
@@ -167,7 +167,7 @@ $projects-project--color-hl: $app-color--hl;
 .projects-project {
   overflow-y: auto;
   padding-top: 60px;
-  padding-bottom: 3rem;
+  padding-bottom: 5rem;
   position: fixed !important;
   top: 0;
   left: 0;

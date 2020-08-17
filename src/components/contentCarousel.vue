@@ -4,11 +4,12 @@
     <Vue-slick-carousel
       v-bind="settings"
       ref="carousel"
+			@beforeChange="updateCurrentIndex"
     >
       <slot>
         <div
           :key="index"
-          v-for="(dummy, index) in amount"
+          v-for="(dummy, index) in dummies"
           class="dummy-item"
         >
           <span>{{ index + 1 }}</span>
@@ -17,43 +18,52 @@
     </Vue-slick-carousel>
 
     <base-flex center="x" m-t="m">
-      <base-index-indicator
+      <content-carousel-indicator
+				:active="currentIndex"
         :amount="amount"
-        :duration="duration"
+        :duration="settings.autoplaySpeed"
+				:paused="paused"
         @new-index="newIndex"
-      ></base-index-indicator>
+      ></content-carousel-indicator>
     </base-flex>
 
   </div>
 </template>
 
 <script>
-import { margins } from '@/utils/mixins'
 import VueSlickCarousel from 'vue-slick-carousel' // https://github.com/gs-shop/vue-slick-carousel
 import 'vue-slick-carousel/dist/vue-slick-carousel.css' // default styles
 // import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css' // optional style for arrows & dots
+import contentCarouselIndicator from '@/components/contentCarouselIndicator' // https://github.com/gs-shop/vue-slick-carousel
+import { margins } from '@/utils/mixins'
+import { onScreen } from '@/utils/display'
+import { log } from 'three'
+
 
 export default {
   name: 'contentCarousel',
 
-  components: { VueSlickCarousel },
+  components: {
+		VueSlickCarousel,
+		contentCarouselIndicator
+	},
 
   mixins: [margins],
 
   props: {
-    amount: { // TEE TÄSTÄ 'max'
-      type: Number,
-      default: 6
-    }
+		duration: Number
   },
 
   data() {
     return {
-      duration: 3000,
-      paused: false,
+			currentIndex: 0,
+			firstCycleDelay: 0.65, // = 100% + 65%
+			paused: true,
       settings: {
         accessibility: false,
-        arrows: false,
+				arrows: false,
+				autoplay: false,
+				autoplaySpeed: 4000,
         cssEase: 'cubic-bezier(0, 0.65, 0.25, 1)',
 				//fade: true,
         pauseOnHover: false,
@@ -61,30 +71,53 @@ export default {
         waitForAnimate: false
 			},
 			imageWidth: 0,
-			imageHeight: 0
+			imageHeight: 0,
+			dummies: 3,
+			isOnScreen: false
     }
-  },
+	},
+	
+	created() {
+		if (this.duration) {
+			this.$set(this.settings, 'autoplaySpeed', this.duration)
+		}
+	},
 
   mounted() {
 		this.handleImageSizing()
+		this.isVisibleOnScreen()
 
+		const projectsProject = document.querySelector('.projects-project')
+
+		projectsProject.addEventListener('scroll', this.isVisibleOnScreen)
 		window.addEventListener('resize', this.handleImageSizing)
 
-    const interval = setInterval(() => {
-      if (!this.paused) {
-        this.$refs.carousel.next()
-      } else {
-        clearInterval(interval)
-      }
-    }, this.duration)
-
     this.$on('hook:beforeDestroy', () => {
+			projectsProject.clearInterval('scroll', this.isVisibleOnScreen)
 			window.clearInterval('resize', this.handleImageSizing)
-			clearInterval(interval)
 		})
-  },
+	},
+
+	watch: {
+		allowPlay: {
+			immediate: true,
+			handler(newValue) {
+				if (newValue) {
+					// Make first cycle duration a bit longer than default
+					setTimeout(() => {
+						this.$refs.carousel.play()
+						this.paused = false
+					}, this.settings.autoplaySpeed * this.firstCycleDelay)
+				}
+			}
+		}
+	},
 
   methods: {
+		updateCurrentIndex(oldIndex, newIndex) {
+			this.currentIndex = newIndex
+		},
+
     newIndex(index) {
       this.paused = true
       this.$refs.carousel.pause()
@@ -96,35 +129,40 @@ export default {
 			
 			this.imageWidth = imageWidth
 			this.imageHeight = imageWidth * (9 / 16)
+		},
+
+		isVisibleOnScreen() {
+			const carousel = this.$el.getBoundingClientRect()
+
+			if (onScreen(carousel)) {
+				this.isOnScreen = true
+			} else {
+				this.isOnScreen = false
+			}
 		}
   },
 
-  /* computed: {
-    images() {
-      let gallery = this.$store.state.content.gallery
-      let imageURL = this.$store.getters['app/GET_URL'].imageURL
-      let images = []
+  computed: {
+		amount() {
+			if (this.$slots.default[0]) {
+				return this.$slots.default.length
+			} else return 1
+		},
 
-      for (let image in gallery) {
-        let URL = imageURL + 'gallery/india/' + image
-        //const URL = imageURL + 'gallery/india/' + image
-        //const URL = `${imageURL}${this.$route.name}/`
-        images.push(URL)
-      }
+		allowPlay() {
+			const state = this.$store.state
 
-      return images
-    }
-  } */
+			return !state.app.isLoading && !state.ui.curtainDisplayed && this.isOnScreen
+				? true
+				: false
+		}
+  }
 }
 </script>
 
 <style lang="scss" scoped>
 .content-carousel {
 	position: relative;
-	//background: rgba(0, 0, 0, 0.1);
-	/* .slick-list {
-		height: 200px !important;
-	} */
 
   .dummy-item {
     min-height: 40vh;
