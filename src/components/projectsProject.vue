@@ -3,8 +3,7 @@
     <base-loader v-if="loading"></base-loader>
     <app-content-wrapper v-else>
       <editable-content :path="dynamicPath" #default="{ content }">
-				
-				<div style="height: 1000px; background: pink;"></div>
+
 				<content-carousel>
 					<div
 						v-for="(image, index) in content.images"
