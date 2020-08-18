@@ -49,12 +49,12 @@ body {
   padding: 0;
   background-color: $app-color--bg;
   font-size: 1rem;
-  line-height: 1.25em;
+  line-height: 1.35em;
   font-family: $app-font--base;
   color: $app-color--text-base;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-variant-ligatures: none;
+	font-variant-ligatures: none;
 }
 
 h1, h2, h3, h4, h5, h6 { margin: 0; }

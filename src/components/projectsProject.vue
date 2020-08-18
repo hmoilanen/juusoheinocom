@@ -25,7 +25,7 @@
           <base-flex class="gsap--projects-project--info" center="y" :m-b="18">
             <base-title :size="textTitleSize">{{ content['type-' + locale] }}, {{ content.year }}</base-title>
             <base-link mode="tab" :to="content.link" class="redirect">
-              <base-icon class="redirect-icon">redirect</base-icon>
+              <base-icon class="redirect-icon" :only-stroke="true">redirect</base-icon>
             </base-link>
           </base-flex>
           
@@ -185,7 +185,6 @@ $projects-project--color-hl: $app-color--hl;
 		margin-left: 0.5rem;
     margin-top: 0.2rem;
     @extend %clickable;
-		color: $projects-project--color-hl;
 		transition: margin 0.4s ease;
   }
 	.redirect:hover .redirect-icon { margin-left: 13px; }

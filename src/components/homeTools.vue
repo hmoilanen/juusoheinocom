@@ -1,7 +1,7 @@
 <template>
   <div class="home-tools">
     <app-content-wrapper>
-      <template v-if="tools">
+      <!-- <template v-if="tools"> -->
         <editable-content path="home.tools.main" #default="{ content }">
           <app-title class="gsap--home-tools--title">{{ content[`title-${$app.locale()}`] }}</app-title>
           <app-text
@@ -28,7 +28,7 @@
             </base-title>
           </base-wrapper>
         </editable-content>
-      </template>
+      <!-- </template> -->
     </app-content-wrapper>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '.home-tools',
-				start: 'top top',
+				start: 'top middle',
 				//markers: true,
 				//toggleActions: 'restart reset reset reset'
 			}
@@ -79,13 +79,13 @@ export default {
 				stagger: 0.04,
 				duration: 0.6,
 				y: -10,
-				scale: 1.8,
+				//scale: 1.8,
 				opacity: 0,
 				ease: 'Back.easeOut.config(1.7)'
 			}, 1)
 			.from('.gsap--home-tools--note', {
 				duration: 0.4,
-				x: 30,
+				//x: 30,
 				opacity: 0,
 				ease: 'Power2.out'
 			})
@@ -93,7 +93,7 @@ export default {
 
   computed: {
     tools() {
-      if (!this.$app.isLoading()) {
+      /* if (!this.$app.isLoading()) {
         let reorderedTools = {}
         let { main, order, ...tools} = this.$store.state.content.home.tools
 
@@ -102,7 +102,16 @@ export default {
         }
 
         return reorderedTools
-      } else return null
+      } else return null */
+
+			let reorderedTools = {}
+			const { main, order, ...tools} = this.$store.state.content.home.tools
+
+			for (let tool of order) {          
+				reorderedTools[tool] = tools[tool]
+			}
+
+			return reorderedTools
     }
   }
 }
@@ -113,16 +122,20 @@ $color--tools-asterisk: $app-color--hl;
 
 .home-tools {
 	@extend %home-sections--default-style;
+	//display: flex;
+  //align-items: center;
+  //justify-content: center;
 
   .grid {
     margin-top: 2rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
-    grid-gap: 0.6rem;
+    grid-column-gap: 0.6rem;
+    grid-row-gap: 0.6rem;
   }
   .tool {
     position: relative;
-    width: 70px;
+    //width: 70px;
     display: flex;
     flex-direction: column;
     align-items: center;

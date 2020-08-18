@@ -14,7 +14,7 @@
 			<transition name="toggle">
 				<div v-if="!mapIsCentered" class="fit-container">
 					<div class="fit" @click="centerMap">
-						<base-icon :size="12">fill</base-icon>
+						<base-icon :size="12" :only-stroke="true">fill</base-icon>
 					</div>
 				</div>
 			</transition>
@@ -28,6 +28,7 @@
 					:key="tile"
 				></div>
 			</div>
+
 			<base-wrapper max-width="paragraph" :padding="true">
 				<editable-content path="gallery.main" #default="{ content }">
 					<app-text class="gsap--view-gallery--intro-text">{{ content[`text-${$app.locale()}`] }}</app-text>
@@ -50,7 +51,6 @@
 						:key="image + index"
 						class="image"
 					>
-						<div>{{image}}</div>
 						<base-bg :source="image" fit="contain"></base-bg>
 					</div>
 				</content-carousel>
@@ -284,9 +284,15 @@ $view-gallery--color-bg--tile: $app-color--theme;
 	
   .content-carousel-container {
 		@extend %absolute-0000;
-    display: flex;
-    align-items: stretch;
-    justify-content: center;
+		display: fixed;
+		overflow-y: auto;
+    //display: flex;
+    //align-items: stretch;
+		//justify-content: center;
+		.app-content-wrapper {
+			top: 50%;
+			transform: translateY(-50%);
+		}
   }
   .content-carousel {
     position: relative;
@@ -317,7 +323,7 @@ $view-gallery--color-bg--tile: $app-color--theme;
 			@extend %clickable;
 			transition: background 0.4s ease;
 			&:hover { background: rgba(255, 255, 255, 0.95); }
-			.base-icon { @extend %icon--only-stroke; }
+			//.base-icon { @extend %icon--only-stroke; }
 		}
 	}
 }

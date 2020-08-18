@@ -128,7 +128,7 @@ export default {
 		
 		handleImageSizing() {
 			const imageWidth = this.$el.offsetWidth
-			
+
 			this.imageWidth = imageWidth
 			this.imageHeight = imageWidth * (9 / 16)
 		},
@@ -157,7 +157,13 @@ export default {
 			return !state.app.isLoading && !state.ui.curtainDisplayed && this.isOnScreen
 				? true
 				: false
-		}
+		},
+
+		/* styling() {
+			return {
+				width: 
+			}
+		} */
   }
 }
 </script>

@@ -5,8 +5,8 @@
       :viewBox="`0 0 ${size} ${size}`"
       :width="size * scale + 'px'"
       :height="size * scale + 'px'"
-      :style="styling"
     >
+      <!-- :style="styling" -->
       <g>
         <polyline
           points="48 35.72 48 48 2 48 2 2 48 2 48 35.72"
@@ -47,8 +47,8 @@ export default {
   data() {
     return {
       size: 50, // = px, based on size of svg
-      transformOriginX: 0, // see: this.styling.svgInner
-      transformOriginY: 0, // see: this.styling.svgInner
+      transformOriginX: 0,
+      transformOriginY: 0,
       // Svg path lengths hardcoded because of component's simplistic nature, see: svg element
       svgOuterPathLength: (48 - 2) * 4, // harcoded from svg coordinates, see: svg
       svgInnerPathLength: (48 - 19.61) + (35.72 - 20.65), // harcoded from svg coordinates, see: svg

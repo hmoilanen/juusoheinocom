@@ -58,7 +58,11 @@
         center="x"
         m-t="xl"
       >
-        <base-icon :size="10" :clickable="true">backtotop</base-icon>
+        <base-icon
+					:size="10"
+					:clickable="true"
+					:only-stroke="true"
+				>backtotop</base-icon>
       </base-flex>
     </app-content-wrapper>
       
@@ -208,7 +212,7 @@ $footer--color-highlight: $app-color--hl;
   .backtotop {
     &::v-deep {
       .base-icon {
-				@extend %icon--only-stroke;
+				//@extend %icon--only-stroke;
         &:hover .backtotop-move { transform: translateY(-15%); }
         .backtotop-move {
 					transition: all 0.5s ease;

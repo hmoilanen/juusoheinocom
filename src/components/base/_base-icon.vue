@@ -39,7 +39,8 @@ export default {
     },
     size: [Number, String],
     tooltip: String,
-    clickable: Boolean
+		clickable: Boolean,
+		onlyStroke: Boolean
   },
 
   data() {
@@ -62,7 +63,8 @@ export default {
 
     classing() {
       return {
-        clickable: this.clickable
+				clickable: this.clickable,
+				'only-stroke': this.onlyStroke
       }
     }
   },
@@ -97,6 +99,7 @@ export default {
     iconReact: () => import('@/components/icons/iconReact'),
     iconRedirect: () => import('@/components/icons/iconRedirect'),
     iconSass: () => import('@/components/icons/iconSass'),
+    iconShuffle: () => import('@/components/icons/iconShuffle'),
     iconSql: () => import('@/components/icons/iconSql'),
 		iconSuccessFrame: () => import('@/components/icons/iconSuccessFrame'),
     iconSuccessInner: () => import('@/components/icons/iconSuccessInner'),
@@ -108,6 +111,9 @@ export default {
 
 <style lang="scss">
 svg.base-icon {
-  &.clickable { @extend %clickable; }
+	&.clickable { @extend %clickable; }
+	&.only-stroke {
+		@extend %icon--only-stroke;
+	}
 }
 </style>

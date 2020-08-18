@@ -5,25 +5,38 @@
         <app-title class="gsap--home-projects--title">{{ content[`title-${$app.locale()}`] }}</app-title>
         <base-link :to="{ name: 'projects' }">
           <base-flex class="gsap--home-projects--title" center="y">
-            <base-title :size="7">{{ content[`link-${$app.locale()}`] }}</base-title>
-            <base-icon class="redirect">redirect</base-icon>
+            <!-- <base-title :size="7">{{ content[`link-${$app.locale()}`] }}</base-title>
+            <base-icon class="redirect" :only-stroke="true">redirect</base-icon> -->
           </base-flex>
         </base-link>
       </editable-content>
 
-			<base-wrapper maxWidth="medium" :padding="true">
-				<base-title>{{ randomProject[`title-${$app.locale()}`] }}</base-title>
-				<base-title>{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
-				<base-button @click="newRandomProject">new</base-button>
+			<base-wrapper maxWidth="medium">
+				<base-title :size="7" :scaling="1">{{ randomProject[`title-${$app.locale()}`] }}</base-title>
+				<base-title :size="5" :scaling="1">{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
 				<content-carousel :key="randomProject.id">
 					<div
 						v-for="(image, index) in randomProject.images"
 						:key="image + index"
 						class="image"
+						@click="goToCurrentProject"
 					>
 						<base-bg :source="imageSource(image)" fit="contain"></base-bg>
 					</div>
 				</content-carousel>
+
+				<base-flex :m-t="12">
+					<base-link :to="{ name: 'projects' }">
+						<base-flex>
+							<base-icon :only-stroke="true">redirect</base-icon>
+							<base-title :size="6" :m-l="4">to projects</base-title>
+						</base-flex>
+					</base-link>
+					<base-flex @click="newRandomProject" class="shuffle">
+						<base-icon :only-stroke="true">shuffle</base-icon>
+						<base-title :size="6" :m-l="4">shuffle</base-title>
+					</base-flex>
+				</base-flex>
 			</base-wrapper>
 
 			<!-- <base-icon class="go-to-projects" :size="34">goto</base-icon> -->
@@ -159,13 +172,18 @@ export default {
       return `${imageURL}projects/${this.randomProject.id}/${image}`
 		},
 
+		goToCurrentProject() {
+			this.$router.push({ name: 'project', params: { id: this.randomProject.id } })
+		},
+
 		newRandomProject() {
-			//const keys = Object.keys(this.projects)
-			//const index = randomIntegerFromInterval(0, keys.length - 1)
-			const newIndex = randomIntegerFromInterval(0, 2) //DUMMY!
-			if (newIndex !== this.randomProjectIndex) {
-				this.randomProjectIndex = newIndex
+			let newIndex = randomIntegerFromInterval(0, 2) //DUMMY!
+
+			while (newIndex === this.randomProjectIndex) {
+				newIndex = randomIntegerFromInterval(0, 2)
 			}
+			
+			this.randomProjectIndex = newIndex
 		}
   }
 }
@@ -213,7 +231,14 @@ $home-projects--color-hl: $app-color--hl;
 		position: relative;
     height: 0;
 		padding-bottom: 56.25%;
+		@extend %clickable;
+		&:hover { opacity: 0.8; }
 		//max-width: calc(100vw - (2 * 1rem));
+	}
+
+	.shuffle {
+		@extend %clickable;
+		margin-left: 0.8rem; 
 	}
 	
 	/* .go-to-projects {
