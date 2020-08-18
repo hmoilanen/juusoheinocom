@@ -15,14 +15,21 @@
 				<base-title :size="7" :scaling="1">{{ randomProject[`title-${$app.locale()}`] }}</base-title>
 				<base-title :size="5" :scaling="1">{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
 				<content-carousel :key="randomProject.id">
-					<div
+					<!-- <div
 						v-for="(image, index) in randomProject.images"
 						:key="image + index"
 						class="image"
 						@click="goToCurrentProject"
 					>
 						<base-bg :source="imageSource(image)" fit="contain"></base-bg>
-					</div>
+					</div> -->
+					<content-carousel-item
+						v-for="(image, index) in randomProject.images"
+						:key="index"
+						:image="imageSource(image)"
+						:clickable="true"
+						@click="goToCurrentProject"
+					></content-carousel-item>
 				</content-carousel>
 
 				<base-flex :m-t="12">
@@ -69,6 +76,7 @@
 import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
 import contentCarousel from '@/components/contentCarousel'
+import contentCarouselItem from '@/components/contentCarouselItem'
 import appTitle from '@/components/appTitle'
 import { randomIntegerFromInterval } from '@/utils/math'
 import { gsap } from 'gsap'
@@ -82,6 +90,7 @@ export default {
   components: {
 		appContentWrapper,
 		contentCarousel,
+		contentCarouselItem,
     editableContent,
     appTitle
 	},
@@ -173,6 +182,7 @@ export default {
 		},
 
 		goToCurrentProject() {
+			console.log('eiköööö');
 			this.$router.push({ name: 'project', params: { id: this.randomProject.id } })
 		},
 
@@ -227,14 +237,14 @@ $home-projects--color-hl: $app-color--hl;
     &, & .base-text { color: $home-projects--color-hl; }
 	}
 
-	.image {
+	/* .image {
 		position: relative;
     height: 0;
 		padding-bottom: 56.25%;
 		@extend %clickable;
 		&:hover { opacity: 0.8; }
 		//max-width: calc(100vw - (2 * 1rem));
-	}
+	} */
 
 	.shuffle {
 		@extend %clickable;

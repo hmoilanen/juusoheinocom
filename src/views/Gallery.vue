@@ -46,13 +46,11 @@
 		<div v-if="currentGallery" class="content-carousel-container">
 			<app-content-wrapper>
 				<content-carousel v-if="currentGallery" :key="currentGallery">
-					<div
+					<content-carousel-item
 						v-for="(image, index) in images"
-						:key="image + index"
-						class="image"
-					>
-						<base-bg :source="image" fit="contain"></base-bg>
-					</div>
+						:key="index"
+						:image="image"
+					></content-carousel-item>
 				</content-carousel>
 			</app-content-wrapper>
 		</div>
@@ -70,6 +68,7 @@ import editableContent from '@/components/editableContent'
 import googleMap from '@/components/googleMap'
 import appContentWrapper from '@/components/appContentWrapper'
 import contentCarousel from '@/components/contentCarousel'
+import contentCarouselItem from '@/components/contentCarouselItem'
 import appTitle from '@/components/appTitle'
 import appText from '@/components/appText'
 import { randomString } from '@/utils/strings'
@@ -86,6 +85,7 @@ export default {
     googleMap,
     appContentWrapper,
 		contentCarousel,
+		contentCarouselItem,
 		appTitle,
     appText
   },
@@ -299,11 +299,6 @@ $view-gallery--color-bg--tile: $app-color--theme;
     top: 50%;
     transform: translateY(-50%);
   }
-  .image {
-    position: relative;
-    height: 0;
-    padding-bottom: 56.25%;
-	}
 
 	.fit-container {
 		$fit-markers--size: 3rem;

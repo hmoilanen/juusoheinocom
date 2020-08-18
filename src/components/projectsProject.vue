@@ -5,13 +5,11 @@
       <editable-content :path="dynamicPath" #default="{ content }">
 
 				<content-carousel>
-					<div
+					<content-carousel-item
 						v-for="(image, index) in content.images"
-						:key="image + index"
-						class="image"
-					>
-						<base-bg :source="dynamicImage(image)" fit="contain"></base-bg>
-					</div>
+						:key="index"
+						:image="imageSource(image)"
+					></content-carousel-item>
 				</content-carousel>
 
       	<base-wrapper maxWidth="medium">
@@ -69,6 +67,7 @@ import store from '@/store/index'
 import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
 import contentCarousel from '@/components/contentCarousel'
+import contentCarouselItem from '@/components/contentCarouselItem'
 import appText from '@/components/appText'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -81,7 +80,8 @@ export default {
   components: {
     appContentWrapper,
     editableContent,
-    contentCarousel,
+		contentCarousel,
+		contentCarouselItem,
     appText
   },
 
@@ -145,7 +145,7 @@ export default {
   },
 
   methods: {
-    dynamicImage(image) {
+    imageSource(image) {
       let imageURL = this.$store.getters['app/GET_URL'].imageURL
       return `${imageURL}${this.routeName}/${this.projectId}/${image}`
     },
@@ -174,12 +174,6 @@ $projects-project--color-hl: $app-color--hl;
 	bottom: 0;
 	//height: 100vh;
 	background: $projects-project--color-bg;
-
-	.image {
-    position: relative;
-    height: 0;
-    padding-bottom: 56.25%;
-	}
 	
   .redirect-icon {
 		margin-left: 0.5rem;
