@@ -71,13 +71,14 @@
               :disabled="submitting"
             ></recaptcha>
 
-            <base-button
-							class="gsap--view-contact--form"
-              @click.prevent="submit"
-              :disabled="!allowSubmit"
-              :loading="!allowSubmit && submitting"
-              size="l"
-            >{{ formContent.submit[locale] }}</base-button>
+						<div class="gsap--view-contact--form">
+							<base-button
+								@click.prevent="submit"
+								:disabled="!allowSubmit"
+								:loading="!allowSubmit && submitting"
+								size="l"
+							>{{ formContent.submit[locale] }}</base-button>
+						</div>
           </base-spacer>
         </form>
         <div v-else>
@@ -142,7 +143,8 @@ export default {
 				stagger: 0.2,
 				duration: 0.8,
 				y: 70,
-				opacity: 0,
+				//opacity: 0,
+				autoAlpha: 0,
 				ease: 'power2.out'
 			}, 1.4)
 	},

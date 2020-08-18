@@ -182,7 +182,6 @@ export default {
 		},
 
 		goToCurrentProject() {
-			console.log('eiköööö');
 			this.$router.push({ name: 'project', params: { id: this.randomProject.id } })
 		},
 
