@@ -10,6 +10,23 @@
           </base-flex>
         </base-link>
       </editable-content>
+
+			<base-wrapper maxWidth="medium" :padding="true">
+				<base-title>{{ randomProject[`title-${$app.locale()}`] }}</base-title>
+				<base-title>{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
+				<base-button @click="newRandomProject">new</base-button>
+				<content-carousel :key="randomProject.id">
+					<div
+						v-for="(image, index) in randomProject.images"
+						:key="image + index"
+						class="image"
+					>
+						<base-bg :source="imageSource(image)" fit="contain"></base-bg>
+					</div>
+				</content-carousel>
+			</base-wrapper>
+
+			<!-- <base-icon class="go-to-projects" :size="34">goto</base-icon> -->
       
       <!-- <div class="grid" :style="styling">
         <div
@@ -38,7 +55,9 @@
 <script>
 import appContentWrapper from '@/components/appContentWrapper'
 import editableContent from '@/components/editableContent'
+import contentCarousel from '@/components/contentCarousel'
 import appTitle from '@/components/appTitle'
+import { randomIntegerFromInterval } from '@/utils/math'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -48,12 +67,28 @@ export default {
   name: 'homeProjects',
 
   components: {
-    appContentWrapper,
+		appContentWrapper,
+		contentCarousel,
     editableContent,
     appTitle
-  },
+	},
+
+	data() {
+		return {
+			randomProjectIndex: 0
+		}
+	},
+	
+	created() {
+		this.newRandomProject()
+	},
 
   mounted() {
+		/* for (let i = 3; i < 10; i++) {
+			const index = randomIntegerFromInterval(0, i)
+			console.log(index);
+		} */
+
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '.home-projects',
@@ -76,9 +111,23 @@ export default {
   computed: {
     projects() {
       if (!this.$app.isLoading()) {
-        let { main, ...projects } = this.$store.state.content.projects        
+        const { main, ...projects } = this.$store.state.content.projects        
         return projects
       } else return null
+		},
+		
+    randomProject() {
+			//const index = randomIntegerFromInterval(0, keys.length - 1)
+			//const index = randomIntegerFromInterval(0, 2) //DUMMY!
+
+			const keys = Object.keys(this.projects)
+			const project = Object.assign(
+				{},
+				this.projects[keys[this.randomProjectIndex]],
+				{ id: keys[this.randomProjectIndex] }
+			)
+
+			return project
     },
 
     styling() {
@@ -100,10 +149,24 @@ export default {
   },
 
   methods: {
-    bgSource(key, imageName) {
+    /* bgSource(key, imageName) {
       let imageURL = this.$store.getters['app/GET_URL'].imageURL
       return `${imageURL}projects/${key}/${imageName}`
-    }
+		}, */
+		
+		imageSource(image) {
+      const imageURL = this.$store.getters['app/GET_URL'].imageURL
+      return `${imageURL}projects/${this.randomProject.id}/${image}`
+		},
+
+		newRandomProject() {
+			//const keys = Object.keys(this.projects)
+			//const index = randomIntegerFromInterval(0, keys.length - 1)
+			const newIndex = randomIntegerFromInterval(0, 2) //DUMMY!
+			if (newIndex !== this.randomProjectIndex) {
+				this.randomProjectIndex = newIndex
+			}
+		}
   }
 }
 </script>
@@ -143,8 +206,20 @@ $home-projects--color-hl: $app-color--hl;
   }
   //.base-link:hover .base-text { color: $home-projects--color-hl; }
   .base-link:hover {
-    &,
-    & .base-text { color: $home-projects--color-hl; }
-  }
+    &, & .base-text { color: $home-projects--color-hl; }
+	}
+
+	.image {
+		position: relative;
+    height: 0;
+		padding-bottom: 56.25%;
+		//max-width: calc(100vw - (2 * 1rem));
+	}
+	
+	/* .go-to-projects {
+		@extend %icon--only-stroke;
+		stroke-width: 2px;
+		//stroke: black;
+	} */
 }
 </style>

@@ -209,16 +209,11 @@ $footer--color-highlight: $app-color--hl;
     &::v-deep {
       .base-icon {
 				@extend %icon--only-stroke;
-        /* fill: transparent;
-        color: transparent;
-        stroke: $footer--color-highlight;
-        stroke-width: 5px; */
-        &:hover {
-          .backtotop-move {
-            transform: translateY(-15%);
-          }
-        }
-        .backtotop-move { transition: all 0.5s ease; }
+        &:hover .backtotop-move { transform: translateY(-15%); }
+        .backtotop-move {
+					transition: all 0.5s ease;
+					transform: translateY(10%);
+				}
       }
     }
   }

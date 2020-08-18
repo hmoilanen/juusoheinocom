@@ -80,6 +80,7 @@ export default {
     iconFit: () => import('@/components/icons/iconFit'),
     iconGit: () => import('@/components/icons/iconGit'),
 		iconGithub: () => import('@/components/icons/iconGithub'),
+		iconGoto: () => import('@/components/icons/iconGoto'),
 		iconHtml: () => import('@/components/icons/iconHtml'),
     iconIllustrator: () => import('@/components/icons/iconIllustrator'),
     iconIndesign: () => import('@/components/icons/iconIndesign'),

@@ -28,7 +28,7 @@
 					:key="tile"
 				></div>
 			</div>
-			<base-wrapper max-width="paragraph">
+			<base-wrapper max-width="paragraph" :padding="true">
 				<editable-content path="gallery.main" #default="{ content }">
 					<app-text class="gsap--view-gallery--intro-text">{{ content[`text-${$app.locale()}`] }}</app-text>
 					<base-title
@@ -157,7 +157,6 @@ export default {
 
         for (let country in gallery) {
 					const { info, ...images } = gallery[country]
-					console.log(images);
 					const countryName = info['name-en'].toLowerCase().split(' ').join('')
 					
 					listOfCountries[countryName] = {

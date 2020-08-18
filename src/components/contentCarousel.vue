@@ -57,7 +57,7 @@ export default {
   data() {
     return {
 			currentIndex: 0,
-			firstCycleDelay: 0.65, // = 100% + 65%
+			firstCycleDelay: 0.5, // = 100% + 50%
 			paused: true,
       settings: {
         accessibility: false,
@@ -87,14 +87,16 @@ export default {
 		this.handleImageSizing()
 		this.isVisibleOnScreen()
 
-		const projectsProject = document.querySelector('.projects-project')
+		let scrollingElement = this.$route.name === 'project'
+			? document.querySelector('.projects-project')
+			: window
 
-		projectsProject.addEventListener('scroll', this.isVisibleOnScreen)
+		scrollingElement.addEventListener('scroll', this.isVisibleOnScreen)
 		window.addEventListener('resize', this.handleImageSizing)
 
     this.$on('hook:beforeDestroy', () => {
-			projectsProject.clearInterval('scroll', this.isVisibleOnScreen)
-			window.clearInterval('resize', this.handleImageSizing)
+			scrollingElement.removeEventListener('scroll', this.isVisibleOnScreen)
+			window.removeEventListener('resize', this.handleImageSizing)
 		})
 	},
 
