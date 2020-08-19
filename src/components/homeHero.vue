@@ -2,7 +2,7 @@
   <div class="home-hero">
     <app-content-wrapper>
       <editable-content path="home.hero" #default="{ content }">
-        <base-title :size="8" m-b="s" class="name gsap--home-hero">{{ content.pretitle }}</base-title>
+        <base-title :size="7" class="name gsap--home-hero">{{ content.pretitle }}</base-title>
         <!-- <base-title
 					class="text-shadow gsap--home-hero"
           :size="17"
@@ -13,15 +13,27 @@
           :size="17"
           :scaling="true"
         >{{ content[`title-${locale}`] }}</base-title>
+
         <base-flex class="gsap--home-hero" justify="start" m-t="l">
           <base-wrapper max-width="paragraph" :disable-margins="true">
             <app-text :scaling="0.8" >{{ content[`text-${locale}`] }}</app-text>
           </base-wrapper>
         </base-flex>
-				<div class="links gsap--home-hero">
-					<base-link to="projects" m-r="s">{{ content[`link1-${locale}`] }}</base-link>
+
+				<base-flex :m-t="12">
+					<base-link to="projects" class="gsap--home-hero" m-r="m">
+						<base-button :highlight="true">{{ content[`link1-${locale}`] }}</base-button>
+					</base-link>
+					<base-link to="contact" class="gsap--home-hero">
+						<base-button :highlight="true">{{ content[`link2-${locale}`] }}</base-button>
+					</base-link>
+				</base-flex>
+				<!-- <div class="links gsap--home-hero">
+					<base-link to="projects" m-r="s">
+						<base-button :highlight="true">{{ content[`link1-${locale}`] }}</base-button>
+					</base-link>
 					<base-link to="contact">{{ content[`link2-${locale}`] }}</base-link>
-				</div>
+				</div> -->
       </editable-content>
     </app-content-wrapper>
   </div>
@@ -78,22 +90,19 @@ $home-hero--color: $app-color--theme;
 $home-hero--color-hl: $app-color--hl;
 
 .home-hero {
-	//min-height: 100vh;
-	//width: 100%;
-	//height: 100%;
 	@extend %absolute-0000;
-  //background: $app-color--hl;
   display: flex;
   align-items: center;
 	.app-content-wrapper { flex: 1; }
-  .base-title,
+  /* .base-title,
   .base-text {
     &:not(.black) {
       //color: $home-hero--color;
     }
-	}
+	} */
 	.name { color: $home-hero--color-hl; }
-	.links { color: $home-hero--color-hl; }
+	//.links { color: $home-hero--color-hl; }
+	
 	/* .text-shadow {
 		position: absolute;
 		transform: translate(4px, 3px);

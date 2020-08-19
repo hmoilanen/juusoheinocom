@@ -6,16 +6,28 @@
         path="home.about"
         #default="{ content }"
       >
-        <app-title class="gsap--home-about--title">{{ content[`title-${locale}`] }}</app-title>
+        <app-title
+					class="gsap--home-about--title"
+					:inverted="true"
+				>{{ content[`title-${locale}`] }}</app-title>
         <app-text class="gsap--home-about--title" :size="8">{{ content[`text-${locale}`] }}</app-text>
-        <div class="quote">
-          <base-icon class="gsap--home-about--icon" :size="90">quote</base-icon>
-          <base-title
-						class="gsap--home-about--quote"
-						:center="true"
-						:size="10"
-					>"{{ content[`quote-${locale}`] }}"</base-title>
-        </div>
+
+				<base-wrapper max-width="paragraph">
+					<div class="quote">
+						<base-icon class="gsap--home-about--icon" :size="90">quote</base-icon>
+						<!-- <base-title
+							class="gsap--home-about--quote"
+							:center="true"
+							:size="10"
+						>"{{ content[`quote-${locale}`] }}"</base-title> -->
+						<base-title
+							class="gsap--home-about--quote"
+							:center="true"
+							:size="10"
+							v-html="content[`quote-${locale}`]"
+						></base-title>
+					</div>
+				</base-wrapper>
         <!-- <base-link to="gallery">{{ content[`link-${locale}`] }}</base-link> -->
       </editable-content>
     </app-content-wrapper>
@@ -46,7 +58,7 @@ export default {
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '.home-about',
-				start: 'top top',
+				start: '75% bottom',
 				//markers: true,
 				//toggleActions: 'restart reset reset reset'
 			}
@@ -82,10 +94,26 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$color--icon-quote: $app-color--hl2;
+$home-about--color: $app-color--theme;
+$home-about--color-bg: $app-color--main;
+$home-about--color-hl: $app-color--hl;
+$home-about--color-icon: $app-color--hl2;
 
 .home-about {
-	@extend %home-sections--default-style;
+	//@extend %home-sections--default-style;
+	min-height: 100vh;
+	display: flex;
+  align-items: center;
+	justify-content: center;
+	background: $home-about--color-bg;
+
+	&::v-deep * {
+		.base-text { color: $home-about--color; }
+		.base-title {
+			color: $home-about--color;
+			span { color: $home-about--color-hl; }
+		}
+	}
 
   .quote {
     margin: 0 auto;
@@ -102,7 +130,7 @@ $color--icon-quote: $app-color--hl2;
       left: 25%;
       //transform: translateY(-50%);
       transform: translate(-50%, -50%);
-      color: $color--icon-quote;
+      color: $home-about--color-hl;
     }
   }
 }

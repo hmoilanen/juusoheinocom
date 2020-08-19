@@ -286,7 +286,7 @@ $nav-top-dropdown--animation-duration: 0.3s;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  //background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.2);
 	transition: background-color 0.8s ease;
 	&:hover { background: rgba(255, 255, 255, 0.85); }
 

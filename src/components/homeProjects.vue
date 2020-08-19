@@ -3,17 +3,31 @@
     <app-content-wrapper>
       <editable-content path="home.projects" #default="{ content }">
         <app-title class="gsap--home-projects--title">{{ content[`title-${$app.locale()}`] }}</app-title>
-        <base-link :to="{ name: 'projects' }">
+				<base-flex class="gsap--home-projects--title">
+					<!-- <base-link :to="{ name: 'projects' }" :m-l="-5"> -->
+					<base-link :to="{ name: 'projects' }">
+						<base-flex>
+							<base-icon :only-stroke="true">redirect</base-icon>
+							<base-title :size="6" :m-l="4">to projects</base-title>
+						</base-flex>
+					</base-link>
+					<base-flex @click="newRandomProject" class="shuffle">
+						<base-icon :only-stroke="true">shuffle</base-icon>
+						<base-title :size="6" :m-l="4">shuffle</base-title>
+					</base-flex>
+				</base-flex>
+
+        <!-- <base-link :to="{ name: 'projects' }">
           <base-flex class="gsap--home-projects--title" center="y">
-            <!-- <base-title :size="7">{{ content[`link-${$app.locale()}`] }}</base-title>
-            <base-icon class="redirect" :only-stroke="true">redirect</base-icon> -->
+            <base-title :size="7">{{ content[`link-${$app.locale()}`] }}</base-title>
+            <base-icon class="redirect" :only-stroke="true">redirect</base-icon>
           </base-flex>
-        </base-link>
+        </base-link> -->
       </editable-content>
 
 			<base-wrapper maxWidth="medium">
 				<base-title :size="7" :scaling="1">{{ randomProject[`title-${$app.locale()}`] }}</base-title>
-				<base-title :size="5" :scaling="1">{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
+				<base-title :size="4" :scaling="1">{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
 				<content-carousel :key="randomProject.id">
 					<!-- <div
 						v-for="(image, index) in randomProject.images"
@@ -32,8 +46,8 @@
 					></content-carousel-item>
 				</content-carousel>
 
-				<base-flex :m-t="12">
-					<base-link :to="{ name: 'projects' }">
+				<!-- <base-flex :m-t="42" center="x">
+					<base-link :to="{ name: 'projects' }" :m-l="-5">
 						<base-flex>
 							<base-icon :only-stroke="true">redirect</base-icon>
 							<base-title :size="6" :m-l="4">to projects</base-title>
@@ -43,7 +57,7 @@
 						<base-icon :only-stroke="true">shuffle</base-icon>
 						<base-title :size="6" :m-l="4">shuffle</base-title>
 					</base-flex>
-				</base-flex>
+				</base-flex> -->
 			</base-wrapper>
 
 			<!-- <base-icon class="go-to-projects" :size="34">goto</base-icon> -->
@@ -203,6 +217,15 @@ $home-projects--color-hl: $app-color--hl;
 
 .home-projects {
 	@extend %home-sections--default-style;
+	//position: relative;
+	background: rgba(0, 0, 0, 0.01);//POISTUU!!!
+
+	/* .app-content-wrapper {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	} */
 
   .redirect {
     margin-left: 0.5rem;
@@ -247,7 +270,7 @@ $home-projects--color-hl: $app-color--hl;
 
 	.shuffle {
 		@extend %clickable;
-		margin-left: 0.8rem; 
+		margin-left: 1.5rem; 
 	}
 	
 	/* .go-to-projects {

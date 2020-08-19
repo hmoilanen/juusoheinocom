@@ -23,7 +23,7 @@
         :amount="amount"
         :duration="settings.autoplaySpeed"
 				:paused="paused"
-        @new-index="newIndex"
+        @new-index="chooseNewIndex"
       ></content-carousel-indicator>
     </base-flex>
 
@@ -120,7 +120,7 @@ export default {
 			this.currentIndex = newIndex
 		},
 
-    newIndex(index) {
+    chooseNewIndex(index) {
       this.paused = true
       this.$refs.carousel.pause()
       this.$refs.carousel.goTo(index)
@@ -157,13 +157,7 @@ export default {
 			return !state.app.isLoading && !state.ui.curtainDisplayed && this.isOnScreen
 				? true
 				: false
-		},
-
-		/* styling() {
-			return {
-				width: 
-			}
-		} */
+		}
   }
 }
 </script>

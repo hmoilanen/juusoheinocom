@@ -55,8 +55,13 @@ export default {
 	bloomParams: {
 		exposure: 0.9,
 		threshold: 0.9,
-		strength: 0.45,
+		strength: 0.55,
 		radius: 0
+		//TAI (erilainen):
+		//exposure: 0.9,
+		//threshold: 0.98,
+		//strength: 0.21,
+		//radius: 10
 	},
 
 	stats: null,
@@ -96,7 +101,7 @@ export default {
 
 			this.$options.initiated = true
 
-			//POISTUU!
+			// Animation controls / adjustments
 			//this.setGUI()
 			//this.$options.stats = new Stats()
 			//this.$refs.heroCanvas.appendChild(this.$options.stats.dom)
@@ -285,7 +290,7 @@ export default {
 				const cube = this.$options.cubes[index]
 				
 				// Delete cube if it's positioned behind camera + buffer
-				if (cube.position.x > this.$options.planeDepth / 2 + 300) {
+				if (cube.position.x > this.$options.planeDepth / 2 + 150) {
 					this.$options.cubes.splice(index, 1)
 					this.$options.cubeAttrs.splice(index, 1)
 					//POISTA KAMAA OIKEALLLA TAVALLA:
