@@ -107,8 +107,10 @@ export default {
 				if (newValue) {
 					// Make first cycle duration a bit longer than default
 					setTimeout(() => {
-						this.$refs.carousel.play()
-						this.paused = false
+							if (this.$refs.carousel) {
+								this.$refs.carousel.play()
+								this.paused = false
+							}
 					}, this.settings.autoplaySpeed * this.firstCycleDelay)
 				}
 			}

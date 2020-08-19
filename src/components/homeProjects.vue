@@ -145,7 +145,7 @@ export default {
 			scrollTrigger: {
 				trigger: '.home-projects',
 				start: 'top center',
-				markers: true,
+				//markers: true,
 				//toggleActions: 'restart reset reset reset'
 			}
 		})
