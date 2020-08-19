@@ -3,12 +3,14 @@
     <app-content-wrapper>
       <!-- <template v-if="tools"> -->
         <editable-content path="home.tools.main" #default="{ content }">
-          <app-title class="gsap--home-tools--title">{{ content[`title-${$app.locale()}`] }}</app-title>
-          <app-text
-						class="gsap--home-tools--title"
-						:size="8"
-						:m-b="30"
-					>{{ content[`text-${$app.locale()}`] }}</app-text>
+					<!-- <div class="jutut" style="flex: 0 0 auto; width: 100%;"> -->
+						<app-title class="gsap--home-tools--title">{{ content[`title-${$app.locale()}`] }}</app-title>
+						<app-text
+							class="gsap--home-tools--title"
+							:size="8"
+							:m-b="40"
+						>{{ content[`text-${$app.locale()}`] }}</app-text>
+					<!-- </div> -->
           <base-wrapper max-width="460px">
             <div class="grid">
               <div
@@ -61,7 +63,7 @@ export default {
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '.home-tools',
-				start: 'top middle',
+				start: '75% bottom',
 				//markers: true,
 				//toggleActions: 'restart reset reset reset'
 			}
@@ -121,10 +123,12 @@ export default {
 $color--tools-asterisk: $app-color--hl;
 
 .home-tools {
-	@extend %home-sections--default-style;
-	//display: flex;
-  //align-items: center;
-  //justify-content: center;
+	min-height: 100vh;
+	display: flex;
+  align-items: center;
+	justify-content: center;
+
+	.app-content-wrapper { flex: 1; }
 
   .grid {
     margin-top: 2rem;

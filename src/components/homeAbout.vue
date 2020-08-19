@@ -14,7 +14,7 @@
 
 				<base-wrapper max-width="paragraph">
 					<div class="quote">
-						<base-icon class="gsap--home-about--icon" :size="90">quote</base-icon>
+						<!-- <base-icon class="gsap--home-about--icon" :size="90">quote</base-icon> -->
 						<!-- <base-title
 							class="gsap--home-about--quote"
 							:center="true"
@@ -76,13 +76,13 @@ export default {
 				duration: 2,
 				opacity: 0,
 				ease: 'SlowMo.ease.config(0.7, 0.7, false)'
-			}, 1.4)
-			.from('.gsap--home-about--icon', {
+			}, 1.1)
+			/* .from('.gsap--home-about--icon', {
 				duration: 0.4,
 				x: 10,
 				opacity: 0,
 				ease: 'SlowMo.ease.config(0.7, 0.7, false)'
-			}, '-=1.9')
+			}, '-=1.9') */
 	},
 
   computed: {
@@ -100,7 +100,6 @@ $home-about--color-hl: $app-color--hl;
 $home-about--color-icon: $app-color--hl2;
 
 .home-about {
-	//@extend %home-sections--default-style;
 	min-height: 100vh;
 	display: flex;
   align-items: center;

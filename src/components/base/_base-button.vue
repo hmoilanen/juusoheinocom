@@ -32,6 +32,7 @@ export default {
     highlight: Boolean,
     empty: Boolean,
     pseudo: Boolean,
+    inverted: Boolean,
     loading: false
   },
 
@@ -51,6 +52,7 @@ export default {
         stretch: this.stretch,
         empty: this.empty,
         pseudo: this.pseudo,
+        inverted: this.inverted,
         loading: this.loading
       }
     },
@@ -191,6 +193,15 @@ $disabled-button-opacity--default: 0.4;
       background: transparent;
       color: $button-color--bg;
       &:hover { background: transparentize($button-color--bg, 0.85); }
+    }
+    &.inverted {
+      border: 1px solid transparent;
+      background: $button-color;
+      color: $button-color--bg;
+      &:hover {
+				//background: transparentize($button-color--bg, 0.85);
+				color: $button-color--highlight;
+			}
     }
     &.loading {
       color: $button-color--bg;

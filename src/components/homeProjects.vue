@@ -2,9 +2,27 @@
   <div class="home-projects">
     <app-content-wrapper>
       <editable-content path="home.projects" #default="{ content }">
-        <app-title class="gsap--home-projects--title">{{ content[`title-${$app.locale()}`] }}</app-title>
-				<base-flex class="gsap--home-projects--title">
-					<!-- <base-link :to="{ name: 'projects' }" :m-l="-5"> -->
+				<base-flex center="y">
+        	<app-title class="gsap--home-projects--title">{{ content[`title-${$app.locale()}`] }}</app-title>
+					<base-icon
+						class="shuffle"
+						@click="newRandomProject"
+						:only-stroke="true"
+					>shuffle</base-icon>
+				</base-flex>
+
+				<div class="gsap--home-projects--project">
+					<base-title
+						:size="7"
+						:scaling="1"
+						:m-t="10"
+					>{{ randomProject[`title-${$app.locale()}`] }}</base-title>
+					<base-title
+						:size="4"
+						:scaling="1"
+					>{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
+				</div>
+				<!-- <base-flex class="gsap--home-projects--title">
 					<base-link :to="{ name: 'projects' }">
 						<base-flex>
 							<base-icon :only-stroke="true">redirect</base-icon>
@@ -15,7 +33,7 @@
 						<base-icon :only-stroke="true">shuffle</base-icon>
 						<base-title :size="6" :m-l="4">shuffle</base-title>
 					</base-flex>
-				</base-flex>
+				</base-flex> -->
 
         <!-- <base-link :to="{ name: 'projects' }">
           <base-flex class="gsap--home-projects--title" center="y">
@@ -25,9 +43,7 @@
         </base-link> -->
       </editable-content>
 
-			<base-wrapper maxWidth="medium">
-				<base-title :size="7" :scaling="1">{{ randomProject[`title-${$app.locale()}`] }}</base-title>
-				<base-title :size="4" :scaling="1">{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
+			<base-wrapper class="gsap--home-projects--project" maxWidth="medium" :m-t="20">
 				<content-carousel :key="randomProject.id">
 					<!-- <div
 						v-for="(image, index) in randomProject.images"
@@ -129,7 +145,7 @@ export default {
 			scrollTrigger: {
 				trigger: '.home-projects',
 				start: 'top center',
-				//markers: true,
+				markers: true,
 				//toggleActions: 'restart reset reset reset'
 			}
 		})
@@ -142,6 +158,13 @@ export default {
 				opacity: 0,
 				ease: 'Power3.out'
 			})
+			.from('.gsap--home-projects--project', {
+				stagger: 0.2,
+				duration: 0.6,
+				y: 70,
+				opacity: 0,
+				ease: 'Power3.out'
+			}, 1)
 	},
 
   computed: {
@@ -216,16 +239,18 @@ export default {
 $home-projects--color-hl: $app-color--hl;
 
 .home-projects {
-	@extend %home-sections--default-style;
-	//position: relative;
-	background: rgba(0, 0, 0, 0.01);//POISTUU!!!
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+  //align-items: center;
+	justify-content: center;
+	//background: rgba(0, 0, 0, 0.01);//POISTUU!!!
 
-	/* .app-content-wrapper {
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-	} */
+	.app-content-wrapper {
+		width: 100%;
+	}
+
+	.app-title { margin-bottom: 0; }
 
   .redirect {
     margin-left: 0.5rem;
@@ -270,7 +295,7 @@ $home-projects--color-hl: $app-color--hl;
 
 	.shuffle {
 		@extend %clickable;
-		margin-left: 1.5rem; 
+		//margin-left: 1.5rem; 
 	}
 	
 	/* .go-to-projects {

@@ -19,6 +19,7 @@
 						:center="true"
 						:highlight="true"
 					>{{ content[`link-${$app.locale()}`] }}</base-button>
+						<!-- :inverted="true" -->
 				</div>
       </editable-content>
     </app-content-wrapper>
@@ -75,12 +76,21 @@ export default {
 
 <style lang="scss" scoped>
 .home-contact {
-	@extend %home-sections--default-style;
+	min-height: 100vh;
+	display: flex;
+  align-items: center;
+	justify-content: center;
+	//background: $app-color--hl;
+	//background: transparentize($app-color--hl, 0.9);
+	//background: adjust-hue(lighten($app-color--hl, 40%), 130deg);
+	border-top: 1px solid rgb(240, 240, 240);
 	
 	.button-container {
 		overflow: hidden;
 		padding-top: 58px;
 		margin-top: -18px,
 	}
+
+	//.base-title { color: white; }
 }
 </style>

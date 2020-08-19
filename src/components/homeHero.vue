@@ -2,7 +2,7 @@
   <div class="home-hero">
     <app-content-wrapper>
       <editable-content path="home.hero" #default="{ content }">
-        <base-title :size="7" class="name gsap--home-hero">{{ content.pretitle }}</base-title>
+        <base-title class="name gsap--home-hero" :size="7">{{ content.pretitle }}</base-title>
         <!-- <base-title
 					class="text-shadow gsap--home-hero"
           :size="17"
@@ -63,7 +63,7 @@ export default {
 			y: 70,
 			opacity: 0,
 			ease: 'Power2.out'
-		}, 0.35)
+		}, 0.25)
 	},
 
 	watch: {
