@@ -17,31 +17,30 @@ export default {
   mixins: [margins, paddings],
 
   props: {
-    center: { // center content base on axis (Note!: could be overwritten if this.align of this.justify is specified)
+    center: { // Center content base on axis (Note!: could be overwritten if this.align of this.justify is specified)
       type: String,
       validator: prop => { return ['x', 'y', 'xy'].indexOf(prop) !== -1 }
     },
-    direction: { // set flex-direction
+    direction: { // Set flex-direction
       type: String,
       validator: prop => { return ['row', 'row-reverse', 'column', 'column-reverse', 'inherit', 'initial', 'unset'].indexOf(prop) !== -1 }
     },
-    wrap: { // set flex-wrap
+    wrap: { // Set flex-wrap
       type: [Boolean, String],
       validator: prop => { return typeof prop === 'string' ? (prop === 'nowrap' || prop === 'wrap' || prop === 'wrap-reverse') : true }
     },
-    justify: { // position children based on flex box's main axis
+    justify: { // Position children based on flex box's main axis
       type: String,
       validator: prop => { return ['start', 'end', 'center', 'around', 'between', 'evenly', 'inherit', 'initial', 'unset'].indexOf(prop) !== -1 }
     },
-    align: { // position children based on flex box's cross axis
+    align: { // Position children based on flex box's cross axis
       type: String,
       validator: prop => { return ['start', 'end', 'center', 'baseline', 'inherit', 'initial', 'unset'].indexOf(prop) !== -1 }
     },
-    // 'quick' options:
-    column: Boolean, // set flex-direction as column (= simplified option for $props.direction)
-    // ONKO REVERSE EDES TARPEELLINEN?!?!
-    reverse: Boolean, // reverse flex-direction (= simplified option for $props.direction BUT doesn't affect on flex-wrap!)
-    width: String // set width of flex manually (e.g. width: 100%;)
+    // 'Quick' options:
+    column: Boolean, // Set flex-direction as column (= simplified option for $props.direction)
+    reverse: Boolean, // Reverse flex-direction (= simplified option for $props.direction BUT doesn't affect on flex-wrap!)
+    width: String // Set width of flex manually (e.g. width: 100%;)
   },
 
   computed: {
@@ -58,7 +57,7 @@ export default {
         width: this.width ? this.width : null
       }
 
-      // set flex-direction
+      // Set flex-direction
       if (this.direction) {
         flexOptions.flexDirection = this.direction
       } else if (this.column) {
@@ -71,14 +70,14 @@ export default {
         flexOptions.flexDirection = 'row-reverse'
       }
 
-      // set flex-wrap
+      // Set flex-wrap
       if (this.wrap) {
         if (typeof this.wrap === 'boolean' && this.wrap === true) {
           flexOptions.flexWrap = 'wrap'
         } else flexOptions.flexWrap = this.wrap
       }
 
-      // centering
+      // Centering
       if (this.center) {
         if (this.center === 'x') {
           if (this.column || this.direction === 'column' || this.direction === 'column-reverse') {flexOptions.alignItems = 'center' }
@@ -94,8 +93,8 @@ export default {
         }
       } 
 
-      // distribute content in flex box based on it's axis (could affect on this.center !)
-      if (this.justify) { // on main axis of flex box
+      // Distribute content in flex box based on it's axis (could affect on this.center !)
+      if (this.justify) { // On main axis of flex box
         if (this.justify === 'start') { flexOptions.justifyContent = 'flex-start' }
         else if (this.justify === 'end') { flexOptions.justifyContent = 'flex-end' }
         else if (this.justify === 'around') { flexOptions.justifyContent = 'space-around' }
@@ -103,7 +102,7 @@ export default {
         else if (this.justify === 'evenly') { flexOptions.justifyContent = 'space-evenly' }
         else { flexOptions.justifyContent = this.justify }
       }
-      if (this.align) { // on cross axis of flex box
+      if (this.align) { // On cross axis of flex box
         if (this.align === 'start') { flexOptions.alignItems = 'flex-start' }
         else if (this.justify === 'end') { flexOptions.alignItems = 'flex-end' }
         else { flexOptions.alignItems = this.align }
