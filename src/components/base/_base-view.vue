@@ -53,7 +53,7 @@ export default {
       let ui = this.$store.state.ui
       let navTopHeight = ui.navTopHeight || 50
       let footerHeight = ui.footerHeight || 50
-      let contentMinHeight = ui.window.height
+      let contentMinHeight = window.innerHeight
       let contentPaddingTop = false
       let contentPaddingBottom = false
 

@@ -28,7 +28,6 @@ export default {
       return {
         curtain: this.$store.state.ui.curtainDisplayed,
         modalHandler: this.$store.state.modals.showModal
-        //contentHandler: this.$store.state.content.showContentHandler, // TÄTÄ E ENÄÄ OLE
       }
     }
   }

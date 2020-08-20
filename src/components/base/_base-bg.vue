@@ -125,8 +125,6 @@ export default {
   width: 100%;
   background: rgba(200, 200, 200, 0.2);
 
-  &.steady {
-    background-size: cover;
-  }
+  &.steady { background-size: cover; }
 }
 </style>

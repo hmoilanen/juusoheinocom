@@ -24,14 +24,14 @@ export default {
     this.$store.dispatch('SET_STATE', { data: false, path: 'app.isLoading' })
   },
   
-  created() {
+  /* created() {
     this.handleWindowResize()
 
     window.addEventListener('resize', this.handleWindowResize) // ... throttle(this.handleWindowResize, 500)) // TODO!: OTA KÄYTTÖÖN MYÖHEMMIN!
     this.$on('hook:beforeDestroy', () => {
       window.removeEventListener('resize', this.handleWindowResize)
     })
-  },
+  }, */
 
   /* mounted() {
     let kama = this.$store.state.content.text.contact
@@ -59,12 +59,12 @@ export default {
 		}
   },
 
-  methods: {
+  /* methods: {
     handleWindowResize () { // TÄÄ PITÄÄ EHDOTTOMASTI POISTAA!!! JA KORJATA OIKKEIN MISSÄ TÄTÄ ON KÄYTETTTY
       this.$store.dispatch('SET_STATE', { data: window.innerWidth, path: 'ui.window.width' })
       this.$store.dispatch('SET_STATE', { data: window.innerHeight, path: 'ui.window.height' })
     }
-  }
+  } */
 }
 </script>
 

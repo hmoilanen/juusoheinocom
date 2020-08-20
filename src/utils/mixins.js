@@ -47,7 +47,7 @@ export const sizing = { // Generic sizing mixin for components
 
       // Fixed sizing based on breakpoints
       function ifScaling(size) {
-        // expected prop values:
+        // Expected prop values:
         // -boolean (true), where size is scaled based on default multiplier and app's breakpoints
         // -array of numbers (1 = 0.125rem) which correlate with app's breakpoints (eg. [6, 8, 10]), see: store.state.ui
         // -object with key-value pairs, where keys are custom breakpoints and values numbers (eg. { '400': 6, '700': 8, '1000': 10 })
@@ -84,7 +84,7 @@ export const sizing = { // Generic sizing mixin for components
             })
 
             if (hasNumbers) {
-              let windowWidth = self.$store.state.ui.window.width
+              let windowWidth = window.innerWidth
 
               for (let i = 0; i < customBreakpoints.length; i++) {
                 if (windowWidth < customBreakpoints[i]) {
