@@ -15,13 +15,12 @@
         @keydown.down.prevent="activateNext"
         @keydown.enter.prevent="selectActive"
       >
-        <!-- @keydown.tab.prevent -->
         <span v-if="selected">{{ this.selected }}</span>
         <span v-else class="placeholder">{{ this.placeholder }}</span>
         <base-icon tooltip="toggle">down</base-icon>
       </div>
 
-      <ul v-show="showDropdown" ref="list" class="list" :style="styling.list">
+      <ul v-show="showDropdown" ref="list" class="list">
         <div
           v-for="(item, index) in value"
           :key="item"
@@ -36,22 +35,16 @@
 </template>
 
 <script>
-// TODOS:
-// TÄSSÄ ON SEKÄ TEMPLATEN RAKENNE ETTÄ SEN TAKIA MYÖS TYYLIT VITUILLAAN (HUOM VARSINKIN .toggle / EVENT HANDLERIT!)
-// PROP: SÄÄDÄ NIIN ETTÄ VOI ANTAA SEKÄ ARRAYN ETTÄ OBJEKTIN!!!
-// PROP: TEE NIIN ETTÄ VOI ANTAA NUMEROLLA MONTAKO VAIHTOEHTOA NÄKYY DEFAULTTINA KUN DD AVATAAN -> MÄÄRITÄ KORKEUS
-// DATA: JOS ARRAY (ACTIVEINDEX = INDEX), JOS OBJECT (ACTIVEIINDEX = INDEX.VALUE) -> KIRJOITA TÄSTÄ MYÖS OHJE
-
 import Popper from 'popper.js'
-import { sizing, margins, dynamicStyleSet } from '@/utils/mixins'
-import onClickOutside from '@/components/onClickOutside'
+import { sizing, margins } from '@/utils/mixins'
+//import onClickOutside from '@/components/onClickOutside'
 
 export default {
   name: 'baseDropdown',
 
-  mixins: [sizing, margins, dynamicStyleSet],
+  mixins: [sizing, margins],
 
-  components: { onClickOutside },
+  //components: { onClickOutside },
 
   props: {
     value: {
@@ -72,17 +65,13 @@ export default {
     placeholder: {
       type: String,
       default: 'Select...'
-    },
-    /* maxWidth: {
-      type: String,
-      default: '100%'
-    }, */
+    }
   },
 
   data() {
     return {
       showDropdown: false,
-      selected: '', // tee myös multi
+      selected: '',
       activeIndex: 0,
       mixinSizeCategories: { s: 7, m: 8, l: 9, xl: 10 }
     }
@@ -171,17 +160,8 @@ export default {
   },
 
   computed: {
-    /* activeIndex() {
-      //if (typeof this.value === 'array') {
-      if (Array.isArray(this.value)) {
-        return this.value.indexOf(this.selected)
-      }
-      return 'x' // TÄHÄN OBJEKTITARKASTELU / -KEISSI 
-    }, */
-
     classing() {
       return {
-        [`style-set-${this.dynamicStyleSet}`]: true, // see: utils/mixins.js
         open: this.showDropdown,
         disabled: this.disabled
       }
@@ -194,14 +174,10 @@ export default {
       return {
         root: {
           fontSize: this.mixinSizing,
-          //maxWidth: this.maxWidth
         },
         toggle: {
           height: toggleHeight + 'em',
           padding: `0 ${baseTogglePadding}em`
-        },
-        list: {
-          //padding: `${baseTogglePadding * 0.6}em`
         }
       }
     }
@@ -223,83 +199,71 @@ $dropdown-font--placeholder: $app-font--placeholder;
 .base-dropdown {
   position: relative;
   display: block;
-  min-width: 160px; // = 10rem
+  min-width: 160px;
+	font-family: $dropdown-font;
+
+	.toggle {
+		max-width: 100%;
+		@extend %input--border;
+		border-color: $dropdown-color--border;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		//padding: ; // see: this.styling
+		outline: 0;
+		background: $dropdown-color--bg;
+		font-size: inherit;
+		font-family: $dropdown-font--placeholder;
+		@extend %clickable;
+		&:focus { background: $dropdown-color--bg-focus; }
+		span {
+			margin-right: 2em;
+			max-width: 100% !important;
+			@extend %truncate;
+			&.placeholder { 
+				font-weight: 500;
+				letter-spacing: 0.05em;
+				color: $dropdown-color--placeholder;
+			}
+		}
+		svg {
+			flex-shrink: 0;
+			display: inline-block;
+			width: 0.8em;
+			height: 0.8em;
+			@extend %rotate-0;
+		}
+	}
+
+	&.open .toggle svg { @extend %rotate-180; }
+
   &.disabled { @extend %input--disabled; }
 
-  &.style-set-0 {
-    font-family: $dropdown-font;
-
-    .toggle {
-      max-width: 100%;
-      @extend %input--border;
-      border-color: $dropdown-color--border;
-      //border: 1px solid $dropdown-color--border;
-      //border-radius: 3px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      //padding: ; // see: this.styling
-      outline: 0;
-      background: $dropdown-color--bg;
-      font-size: inherit;
-      font-family: $dropdown-font--placeholder;
-      @extend %clickable;
-      &:focus { background: $dropdown-color--bg-focus; }
-      span {
-        margin-right: 2em;
-        max-width: 100% !important;
-        @extend %truncate;
-        &.placeholder { 
-          font-weight: 500;
-          letter-spacing: 0.05em;
-          color: $dropdown-color--placeholder;
-        }
-      }
-      svg {
-        flex-shrink: 0;
-        display: inline-block;
-        width: 0.8em;
-        height: 0.8em;
-        @extend %rotate-0;
-      }
-    }
-    &.open .toggle svg { @extend %rotate-180; }
-
-    .list {
-      z-index: 1;
-      margin-top: 2px;
-      margin-bottom: 2px;
-      position: absolute;
-      left: 0;
-      right: 0;
-      @extend %input--border;
-      border-color: $dropdown-color--border;
-      //border: 1px solid $dropdown-color--border;
-      //border-radius: 3px;
-      background: $dropdown-color--bg;
-      font-size: inherit;
-      max-height: 200px;
-      overflow-y: auto;
-      box-shadow: 1px 3px 5px $dropdown-color--shadow, 0 5px 20px $dropdown-color--shadow;
-      & > * {
-        padding: 0.7em 0.4rem;
-        //margin: 0.8em 0;
-        //border-radius: 2px;
-        @extend %truncate;
-        @extend %clickable;
-        &:hover { background: $dropdown-color--bg-focus; }
-        &.active {
-          background: $dropdown-color--border;
-          color: $dropdown-color--bg;
-          font-weight: 500;
-        }
-      }
-    }
-  }
-
-  /* &.style-set-1 {
-    @extend .style-set-0; // optional
-    // customize here!
-  } */
+	.list {
+		z-index: 10;
+		margin-top: 2px;
+		margin-bottom: 2px;
+		position: absolute;
+		left: 0;
+		right: 0;
+		@extend %input--border;
+		border-color: $dropdown-color--border;
+		background: $dropdown-color--bg;
+		font-size: inherit;
+		max-height: 200px;
+		overflow-y: auto;
+		box-shadow: 1px 3px 5px $dropdown-color--shadow, 0 5px 20px $dropdown-color--shadow;
+		& > * {
+			padding: 0.7em 0.4rem;
+			@extend %truncate;
+			@extend %clickable;
+			&:hover { background: $dropdown-color--bg-focus; }
+			&.active {
+				background: $dropdown-color--border;
+				color: $dropdown-color--bg;
+				font-weight: 500;
+			}
+		}
+	}
 }
 </style>
