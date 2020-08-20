@@ -6,9 +6,6 @@
 </template>
 
 <script>
-// TODOS:
-// -ADD style-set mixin
-
 export default {
   name: 'baseLabel',
 
@@ -26,7 +23,7 @@ $label-font: $app-font--label;
 .base-label {
   display: block;
   margin-bottom: 0.3em;
-  font-size: 0.9em; // based on parent component's font-size
+  font-size: 0.9em; // Based on parent component's font-size
   font-weight: 500;
   font-family: $label-font;
   color: $label-color;
