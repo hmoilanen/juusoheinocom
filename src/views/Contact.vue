@@ -1,9 +1,7 @@
 <template>
   <base-view class="view-contact" content-padding-y="y">
-    <!-- <base-wrapper max-width="paragraph"> -->
     <app-content-wrapper max-width="paragraph">
-      <!-- <template v-if="!isLoading"> -->
-          <!-- v-if="!$app.isLoading()" -->
+			
         <editable-content
           path="contact.main"
           #default="{ content }"
@@ -84,10 +82,7 @@
         <div v-else>
           <app-text :size="8">{{ this.mainFeedback }}</app-text>
         </div>
-      <!-- </template> -->
     </app-content-wrapper>
-
-    <!-- </base-wrapper> -->
   </base-view>
 </template>
 
