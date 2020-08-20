@@ -12,7 +12,6 @@ export default {
     source: {
 			type: String,
 			required: true
-      //default: '/img/bg_default.jpg' // LIITÄ TÄHÄN JOKU ASIANMUKAINEN KUVA!
     },
     position: {
       type: String,
