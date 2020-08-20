@@ -182,7 +182,7 @@ $input-font--placeholder: $app-font--placeholder;
 		font-family: $input-font;
 		color: $input-color;
 		&:focus { background: $input-color--bg-focus; }
-		&::placeholder { // Not supported in all browsers... Otherwise behaves as regular text content
+		&::placeholder { // Not supported in all browsers... Otherwise behaves like regular text content
 			font-weight: 500;
 			font-family: $input-font--placeholder;
 			color: $input-color--placeholder;
