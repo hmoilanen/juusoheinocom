@@ -19,7 +19,7 @@ export default {
 <style lang="scss" scoped>
 $loader-color--highlight: $app-color--hl;
 $loader-color--secondary: $app-color--secondary;
-//$loader-color--secondary: rgba(0, 0, 0, 0.45);
+$loader-duration: 1.3s;
 
 .base-loader {
   display: flex;
@@ -27,13 +27,11 @@ $loader-color--secondary: $app-color--secondary;
   justify-content: center;
 
   .kitt-container {
-    $kitt-duration: 1.3s;
-
     position: relative;
     width: 120px;
     height: 3px;
     background: $loader-color--secondary;
-    animation: flip calc(#{$kitt-duration} * 2) infinite;
+    animation: flip calc(#{$loader-duration} * 2) infinite;
 
     @keyframes flip {
       0%, 50% { transform: rotate(0); }
@@ -45,7 +43,7 @@ $loader-color--secondary: $app-color--secondary;
       top: 0;
       height: 100%;
       background: $app-color--hl;
-      animation: slide $kitt-duration linear infinite;
+      animation: slide $loader-duration linear infinite;
 
       @keyframes slide {
         0% {
