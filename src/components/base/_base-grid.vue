@@ -51,7 +51,6 @@ export default {
           } else if (typeof this.gap[key] === 'string') {
             gap[key] = this.gap[key]
           } else {
-            //console.log('is else / object');
             console.log('baseGrid: provide $props.gap values as strings or numbers!')
           }
         }
@@ -77,7 +76,5 @@ export default {
 <style lang="scss" scoped>
 .base-grid {
   display: grid;
-  //grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-  //grid-gap: 15px;
 }
 </style>

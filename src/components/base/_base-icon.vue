@@ -1,5 +1,5 @@
 <template>
-  <!-- Note: ViewBox is set to '0 0 50 50' because of the size of svgs. -->
+  <!-- Note: viewBox is set to '0 0 50 50' because of the size of svgs -->
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 50 50"
@@ -33,7 +33,7 @@ export default {
       type: String,
       default: 'love'
     },
-    app: { // e.g. twitter / twitch / other external apps
+    app: { // Eg. twitter / twitch / other external apps
       type: String,
       default: 'currentColor'
     },
