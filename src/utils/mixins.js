@@ -276,7 +276,7 @@ export const paddings = { // Generic padding mixin for components
   }
 }
 
-export const dynamicStyleSet = { // Generic styling for base components
+/* export const dynamicStyleSet = { // Generic styling for base components
   props: {
     styleSet: Number,
     resetStyle: Boolean
@@ -297,9 +297,9 @@ export const dynamicStyleSet = { // Generic styling for base components
       } else return 0
     }
   }
-}
+} */
 
-export const editableContent = { // Generic 'tooling' for base components wrapped in editableContent component
+/* export const editableContent = { // Generic 'tooling' for base components wrapped in editableContent component
   inject: {
     editableContentData: {
       type: String,
@@ -314,4 +314,4 @@ export const editableContent = { // Generic 'tooling' for base components wrappe
       } else return 'default inner content' // Note: this cannot be changed or baseImage component misfunctions
     }
   }
-}
+} */

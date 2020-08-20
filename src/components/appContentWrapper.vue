@@ -16,7 +16,7 @@ export default {
   mixins: [sizing],
 
   props: {
-    size: { // = dynamic size of side paddings
+    size: { // Dynamic size of side paddings
       type: [Number, String],
       default: 8, // 8 * 0.125rem = 1rem = 16px
       validator(prop) {

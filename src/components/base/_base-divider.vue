@@ -1,19 +1,19 @@
 <template>
   <div
     class="base-divider"
-    :style="[mixinMargins, mixinPaddings]"
+    :style="[mixinMargins]"
   >
     <div :style="styling"></div>
   </div>
 </template>
 
 <script>
-import { margins, paddings } from '@/utils/mixins'
+import { margins } from '@/utils/mixins'
 
 export default {
   name: 'baseDivider',
 
-  mixins: [margins, paddings],
+  mixins: [margins],
 
   props: {
     maxWidth: String
