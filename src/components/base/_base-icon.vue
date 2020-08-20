@@ -51,10 +51,10 @@ export default {
 
   computed: {
     dynamicIcon() {
-      if (this.$slots.default) { // = by slot
+      if (this.$slots.default) { // By slot
         return 'icon-' + this.$slots.default[0].text;
       }
-      return 'icon-' + this.icon; // = by prop
+      return 'icon-' + this.icon; // By prop
     },
 
     listeners () {
