@@ -41,14 +41,13 @@ export default {
 
   methods: {
     confirmAdd() {
+			// TUDUU
       /* this.$store.dispatch('SET_STATE', {
         data: this.editedContent,
         path: this.modalData.path
-      }) */
-      console.log('tähän vähän koodia');
-      
-      
-      this.$emit('close-modal')
+      })
+
+      this.$emit('close-modal') */
     }
   }
 }
