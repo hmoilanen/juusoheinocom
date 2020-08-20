@@ -1,7 +1,6 @@
 <template>
   <div
     class="base-divider"
-    :class="classing"
     :style="[mixinMargins, mixinPaddings]"
   >
     <div :style="styling"></div>
@@ -9,24 +8,18 @@
 </template>
 
 <script>
-import { margins, paddings, dynamicStyleSet } from '@/utils/mixins'
+import { margins, paddings } from '@/utils/mixins'
 
 export default {
   name: 'baseDivider',
 
-  mixins: [margins, paddings, dynamicStyleSet],
+  mixins: [margins, paddings],
 
   props: {
     maxWidth: String
   },
 
   computed: {
-    classing() {
-      return {
-        [`style-set-${this.dynamicStyleSet}`]: true, // see: utils/mixins.js
-      }
-    },
-
     styling() {
       return { maxWidth: this.maxWidth ? this.maxWidth : false }
     }
@@ -43,18 +36,11 @@ $divider-color: darken($app-color--theme, 25%);
   justify-content: center;
   height: 4px;
   
-  &.style-set-0 {
-    div {
-      max-width: 100%; // can be overridden with prop.maxWidth
-      height: 1.1px; // sometimes '1px' would be rendered as '0.99px' so it couldn't be seen
-      width: 100%;
-      background: $divider-color;
-    }
-  }
-
-  /* &.style-set-1 {
-    @extend .style-set-0; // optional
-    // customize here!
-  } */
+	div {
+		max-width: 100%; // can be overridden with prop.maxWidth
+		height: 1.1px; // sometimes '1px' would be rendered as '0.99px' so it couldn't be seen
+		width: 100%;
+		background: $divider-color;
+	}
 }
 </style>
