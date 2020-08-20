@@ -1,27 +1,24 @@
 <template>
   <div
     class="base-spacer"
-    :style="[mixinMargins, mixinPaddings, cssVars]"
+    :style="[mixinMargins, cssVars]"
   >
     <slot></slot>
   </div>
 </template>
 
 <script>
-//LISÄÄ SCRIPTAAN TARKASTELU, ONKO LAPSI JOO VALMIIKSI BLOCK / FLEX / TMV...
-//JOS EI OLE, ANNA TYYLINÄ display: block;
-//MUUTA KOKO KOMPONENTTI RENDERLESSIKSI ?!
+// Todo:
+// Turn this component into renderless
+// Add script which gives children style 'display: block' if they don't behave as such, etc. is 'display: flex'
+	// Now done with css and might cause problems f eg. flex is changed as block)
 
-import { sizing, margins, paddings } from '@/utils/mixins'
+import { sizing, margins } from '@/utils/mixins'
 
 export default {
   name: 'baseSpacer',
 
-  mixins: [sizing, margins, paddings],
-
-  props: {
-    // uses $prop.size from mixin, see: @/utils/mixins
-  },
+  mixins: [sizing, margins],
 
   computed: {
     cssVars() {

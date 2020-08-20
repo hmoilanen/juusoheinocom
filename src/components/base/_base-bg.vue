@@ -116,7 +116,7 @@ export default {
 
 <style lang="scss" scoped>
 .base-bg {
-  //position: ; // see: this.position
+  //position, see: this.position
   top: 0;
   left: 0;
   right: 0;

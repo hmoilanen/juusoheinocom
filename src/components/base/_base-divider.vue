@@ -37,8 +37,8 @@ $divider-color: darken($app-color--theme, 25%);
   height: 4px;
   
 	div {
-		max-width: 100%; // can be overridden with prop.maxWidth
-		height: 1.1px; // sometimes '1px' would be rendered as '0.99px' so it couldn't be seen
+		max-width: 100%; // Can be overridden with prop.maxWidth
+		height: 1.1px; // Prevents element to be rendered with height of 0.99px = invisible
 		width: 100%;
 		background: $divider-color;
 	}

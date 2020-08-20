@@ -155,7 +155,7 @@ $input-font--placeholder: $app-font--placeholder;
 
 .base-input {
   width: 100%;
-  // font-size: ; // see: this.styling
+  // font-size, see: this.styling
   &.disabled { @extend %input--disabled; }
 
 	.input-container {
@@ -175,7 +175,7 @@ $input-font--placeholder: $app-font--placeholder;
 		@extend %input--border;
 		border-color: $input-color--border;
 		width: 100%;
-		//padding: ; // see: this.styling.input
+		//padding, see: this.styling.input
 		background: $input-color--bg;
 		font-size: inherit;
 		letter-spacing: 0.05em;

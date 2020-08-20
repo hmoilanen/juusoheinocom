@@ -90,14 +90,14 @@ $button-side: 1.4em !default;
 	@extend %app-default--border-radius;
 	background: $button-color--bg;
 	color: $button-color;
-  //line-height: // see: this.styling
-  //font-size: // see: this.styling
+  //line-height, see: this.styling
+  //font-size, see: this.styling
   font-weight: 700;
   font-family: $button-font;
   @extend %clickable;
   outline: 0;
   user-select: none;
-  -webkit-tap-highlight-color: transparent; // ignore tap active state (non-standard across browsers)
+  -webkit-tap-highlight-color: transparent; // Ignore tap active state (non-standard across browsers)
   &:focus {
     &::before {
       $focused--border-width: -4px;

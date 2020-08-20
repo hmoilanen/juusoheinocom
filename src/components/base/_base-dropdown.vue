@@ -209,7 +209,7 @@ $dropdown-font--placeholder: $app-font--placeholder;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
-		//padding: ; // see: this.styling
+		//padding, see: this.styling
 		outline: 0;
 		background: $dropdown-color--bg;
 		font-size: inherit;
