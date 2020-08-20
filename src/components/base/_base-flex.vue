@@ -1,7 +1,7 @@
 <template>
   <div
     class="base-flex"
-    :style="[styling, mixinMargins, mixinPaddings]"
+    :style="[styling, mixinMargins]"
     v-on="listeners"
   >
     <slot></slot>
@@ -9,12 +9,12 @@
 </template>
 
 <script>
-import { margins, paddings } from '@/utils/mixins'
+import { margins } from '@/utils/mixins'
 
 export default {
   name: 'baseFlex',
 
-  mixins: [margins, paddings],
+  mixins: [margins],
 
   props: {
     center: { // Center content base on axis (Note!: could be overwritten if this.align of this.justify is specified)

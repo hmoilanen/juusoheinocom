@@ -1,8 +1,6 @@
 import { dataType } from '@/utils/data'
 
-// NOTE!: margins / paddings / sizing DOESN'T ACCEPT 0 AS A NUMBER / NO STYLE IS GENERATED IN COMPONENT! -> FIX!
-// NOTE!: margins / paddings / sizing DOESN'T ACCEPT 0 AS A NUMBER / NO STYLE IS GENERATED IN COMPONENT! -> FIX!
-// NOTE!: margins / paddings / sizing DOESN'T ACCEPT 0 AS A NUMBER / NO STYLE IS GENERATED IN COMPONENT! -> FIX!
+// NOTE!: margins / sizing DOESN'T ACCEPT 0 (= falsy !) AS A NUMBER / NO STYLE IS GENERATED IN COMPONENT! -> FIX!
 
 export const sizing = { // Generic sizing mixin for components
   props: {
@@ -31,7 +29,7 @@ export const sizing = { // Generic sizing mixin for components
   computed: {
     mixinSizing() {
       //let baseDimension = this.$store.state.ui.baseDimension
-      let baseDimension = 0.125
+      let baseDimension = 0.125 // HARD CODED BECAUSE OF JEST...
       let sizingBaseValue = baseDimension ? baseDimension : 0.125
       let self = this
 
@@ -122,7 +120,6 @@ export const margins = { // Generic margin mixin for components
     mT: [Number, String], // = margin top
     mB: [Number, String], // = margin bottom
     mUnit: {
-      // = margin unit
       type: String,
       default: 'rem'
     }
@@ -197,7 +194,7 @@ export const margins = { // Generic margin mixin for components
   }
 }
 
-export const paddings = { // Generic padding mixin for components
+/* export const paddings = { // Generic padding mixin for components
   props: {
     p: [Number, String], // = padding
     pX: [Number, String], // = padding left / right
@@ -274,7 +271,7 @@ export const paddings = { // Generic padding mixin for components
       return paddings
     }
   }
-}
+} */
 
 /* export const dynamicStyleSet = { // Generic styling for base components
   props: {
