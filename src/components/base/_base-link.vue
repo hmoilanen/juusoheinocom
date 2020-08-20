@@ -9,7 +9,7 @@
     :style="[styling, mixinMargins]"
     v-on="listeners"
   >
-    <slot>baseLink</slot>
+    <slot>{{ $options.name }}</slot>
   </component>
 </template>
 

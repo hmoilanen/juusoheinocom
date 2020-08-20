@@ -7,7 +7,7 @@
     :style="[styling, mixinMargins]"
   >
     <base-icon v-if="icon" :icon="icon"></base-icon>
-    <slot>baseButton</slot>
+    <slot>{{ $options.name }}</slot>
     <base-loader v-if="loading"></base-loader>
   </button>
 </template>

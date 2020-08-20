@@ -1,6 +1,6 @@
 <template>
   <label class="base-label">
-    <slot>base label</slot>
+    <slot>{{ $options.name }}</slot>
     <span v-if="required"> *</span>
   </label>
 </template>
