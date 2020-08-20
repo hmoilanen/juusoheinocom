@@ -4,7 +4,7 @@
     :is="tag"
     class="base-text"
     :class="classing"
-    :style="[styling, mixinMargins, mixinPaddings]"
+    :style="[styling, mixinMargins]"
     v-on="listeners"
   >
     <slot>{{ this.textContent }}</slot>
@@ -12,20 +12,12 @@
 </template>
 
 <script>
-// TODOS:
-// PROP: ROWS (-> MÄÄRITÄ NÄYTETTÄVIEN RIVIEN MAKSIMIMÄÄRÄ)
-// PROP: TURNCATE -> IMPLEMENTOI shave.js
-// PROP: QUOTE -> VRT. HANDLE!
-// PROP: CODE -> VRT. HANDLE!
-// PROP: LINK -> VRT. HANDLE!
-
-import { mapState } from 'vuex'
-import { sizing, margins, paddings, dynamicStyleSet } from '@/utils/mixins'
+import { sizing, margins } from '@/utils/mixins'
 
 export default {
   name: 'baseText',
 
-  mixins: [sizing, margins, paddings, dynamicStyleSet],
+  mixins: [sizing, margins],
 
   props: {
     tag: {
@@ -33,10 +25,9 @@ export default {
       default: 'p'
     },
     lorem: [Boolean, Number],
-    display: String, // for css
-    weight: Number, // for css
+    display: String, // For css
+    weight: Number, // For css
     clickable: Boolean
-    //isHandle: Boolean
   },
 
   data() {
@@ -46,25 +37,11 @@ export default {
     }
   },
 
-  /* watch: {
-    sizing: {
-      immediate: true,
-      deep: true,
-      handler: function() {
-        if (this.sizing[this.$options.name]) {
-          this.mixinSizeCategories = this.sizing[this.$options.name]
-        }
-      }
-    }
-  }, */
-
   computed: {
-    //...mapState('base', ['sizing']),
-
     textContent() {
-      if (this.lorem && typeof this.lorem === 'boolean') { // if boolean and true     
+      if (this.lorem && typeof this.lorem === 'boolean') { // If boolean and true     
         return this.loremIpsum
-      } else if (this.lorem && typeof this.lorem === 'number') { // if number
+      } else if (this.lorem && typeof this.lorem === 'number') { // If number
         let length = this.lorem > this.loremIpsum.length - 1
           ? this.loremIpsum.length
           : this.lorem
@@ -77,16 +54,13 @@ export default {
 
     classing() {
       return {
-        [`style-set-${this.dynamicStyleSet}`]: true, // see: utils/mixins.js
-        clickable: this.clickable,
-        //handle: this.isHandle,
+        clickable: this.clickable
       }
     },
 
     styling() {
       return {
         fontSize: this.mixinSizing,
-        //lineHeight: '1.3em',
         fontWeight: this.weight ? this.weight : false,
         display: this.display ? this.display : false
       }
@@ -103,38 +77,22 @@ export default {
 $text-color: $app-color--text-base;
 $text-color--selection: $app-color--text-base;
 $text-color--selection-bg: $app-color--hl;
-$text-color--handle: $app-color--text-handle;
 $text-font: $app-font--base;
 $text-font--handle: $app-font--handle;
 
 .base-text {
   position: relative;
-  line-height: 1.4em;
+	font-family: $text-font;
+	color: $text-color;
+	&::selection {
+		background: $text-color--selection-bg;
+		color: $text-color--selection;
+	}
 
   &.clickable { @extend %clickable; }
-
-  &.style-set-0 {
-    font-family: $text-font;
-    color: $text-color;
-    &::selection {
-      background: $text-color--selection-bg;
-      color: $text-color--selection;
-    }
-    @at-root {
-      a #{&} {
-        //color: blue;
-      }
-    }
-    
-    /* &.handle {
-      font-family: $text-font--handle;
-      color: $text-color--handle;
-    } */
-  }
-
-  /* &.style-set-1 {
-    @extend .style-set-0; // optional
-    // customize here!
-  } */
+	
+	/* @at-root {
+		a #{&} {}
+	} */
 }
 </style>
