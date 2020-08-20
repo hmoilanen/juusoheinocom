@@ -1,7 +1,7 @@
 <template>
   <base-view class="view-contact" content-padding-y="y">
     <app-content-wrapper max-width="paragraph">
-			
+
         <editable-content
           path="contact.main"
           #default="{ content }"
@@ -121,7 +121,7 @@ export default {
       invalidEmail: false,
       recaptchaVerified: false,
       submitting: false,
-      submitted: null // false -> error, true -> success, see: this.submit()
+      submitted: null // false -> error, true -> success, see: this.submit
     }
 	},
 	
@@ -277,43 +277,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-$view-contact--color-hl: $app-color--hl;
-$saissi: 50px;
-.view-contact {
-  .ikonit {
-    width: $saissi;
-    height: $saissi;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    //background: pink;
-  }
-  .base-icon {
-    position: absolute;
-    width: $saissi;
-    height: $saissi;
-    color: transparent;
-    stroke: $view-contact--color-hl;
-    stroke-width: 5px;
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: jooo 3s ease forwards 2s;
-
-    @keyframes jooo {
-      to {
-        stroke-dashoffset: 0;
-      }
-    }
-
-    &.eka { stroke-width: 10px; }
-    &.toka {
-      transform: rotate(-45deg);
-      transform-origin: calc(19.67 / 50 * 100%) calc(35.66 / 50 * 100%);
-    }
-    
-  }
-}
-</style>

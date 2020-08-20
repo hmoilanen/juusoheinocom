@@ -10,8 +10,6 @@
 </template>
 
 <script>
-//TEE MYÖHEMMIN MYÖS HORISONTAALISKROLLAUS (X) !!!
-
 export default {
   name: 'baseScroller',
 
@@ -23,7 +21,6 @@ export default {
       default: '3px'
     }
   },
-
 
   mounted() {
     this.handleElementProperties()
@@ -92,8 +89,8 @@ $base-scroller--color-thumb: $app-color--hl;
   .thumb {
     position: absolute;
     left: 0;
-    //top, see: this.handleElementProperties()
-    //height, see: this.handleElementProperties()
+    //top, see: this.handleElementProperties
+    //height, see: this.handleElementProperties
     width: 100%;
     background: $base-scroller--color-thumb;
     transition: top 0.05s ease;
