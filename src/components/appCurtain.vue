@@ -27,7 +27,7 @@ export default {
       inOutDelay: 300,
       showAnimation: false,
       showLoader: false,
-      animationDuration: 22000000,
+      animationDuration: 22000000, // SELVITÄ MITÄS TÄÄLLÄ OIKEIN TAPAHTUU! :D
       animationDelay: 600,
       animationPassed: false,
     }

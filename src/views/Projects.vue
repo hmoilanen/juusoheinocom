@@ -71,6 +71,13 @@ export default {
 			item.style.visibility = 'hidden'
 		})
 	},
+
+	updated() {
+		console.log('updeittas');
+	},
+	beforeDestroy() {
+		console.log('beforeDestroy');
+	},
 	
 	watch: {
 		'$store.state.ui.curtainDisplayed': {

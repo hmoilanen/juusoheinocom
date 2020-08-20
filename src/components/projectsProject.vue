@@ -164,6 +164,7 @@ $projects-project--color-bg: $app-color--theme;
 $projects-project--color-hl: $app-color--hl;
 
 .projects-project {
+	opacity: 0.3;
   overflow-y: auto;
   padding-top: 60px;
   padding-bottom: 5rem;

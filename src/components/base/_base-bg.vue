@@ -79,7 +79,8 @@ export default {
         parallax: this.parallax,
         steady: this.parallax && this.steady ? this.steady : false
       }
-    },
+		},
+
     styling() {
       let source = encodeURI(this.source)
       let repeat = 'no-repeat'

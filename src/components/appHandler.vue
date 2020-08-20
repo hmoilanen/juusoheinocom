@@ -60,7 +60,7 @@ export default {
   },
 
   methods: {
-    handleWindowResize () {
+    handleWindowResize () { // TÄÄ PITÄÄ EHDOTTOMASTI POISTAA!!! JA KORJATA OIKKEIN MISSÄ TÄTÄ ON KÄYTETTTY
       this.$store.dispatch('SET_STATE', { data: window.innerWidth, path: 'ui.window.width' })
       this.$store.dispatch('SET_STATE', { data: window.innerHeight, path: 'ui.window.height' })
     }
