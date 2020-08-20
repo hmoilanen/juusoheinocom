@@ -201,6 +201,7 @@ $dropdown-font--placeholder: $app-font--placeholder;
   display: block;
   min-width: 160px;
 	font-family: $dropdown-font;
+	&.open { z-index: 1; }
 
 	.toggle {
 		max-width: 100%;
@@ -240,7 +241,6 @@ $dropdown-font--placeholder: $app-font--placeholder;
   &.disabled { @extend %input--disabled; }
 
 	.list {
-		z-index: 10;
 		margin-top: 2px;
 		margin-bottom: 2px;
 		position: absolute;
