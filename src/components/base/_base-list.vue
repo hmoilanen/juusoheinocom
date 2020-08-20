@@ -2,7 +2,7 @@
   <component
     :is="type"
     class="base-list"
-    :style="[styling.list, mixinMargins, mixinPaddings]"
+    :style="[styling.list, mixinMargins]"
   >
     <li
       v-for="(item, index) in list"
@@ -15,15 +15,12 @@
 </template>
 
 <script>
-// TODOS:
-// -CHANGE BINDED KEY SO IT CAN BE DECIDED BY USER FROM LIST-PROP VALUES
-
-import { margins, paddings } from '@/utils/mixins'
+import { margins } from '@/utils/mixins'
 
 export default {
   name: 'baseList',
 
-  mixins: [margins, paddings],
+  mixins: [margins],
 
   props: {
     list: [Array, Object],
@@ -54,7 +51,7 @@ export default {
   },
 
   mounted() {
-    // get child component / element font size for base-list
+    // Get child component / element font size for base-list
     this.$nextTick(() => {
       let isSlotted = this.$el.lastElementChild.firstElementChild
       
