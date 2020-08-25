@@ -23,6 +23,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+	// Create page title / head
 	const inner = store.state.app.official.appName
 	const separator = '|'
 	const complement = to.meta && to.meta.title
