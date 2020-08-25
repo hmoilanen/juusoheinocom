@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <router-view v-if="!$app.isLoading()"></router-view>
-    <app-curtain v-if="componentControl.curtain"></app-curtain>
     <app-ui></app-ui>
+    <app-curtain v-if="componentControl.curtain"></app-curtain>
     <modal-handler v-if="componentControl.modalHandler"></modal-handler>
     <app-handler></app-handler>
   </div>
