@@ -9,20 +9,9 @@ import * as THREE from 'three'
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js'
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js'
 import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js'
-//import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js'
 import { GUI } from 'three/examples/jsm/libs/dat.gui.module.js';
 import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { onScreen } from '@/utils/display'
-
-// const scene = new THREE.scene()
-// TAI:
-// import { Scene } from 'three'
-// const scene = new Scene()
-// Also, see other popular parts of the library:
-// '@/node_modules/three/examples/jsm/...
-
-// Add text:
-// https://threejs.org/docs/#manual/en/introduction/Creating-text
 
 export default {
 	name: 'heroCanvas',
@@ -57,7 +46,7 @@ export default {
 		threshold: 0.9,
 		strength: 0.55,
 		radius: 0
-		//TAI (erilainen):
+		// Or:
 		//exposure: 0.9,
 		//threshold: 0.98,
 		//strength: 0.21,
@@ -101,7 +90,7 @@ export default {
 
 			this.$options.initiated = true
 
-			// Animation controls / adjustments
+			// Animation controls / adjustments (use when developing)
 			//this.setGUI()
 			//this.$options.stats = new Stats()
 			//this.$refs.heroCanvas.appendChild(this.$options.stats.dom)
@@ -111,7 +100,6 @@ export default {
 			this.$options.renderer = new THREE.WebGLRenderer({ antialias: true })
 			this.$options.renderer.setSize(window.innerWidth, window.innerHeight)
 			this.$options.renderer.setPixelRatio(window.devicePixelRatio)
-			//this.$options.renderer.toneMapping = THREE.LinearToneMapping
 			this.$options.renderer.toneMapping = THREE.ReinhardToneMapping
 			this.$refs.heroCanvas.appendChild(this.$options.renderer.domElement)
 		},
@@ -125,8 +113,9 @@ export default {
 		setScene() {
 			this.$options.scene = new THREE.Scene()
 			this.$options.scene.background = new THREE.Color(0xffffff)
-			//this.$options.scene.fog = new THREE.FogExp2(0xffffff, 0.00016)
+			this.$options.scene.fog = new THREE.FogExp2(0xffffff, 0.00005)
 			
+			// Use when developing:
 			//this.scene.add(new THREE.AxisHelper(10000)) // AxisHelper(size)
     	//this.scene.add(new THREE.GridHelper(100000, 1000)) // GridHelper(size, step)
 		},
@@ -160,7 +149,6 @@ export default {
 		},
 
 		setBloomPass() {
-			//this.$options.bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0, 0, 0)
 			this.$options.bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85)
 			this.$options.bloomPass.threshold = this.$options.bloomParams.threshold
 			this.$options.bloomPass.strength = this.$options.bloomParams.strength
@@ -197,7 +185,6 @@ export default {
 				this.$options.bloomPass.radius = Number(newValue)
 				this.render()
 			})
-			//this.render()	
 			
 			bloomFolder.open()
 		},
@@ -215,7 +202,6 @@ export default {
 				speed: 0.2,
 			}
 
-			//const defaultMaterial = new THREE.MeshLambertMaterial({ color: 0x800f40 })
 			const defaultMaterial = new THREE.MeshLambertMaterial({ color: 0x2b0113 })
 			const glossyMaterial = new THREE.MeshPhongMaterial({ 
 				color: 0x000000,
@@ -231,10 +217,6 @@ export default {
 			} else {
 				const cubeType = Math.random() < 0.10 ? 'geometryCuboid' : 'geometryCube'
 				cube = new THREE.Mesh(this.$options[cubeType], glossyMaterial)
-				/* if (Math.random() < 0.10) {
-				} else {
-					cube = new THREE.Mesh(this.$options.geometryCube, glossyMaterial)
-				} */
 			}
 
 			// Set cube's position on plane
@@ -263,10 +245,6 @@ export default {
 
 			this.$options.cubes.push(cube)
 			this.$options.cubeAttrs.push(attrs)
-			//this.$options.cubes[this.$options.cubes.length] = cube
-			//this.$options.cubeAttrs[this.$options.cubeAttrs.length] = attrs
-
-			//this.scene.add(cube)
 			this.$options.containerObject.add(cube)
 		},
 
@@ -275,7 +253,7 @@ export default {
 				requestAnimationFrame(this.animate)
 				this.updateCubes()
 				this.updateCamera()
-				//this.$options.stats.update()
+				//this.$options.stats.update() // Use when developing
 				this.render()
 			}
 		},
@@ -293,12 +271,7 @@ export default {
 				if (cube.position.x > this.$options.planeDepth / 2 + 150) {
 					this.$options.cubes.splice(index, 1)
 					this.$options.cubeAttrs.splice(index, 1)
-					//POISTA KAMAA OIKEALLLA TAVALLA:
-					/* this.renderer.forceContextLoss()
-					this.renderer.context = null
-					this.renderer.domElement = null
-					this.renderer = null */
-					
+
 					// Create a new cube every time one is deleted
 					this.createCube()
 				} else {
@@ -347,8 +320,7 @@ export default {
 		},
 
 		onWindowScroll() {
-			// Check if canvas is vertically visible on screen,
-			// and run .animation() if so
+			// Check if canvas is vertically visible on screen and run .animate() if so
 			const canvasOnScreen = this.$refs.heroCanvas.getBoundingClientRect()
 
 			if (onScreen(canvasOnScreen)) {
@@ -363,7 +335,3 @@ export default {
 	}
 }
 </script>
-
-<style lang="scss" scoped>
-.hero-canvas {}
-</style>
