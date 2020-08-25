@@ -7,13 +7,13 @@
       class="tab"
       :class="{ ['tab-' + (index + 1)]: true }"
     >{{ tab }}</div>
-    <div class="inidicator"></div>
+    <div class="indicator"></div>
   </div>
 </template>
 
 <script>
-// TÄMÄ EI OLE MISSÄÄN KÄYTÖSSÄ MUTTA(!) EI MYÖSKÄÄN KÄYTETTYNÄ MISSÄÄN MUUSSA PROJEKTISSAKAAN!!!
-// -> PITÄÄ LAITTAA JOHONKIN TALTEEN
+// Note: created for this app but ended up not used. Put somewhere safe
+
 export default {
   name: 'tabBar',
 
@@ -61,7 +61,7 @@ export default {
   display: flex;
   background: rgb(35, 37, 41);
 
-  .inidicator {
+  .indicator {
     pointer-events: none;
     position: absolute;
     top: 0;

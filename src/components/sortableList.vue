@@ -1,5 +1,10 @@
 <script>
-import { Sortable } from '@shopify/draggable' // See: https://github.com/Shopify/draggable | $ npm install @shopify/draggable --save
+import { Sortable } from '@shopify/draggable'
+// See: https://github.com/Shopify/draggable
+// $ npm install @shopify/draggable --save
+
+// Note!: when <sortableListItem> is for-looped it's keys can't be binded to index but some unique data...
+// Otherwise draggable will glitch
 
 function move (items, oldIndex, newIndex) {
   const itemRemovedArray = [
@@ -12,8 +17,6 @@ function move (items, oldIndex, newIndex) {
     ...itemRemovedArray.slice(newIndex, itemRemovedArray.length)
   ]
 }
-// Note! when <sortableListItem> is for-looped it's keys can't be binded to index but soma unique data
-// otherwise draggable will glitch
 
 export default {
   props: {
@@ -21,10 +24,10 @@ export default {
       required: true
     },
     itemClass: {
-      default: 'sortable-list-item'
+      default: 'sortable-list--item'
     },
     handleClass: {
-      default: 'sortable-list-item-handle'
+      default: 'sortable-list--item-handle'
     }
   },
 
@@ -59,11 +62,7 @@ export default {
 </script>
 
 <style lang="scss">
-.contact-list {
-  border: 1px;
-  border-color: yellow;
-}
-.contact-list-item {
+.sortable-list--item {
   margin: 5px 0;
   background-color: #fff;
   display: -webkit-box;
@@ -79,41 +78,18 @@ export default {
   border-bottom-width: 1px;
   border-color: #43474b;
 }
-.contact-list-item.draggable-source--is-dragging {
+.sortable-list--item.draggable-source--is-dragging {
   background-color: #f1f5f8;
 }
-.contact-list-item.draggable-source--is-dragging > * {
+.sortable-list--item.draggable-source--is-dragging > * {
   opacity: 0;
 }
-/* .contact-list-contact {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-.contact-list-avatar {
-  height: 3rem;
-  width: 3rem;
-  border-radius: 9999px;
-  display: block;
-  margin-right: 0.5rem;
-}
-.contact-list-name {
-  font-weight: 700;
-}
-.contact-list-email {
-  color: #8795a1;
-} */
-.contact-list-handle {
+.sortable-list--item-handle {
   margin-left: 0.5rem;
   height: 1.5rem;
   width: 1.5rem;
   cursor: move;
-  color: #b8c2cc;
-}
-.contact-list-handle:hover {
-  color: #3d4852;
+	color: #b8c2cc;
+	&:hover { color: #3d4852; }
 }
 </style>
