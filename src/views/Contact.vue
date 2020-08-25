@@ -8,7 +8,7 @@
         >
           <app-title class="gsap--view-contact--title" :m-b="16">
             <template #default>
-              {{ content[`title-${$app.locale()}`] }}
+              {{ content[`title-${locale}`] }}
             </template>
             <template #icon>
               <contact-success-animation v-if="submitted"></contact-success-animation>
@@ -17,9 +17,8 @@
           <app-text
             v-if="!submitted"
 						class="gsap--view-contact--title"
-            :size="8"
             :m-b="16"
-          >{{ content[`text-${$app.locale()}`] }}</app-text>
+          >{{ content[`text-${locale}`] }}</app-text>
         </editable-content>
         
         <form v-if="!submitted" @submit.prevent>
@@ -76,11 +75,12 @@
 								:loading="!allowSubmit && submitting"
 								size="l"
 							>{{ formContent.submit[locale] }}</base-button>
+							<app-text v-if="submitted === false && !submitting" m-t="m">{{ this.mainFeedback }}</app-text>
 						</div>
           </base-spacer>
         </form>
         <div v-else>
-          <app-text :size="8">{{ this.mainFeedback }}</app-text>
+          <app-text>{{ this.mainFeedback }}</app-text>
         </div>
     </app-content-wrapper>
   </base-view>
@@ -97,6 +97,7 @@ import { mapState } from 'vuex'
 import { validateEmail } from '@/utils/regex'
 import { genericTimeStamp } from '@/utils/time'
 import { gsap } from 'gsap'
+import { log } from 'three'
 
 const tl = gsap.timeline({ paused: true })
 
@@ -222,10 +223,12 @@ export default {
         budget: this.inputBudget || null,
         description: this.inputDescription,
         time: genericTimeStamp(),
-        handled: false // for sorting
+        handled: false // For sorting
       }
 
-      this.submitting = true
+			this.submitting = true
+			
+			// TUDUU: Rikulta tähän jeesiä!
       await this.$api.setDocument('contacts', null, contact)
       .then(() => {
         setTimeout(() => {
@@ -242,7 +245,7 @@ export default {
       })
       .catch(error => {
         this.submitting = false
-        this.submitted = false
+				this.submitted = false
       })
     },
 

@@ -4,11 +4,9 @@
       <!-- <template v-if="!$app.isLoading()"> -->
         <editable-content path="projects.main" #default="{ content }">
           <app-title class="gsap--view-projects--title">{{ content[`title-${$app.locale()}`] }}</app-title>
-          <app-text
-						class="gsap--view-projects--title"
-						:size="7"
-						:m-b="25"
-					>{{ content[`text-${$app.locale()}`] }}</app-text>
+          <app-text class="gsap--view-projects--title" :m-b="25">
+						{{ content[`text-${$app.locale()}`] }}
+					</app-text>
         </editable-content>
       
         <base-button v-if="$app.isLogged()" @click="addProject">{{ this.buttonText }}</base-button>
