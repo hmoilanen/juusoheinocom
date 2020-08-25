@@ -3,7 +3,7 @@ export default {
 	
   state: {
 		baseDimension: 0.125, // rem
-		breakpoints: [420, 768, 900], // default amount is 2, max 3 (if unique layout for super wide screen is provided)
+		breakpoints: [420, 768, 900], // Default amount is 2, max 3 (if unique layout for super wide screen is provided)
 		contentPaddingDefault: 16, // = 16px = 1rem
 		contentWidth: {
 			max: 1100,
@@ -49,6 +49,7 @@ export default {
 		}
 	},
 
-  mutations: {},
+	mutations: {},
+	
   actions: {}
 }
