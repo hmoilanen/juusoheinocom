@@ -1,6 +1,6 @@
 import { dataType } from '@/utils/data'
 
-// NOTE!: margins / sizing DOESN'T ACCEPT 0 (= falsy !) AS A NUMBER / NO STYLE IS GENERATED IN COMPONENT! -> FIX!
+// NOTE!: margins / sizing DOESN'T ACCEPT 0 (= falsy !) -> change!
 
 export const sizing = { // Generic sizing mixin for components
   props: {
@@ -28,8 +28,8 @@ export const sizing = { // Generic sizing mixin for components
 
   computed: {
     mixinSizing() {
+      let baseDimension = 0.125 // For Jest -> revert!
       //let baseDimension = this.$store.state.ui.baseDimension
-      let baseDimension = 0.125 // HARD CODED BECAUSE OF JEST...
       let sizingBaseValue = baseDimension ? baseDimension : 0.125
       let self = this
 
@@ -140,8 +140,8 @@ export const margins = { // Generic margin mixin for components
         marginTop: false,
         marginBottom: false
       }
+      let baseDimension = 0.125 // For Jest -> revert!
       //let baseDimension = this.$store.state.ui.baseDimension
-      let baseDimension = 0.125
       let marginBaseValue = baseDimension ? baseDimension : 0.125
       let self = this
 
@@ -193,122 +193,3 @@ export const margins = { // Generic margin mixin for components
     }
   }
 }
-
-/* export const paddings = { // Generic padding mixin for components
-  props: {
-    p: [Number, String], // = padding
-    pX: [Number, String], // = padding left / right
-    pY: [Number, String], // = padding top / bottom
-    pL: [Number, String], // = padding left
-    pR: [Number, String], // = padding right
-    pT: [Number, String], // = padding top
-    pB: [Number, String], // = padding bottom
-    pUnit: { // = padding unit
-      type: String,
-      default: 'rem'
-    }
-  },
-
-  data() {
-    return {
-      mixinPaddingCategories: { s: 4, m: 8, l: 12, xl: 16 }
-    }
-  },
-
-  computed: {
-    mixinPaddings() {
-      let paddings = {
-        padding: false,
-        paddingLeft: false,
-        paddingRight: false,
-        paddingTop: false,
-        paddingBottom: false
-      }
-      //let baseDimension = this.$store.state.ui.baseDimension
-      let baseDimension = 0.125
-      let paddingBaseValue = baseDimension ? baseDimension : 0.125
-      let self = this
-
-      // For calculating paddings
-      function paddingSize(multiplier) {
-        return multiplier * paddingBaseValue + self.pUnit
-      }
-
-      // For sizing base on predetermined categories
-      function sizeCategory(size) {
-        if (typeof size === 'string') {
-          if (size === 's' || size === 'm' || size === 'l' || size === 'xl') {
-            return self.mixinPaddingCategories[size]
-          } else return self.mixinPaddingCategories.m
-        } else return size
-      }
-
-      if (this.pL) { paddings.paddingLeft = paddingSize(sizeCategory(this.pL)) } // = padding left
-      if (this.pR) { paddings.paddingRight = paddingSize(sizeCategory(this.pR)) } // = padding right
-      if (this.pT) { paddings.paddingTop = paddingSize(sizeCategory(this.pT)) } // = padding top
-      if (this.pB) { paddings.paddingBottom = paddingSize(sizeCategory(this.pB)) } // = padding bottom
-
-      if (this.pX) { // = padding left / right
-        if (!this.pL) { paddings.paddingLeft = paddingSize(sizeCategory(this.pX)) }
-        if (!this.pR) { paddings.paddingRight = paddingSize(sizeCategory(this.pX)) }
-      }
-      if (this.pY) { // = padding top / bottom
-        if (!this.pT) { paddings.paddingTop = paddingSize(sizeCategory(this.pY)) }
-        if (!this.pB) { paddings.paddingBottom = paddingSize(sizeCategory(this.pY)) }
-      }
-
-      if (this.p) { // = padding
-        if (!this.pX) {
-          if (!this.pL) { paddings.paddingLeft = paddingSize(sizeCategory(this.p)) }
-          if (!this.pR) { paddings.paddingRight = paddingSize(sizeCategory(this.p)) }
-        }
-        if (!this.py) {
-          if (!this.pT) { paddings.paddingTop = paddingSize(sizeCategory(this.p)) }
-          if (!this.pB) { paddings.paddingBottom = paddingSize(sizeCategory(this.p)) }
-        }
-      }
-
-      return paddings
-    }
-  }
-} */
-
-/* export const dynamicStyleSet = { // Generic styling for base components
-  props: {
-    styleSet: Number,
-    resetStyle: Boolean
-  },
-
-  computed: {
-    dynamicStyleSet() {
-      let componentName = this.$options.name      
-      //let defaultStyleSet = this.$store.state.base.styleSet[componentName] || 0
-      let defaultStyleSet = 0
-    
-      if (this.resetStyle) {
-        return 'reset'
-      } else if (this.styleSet) {
-        return this.styleSet
-      } else if (defaultStyleSet) {
-        return defaultStyleSet
-      } else return 0
-    }
-  }
-} */
-
-/* export const editableContent = { // Generic 'tooling' for base components wrapped in editableContent component
-  inject: {
-    editableContentData: {
-      type: String,
-      default: 'defaultInject' // for preventing error when data isn't injected 
-    }
-  },
-
-  computed: {
-    editableInnerContent() {
-      if (this.editableContentData && this.editableContentData !== 'defaultInject') {
-        return this.editableContentData.content
-      } else return 'default inner content' // Note: this cannot be changed or baseImage component misfunctions
-    }
-  }
-} */

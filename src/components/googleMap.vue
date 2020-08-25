@@ -42,12 +42,7 @@ export default {
     streetView: Boolean, // Enable 3d street view
     mapTypes: Boolean, // Default / satellite view
     disableDefaultUi: Boolean,
-    mapStyle: {
-      type: String,
-      validator: prop => {
-        return ['light', 'dark', 'retro'].indexOf(prop) !== -1
-      }
-    }
+    mapStyle: String
 	},
 	
 	data() {
