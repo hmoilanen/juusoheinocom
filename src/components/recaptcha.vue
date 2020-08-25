@@ -30,7 +30,6 @@ export default {
         // Executed when user solves the reCAPTCHA.
         callback: (responseToken) => {
           const xhr = new XMLHttpRequest() // To intereact with server.
-          //TEE OMAAN PROJEKTIIN VASTAAVA KUN EHTII!!!
           const URL = 'https://us-central1-constlet.cloudfunctions.net/recaptchaJuusoheinocom'
           const data = {
             token: responseToken
@@ -74,16 +73,15 @@ export default {
   },
 
   methods: {
-    // Use these if component needs to be controlled from the parent component:
+    // If component needs to be controlled from the parent component:
 
-    /* execute () {
-      // This will be called from parent
+    execute () {
       window.grecaptcha.execute(this.widget)
-    }, */
+    },
 
-    /* reset () {
+    reset () {
       window.grecaptcha.reset(this.widget)
-    } */
+    }
   }
 }
 </script>
@@ -91,7 +89,5 @@ export default {
 <style lang="scss" scoped>
 #g-recaptcha {
   &.disabled { @extend %input--disabled; }
-  //border: 2px solid black;
-  //& > div { border: 2px solid black !important; }
 }
 </style>
