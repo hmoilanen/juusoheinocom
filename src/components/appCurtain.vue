@@ -6,15 +6,12 @@
 			class="pixel"
 			:class="`pixel-${index}`"
 		></div>
-		<!-- <base-loader v-if="showLoader" class="curtain-loader"></base-loader> -->
-		<div class="app-curtain--reset" @click="proceed"></div>
+		<base-loader v-if="showLoader" class="curtain-loader"></base-loader>
 	</div>
 
 </template>
 
 <script>
-// TÄSSÄ KOMPONENTISSA ON VIEÄ PALJON POISTETTAVAA VANHAA KOODIA...
-// OLI KIIRE NIIN JÄI SIVOOMATTA :)
 import { gsap } from 'gsap'
 
 const tl = gsap.timeline({ paused: false, delay: 1 })
@@ -24,12 +21,9 @@ export default {
 
   data() {
     return {
-      inOutDelay: 300,
-      showAnimation: false,
-      showLoader: false,
-      animationDuration: 22000000, // SELVITÄ MITÄS TÄÄLLÄ OIKEIN TAPAHTUU! :D
-      animationDelay: 600,
       animationPassed: false,
+			showLoader: false,
+			pixelSize: 20
     }
 	},
 
@@ -38,39 +32,25 @@ export default {
 	},
 
   mounted() {
-    setTimeout(() => {
-      this.showAnimation = true
-      this.showLoader = true
-    }, this.inOutDelay)
-    
-    setTimeout(() => {
-      this.animationPassed = true
-		}, this.inOutDelay + this.animationDuration)
-		
 		const phaseDuration = 0.5
+
 		tl
-			//.from('.pixel', 0, {}, 0.5)
-			.to('.pixel-0', phaseDuration, { x: -20, ease: 'power2.inOut' }, 'phase-1')
-			.to('.pixel-1', phaseDuration, { x: -20, ease: 'power2.inOut' }, 'phase-1')
-			.to('.pixel-2', phaseDuration, { x: 20, ease: 'power2.inOut' }, 'phase-1')
-			.to('.pixel-3', phaseDuration, { x: 20, ease: 'power2.inOut' }, 'phase-1'
+			.to('.pixel-0', phaseDuration, { x: -this.pixelSize, ease: 'power2.inOut' }, 'phase-1')
+			.to('.pixel-1', phaseDuration, { x: -this.pixelSize, ease: 'power2.inOut' }, 'phase-1')
+			.to('.pixel-2', phaseDuration, { x: this.pixelSize, ease: 'power2.inOut' }, 'phase-1')
+			.to('.pixel-3', phaseDuration, { x: this.pixelSize, ease: 'power2.inOut' }, 'phase-1'
 			)
-			.to('.pixel-0', phaseDuration, { y: -20, ease: 'power2.inOut' }, 'phase-2')
-			.to('.pixel-1', phaseDuration, { y: 20, ease: 'power2.inOut' }, 'phase-2')
-			.to('.pixel-2', phaseDuration, { y: -20, ease: 'power2.inOut' }, 'phase-2')
-			.to('.pixel-3', phaseDuration, { y: 20, ease: 'power2.inOut' }, 'phase-2')
+			.to('.pixel-0', phaseDuration, { y: -this.pixelSize, ease: 'power2.inOut' }, 'phase-2')
+			.to('.pixel-1', phaseDuration, { y: this.pixelSize, ease: 'power2.inOut' }, 'phase-2')
+			.to('.pixel-2', phaseDuration, { y: -this.pixelSize, ease: 'power2.inOut' }, 'phase-2')
+			.to('.pixel-3', phaseDuration, { y: this.pixelSize, ease: 'power2.inOut' }, 'phase-2')
 
 			.to('.pixel-1', phaseDuration, { scaleY: 3, ease: 'power4.in' })
 			.to('.pixel-0', 0, { css: { backgroundColor: '#E7287A' } })
 			.to('.pixel-0', phaseDuration, {
-				y: -40,
+				y: -(this.pixelSize * 2),
 				ease: 'power2.out',
-			})
-			.to('.app-curtain', 0.5, {
-				opacity: 0,
-				scale: 20,
-				ease: 'power3.in',
-				onComplete: () => this.proceed()
+				onComplete: () => this.animationPassed = true
 			})
   },
 
@@ -78,8 +58,10 @@ export default {
     animationPassed() {
       if (!this.isLoading) {
 				this.proceed()
-      }
-    },
+      } else {
+				this.showLoader = true
+			}
+		},
 
     isLoading() {
       if (this.animationPassed) {
@@ -90,7 +72,7 @@ export default {
 
   computed: {
     isLoading() {
-      return this.$store.state.app.isLoading
+      return this.$app.isLoading()
     },
 
     styling() {
@@ -98,25 +80,27 @@ export default {
         zIndex: this.$store.state.ui.zIndex.appCurtain
       }
 		},
-		
-    cssVars() {
-      let animationDelay = this.animationDelay
-      let animationDuration = this.animationDuration - animationDelay
 
+		cssVars() {
       return {
-        '--animation-duration': animationDuration + 'ms',
-        '--animation-delay': animationDelay + 'ms'
+        '--app-curtain--pixel-size': this.pixelSize + 'px',
       }
     }
   },
 
   methods: {
     proceed() {
-      this.showLoader = false
-      setTimeout(() => { // For visual purposes (hide loader and then proceed)
-				this.$store.dispatch('SET_STATE', { data: false, path: 'ui.curtainDisplayed' })
-				this.$store.dispatch('SET_STATE', { data: false, path: 'ui.preventBodyScrolling' })
-      }, this.inOutDelay)
+			this.showLoader = false
+
+			tl.to('.app-curtain', 0.6, {
+				opacity: 0,
+				scale: 20,
+				ease: 'power3.in',
+				onComplete: () => {
+					this.$store.dispatch('SET_STATE', { data: false, path: 'ui.curtainDisplayed' })
+					this.$store.dispatch('SET_STATE', { data: false, path: 'ui.preventBodyScrolling' })		
+				}
+			})
     }
   }
 }
@@ -128,7 +112,6 @@ $app-curtain--color-bg: $app-color--theme;
 $app-curtain--color-hl: $app-color--hl;
 
 .app-curtain {
-	opacity: 0.5;
   position: fixed;
   top: 0;
   left: 0;
@@ -139,22 +122,11 @@ $app-curtain--color-hl: $app-color--hl;
   justify-content: center;
   background: $app-curtain--color-bg;
   color: $app-curtain--color;
-	border-bottom: 1px solid grey;
-	
-	.app-curtain--reset {
-		position: absolute;
-		top: 0;
-		right: 0;
-		width: 1px;
-		height: 1px;
-	}
-
-  $pixel-size: 20px;
 
 	.pixel {
     position: absolute;
-    width: $pixel-size;
-    height: $pixel-size;
+    width: var(--app-curtain--pixel-size);
+    height: var(--app-curtain--pixel-size);
 		background: $app-curtain--color;
 	}
 
