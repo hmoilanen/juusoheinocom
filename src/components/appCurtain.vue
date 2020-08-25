@@ -70,11 +70,7 @@ export default {
 				opacity: 0,
 				scale: 20,
 				ease: 'power3.in',
-				onComplete: () => {
-					this.proceed()
-					/* setTimeout(() => {
-					}, 0); */
-				}
+				onComplete: () => this.proceed()
 			})
   },
 
@@ -101,7 +97,8 @@ export default {
       return {
         zIndex: this.$store.state.ui.zIndex.appCurtain
       }
-    },
+		},
+		
     cssVars() {
       let animationDelay = this.animationDelay
       let animationDuration = this.animationDuration - animationDelay
@@ -141,7 +138,6 @@ $app-curtain--color-hl: $app-color--hl;
   align-items: center;
   justify-content: center;
   background: $app-curtain--color-bg;
-  //background: rgba(255, 255, 255, 0.9);
   color: $app-curtain--color;
 	border-bottom: 1px solid grey;
 	

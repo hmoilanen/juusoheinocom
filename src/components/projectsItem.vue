@@ -44,7 +44,8 @@ export default {
   methods: {
     imageURL(URL) {
       let imageURL = this.$store.getters['app/GET_URL'].imageURL
-      return `${imageURL}${this.$route.name}/${this.$vnode.key}/${URL}`
+      //return `${imageURL}${this.$route.name}/${this.$vnode.key}/${URL}`
+      return `${imageURL}projects/${this.$vnode.key}/${URL}`
     }
 	},
 	

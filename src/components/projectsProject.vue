@@ -140,14 +140,16 @@ export default {
     },
     
     dynamicPath() {
-      return `${this.routeName}.${this.projectId}`
+      //return `${this.routeName}.${this.projectId}`
+      return `projects.${this.projectId}`
     }
   },
 
   methods: {
     imageSource(image) {
       let imageURL = this.$store.getters['app/GET_URL'].imageURL
-      return `${imageURL}${this.routeName}/${this.projectId}/${image}`
+      //return `${imageURL}${this.routeName}/${this.projectId}/${image}`
+      return `${imageURL}projects/${this.projectId}/${image}`
     },
 
     subtitle(type) {

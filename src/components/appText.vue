@@ -39,6 +39,6 @@ export default {
 
 <style lang="scss" scoped>
 .app-text {
-  &.base-text { line-height: 1.7em !important; }
+  &.base-text { line-height: 1.6em !important; }
 }
 </style>

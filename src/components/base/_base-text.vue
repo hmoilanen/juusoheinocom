@@ -82,7 +82,8 @@ $text-font--handle: $app-font--handle;
 
 .base-text {
   position: relative;
-	font-family: $text-font;
+	//font-family: $text-font;
+	font-family: MarkPro, "sans-serif";
 	color: $text-color;
 	&::selection {
 		background: $text-color--selection-bg;

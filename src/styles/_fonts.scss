@@ -13,7 +13,7 @@
 //@import url('https://fonts.googleapis.com/css?family=Overpass:700,900&display=swap');
 //@import url('https://fonts.googleapis.com/css?family=Roboto:400,700&display=swap');
 //@import url('https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700&display=swap');
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap');
+//@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,700&display=swap');
 //@import url('https://fonts.googleapis.com/css?family=Sintony:400,700&display=swap');
 
 
@@ -34,6 +34,23 @@
     //...
   //unicode-range: U+0100-024F, U+0259, U+1E00-1EFF; // define the available characters, see: https://css-tricks.com/almanac/properties/u/unicode-range/
 } */
+
+@font-face {
+	font-family: "MarkFF Pro";
+	src: url("~@/assets/fonts/MarkPro.otf") format("opentype");
+	font-weight: 500;
+}
+@font-face {
+	font-family: "MarkFF Pro bold";
+	src: url("~@/assets/fonts/MarkPro-Bold.otf") format("opentype");
+}
+
+/* @font-face {
+	font-family: "MarkPro-Bold";
+	src: url("/assets/fonts/MarkPro.otf") format("opentype");
+} */
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -86,9 +103,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Font sets
 
-//$font-set--serif: "Constantia", "Lucida Bright", "Lucida Serif", "Georgia", serif;
-$font-set--sans: "Avenir", "Helvetica", "Arial", sans-serif;
+$font-set--app: "MarkFF Pro",  sans-serif;
+$font-set--app-bold: "MarkFF Pro bold",  sans-serif;
 $font-set--mono: "Roboto Mono", "Andale-mono", "Menlo", "Consolas", "Courier New", monospace;
+//$font-set--serif: "Constantia", "Lucida Bright", "Lucida Serif", "Georgia", serif;
+//$font-set--sans: "Avenir", "Helvetica", "Arial", sans-serif;
 //$font-set--caps: "Bebas Neue", "Arial Black", sans-serif;
 //$font-set--custom-1: ;
 //$font-set--custom-2: ;
@@ -98,19 +117,19 @@ $font-set--mono: "Roboto Mono", "Andale-mono", "Menlo", "Consolas", "Courier New
 ////////////////////////////////////////////////////////////////////////////////
 // Application fonts
 
-$app-font--base: $font-set--sans;
-$app-font--title: $font-set--sans;
-$app-font--handle: $font-set--sans;
-$app-font--link: $font-set--sans;
-$app-font--button: $font-set--sans;
-$app-font--input: $app-font--base;
-$app-font--label: $font-set--sans;
+$app-font--base: $font-set--app;
+$app-font--title: $font-set--app-bold;
+$app-font--handle: $font-set--app;
+$app-font--link: $font-set--app;
+$app-font--button: $font-set--app-bold;
+$app-font--input: $font-set--app;
+$app-font--label: $font-set--app;
 $app-font--placeholder: $font-set--mono;
-$app-font--feedback: $font-set--sans;
-$app-font--list: $font-set--sans;
-$app-font--tag: $font-set--sans;
-$app-font--nav: $font-set--sans;
-$app-font--numbers: $font-set--sans;
+$app-font--feedback: $font-set--app;
+$app-font--list: $font-set--app;
+$app-font--tag: $font-set--app;
+$app-font--nav: $font-set--app;
+$app-font--numbers: $font-set--app-bold;
 
 
 ////////////////////////////////////////////////////////////////////////////////
