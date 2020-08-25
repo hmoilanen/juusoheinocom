@@ -1,7 +1,7 @@
 <template>
   <div class="app-footer" ref="footer" :style="styling">
-    <!-- <base-wrapper maxWidth="max" :padding="true"> -->
     <app-content-wrapper>
+
       <base-grid colMin="240px" fillType="fill" :gap="{ x: '4rem', y: '2rem' }">
         <base-spacer class="about" size="xl">
           <app-external-links></app-external-links>
@@ -38,7 +38,6 @@
         </base-spacer>
 
         <base-flex :column="true">
-          <!-- <base-title :size="8">Go to</base-title> -->
           <base-spacer size="m">
             <footer-link
               v-for="(link, index) in links"
@@ -64,10 +63,8 @@
 					:only-stroke="true"
 				>backtotop</base-icon>
       </base-flex>
-    </app-content-wrapper>
-      
 
-    <!-- </base-wrapper> -->
+    </app-content-wrapper>
   </div>
 </template>
 
@@ -108,13 +105,13 @@ export default {
   },
 
   watch: {
-    '$store.state.app.isLoading': { // This is for bluffing crawlers
+    '$store.state.app.isLoading': { // For bluffing crawlers
       immediate: true,
       handler(newValue) {
         if (!newValue) {
           setTimeout(() => {
             this.email = this.official.email
-          }, 3000);
+          }, 3000)
         }
       }
     }
@@ -130,13 +127,11 @@ export default {
     },
 
     styling() {
-      //let defaultPadding = this.$store.state.ui.contentPaddingDefault
-      let defaultPadding = 5
+			const defaultPadding = 5
+			
       return {
-        //padding: `${defaultPadding * 2}px ${defaultPadding}px ${defaultPadding}px ${defaultPadding}px`
-        //paddingTop: `${defaultPadding * 2}px`
         paddingTop: `${defaultPadding}vmax`,
-        paddingBottom: `${defaultPadding * 1}vmax`
+        paddingBottom: `${defaultPadding}vmax`
       }
     }
   },
@@ -148,15 +143,15 @@ export default {
 
     calcFooterHeight() {
       // Store footer's height for ui adjustments
-      let footerHeight = this.$refs.footer.offsetHeight
+			const footerHeight = this.$refs.footer.offsetHeight
+			
       if (footerHeight) {
         this.$store.dispatch('SET_STATE', { data: footerHeight, path: 'ui.footerHeight' })
       }
     },
 
     logging() {
-      let isLogged = this.$app.isLogged()
-      if (isLogged) {
+      if (this.$app.isLogged()) {
         this.$store.dispatch('modals/SET_MODAL', { active: 'logout' })
       } else {
         this.$store.dispatch('modals/SET_MODAL', { active: 'login' })
@@ -212,8 +207,9 @@ $footer--color-highlight: $app-color--hl;
   .backtotop {
     &::v-deep {
       .base-icon {
-				//@extend %icon--only-stroke;
-        &:hover .backtotop-move { transform: translateY(-15%); }
+        &:hover .backtotop-move { // See: iconBacktotop.vue
+					transform: translateY(-15%);
+				}
         .backtotop-move {
 					transition: all 0.5s ease;
 					transform: translateY(10%);
