@@ -3,7 +3,6 @@
 
     <div class="modal">
       <span @click="closeModal" class="close">close</span>
-
       <template v-if="activeModal">
         <component
           :is="activeModal"
@@ -23,7 +22,7 @@ export default {
   name: 'modalHandler',
 
   components: {
-    //addContent: () => import('@/components/modals/modalAddContent'),
+    //addContent: () => import('@/components/modals/modalAddContent'), // Implement if necessary
     editContent: () => import('@/components/modals/modalEditContent'),
     login: () => import('@/components/modals/modalLogin'),
     logout: () => import('@/components/modals/modalLogout')
@@ -78,12 +77,8 @@ $modal-padding: 2rem;
   bottom: 0;
   left: 0;
   overflow-y: auto;
-  //padding: 3.5rem 1.4rem; // nämä säädetään state.ui:n mukaan myöhemmin!
   padding: 2rem 0;
-  //background-color: rgba(0, 0, 0, 0.5);
   background-color: $modal-color--bg;
-  
-  //.dark & {}
 
   .modal {
     position: relative;
@@ -91,9 +86,6 @@ $modal-padding: 2rem;
     width: 90vmin;
     max-width: 500px;
     padding: $modal-padding;
-    //padding-top: calc(#{$modal-padding} * 1.2);
-    //padding: $modal-padding calc(#{$modal-padding} * 0.8);
-    //border-radius: 3px;
     @extend %app-default--border-radius;
     background-color: $modal-color--bg-card;
     color: $modal-color;
@@ -108,14 +100,8 @@ $modal-padding: 2rem;
     top: calc(#{$modal-padding} * 0.4);
     right: calc(#{$modal-padding} * 0.45);
     font-size: 0.9rem;
-    //transition: all 0.3s ease-in-out;
-    //transform: rotate(0deg);
     cursor: pointer;
-    &:hover {
-      //transform: rotate(180deg);
-      opacity: 0.5;
-    }
+    &:hover { opacity: 0.5; }
   }
 }
-
 </style>
