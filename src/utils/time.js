@@ -9,7 +9,8 @@ export const genericTimeStamp = function() {
   // Has no internal whitespace.
   // Provides at least some level of human-readability.
   // Gives at least some ‘free’ information (ie. values such as the year or the hour being easily obtained by string parsing, without having to create and parse new date objects every time).
-  // Converting back to 'basic' format: const rfcDate = new Date(genericTimeStamp())
+	// Converting back to 'basic' format: const rfcDate = new Date(genericTimeStamp())
+	
   const dateobj = new Date()
 
   dateobj.setTime(dateobj.getTime() + (dateobj.getTimezoneOffset() * 60000))
