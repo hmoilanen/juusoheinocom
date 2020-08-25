@@ -4,7 +4,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>juusoheino.com</title>
 
 		<!-- Favicon -->
 		<!-- see: https://favicon.io/ -->
@@ -14,11 +13,10 @@
 		<link rel="manifest" href="/site.webmanifest">
 
 		<!-- Color of browser ui -->
-    <!-- Note: if this is not enough / doesn't work, enable pwa object in vue.config.js -->
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#000000">
 
     <!-- Google maps -->
-    <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVrXF_Jh-nfPCeMYgYTkIPl3aP0o9HOyw"></script>
+    <script async defer type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=<%= VUE_APP_GOOGLE_MAPS_API_KEY %>"></script>
     <!-- Google reCaptcha -->
     <script async defer src="https://www.google.com/recaptcha/api.js"></script>
   </head>

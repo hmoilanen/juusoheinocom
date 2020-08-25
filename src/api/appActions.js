@@ -1,16 +1,10 @@
 import store from '@/store'
 
-const isLoading = () => {
-  return store.state.app.isLoading
-}
+const isLoading = () => store.state.app.isLoading
 
-const isLogged = () => {
-  return store.state.app.isLogged
-}
+const isLogged = () => store.state.app.isLogged
 
-const locale = () => {
-  return store.state.app.locale
-}
+const locale = () => store.state.app.locale
 
 export default {
   isLoading,
