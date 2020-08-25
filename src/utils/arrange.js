@@ -1,6 +1,6 @@
 export const compareObjectsValues = function(key, order = 'asc') {
   return function (a, b) {
-    if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) { // in case property doesn't exist on either object
+    if (!a.hasOwnProperty(key) || !b.hasOwnProperty(key)) { // In case property doesn't exist on either object
       return 0
     }
 

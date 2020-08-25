@@ -8,7 +8,6 @@ export const navLinks = function() {
 
   routes.forEach(route => {    
     if (route.meta && route.meta.navLink) {
-      //let locale = App.locale()
       let locale = store.state.app.locale;
       
       filteredRoutes.push({

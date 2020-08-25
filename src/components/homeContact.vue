@@ -10,7 +10,7 @@
 					class="gsap--home-contact--text"
           size="xl"
           :center="true"
-        >{{ content[`title-${$app.locale()}`] }}</base-title>
+        >{{ content[`title-${locale}`] }}</base-title>
 				<div class="button-container">
 					<base-button
 						class="gsap--home-contact--button"
@@ -18,8 +18,7 @@
 						size="xl"
 						:center="true"
 						:highlight="true"
-					>{{ content[`link-${$app.locale()}`] }}</base-button>
-						<!-- :inverted="true" -->
+					>{{ content[`link-${locale}`] }}</base-button>
 				</div>
       </editable-content>
     </app-content-wrapper>
@@ -46,9 +45,7 @@ export default {
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '.home-contact',
-				start: 'top top',
-				//markers: true,
-				//toggleActions: 'restart reset reset reset'
+				start: 'top top'
 			}
 		})
 
@@ -66,6 +63,13 @@ export default {
 			}, 0.8)
 	},
 
+
+	computed: {
+    locale() {
+      return this.$app.locale()
+    }
+  },
+
   methods: {
     toContact() {
       this.$router.push('/contact')
@@ -80,9 +84,6 @@ export default {
 	display: flex;
   align-items: center;
 	justify-content: center;
-	//background: $app-color--hl;
-	//background: transparentize($app-color--hl, 0.9);
-	//background: adjust-hue(lighten($app-color--hl, 40%), 130deg);
 	border-top: 1px solid rgb(240, 240, 240);
 	
 	.button-container {
@@ -90,7 +91,5 @@ export default {
 		padding-top: 58px;
 		margin-top: -18px,
 	}
-
-	//.base-title { color: white; }
 }
 </style>

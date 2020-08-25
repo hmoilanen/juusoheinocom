@@ -1,7 +1,6 @@
 <template>
   <div class="app-ui">
     <nav-top v-if="displayNav.top"></nav-top>
-    <!-- <contact-link v-if="!$app.isLoading()"></contact-link> -->
     <contact-link></contact-link>
   </div>
 </template>
@@ -19,10 +18,8 @@ export default {
 
   computed: {
     displayNav() {
-      let ui = this.$store.state.ui
-      
       return {
-        top: ui.navTopDisplayed
+        top: this.$store.state.ui.navTopDisplayed
       }
     }
   }

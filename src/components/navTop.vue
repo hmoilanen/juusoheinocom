@@ -19,11 +19,8 @@
         </base-link>
 
         <div class="bottom">
-          <!-- <base-loader></base-loader> -->
           <app-external-links :alternative="true"></app-external-links>
           <locale-toggler :size="6" :alternative="true"></locale-toggler>
-          <!-- <app-text :size="6">{{ this.GET_OFFICIAL.watermark }}</app-text> -->
-          <!-- <base-text :size="6" m-t="m">{{ this.cursorOffsetX }}, {{ this.cursorOffsetY}}</span></base-text> -->
         </div>
       </div>
     </transition>
@@ -78,7 +75,7 @@ export default {
       return linkName === this.$route.name
     },
 
-    stylingMethod(index) {
+    /* stylingMethod(index) {
       let offsetContainer = 10 //SELLVITÄ MIKSI???
       let offsetLink = 8 * (1 + (0.5 * index)) //SELLVITÄ MIKSI???
       console.log('offsetLink', offsetLink);
@@ -97,7 +94,7 @@ export default {
                       rotateX(${-this.cursorOffsetY * offsetLink * 2}deg)`
         }
       }
-    },
+    }, */
 
     trackMousePosition(e) {
       let wWidth = window.innerWidth

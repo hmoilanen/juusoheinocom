@@ -33,14 +33,14 @@
 </template>
 
 <script>
-import { sizing, margins, dynamicStyleSet } from '@/utils/mixins'
+import { sizing, margins } from '@/utils/mixins'
 
 export default {
   name: 'baseInput',
 
   inheritAttrs: false,
 
-  mixins: [sizing, margins, dynamicStyleSet],
+  mixins: [sizing, margins],
 
   props: {
     type: {
@@ -62,7 +62,7 @@ export default {
 
   data() {
     return {
-      mixinSizeCategories: { s: 7, m: 8, l: 9, xl: 10 } // customized, see: mixins.js
+      mixinSizeCategories: { s: 7, m: 8, l: 9, xl: 10 }
     }
   },
 
@@ -94,16 +94,15 @@ export default {
     listeners() {
       return {
         ...this.$listeners,
-        input: event => { // override input from $listeners
+        input: event => { // Override input from $listeners
           this.$emit('input', event.target.value)
-          this.$emit('updated', event.target.value) // if v-model is insufficient
+          this.$emit('updated', event.target.value) // If v-model is insufficient
         }
       }
     },
 
     classing() {
       return {
-        [`style-set-${this.dynamicStyleSet}`]: true, // see: utils/mixins.js
         required: this.required,
         disabled: this.disabled,
         feedback: this.feedback
@@ -121,10 +120,10 @@ export default {
         input: {
           height: inputHeight + 'em',
           paddingLeft: this.iconLeft
-            ? baseInputPadding * 1.8 + leftIconSize + 'em' // in theory, * 2, but eye tells better :)
+            ? baseInputPadding * 1.8 + leftIconSize + 'em' // In theory, * 2, but eye tells better :)
             : baseInputPadding + 'em',
           paddingRight: this.iconRight
-            ? baseInputPadding * 1.8 + rightIconSize + 'em' // in theory, * 2, but eye tells better :)
+            ? baseInputPadding * 1.8 + rightIconSize + 'em' // ^^
             : baseInputPadding + 'em'
         },
         iconLeft: {
@@ -156,54 +155,38 @@ $input-font--placeholder: $app-font--placeholder;
 
 .base-input {
   width: 100%;
-  // font-size: ; // see: this.styling
+  // font-size, see: this.styling
   &.disabled { @extend %input--disabled; }
 
-  &.style-set-0 {
-    .input-container {
-      font-size: inherit !important;
-      position: relative;
-      svg {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        @extend %clickable;
-        color: $input-color--icons !important;
-      }
-    }
-    input {
-      transition: all 0.3s ease-in-out;
-      outline: 0;
-      @extend %input--border;
-      border-color: $input-color--border;
-      //border-color: lighten(desaturate($input-color--border, 30%), 30%);
-      //border: 1px solid lighten(desaturate($input-color--border, 30%), 30%);
-      //border-radius: 3px;
-      width: 100%;
-      //padding: ; // see: this.styling.input
-      background: $input-color--bg;
-      font-size: inherit;
-      letter-spacing: 0.05em;
-      font-family: $input-font;
-      color: $input-color;
-      //&:hover,
-      &:focus {
-        background: $input-color--bg-focus;
-        //border: 1px solid $input-color--border;
-        //border-color: $input-color--border;
-      }
-      &::placeholder { // not supported in all browsers, but behaves as regular text content if not
-        font-weight: 500;
-        font-family: $input-font--placeholder;
-        color: $input-color--placeholder;
-      }
-    }
-    //&.feedback input { border-color: $input-color--feedback; }
-  }
-
-  /* &.style-set-1 {
-    @extend .style-set-0; // optional
-    // customize here!
-  } */
+	.input-container {
+		font-size: inherit !important;
+		position: relative;
+		svg {
+			position: absolute;
+			top: 50%;
+			transform: translateY(-50%);
+			@extend %clickable;
+			color: $input-color--icons !important;
+		}
+	}
+	input {
+		transition: all 0.3s ease-in-out;
+		outline: 0;
+		@extend %input--border;
+		border-color: $input-color--border;
+		width: 100%;
+		//padding, see: this.styling.input
+		background: $input-color--bg;
+		font-size: inherit;
+		letter-spacing: 0.05em;
+		font-family: $input-font;
+		color: $input-color;
+		&:focus { background: $input-color--bg-focus; }
+		&::placeholder { // Not supported in all browsers... Otherwise behaves like regular text content
+			font-weight: 500;
+			font-family: $input-font--placeholder;
+			color: $input-color--placeholder;
+		}
+	}
 }
 </style>

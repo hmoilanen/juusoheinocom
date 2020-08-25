@@ -29,14 +29,14 @@
 </template>
 
 <script>
-import { sizing, margins, dynamicStyleSet } from '@/utils/mixins'
+import { sizing, margins } from '@/utils/mixins'
 
 export default {
   name: 'baseTextarea',
 
   inheritAttrs: false,
 
-  mixins: [sizing, margins, dynamicStyleSet],
+  mixins: [sizing, margins],
 
   props: {
     value: String,
@@ -46,7 +46,7 @@ export default {
     feedback: String,
     focused: Boolean,
     maxLength: Number,
-    rows: { // default vertical size
+    rows: { // Default / vertical size without text content
       type: Number,
       default: 3
     },
@@ -59,15 +59,15 @@ export default {
   },
 
   mounted() {
-    let ref = this.$refs.textarea
+    const ref = this.$refs.textarea
 
-    function resize() {
+    const resize = () => {
       ref.style.height = 'auto'
       ref.style.height = ref.scrollHeight + 'px'
     }
 
     // 0-timeout to get the already changed text
-    function delayedResize() {
+    const delayedResize = () => {
       window.setTimeout(resize, 0)
     }
 
@@ -94,7 +94,7 @@ export default {
   methods: {
     observe(element, event, handler) {
       if (window.attachEvent) {
-        // only for IE8- (if any problems occur, it's possible to get rid of)
+        // Only for IE8- (if any problems occur, it's possible to get rid of)
         element.attachEvent('on' + event, handler)
       } else {
         element.addEventListener(event, handler, false)
@@ -110,9 +110,7 @@ export default {
     listeners() {
       return {
         ...this.$listeners,
-        input: event => { // override input from $listeners
-          //this.emitInput()
-          //this.$emit('input', this.$refs.textarea.value)
+        input: event => { // =verride input from $listeners
           this.$emit('input', event.target.value)
         }
       }
@@ -120,7 +118,6 @@ export default {
 
     classing() {
       return {
-        [`style-set-${this.dynamicStyleSet}`]: true, // see: utils/mixins.js
         disabled: this.disabled,
         feedback: this.feedback
       }
@@ -142,59 +139,47 @@ export default {
 <style lang="scss" scoped>
 $textarea-color: $app-color--input;
 $textarea-color--border: $app-color--input-border;
-$textarea-color--bg: $app-color--theme;
 $textarea-color--bg-focus: $app-color--input-focus;
 $textarea-color--placeholder: $app-color--input-placeholder;
-$textarea-color--feedback: $app-color--input-feedback;
 $textarea-font: $app-font--input;
 $textarea-font--placeholder: $app-font--placeholder;
 
 .base-textarea {
+  // font-size, see: this.styling
   width: 100%;
-  // font-size: ; // see: this.styling
 	&.disabled { @extend %input--disabled; }
+
+	textarea {
+		overflow: hidden;
+		outline: 0;
+		resize: none;
+		transition: all 0.3s ease;
+		display: block;
+		width: 100%;
+		@extend %input--border;
+		border-color: $textarea-color--border;
+		padding: 0.6rem;
+		font-size: inherit;
+		line-height: 1.4em;
+		font-family: $textarea-font;
+		color: $textarea-color;
+		&:focus { background: $textarea-color--bg-focus; }
+		&::placeholder {  // Not supported in all browsers... Otherwise behaves like regular text content
+			font-weight: 500;
+			font-family: $textarea-font--placeholder;
+			color: $textarea-color--placeholder;
+		}
+	}
+
 	.top {
 		display: flex;
 		justify-content: space-between;
 	}
-
-  &.style-set-0 {
-    textarea {
-      overflow: hidden;
-      outline: 0;
-      resize: none;
-      transition: all 0.3s ease;
-      display: block;
-      width: 100%;
-      @extend %input--border;
-      border-color: $textarea-color--border;
-      //border: 1px solid lighten(desaturate($textarea-color--border, 30%), 30%);
-      //border-radius: 3px;
-      padding: 0.6rem;
-      font-size: inherit;
-      line-height: 1.4em;
-      font-family: $textarea-font;
-      color: $textarea-color;
-      &:focus { background: $textarea-color--bg-focus; }
-      &::placeholder {
-        // not supported in all browsers, but behaves as regular text content if not
-        font-weight: 500;
-        font-family: $textarea-font--placeholder;
-        color: $textarea-color--placeholder;
-      }
-    }
-    .counter {
-      display: flex;
-      justify-content: flex-end;
-      font-size: 0.85em;
-      font-weight: 700;
-    }
-    //&.feedback textarea { border-color: $textarea-color--feedback; }
-  }
-
-  /* &.style-set-1 {
-    @extend .style-set-0; // optional
-    // customize here!
-  } */
+	.counter {
+		display: flex;
+		justify-content: flex-end;
+		font-size: 0.85em;
+		font-weight: 700;
+	}
 }
 </style>

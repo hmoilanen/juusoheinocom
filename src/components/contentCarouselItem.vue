@@ -36,10 +36,9 @@ export default {
 
 <style lang="scss" scoped>
 .content-carousel-item {
-	position: relative; // For baseIcon component
+	position: relative; // For <base-bg>
 	height: 0;
 	padding-bottom: 56.25%;
-	
 	&.clickable {
 		@extend %clickable;
 		&:hover { opacity: 0.8; }

@@ -12,7 +12,6 @@ export default {
     source: {
 			type: String,
 			required: true
-      //default: '/img/bg_default.jpg' // LIITÄ TÄHÄN JOKU ASIANMUKAINEN KUVA!
     },
     position: {
       type: String,
@@ -117,7 +116,7 @@ export default {
 
 <style lang="scss" scoped>
 .base-bg {
-  //position: ; // see: this.position
+  //position, see: this.position
   top: 0;
   left: 0;
   right: 0;
@@ -126,8 +125,6 @@ export default {
   width: 100%;
   background: rgba(200, 200, 200, 0.2);
 
-  &.steady {
-    background-size: cover;
-  }
+  &.steady { background-size: cover; }
 }
 </style>

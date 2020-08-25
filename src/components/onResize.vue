@@ -1,10 +1,6 @@
 <script>
-//TÄMÄ EI TÄLLÄ HETKELLÄ MISSÄÄN KÄYTÖSSÄ!
-//TÄMÄ EI TÄLLÄ HETKELLÄ MISSÄÄN KÄYTÖSSÄ!
-//TÄMÄ EI TÄLLÄ HETKELLÄ MISSÄÄN KÄYTÖSSÄ!
-
 // https://github.com/wnr/element-resize-detector
-// $ npm install element-resize-detector --save
+
 import elementResizeDetectorMaker from 'element-resize-detector'
 
 const erd = elementResizeDetectorMaker({ strategy: 'scroll' }) // 'scroll' for better performance

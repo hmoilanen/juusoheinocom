@@ -22,14 +22,14 @@ export default {
   props: {
     size: {
       type: Number,
-      default: 8
+      default: 7
     },
     alternative: Boolean
   },
 
   data() {
     return {
-      localeList: ['en', '/', 'fi']  // (Change for dynamic if needed)
+      localeList: ['en', '/', 'fi']  //Note: change for dynamic if needed
     }
   },
 
@@ -53,12 +53,11 @@ $locale-toggler--color-alternative: $app-color--theme;
 
 .locale-toggler {
   display: flex;
-  .locale {
+	
+	.locale {
     @extend %clickable;
     transition: color 0.25s ease;
-    &.alternative {
-      color: $locale-toggler--color-alternative;
-    }
+    &.alternative { color: $locale-toggler--color-alternative; }
     &.disabled {
       @extend %disabled;
       margin: 0 0.45em 0 0.4em;

@@ -1,16 +1,11 @@
 <template>
   <base-view class="view-contact" content-padding-y="y">
-    <!-- <base-wrapper max-width="paragraph"> -->
     <app-content-wrapper max-width="paragraph">
-      <!-- <template v-if="!isLoading"> -->
-          <!-- v-if="!$app.isLoading()" -->
-        <editable-content
-          path="contact.main"
-          #default="{ content }"
-        >
+
+        <editable-content path="contact.main" #default="{ content }">
           <app-title class="gsap--view-contact--title" :m-b="16">
             <template #default>
-              {{ content[`title-${$app.locale()}`] }}
+              {{ content[`title-${locale}`] }}
             </template>
             <template #icon>
               <contact-success-animation v-if="submitted"></contact-success-animation>
@@ -19,9 +14,8 @@
           <app-text
             v-if="!submitted"
 						class="gsap--view-contact--title"
-            :size="8"
             :m-b="16"
-          >{{ content[`text-${$app.locale()}`] }}</app-text>
+          >{{ content[`text-${locale}`] }}</app-text>
         </editable-content>
         
         <form v-if="!submitted" @submit.prevent>
@@ -78,16 +72,14 @@
 								:loading="!allowSubmit && submitting"
 								size="l"
 							>{{ formContent.submit[locale] }}</base-button>
+							<app-text v-if="submitted === false && !submitting" m-t="m">{{ this.mainFeedback }}</app-text>
 						</div>
           </base-spacer>
         </form>
         <div v-else>
-          <app-text :size="8">{{ this.mainFeedback }}</app-text>
+          <app-text>{{ this.mainFeedback }}</app-text>
         </div>
-      <!-- </template> -->
     </app-content-wrapper>
-
-    <!-- </base-wrapper> -->
   </base-view>
 </template>
 
@@ -126,7 +118,7 @@ export default {
       invalidEmail: false,
       recaptchaVerified: false,
       submitting: false,
-      submitted: null // false -> error, true -> success, see: this.submit()
+      submitted: null // false -> error, true -> success, see: this.submit
     }
 	},
 	
@@ -143,7 +135,6 @@ export default {
 				stagger: 0.2,
 				duration: 0.8,
 				y: 70,
-				//opacity: 0,
 				autoAlpha: 0,
 				ease: 'power2.out'
 			}, 1.4)
@@ -227,10 +218,12 @@ export default {
         budget: this.inputBudget || null,
         description: this.inputDescription,
         time: genericTimeStamp(),
-        handled: false // for sorting
+        handled: false // For sorting
       }
 
-      this.submitting = true
+			this.submitting = true
+			
+			// TUDUU: Rikulta tähän jeesiä!
       await this.$api.setDocument('contacts', null, contact)
       .then(() => {
         setTimeout(() => {
@@ -247,7 +240,7 @@ export default {
       })
       .catch(error => {
         this.submitting = false
-        this.submitted = false
+				this.submitted = false
       })
     },
 
@@ -282,43 +275,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-$view-contact--color-hl: $app-color--hl;
-$saissi: 50px;
-.view-contact {
-  .ikonit {
-    width: $saissi;
-    height: $saissi;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    //background: pink;
-  }
-  .base-icon {
-    position: absolute;
-    width: $saissi;
-    height: $saissi;
-    color: transparent;
-    stroke: $view-contact--color-hl;
-    stroke-width: 5px;
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: jooo 3s ease forwards 2s;
-
-    @keyframes jooo {
-      to {
-        stroke-dashoffset: 0;
-      }
-    }
-
-    &.eka { stroke-width: 10px; }
-    &.toka {
-      transform: rotate(-45deg);
-      transform-origin: calc(19.67 / 50 * 100%) calc(35.66 / 50 * 100%);
-    }
-    
-  }
-}
-</style>

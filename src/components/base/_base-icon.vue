@@ -1,5 +1,5 @@
 <template>
-  <!-- Note: ViewBox is set to '0 0 50 50' because of the size of svgs. -->
+  <!-- Note: viewBox is set to '0 0 50 50' because of the size of svgs -->
   <svg
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 50 50"
@@ -33,7 +33,7 @@ export default {
       type: String,
       default: 'love'
     },
-    app: { // e.g. twitter / twitch / other external apps
+    app: { // Eg. twitter / twitch / other external apps
       type: String,
       default: 'currentColor'
     },
@@ -51,10 +51,10 @@ export default {
 
   computed: {
     dynamicIcon() {
-      if (this.$slots.default) { // = by slot
+      if (this.$slots.default) { // By slot
         return 'icon-' + this.$slots.default[0].text;
       }
-      return 'icon-' + this.icon; // = by prop
+      return 'icon-' + this.icon; // By prop
     },
 
     listeners () {
@@ -95,7 +95,6 @@ export default {
     iconMongodb: () => import('@/components/icons/iconMongodb'),
     iconNodejs: () => import('@/components/icons/iconNodejs'),
     iconPhotoshop: () => import('@/components/icons/iconPhotoshop'),
-		iconQuote: () => import('@/components/icons/iconQuote'),
     iconReact: () => import('@/components/icons/iconReact'),
     iconRedirect: () => import('@/components/icons/iconRedirect'),
     iconSass: () => import('@/components/icons/iconSass'),

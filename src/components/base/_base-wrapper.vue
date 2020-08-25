@@ -5,26 +5,18 @@
 </template>
 
 <script>
-// TARVIIKO SIZINGIA OLLENKAAN TÄSSÄ -> PADDIINGSIT?
-import { sizing, margins, paddings } from '@/utils/mixins'
+import { sizing, margins } from '@/utils/mixins'
 
 export default {
   name: 'baseWrapper',
 
-  mixins: [sizing, margins, paddings],
+  mixins: [sizing, margins],
 
   props: {
-    // TEE VALMIIKSI!
-    dynamic: Boolean, // makes predefined paddings to scale with viewport size
     maxWidth: [Boolean, String],
     padding: [Boolean, String],
     center: Boolean,
     disableMargins: Boolean
-    //compensateNavTop: Boolean,
-    /* resetPadding: { // TEE TÄMÄ KONDIKSEEN / PÄÄTÄ TOTEUTUSTAPA!!!
-      type: Boolean,
-      default: false
-    } */
   },
 
   computed: {
@@ -74,7 +66,7 @@ export default {
 <style lang="scss" scoped>
 .base-wrapper {
   &:not(.margin-disabled) {
-    margin: 0 auto; // see: this.styling
+    margin: 0 auto;
   }
   &.center {
     display: flex;

@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       activeItem: null,
-			pending: true // To trigger the .progress transition
+			pending: true // To trigger the div.progress transition
     }
 	},
 	
@@ -128,6 +128,7 @@ $index-indicator--margin: 0.6em;
 			}
     }
 	}
+	
   &.paused {
 		.progress { transition: width 0s linear !important; }
 	}

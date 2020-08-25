@@ -19,10 +19,6 @@
 </template>
 
 <script>
-//LISÄÄ TÄNNE TARKASTELU KOSKA navTopDd ON AUKI
-//...JA SIIRRÄ KO. animationSTATE STOREEN, KOSKA SITÄ TIETOA TARVITAAN MUUALLAKIN
-//... JA KUN SE ON AUKI, MUUTA TOGGLERIN VÄRI !!!
-
 export default {
   name: 'navTopToggler',
 
@@ -109,7 +105,7 @@ export default {
       } else if (this.animationState === 'back') {
         top.transform = `rotate(${45}deg) scaleX(0.8)`
         bot.transform = `rotate(-${45}deg) scaleX(0.8)`
-      } // else { this.animationState === '' }, see: $watch.mode
+      }
 
       if (this.animationState === 'back' || this.previousMode === 'back') {
         top.transformOrigin = 'right top'
@@ -137,7 +133,6 @@ $bars--color-secondary: $app-color--theme;
   display: flex;
   align-items: center;
   @extend %clickable;
-  //.text { transition: color 1s ease; }
   .bars {
     // see: this.styling
     height: 100%;
@@ -148,17 +143,15 @@ $bars--color-secondary: $app-color--theme;
   }
   .top,
   .mid,
-  .bot {
-    // see: this.styling
+  .bot { // see: this.styling
     position: absolute;
-    //transition: background-color 2s ease;
     background-color: $bars--color;
   }
   &.dd-open {
-    .text { color: $bars--color-secondary !important; }
-    .top,
+		.top,
     .mid,
     .bot { background-color: $bars--color-secondary; }
+    .text { color: $bars--color-secondary !important; }
   }
 }
 </style>

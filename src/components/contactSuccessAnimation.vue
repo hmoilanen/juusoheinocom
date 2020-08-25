@@ -6,16 +6,15 @@
       :width="size * scale + 'px'"
       :height="size * scale + 'px'"
     >
-      <!-- :style="styling" -->
       <g>
         <polyline
-          points="48 35.72 48 48 2 48 2 2 48 2 48 35.72"
           class="outer"
+          points="48 35.72 48 48 2 48 2 2 48 2 48 35.72"
         />
         <polyline
-          points="48 35.72 19.61 35.72 19.61 20.65"
           ref="inner"
           class="inner"
+          points="48 35.72 19.61 35.72 19.61 20.65"
         />
       </g>
     </svg>
@@ -49,14 +48,15 @@ export default {
       size: 50, // = px, based on size of svg
       transformOriginX: 0,
       transformOriginY: 0,
-      // Svg path lengths hardcoded because of component's simplistic nature, see: svg element
-      svgOuterPathLength: (48 - 2) * 4, // harcoded from svg coordinates, see: svg
-      svgInnerPathLength: (48 - 19.61) + (35.72 - 20.65), // harcoded from svg coordinates, see: svg
+      // Svg path lengths hardcoded because of component's simplistic nature, see: <svg>
+      svgOuterPathLength: (48 - 2) * 4,
+      svgInnerPathLength: (48 - 19.61) + (35.72 - 20.65)
     }
   },
 
   mounted() {
-    let coordinates = this.$refs.inner.getAttribute('points').split(' ')
+		const coordinates = this.$refs.inner.getAttribute('points').split(' ')
+		
     this.transformOriginX = (coordinates[2] / this.size * 100) + '%'
     this.transformOriginY = (coordinates[3] / this.size * 100) + '%'
 

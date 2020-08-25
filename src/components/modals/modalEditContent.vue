@@ -27,10 +27,6 @@
 </template>
 
 <script>
-//TODOS:
-//RAKENNA FEEDBACK KUN TALLENNETTU
-//LISÄÄ APUTEKSTEJÄ!
-
 import { dataType, dynamicDataStructure } from '@/utils/data'
 import { isImage } from '@/utils/regex'
 import dropzone from '@/components/dropzone'

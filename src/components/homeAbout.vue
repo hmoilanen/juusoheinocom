@@ -14,12 +14,6 @@
 
 				<base-wrapper max-width="paragraph">
 					<div class="quote">
-						<!-- <base-icon class="gsap--home-about--icon" :size="90">quote</base-icon> -->
-						<!-- <base-title
-							class="gsap--home-about--quote"
-							:center="true"
-							:size="10"
-						>"{{ content[`quote-${locale}`] }}"</base-title> -->
 						<base-title
 							class="gsap--home-about--quote"
 							:center="true"
@@ -28,7 +22,6 @@
 						></base-title>
 					</div>
 				</base-wrapper>
-        <!-- <base-link to="gallery">{{ content[`link-${locale}`] }}</base-link> -->
       </editable-content>
     </app-content-wrapper>
   </div>
@@ -58,9 +51,7 @@ export default {
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '.home-about',
-				start: '75% bottom',
-				//markers: true,
-				//toggleActions: 'restart reset reset reset'
+				start: '75% bottom'
 			}
 		})
 
@@ -77,12 +68,6 @@ export default {
 				opacity: 0,
 				ease: 'SlowMo.ease.config(0.7, 0.7, false)'
 			}, 1.1)
-			/* .from('.gsap--home-about--icon', {
-				duration: 0.4,
-				x: 10,
-				opacity: 0,
-				ease: 'SlowMo.ease.config(0.7, 0.7, false)'
-			}, '-=1.9') */
 	},
 
   computed: {
@@ -97,7 +82,6 @@ export default {
 $home-about--color: $app-color--theme;
 $home-about--color-bg: $app-color--main;
 $home-about--color-hl: $app-color--hl;
-$home-about--color-icon: $app-color--hl2;
 
 .home-about {
 	min-height: 100vh;
@@ -122,15 +106,6 @@ $home-about--color-icon: $app-color--hl2;
     align-items: center;
     justify-content: center;
     position: relative;
-    .base-icon {
-      z-index: -1;
-      position: absolute;
-      top: 60%;
-      left: 25%;
-      //transform: translateY(-50%);
-      transform: translate(-50%, -50%);
-      color: $home-about--color-hl;
-    }
   }
 }
 </style>

@@ -6,21 +6,20 @@
     :target="newTab.target"
     :rel="newTab.rel"
     class="base-link"
-    :class="classing"
-    :style="[styling, mixinMargins, mixinPaddings]"
+    :style="[styling, mixinMargins]"
     v-on="listeners"
   >
-    <slot>{{ this.editableInnerContent }}</slot>
+    <slot>{{ $options.name }}</slot>
   </component>
 </template>
 
 <script>
-import { sizing, margins, paddings, dynamicStyleSet, editableContent } from "@/utils/mixins";
+import { sizing, margins } from "@/utils/mixins";
 
 export default {
   name: "baseLink",
 
-  mixins: [sizing, margins, paddings, dynamicStyleSet, editableContent],
+  mixins: [sizing, margins],
 
   props: {
     to: {
@@ -29,7 +28,7 @@ export default {
     },
     mode: {
       type: String,
-      default: 'router', // '' or 'a' = default <a/> / 'tab' =  <a/> + new tab / 'router' = <router-link/>
+      default: 'router', // '' or 'a' = <a/> / 'tab' =  <a/> -> open new tab / 'router' = <router-link/>
       validator(prop) {
         return ['', 'a', 'tab', 'router'].indexOf(prop) !== -1
       }
@@ -77,12 +76,6 @@ export default {
       } else return {}
     },
 
-    classing() {
-      return {
-        [`style-set-${this.dynamicStyleSet}`]: true, // see: utils/mixins.js
-      }
-    },
-
     styling() {
       return {
         fontSize: this.mixinSizing,
@@ -98,34 +91,13 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$link-color: $app-color--text-link;
-$link-color--hover: $app-color--text-link-hover;
-$link-font: $app-font--link;
-
 .base-link {
   @extend %clickable;
+	text-decoration: none;    
 
-  //&::v-deep > * { color: inherit !important; } // for child custom components
-
-  &.style-set-0 {
-    //font-size: 1.05em;
-    //font-weight: 700;
-    //font-family: $link-font;
-    //color: $link-color;
-    text-decoration: none;    
-
-    &:hover {
-      //color: $link-color--hover !important;
-      color: initial;
-      //border-bottom-color: $link-color--hover; // TÄMÄ ON STYLE_SET -KAMAA!
-      //text-decoration: underline;
-    }  
-    //&:link { color: $link-color; } // unvisited link
-    &:link { color: initial; } // unvisited link
-    //&:visited { color: $link-color; } // visited link
-    &:visited { color: initial; } // visited link
-    //&:active { color: $link-color--hover; } // link on click
-    &:active { color: initial; } // link on click
-  }
+	&:hover { color: initial; }
+	&:link { color: initial; } // Unvisited link
+	&:visited { color: initial; } // Visited link
+	&:active { color: initial; } // Link on click
 }
 </style>

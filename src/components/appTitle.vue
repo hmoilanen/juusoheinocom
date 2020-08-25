@@ -6,7 +6,7 @@
 	>
     <div class="line"></div>
     <base-title :size="size" :scaling="1">
-      <slot>appTitle.vue</slot>
+      <slot>{{ $options.name }}</slot>
     </base-title>
     <slot name="icon"></slot>
   </div>
@@ -21,13 +21,11 @@ export default {
 	mixins: [margins],
 	
 	props: {
+		size: {
+      type: [Number, String],
+      default: 's'
+    },
 		inverted: Boolean
-	},
-
-  data() {
-    return {
-      size: 's'
-    }
 	},
 	
 	computed: {

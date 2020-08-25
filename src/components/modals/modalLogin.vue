@@ -51,11 +51,9 @@ export default {
       })
       .catch(err => {
         console.log(err)
-				//alert('Wrong email or password.')
 				this.feedback = 'Wrong email or password!'
 				this.loading = false
       })
-      // await this.$api.getDefer('logging') // this code waits logging as well
     }
   },
 

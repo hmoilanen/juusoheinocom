@@ -14,14 +14,6 @@ export default {
     async logout () {
       await this.$api.logout()
       this.$emit('close-modal')
-      //this.$store.dispatch('modals/SET_MODAL', '')
-      //this.$router.push('/')
-      /* .then(res => {
-      })
-      .catch(err => {
-        console.log(err)
-        alert('Something went wrong logging out')
-      }) */
     }
   }
 };

@@ -1,11 +1,10 @@
 import { forSnakeCaseHyphens } from '@/utils/regex'
 
-export const upperCaseFirstLetter = function(string) {
+const upperCaseFirstLetter = function(string) {
   return string.charAt(0).toUpperCase() + string.slice(1)
-  //HUOM! PITÄSKÖ TÄTÄ KÄYTTÄÄ MYÖS NOISSA ALEMMMISSA?!?!?! TSEKKAA MYÖHEMMIN KOODIN SVOAMISEN YHTEYDESSÄ!
 }
 
-export const intoKebabCase = function(snakeCaseString) {
+const intoKebabCase = function(snakeCaseString) {
   const regex = forSnakeCaseHyphens;
   let convert =  function(matches) {
     return matches[1].toUpperCase()
@@ -15,15 +14,15 @@ export const intoKebabCase = function(snakeCaseString) {
   return camelCaseString;
 }
 
-export const camelToKebab = function(camelCaseString) {
+const camelToKebab = function(camelCaseString) {
   return camelCaseString.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
-export const getFileName = function(sourceString) {
+const getFileName = function(sourceString) {
   return sourceString.split('\\').pop().split('/').pop();
 }
 
-export const randomString = function(length) {
+const randomString = function(length) {
   let result = '';
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
   
@@ -32,4 +31,12 @@ export const randomString = function(length) {
   }
 
   return result;
+}
+
+export {
+	upperCaseFirstLetter,
+	intoKebabCase,
+	camelToKebab,
+	getFileName,
+	randomString
 }

@@ -1,12 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-// modules
-import app from './app'
-import base from './base' // TARVIIKO TÄSSÄ ROJEKTISSA? / POISTUU!
-import content from './content'
-import modals from './modals' // TARVIIKO TÄSSÄ ROJEKTISSA? / POISTUU!
-import ui from './ui'
-// utils
+import app from './modules/moduleApp'
+import content from './modules/moduleContent'
+import modals from './modules/moduleModals'
+import ui from './modules/moduleUi'
 import { dataType } from '@/utils/data'
 
 Vue.use(Vuex)
@@ -16,17 +13,14 @@ const store = new Vuex.Store({
 	
   modules: {
     app,
-    base,
     content,
     modals,
     ui,
   },
 
-  state: {},
-	getters: {},
+	state: {},
 	
-  // HUOM! PITÄSIKÖ TEHDÄ ERIKSEEN 'GET_STATE',
-    //...JOHON VOI ANTAA POLUN SAMALLA TAVALLA KUIN 'SET_STATE':EN (STRING TAI REFERENSSI)
+	getters: {},
 
   actions: {
     SET_STATE: ({ commit }, payload) => {
@@ -36,23 +30,25 @@ const store = new Vuex.Store({
 
   mutations: {
     SET_STATE: (state, { data, path, property, update }) => {
+			// Generic mutation method to set data to any state of any module
+
       if (data === undefined) return
 
       let stateToSet = path
       let key = property
       let updatedData = data
 
-      if (typeof path === 'string') { // if path given as string notation instead of reference
+      if (typeof path === 'string') { // If path given as string notation instead of reference
         let hasProperty = property ? 0 : 1
-        let pathAsStrings = path.length > 0 // for { path: '' } (= store.state)
+        let pathAsStrings = path.length > 0 // For { path: '' } = store.state
           ? path.split('.')
           : []
         
         stateToSet = state
         
-        // build an actual reference
+        // Build an actual reference
         while (pathAsStrings.length > hasProperty) {
-          // create data structure if not existing yet (works only if path is string)
+          // Create data structure if not existing yet (works only if path is string)
           if (!stateToSet.hasOwnProperty(pathAsStrings[0])) {
             if (update) {
               console.log(`SET_STATE: reference not found`)
@@ -66,9 +62,9 @@ const store = new Vuex.Store({
         }
 
         if (!property) {
-          key = pathAsStrings[0] // set key with last item left in array
+          key = pathAsStrings[0] // Set key with last item left in array
         }
-      } else if (!path || !property) { // if missing parameters        
+      } else if (!path || !property) { // If missing parameters        
         console.log(`SET_STATE: provide missing parameters (data: ${data}, path: ${path}, property: ${property})`)
         return
       }
@@ -78,7 +74,7 @@ const store = new Vuex.Store({
         let type = dataType(data)
         let match = type === dataType(toBeUpdated)
         
-        // update only if data types match
+        // Update only if data types match
         if (match && (toBeUpdated !== null || toBeUpdated !== undefined)) {
           if (type === 'object') {
             updatedData = Object.assign({}, toBeUpdated, data)
@@ -99,6 +95,7 @@ const store = new Vuex.Store({
   }
 })
 
+// For Cypress testing with store involved
 if (window.Cypress) {
   window.__store__ = store
 }

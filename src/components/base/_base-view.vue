@@ -2,26 +2,18 @@
   <div class="base-view" :style="styling.root">
     <div class="content" :style="styling.content">
       <slot>{{ $options.name }}</slot>
-      <!-- <base-wrapper :maxWidth="true">
-      </base-wrapper> -->
       <div v-if="displayScrollIndicator" class="scroll-indicator"></div>
     </div>
     <app-footer v-if="displayFooter"></app-footer>
-    <!-- <app-ui></app-ui> -->
   </div>
 </template>
 
 <script>
-//import appCurtain from '@/components/appCurtain'
-
 export default {
   name: 'baseView',
 
   components: {
-    //appCurtain,
     appFooter: () => import('@/components/appFooter'),
-    //appUi: () => import('@/components/appUi'),
-    //appCurtain: () => import('@/components/appCurtain')
   },
 
   props: {
@@ -53,7 +45,7 @@ export default {
       let ui = this.$store.state.ui
       let navTopHeight = ui.navTopHeight || 50
       let footerHeight = ui.footerHeight || 50
-      let contentMinHeight = ui.window.height
+      let contentMinHeight = window.innerHeight
       let contentPaddingTop = false
       let contentPaddingBottom = false
 
@@ -65,7 +57,7 @@ export default {
         contentMinHeight -= footerHeight 
       }
       
-      let ps = 5 // = 'vmax'
+      let ps = 5 // = vmax
       if (this.contentPaddingY) {
         if (this.contentPaddingY === 'top') {
           contentPaddingTop = ps
@@ -97,12 +89,10 @@ export default {
 <style lang="scss" scoped>
 $base-view--color-secondary: $app-color--secondary;
 $base-view--color-hl: $app-color--hl;
-$base-view--scroll-indicator--width: 3px;
+$base-view--scroll-indicator--width: 2px;
 $base-view--scroll-indicator--height: 25px;
 
 .base-view {
-  //.content {}
-
   .scroll-indicator {
     overflow: hidden;
     position: fixed;

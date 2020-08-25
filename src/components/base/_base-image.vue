@@ -9,9 +9,10 @@
 </template>
 
 <script>
-// LISÄÄ @error METODI -> TARJOA NAPPI, JOLLA MAHDOLLISTA LADATA KUVA UUDELLEEN ???
+// Todo:
+// -add @error and @load
 
-import { margins, editableContent } from '@/utils/mixins'
+import { margins } from '@/utils/mixins'
 import { getFileName } from '@/utils/strings'
 
 export default {
@@ -19,7 +20,7 @@ export default {
 
   inheritAttrs: false,
 
-  mixins: [margins, editableContent],
+  mixins: [margins],
 
   props: {
     width: String // If not set, width: 100%
@@ -27,12 +28,10 @@ export default {
 
   computed: {
     sourceContent() {
-      if (this.editableInnerContent !== 'default inner content') {
-        return this.editableInnerContent
-      } else if (this.$attrs.src) {
+			if (this.$attrs.src) {
         return this.$attrs.src
       } else {
-        return 'https://via.placeholder.com/200x200.png?text=PLACEHOLDER+IMAGE'
+				return 'https://via.placeholder.com/200x200.png?text=PLACEHOLDER+IMAGE'
         // Note: placeholder's size / file type / text can be customized by changing url
       }
     },
@@ -60,7 +59,7 @@ export default {
 
 <style lang="scss" scoped>
 .base-image {
-  display: block; // MUUTA JOS TUOTTAA ONGELMIA
+  display: block;
   width: 100%;
   height: auto;
 }

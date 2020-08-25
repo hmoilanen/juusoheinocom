@@ -1,14 +1,11 @@
 <template>
-  <base-link
-    class="footer-link"
-    :to="to"
-  >
+  <base-link class="footer-link" :to="to">
     <base-title
       :class="{ active: active }"
       :size="9"
       :weight="900"
     >
-      <slot></slot>
+      <slot>{{ $options.name }}</slot>
     </base-title>
   </base-link>
 </template>
@@ -52,7 +49,6 @@ $footer-link--color-hl: $app-color--hl;
       }
     }
     &.active {
-      //color: $footer-link--color-hl;
       @extend %disabled;
       &:before {
         margin-right: 0.3em;
@@ -61,9 +57,6 @@ $footer-link--color-hl: $app-color--hl;
         color: $footer-link--color-hl;
       }
     }
-  }
-  &:hover {
-    //.base-title { color: $footer-link--color-hl; }
   }
 }
 </style>

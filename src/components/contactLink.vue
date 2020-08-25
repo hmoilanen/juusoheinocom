@@ -14,7 +14,7 @@
         v-show="expanded"
         ref="inner"
         size="s"
-      >{{ this.text }}</base-text>
+      >{{ contactLinkText }}</base-text>
     </transition>
   </div>
 </template>
@@ -27,7 +27,7 @@ export default {
     return {
       expanded: false,
       hidden: false,
-      height: 48, // = px / 3rem
+      height: 48, // 48px = 3rem
       widthInner: 0,
       widthIcon: 0,
       animationDuration: 0.4,
@@ -56,7 +56,7 @@ export default {
   },
 
   computed: {
-    text() {
+    contactLinkText() {
       return this.$app.isLoading()
         ? ''
         : this.$store.state.content.contact.link[this.$app.locale()]
@@ -70,7 +70,7 @@ export default {
     },
 
     styling() {
-      let padding = this.height * 0.5
+      const padding = this.height * 0.5
 
       return {
         outer: {
@@ -150,20 +150,10 @@ $contact-link--color-bg: $app-color--hl;
 }
 
 .emerge-enter {
-  //transform: translateY(-200%);
   transform: translateX(100%);
   opacity: 0;
 }
-.emerge-leave-to {
-  //transform: translateY(200%);
-  //transform: translateX(100%);
-  opacity: 0;
-}
-.emerge-enter-active {
-  //transition: all var(--animation-emerge--duration) ease var(--animation-emerge--delay);
-  transition: all var(--animation-emerge--duration) ease var(--animation-emerge--delay);
-}
-.emerge-leave-active {
-  transition: all var(--animation-emerge--duration) ease;
-}
+.emerge-leave-to { opacity: 0; }
+.emerge-enter-active { transition: all var(--animation-emerge--duration) ease var(--animation-emerge--delay); }
+.emerge-leave-active { transition: all var(--animation-emerge--duration) ease; }
 </style>

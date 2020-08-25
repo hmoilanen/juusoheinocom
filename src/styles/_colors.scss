@@ -3,7 +3,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Application colors
 
-// Note!: remember to change color for mobile browser UIs to match app color, see: vue.config.js' pwa object
 $app-color--main: colorlist("grey", "darken-15");
 $app-color--secondary: lighten($app-color--main, 75%);
 $app-color--bg: desaturate(lighten($app-color--main, 100%), 10%);
@@ -11,11 +10,7 @@ $app-color--theme: colorlist("white", "base");
 $app-color--hl: colorlist("custom", "juusoheino-hl");
 $app-color--hl2: lighten($app-color--hl, 38%);
 $app-color--hl-complementary: colorlist("custom", "juusoheino-hl-complementary");
-//$app-color--hl2: ;
-//$app-color--hl3: ;
-//$app-color--error: colorlist("purple", "accent-4");
 $app-color--error: $app-color--hl;
-//$app-color--success: ;
 
 // Typography
 $app-color--text-base: desaturate(darken($app-color--hl, 45%), 95%);
@@ -29,7 +24,6 @@ $app-color--text-link-hover: $app-color--hl;
 $app-color--button: $app-color--theme;
 $app-color--button-bg: $app-color--main;
 $app-color--button-highlight: $app-color--hl;
-//$app-color--button-text: $app-color--theme;
 
 // Input / forms
 $app-color--input: $app-color--text-base;
@@ -37,50 +31,11 @@ $app-color--input-border: $app-color--main;
 $app-color--input-label: $app-color--main;
 $app-color--input-placeholder: lighten($app-color--input, 50%);
 $app-color--input-feedback: $app-color--error;
-//$app-color--input-focus: transparentize($app-color--hl, 0.82);
 $app-color--input-focus: $app-color--hl2;
-
-// Icons
-//$app-color--icon: ;
-//$app-color--icon-secondary: ;
-//$app-color--icon-click: ;
 
 // Other
 $app-color--handler-bg: transparentize($app-color--main, 0.07);
 $app-color--shadow: transparentize($app-color--main, 0.92);
-
-
-////////////////////////////////////////////////////////////////////////////////
-// Application colors - dark mode (optional)
-
-//$app-color--main: ;
-//$app-color--bg ;
-//$app-color--theme ;
-//$app-color--hl ;
-//$app-color--hl2 ;
-//$app-color--hl3 ;
-// Typography
-//$app-color--text-base ;
-//$app-color--text-title ;
-//$app-color--text-handle ;
-//$app-color--text-feedback ;
-//$app-color--text-link ;
-//$app-color--text-link-hover ;
-// Buttons
-//$app-color--button ;
-//$app-color--button-secondary ;
-//$app-color--button-text ;
-// Input / forms
-//$app-color--input ;
-//$app-color--input-border ;
-//$app-color--input-label ;
-//$app-color--input-placeholder ;
-
-// Icons // TULEEKO EDES???!?!?!?!?!
-//$app-color--icon ;
-//$app-color--icon-secondary ;
-//$app-color--icon-click ;
-
 
 ////////////////////////////////////////////////////////////////////////////////
 // Cheatsheet: SASS functions for adjusting colors
@@ -94,6 +49,6 @@ $app-color--shadow: transparentize($app-color--main, 0.92);
 // Lightness:
 // darken($hsl-color, X%)
 // lighten($hsl-color, X%)
-//
+// Other:
 // transparentize($hsl-color, 0-1)
 // opacify($hsl-color, 0-1)

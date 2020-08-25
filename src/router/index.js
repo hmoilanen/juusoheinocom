@@ -10,7 +10,6 @@ const router = new Router({
   base: process.env.BASE_URL,
   routes,
 
-  // Scroll behaviour
   // See: https://router.vuejs.org/guide/advanced/scroll-behavior.html
   scrollBehavior(to, from, savedPosition) {
     if (savedPosition) {
@@ -24,6 +23,7 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
+	// Create page title / head
 	const inner = store.state.app.official.appName
 	const separator = '|'
 	const complement = to.meta && to.meta.title
@@ -35,10 +35,5 @@ router.beforeEach((to, from, next) => {
 
 	next()
 })
-
-// GLOBAL ROUTE GUARDS
-//router.beforeEach((to, from, next) => {})
-//router.beforeResolve(async (to, from, next) => {})
-//router.afterEach((to, from) => {})
 
 export default router

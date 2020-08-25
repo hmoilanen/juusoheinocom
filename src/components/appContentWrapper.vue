@@ -16,7 +16,7 @@ export default {
   mixins: [sizing],
 
   props: {
-    size: { // = dynamic size of side paddings
+    size: { // Size of side paddings
       type: [Number, String],
       default: 8, // 8 * 0.125rem = 1rem = 16px
       validator(prop) {
@@ -33,7 +33,7 @@ export default {
       type: [Boolean, String],
       default: true
     },
-    center: { // center content base on axis (Note!: could be overwritten if this.align of this.justify is specified)
+    center: { // Center content base on axis (Note!: could be overwritten if this.align of this.justify is specified)
       type: String,
       validator: prop => { return ['x', 'y', 'xy'].indexOf(prop) !== -1 }
     }
@@ -58,13 +58,12 @@ export default {
 
 <style lang="scss" scoped>
 .app-content-wrapper {
-  position: relative; // for enabling centering of inner content with transform
+  position: relative; // For enabling centering of inner content with transform
   display: flex;
   align-items: stretch;
   .base-wrapper {
     flex: 1;
     width: 100%;
-    //background: pink;
   }
 }
 </style>

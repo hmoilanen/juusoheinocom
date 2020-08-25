@@ -35,7 +35,7 @@ export default {
       // build store's data structure for content, if not yet existent.
       immediate: true,
       handler(newValue) {
-        if (!newValue) { // when loading no more
+        if (!newValue) { // When loading no more
           let path = this.path.split('.')
           let target = this.$store.state.content
 
@@ -69,10 +69,6 @@ export default {
       } else return 'is loading...'
     },
 
-    /* isLoading() { //OTIN POIS KÄYTÖSTÄ KUN EI NÄYTTÄNY OLEVAN KIINNI MSSÄÄN -> PISTÄ TAKAISIN JOS TULEE ONGELMAA!
-      return this.$store.state.app.isLoading
-    }, */
-
     classing() {
       return {
         'is-editable': this.$app.isLogged()
@@ -99,7 +95,6 @@ export default {
     padding: 0.4rem;
     border: 5px dashed red;
     &:hover {
-      //border-color: hotpink;
       border-style: solid;
       @extend %clickable;
     }

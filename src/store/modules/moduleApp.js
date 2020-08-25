@@ -9,8 +9,8 @@ export default {
 		isLogged: false,
 		locale: 'en',
 
-		externals: [ //OLISIKO NÄMÄKIN FIKSU SIRTÄÄ KANTAAN? VAI MIHIN OLISI PARAS?
-			{ title: 'Github', icon: 'github', link: 'https://github.com/' }, //HUOM! PÄIVITÄ LINKKI KUN TILI LUOTU
+		externals: [
+			{ title: 'Github', icon: 'github', link: 'https://github.com/' },
 			{ title: 'LinkedIn', icon: 'linkedin', link: 'https://www.linkedin.com/in/heinojuuso/' },
 			{ title: 'Constlet', icon: 'constlet', link: 'https://constlet.com' }
 		],
@@ -41,25 +41,22 @@ export default {
 		},
 	
 		GET_OFFICIAL: state => {
-			// OTA MYÖHEMMIN KÄYTTÖÖN
-			//if (!state.human, tms.) { return {} }
-	
-			let official = state.official
-			let currentYear = new Date().getFullYear()
-			let emailHost = official.emailDomain.toLowerCase().split(' ').join('')
-			let info = {
+			const official = state.official
+			const currentYear = new Date().getFullYear()
+			const emailHost = official.emailDomain.toLowerCase().split(' ').join('')
+			const info = {
 				email: `${official.emailPrefix}@${emailHost}.${official.emailSuffix}`,
 				watermark: `© ${currentYear} ${official.companyName}`,
 				disclaimer: state.locale === 'en'
 					? 'All rights reserved.'
 					: 'Kaikki oikeudet pidätetään.',
-				location: [{ // data structure googleMap component expects
+				/* location: [{ // Data structure googleMap component expects
 					name: 'JH',
 					position: {
 						lat: official.latitude || 0,
 						lng: official.longitude || 0
 					}
-				}]
+				}] */
 			}
 	
 			Object.assign(info, official)

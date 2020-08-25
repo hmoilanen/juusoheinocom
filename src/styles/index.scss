@@ -2,9 +2,9 @@
 @import 'colors';
 @import 'fonts.scss';
 @import 'placeholders';
-@import 'cssReset';
 
 :export {
-  // Any values that need to be accessible from JavaScript outside of a Vue component can be defined here,
-  // prefixed with `global-` to avoid conflicts with classes.
+	// Any values that need to be accessible from JavaScript
+	// outside of a Vue components can be defined here.
+  // Prefix with 'global-' to avoid conflicts with classes.
 }
