@@ -1,28 +1,27 @@
 <template>
   <base-view class="view-projects" content-padding-y="y">
     <app-content-wrapper>
-      <!-- <template v-if="!$app.isLoading()"> -->
-        <editable-content path="projects.main" #default="{ content }">
-          <app-title class="gsap--view-projects--title">{{ content[`title-${$app.locale()}`] }}</app-title>
-          <app-text class="gsap--view-projects--title" :m-b="25">
-						{{ content[`text-${$app.locale()}`] }}
-					</app-text>
-        </editable-content>
-      
-        <base-button v-if="$app.isLogged()" @click="addProject">{{ this.buttonText }}</base-button>
 
-        <div class="grid">
-          <projects-item
-            v-for="(project, key) in projects"
-            :key="key"
-            :item="project"
-            @click.native="showcaseProject(key)"
-          ></projects-item>
-        </div>
+			<editable-content path="projects.main" #default="{ content }">
+				<app-title class="gsap--view-projects--title">{{ content[`title-${$app.locale()}`] }}</app-title>
+				<app-text class="gsap--view-projects--title" :m-b="25">
+					{{ content[`text-${$app.locale()}`] }}
+				</app-text>
+			</editable-content>
+		
+			<base-button v-if="$app.isLogged()" @click="addProject">{{ this.buttonText }}</base-button>
 
-				<router-view></router-view>
+			<div class="grid">
+				<projects-item
+					v-for="(project, key) in projects"
+					:key="key"
+					:item="project"
+					@click.native="showcaseProject(key)"
+				></projects-item>
+			</div>
 
-      <!-- </template> -->
+			<router-view></router-view>
+
     </app-content-wrapper>
   </base-view>
 </template>
@@ -86,7 +85,6 @@ export default {
 									autoAlpha: 0,
 									y: 70
 								}, {
-									//delay: 1.5,
 									duration: 0.6,
 									stagger: 0.3,
 									autoAlpha: 1,
@@ -141,7 +139,7 @@ export default {
         }
       }
 
-      console.log('Projects.vue - currently adding new project')
+      console.log('Projects.vue - adding new project')
       this.$store.dispatch('modals/SET_MODAL', {
         active: 'editContent',
         data: { content: data, path: this.$route.name }
@@ -157,7 +155,6 @@ export default {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
 		grid-gap: 1rem;
-		
   }
 }
 

@@ -264,8 +264,8 @@ $view-gallery--color-bg--tile: $app-color--theme;
 		.tiles {
 			@extend %absolute-0000;
 			display: grid;
-			// grid-template-columns: ; // see: this.styling
-			// grid-template-rows: ; // see: this.styling
+			// grid-template-columns: see: this.styling
+			// grid-template-rows: see: this.styling
 			.tile {
 				background: $view-gallery--color-bg--tile;
 			}
@@ -286,9 +286,6 @@ $view-gallery--color-bg--tile: $app-color--theme;
 		@extend %absolute-0000;
 		display: fixed;
 		overflow-y: auto;
-    //display: flex;
-    //align-items: stretch;
-		//justify-content: center;
 		.app-content-wrapper {
 			top: 50%;
 			transform: translateY(-50%);
@@ -318,7 +315,6 @@ $view-gallery--color-bg--tile: $app-color--theme;
 			@extend %clickable;
 			transition: background 0.4s ease;
 			&:hover { background: rgba(255, 255, 255, 0.95); }
-			//.base-icon { @extend %icon--only-stroke; }
 		}
 	}
 }

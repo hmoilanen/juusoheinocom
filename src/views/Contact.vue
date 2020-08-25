@@ -2,10 +2,7 @@
   <base-view class="view-contact" content-padding-y="y">
     <app-content-wrapper max-width="paragraph">
 
-        <editable-content
-          path="contact.main"
-          #default="{ content }"
-        >
+        <editable-content path="contact.main" #default="{ content }">
           <app-title class="gsap--view-contact--title" :m-b="16">
             <template #default>
               {{ content[`title-${locale}`] }}
@@ -97,7 +94,6 @@ import { mapState } from 'vuex'
 import { validateEmail } from '@/utils/regex'
 import { genericTimeStamp } from '@/utils/time'
 import { gsap } from 'gsap'
-import { log } from 'three'
 
 const tl = gsap.timeline({ paused: true })
 
@@ -139,7 +135,6 @@ export default {
 				stagger: 0.2,
 				duration: 0.8,
 				y: 70,
-				//opacity: 0,
 				autoAlpha: 0,
 				ease: 'power2.out'
 			}, 1.4)
