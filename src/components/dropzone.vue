@@ -1,7 +1,4 @@
 <template>
-  <!-- see: https://rowanwins.github.io/vue-dropzone/docs/dist/#/demo -->
-  <!-- npm install vue2-dropzone --save -->
-
   <div
     ref="container"
     class="dropzone-container"
@@ -22,13 +19,11 @@
       @vdropzone-drag-leave="onTop = false"
     ></vue-dropzone>
 
-    <!-- helpers -->
     <base-flex class="helpers" center="xy" :wrap="true" style="overflow: hidden;">
       <span v-if="!addedFile && !loading">drop image<br>or<br>click</span>
       <base-loader v-if="loading"></base-loader>
     </base-flex>
 
-    <!-- dropzone controls -->
     <base-flex v-if="addedFile && !loading" class="controls">
       <!-- <base-button
         @click="deleteFile"
@@ -48,14 +43,14 @@
 </template>
 
 <script>
-// See: https://rowanwins.github.io/vue-dropzone/docs/dist/#/installation
 // See: https://www.dropzonejs.com/
+// Demo, see: https://rowanwins.github.io/vue-dropzone/docs/dist/#/demo
 
-// PROP: LISÄÄ THUMBNAIIL-OPTIO (= TUOTTAA KUVAN LATAAMISEN LISÄKSI SIITÄ TIETYNKOKOISEN JA -LAATUISEN THUMBIN) -> PITÄÄ VOIDA MÄÄRITTÄÄ MYÖS THUMBIN KOKO!
-// SLOT: LISÄÄ OPTIO SYÖTTÄÄ SLOTTIIN (AINAKIN) KONTROLLIT KUSTOMOITUINA (JA OTA SLOTISTA SCOPEDILLA METODIT ULOS)
+// Todo:
+// -add optional prop for saving thumbnail of image simultaneously
+// -also let user customize the resolution of it
 
 import vue2Dropzone from 'vue2-dropzone'
-//import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 export default {
   name: 'dropzone',
@@ -65,18 +60,18 @@ export default {
   },
 
   props: {
+		// For displaying images manually.
+    // Expects data as: { name: 'some-file.png', path: 'root.sub...' }
+    value: Object,
     disabled: Boolean,
     size: String,
     height: String,
-    // For displaying images manually.
-    // Expects data as: { name: 'some-file.png', path: 'root.sub...' } .
-    value: Object,
 
   },
 
   data () {
     return {
-      dropzoneOptions: { // https://www.dropzonejs.com/#configuration-options
+      dropzoneOptions: { // see: https://www.dropzonejs.com/#configuration-options
         url: 'https://httpbin.org/post',
         thumbnailWidth: null,
         thumbnailHeight: null
@@ -115,7 +110,7 @@ export default {
     },
 
     ifFileAdded (file) {
-      // This controls given files and now only lets one file to be active at dropzone at a time
+      // This controls given files and only lets single one to be 'active' at a time
       // Note: if multiple files need to be loaded, code must be developed further!
       let ref = this.$refs.customVueDropzone
       let files = ref.dropzone.files
@@ -195,7 +190,7 @@ export default {
       }
     },
 
-    cssVars() { // for <img> sizing
+    cssVars() { // For <img> sizing
       return {
         '--img-width': this.imgWidth + 'px',
         '--img-height': this.imgHeight + 'px'
@@ -232,7 +227,6 @@ $dropzone-color--border: $app-color--main;
 
   #dropzone {
     @extend %absolute-0000;
-
     &::v-deep {
       .dz-message {
         @extend %absolute-0000;
@@ -241,19 +235,17 @@ $dropzone-color--border: $app-color--main;
         align-items: center;
         justify-content: center;
       }
-
       .dz-preview {
         width: 100%;
         height: 100%;
-
         .dz-image {
           width: 100%;
           height: 100%;
           transition: opacity 0.5s ease;
           img {
             object-fit: contain;
-            width: var(--img-width); // see: this.cssVars()
-            height: var(--img-height); // see: this.cssVars()
+            width: var(--img-width); // see: this.cssVars
+            height: var(--img-height); // see: this.cssVars
           }
         }
         &.dz-processing {
@@ -263,8 +255,7 @@ $dropzone-color--border: $app-color--main;
           .dz-image { opacity: 1; }
         }
       }
-
-      .dz-details, // = file size / name
+      .dz-details, // = File size / name
       .dz-success-mark,
       .dz-error-mark {
         position: absolute;
