@@ -1,6 +1,5 @@
 <template>
   <div class="content-carousel" :style="mixinMargins">
-    
     <Vue-slick-carousel
       v-bind="settings"
       ref="carousel"
@@ -26,7 +25,6 @@
         @new-index="chooseNewIndex"
       ></content-carousel-indicator>
     </base-flex>
-
   </div>
 </template>
 
@@ -37,7 +35,6 @@ import 'vue-slick-carousel/dist/vue-slick-carousel.css' // default styles
 import contentCarouselIndicator from '@/components/contentCarouselIndicator' // https://github.com/gs-shop/vue-slick-carousel
 import { margins } from '@/utils/mixins'
 import { onScreen } from '@/utils/display'
-import { log } from 'three'
 
 
 export default {
@@ -64,8 +61,8 @@ export default {
 				arrows: false,
 				autoplay: false,
 				autoplaySpeed: 4000,
-        cssEase: 'cubic-bezier(0, 0.65, 0.25, 1)',
-				//fade: true,
+				cssEase: 'cubic-bezier(0, 0.65, 0.25, 1)',
+				//lazyLoad: true,
         pauseOnHover: false,
         speed: 390,
         waitForAnimate: false
@@ -87,7 +84,7 @@ export default {
 		this.handleImageSizing()
 		this.isVisibleOnScreen()
 
-		let scrollingElement = this.$route.name === 'project'
+		const scrollingElement = this.$route.name === 'project'
 			? document.querySelector('.projects-project')
 			: window
 
@@ -105,7 +102,7 @@ export default {
 			immediate: true,
 			handler(newValue) {
 				if (newValue) {
-					// Make first cycle duration a bit longer than default
+					// Make first cycle duration a bit longer than the default
 					setTimeout(() => {
 							if (this.$refs.carousel) {
 								this.$refs.carousel.play()
