@@ -112,9 +112,7 @@ export default {
 				scrollTrigger: {
 					scroller: '.projects-project',
 					trigger: info,
-					//start: 'top 95%',
 					start: '30% bottom',
-					//markers: true
 				},
 				opacity: 0,
 				y: 70,
@@ -140,15 +138,13 @@ export default {
     },
     
     dynamicPath() {
-      //return `${this.routeName}.${this.projectId}`
       return `projects.${this.projectId}`
     }
   },
 
   methods: {
     imageSource(image) {
-      let imageURL = this.$store.getters['app/GET_URL'].imageURL
-      //return `${imageURL}${this.routeName}/${this.projectId}/${image}`
+      const imageURL = this.$store.getters['app/GET_URL'].imageURL
       return `${imageURL}projects/${this.projectId}/${image}`
     },
 
@@ -166,7 +162,6 @@ $projects-project--color-bg: $app-color--theme;
 $projects-project--color-hl: $app-color--hl;
 
 .projects-project {
-	//opacity: 0.8;
   overflow-y: auto;
   padding-top: 60px;
   padding-bottom: 5rem;
@@ -175,7 +170,6 @@ $projects-project--color-hl: $app-color--hl;
   left: 0;
   right: 0;
 	bottom: 0;
-	//height: 100vh;
 	background: $projects-project--color-bg;
 	
   .redirect-icon {

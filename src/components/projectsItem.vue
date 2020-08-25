@@ -1,18 +1,13 @@
 <template>
   <div class="projects-item" :class="classing">
-    <!-- <template v-if="item"> -->
-      
-      <div class="bg">
-        <base-bg :source="imageURL(item.bg)" posY="top"></base-bg>
-      </div>
+		<div class="bg">
+			<base-bg :source="imageURL(item.bg)" posY="top"></base-bg>
+		</div>
 
-      <div class="info">
-        <base-title :size="11" :scaling="0.5">{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>  
-        <base-title :size="6" :scaling="0.5">{{ this.item['type-' + $app.locale()] }}, {{ this.item.year }}</base-title>
-				<!-- <base-title>{{ joo }}</base-title> -->
-      </div>
-
-    <!-- </template> -->
+		<div class="info">
+			<base-title :size="11" :scaling="0.5">{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>  
+			<base-title :size="6" :scaling="0.5">{{ this.item['type-' + $app.locale()] }}, {{ this.item.year }}</base-title>
+		</div>
   </div>
 </template>
 
@@ -29,22 +24,9 @@ export default {
 		}
 	},
 
-	/* data() {
-		return {
-			joo: 'eio'
-		}
-	}, */
-	
-	/* mounted() {
-		if (isTouchDevice()) {
-			this.joo = 'on kosketusjuttu'
-		}
-	}, */
-
   methods: {
     imageURL(URL) {
-      let imageURL = this.$store.getters['app/GET_URL'].imageURL
-      //return `${imageURL}${this.$route.name}/${this.$vnode.key}/${URL}`
+      const imageURL = this.$store.getters['app/GET_URL'].imageURL
       return `${imageURL}projects/${this.$vnode.key}/${URL}`
     }
 	},
@@ -91,7 +73,6 @@ export default {
   .bg {
     position: relative;
     height: 0;
-    //padding-bottom: 62.5%;
 		padding-bottom: 100%;
 		transition: opacity 0.2s ease-in-out;
 	}
