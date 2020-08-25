@@ -6,7 +6,7 @@
           <app-title class="gsap--view-projects--title">{{ content[`title-${$app.locale()}`] }}</app-title>
           <app-text
 						class="gsap--view-projects--title"
-						:size="8"
+						:size="7"
 						:m-b="25"
 					>{{ content[`text-${$app.locale()}`] }}</app-text>
         </editable-content>

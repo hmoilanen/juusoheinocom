@@ -6,7 +6,7 @@
     :weight="weight"
     :style="mixinMargins"
   >
-    <slot>appText.vue</slot>
+    <slot>{{ $options.name }}</slot>
   </base-text>
 </template>
 
@@ -21,12 +21,7 @@ export default {
   props: {
     size: {
       type: [Number, String],
-      default: 7,
-      validator(prop) {
-        if (typeof prop === 'string') {
-          return ['s', 'm', 'l', 'xl'].indexOf(prop) !== -1
-        } else return true
-      }
+      default: 7
     },
     scaling: [Boolean, Array, Object, Number],
     weight: {
