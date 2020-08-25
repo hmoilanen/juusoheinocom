@@ -1,13 +1,9 @@
 <template>
   <div class="home-hero">
     <app-content-wrapper>
+
       <editable-content path="home.hero" #default="{ content }">
-        <base-title class="name gsap--home-hero" :size="7">{{ content.pretitle }}</base-title>
-        <!-- <base-title
-					class="text-shadow gsap--home-hero"
-          :size="17"
-          :scaling="true"
-        >{{ content[`title-${locale}`] }}</base-title> -->
+        <base-title class="my-name gsap--home-hero" :size="7">{{ content.pretitle }}</base-title>
         <base-title
 					class="gsap--home-hero"
           :size="17"
@@ -28,13 +24,8 @@
 						<base-button :highlight="true">{{ content[`link2-${locale}`] }}</base-button>
 					</base-link>
 				</base-flex>
-				<!-- <div class="links gsap--home-hero">
-					<base-link to="projects" m-r="s">
-						<base-button :highlight="true">{{ content[`link1-${locale}`] }}</base-button>
-					</base-link>
-					<base-link to="contact">{{ content[`link2-${locale}`] }}</base-link>
-				</div> -->
       </editable-content>
+
     </app-content-wrapper>
   </div>
 </template>
@@ -92,21 +83,9 @@ $home-hero--color-hl: $app-color--hl;
 .home-hero {
 	@extend %absolute-0000;
   display: flex;
-  align-items: center;
-	.app-content-wrapper { flex: 1; }
-  /* .base-title,
-  .base-text {
-    &:not(.black) {
-      //color: $home-hero--color;
-    }
-	} */
-	.name { color: $home-hero--color-hl; }
-	//.links { color: $home-hero--color-hl; }
+	align-items: center;
 	
-	/* .text-shadow {
-		position: absolute;
-		transform: translate(4px, 3px);
-		color: rgba(120, 120, 120, 0.4);
-	} */
+	.app-content-wrapper { flex: 1; }
+	.my-name { color: $home-hero--color-hl; }
 }
 </style>

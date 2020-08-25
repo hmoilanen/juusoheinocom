@@ -13,20 +13,6 @@
 				</base-flex>
 			</editable-content>
 
-			<!-- PÄÄTÄ MITÄ TÄLLE TEHDÄÄN KUN LAYOUT ON VALMIS -> TULEEKO KÄYTTÖÖN VAI MENEEKÖ ROSKIIN ?! -->
-			<!-- <base-flex class="gsap--home-projects--title">
-				<base-link :to="{ name: 'projects' }">
-					<base-flex>
-						<base-icon :only-stroke="true">redirect</base-icon>
-						<base-title :size="6" :m-l="4">to projects</base-title>
-					</base-flex>
-				</base-link>
-				<base-flex @click="newRandomProject" class="shuffle">
-					<base-icon :only-stroke="true">shuffle</base-icon>
-					<base-title :size="6" :m-l="4">shuffle</base-title>
-				</base-flex>
-			</base-flex> -->
-
 			<div class="gsap--home-projects--project">
 				<base-title
 					:size="7"
@@ -80,11 +66,18 @@ export default {
 
 	data() {
 		return {
-			randomProjectIndex: 0
+			randomProjectIndex: 0,
+			projects: null,
+			projectIds: [],
 		}
 	},
 	
 	created() {
+		const { main, ...projects } = this.$store.state.content.projects
+
+		this.projects = projects
+		this.projectIds = Object.keys(projects)
+
 		this.newRandomProject()
 	},
 
@@ -115,12 +108,11 @@ export default {
 
   computed: {
     randomProject() {
-			const { main, ...projects } = this.$store.state.content.projects
-			const keys = Object.keys(projects)
+			const projectId = this.projectIds[this.randomProjectIndex]
 			const project = Object.assign(
 				{},
-				projects[keys[this.randomProjectIndex]],
-				{ id: keys[this.randomProjectIndex] }
+				this.projects[projectId],
+				{ id: projectId }
 			)
 
 			return project
@@ -138,12 +130,11 @@ export default {
 		},
 
 		newRandomProject() {
-			let newIndex = randomIntegerFromInterval(0, 2) //DUMMY!
-			//TUDUU: TÄMÄ TULEEE TILALLE KUN KUVAT LAITETTU KAANTAAN:
-			//let newIndex = randomIntegerFromInterval(0, keys.length - 1)
+			const amount = this.projectIds.length - 1
+			let newIndex = randomIntegerFromInterval(0, amount)
 
 			while (newIndex === this.randomProjectIndex) {
-				newIndex = randomIntegerFromInterval(0, 2)
+				newIndex = randomIntegerFromInterval(0, amount)
 			}
 			
 			this.randomProjectIndex = newIndex

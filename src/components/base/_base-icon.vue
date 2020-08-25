@@ -95,7 +95,6 @@ export default {
     iconMongodb: () => import('@/components/icons/iconMongodb'),
     iconNodejs: () => import('@/components/icons/iconNodejs'),
     iconPhotoshop: () => import('@/components/icons/iconPhotoshop'),
-		iconQuote: () => import('@/components/icons/iconQuote'),
     iconReact: () => import('@/components/icons/iconReact'),
     iconRedirect: () => import('@/components/icons/iconRedirect'),
     iconSass: () => import('@/components/icons/iconSass'),
