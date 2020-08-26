@@ -1,17 +1,15 @@
 import firebase from '@/api/firebase/firebaseInit'
 import store from '@/store'
-//import apiParser from './apiParser'
 
-// For creating references, see: https://firebase.google.com/docs/storage/web/create-reference
+// Creating references, see: https://firebase.google.com/docs/storage/web/create-reference
 const firestore = firebase.firestore()
 const storageRef = firebase.storage().ref()
-
-let defers = {} //TARVIIKO TÄSSÄ PROJEKTISSA OLLENKAAN?
 
 setFirebaseAuth()
 
 // // // // // // // // // // // // // // // // // // // // // // // // 
 // Firebase firestore methods:
+// See: https://firebase.google.com/docs/firestore/quickstart
 
 const getData = (collectionName, document, path, asArray) => {
   // Use to get certain collection or document.
@@ -22,7 +20,7 @@ const getData = (collectionName, document, path, asArray) => {
   return new Promise((resolve, reject) => {
     let target = firestore.collection(collectionName)
 
-    if (document) { // get certain document
+    if (document) { // Get certain document
       target = target.doc(document).get()
       .then(doc => {
         console.log('$api.getData - success')
@@ -32,15 +30,14 @@ const getData = (collectionName, document, path, asArray) => {
         console.error('$api.getData - error:', error)
         reject(error)
       })
-    } else { // get the whole collection
+    } else { // Get the whole collection
       target.get()
       .then(snapshot => {
         console.log('$api.getData - success')
-        //const parsed = apiParser.parseFirebaseData(snapshot, asArray)
         const parsed = parseFirebaseData(snapshot, asArray)
 
-        if (typeof path === 'string') { // for accepting path also as falsy ('')
-          let completePath = path === '' // for storing data to store's root
+        if (typeof path === 'string') { // For accepting path also as falsy ('')
+          let completePath = path === '' // For storing data to store's root
             ? collectionName
             : path + '.' + collectionName
 
@@ -94,7 +91,7 @@ const updateData = (collectionName, doc, dataObject) => {
   // Note: data can be updated only on first level of parent's scope,
   // and the possible deeper existing data structure is overwritten!
   // Note: dataObject is always required as object (can also be empty).
-  // see: https://firebase.google.com/docs/database/web/read-and-write
+  // See: https://firebase.google.com/docs/database/web/read-and-write
   return new Promise((resolve, reject) => {
     const collection = firestore.collection(collectionName)
 
@@ -131,7 +128,7 @@ const updateArray = (collection, doc, array, id, remove) => {
   // Use to update certain array of certain document.
   // Note: data can also be removed from array (if remove = true).
   // Note: updating array is an atomic action!
-  // see: https://firebase.google.com/docs/firestore/manage-data/add-data
+  // See: https://firebase.google.com/docs/firestore/manage-data/add-data
   return new Promise((resolve, reject) => {
     const database = firestore.collection(collection)
     let updateArray = firebase.firebase_.firestore.FieldValue
@@ -156,18 +153,18 @@ const updateArray = (collection, doc, array, id, remove) => {
 
 // // // // // // // // // // // // // // // // // // // // // // // // 
 // Firebase storage methods:
-// see: https://firebase.google.com/docs/storage/web/start
+// See: https://firebase.google.com/docs/storage/web/start
 
 const uploadToStorage = (dataURL, path) => {
   // Use to upload images' encoded data to storage.
   // Note: creates also related folder structure if it doesn't exist yet!
   // Note: path is provided as '/folder/subfolder/...'
-  // see: https://firebase.google.com/docs/storage/web/upload-files
+  // See: https://firebase.google.com/docs/storage/web/upload-files
   return new Promise((resolve, reject) => {
-    // create a reference to the path of the file, eg. 'images/image.jpg'
+    // Create a reference to the path of the file, eg. 'images/image.jpg'
     const ref = storageRef.child(path)
 
-    // upload the data_url encoded string
+    // Upload the data_url encoded string
     ref.putString(dataURL, 'data_url')
     .then(snapshot => {
       console.log('$api.uploadToStorage - success')
@@ -180,11 +177,11 @@ const uploadToStorage = (dataURL, path) => {
   })
 }
 
-//LAAJENNA TÄTÄ NIIN ETTÄ VO HAKEA MYÖS YKSITTÄISEN FILUN!!!
 const getFromStorage = path => {
   // Use to fetch all data from certain directory of storage.
   // Note: path is provided as '/folder/subfolder/...'
-  // see: https://firebase.google.com/docs/storage/web/list-files
+	// See: https://firebase.google.com/docs/storage/web/list-files
+	// Todo: enhance so it's possible to get only certain data of directory
   return new Promise((resolve, reject) => {
     // Create a reference to the path of a file, eg. 'images/'
     const ref = storageRef.child(path)
@@ -212,29 +209,22 @@ const deleteFromStorage = path => {
   // Note: can't be used to delete whole folders.
   // Note: if deleted file makes folder empty, the folder is deleted simultaneously!
   // Note: path is provided as '/folder/subfolder/...'
-  // see: https://firebase.google.com/docs/storage/web/delete-files
+  // See: https://firebase.google.com/docs/storage/web/delete-files
   const ref = storageRef.child(path) // eg. 'images/image.jpg'
 
   ref.delete()
-  .then(() => {
-    console.log('$api.deleteFromStorage - success')
-  }).catch(error => {
-    console.log('$api.deleteFromStorage - error', error)
-  })
+  .then(() => console.log('$api.deleteFromStorage - success'))
+	.catch(error => console.log('$api.deleteFromStorage - error', error))
 }
 
 // // // // // // // // // // // // // // // // // // // // // // // // 
 // Firebase auth methods:
+// See: https://firebase.google.com/docs/auth/web/start
 
 const login = (email, password) => {
   return new Promise((resolve, reject) => {
-    //addDefer('logging')
     firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(() => {
-    //.then(async () => {
-      //await getDefer('logging')
-      resolve('logged in')
-    })
+    .then(() => resolve('logged in'))
     .catch(error => {
       console.log('$api.login - error', error)
       reject(error)
@@ -248,14 +238,10 @@ const logout = () => {
 
 function setFirebaseAuth() {
   firebase.auth().onAuthStateChanged((user) => {
-  //firebase.auth().onAuthStateChanged(async (user) => {
     if (user) {
       store.dispatch('SET_STATE', { data: true, path: 'app.isLogged' })
-      //store.dispatch('SET_STATE', { data: true, path: 'auth.isLogged' })
-      //getDefer('logging').resolve()
     } else {
       store.dispatch('SET_STATE', { data: false, path: 'app.isLogged' })
-      //store.dispatch('SET_STATE', { data: false, path: 'auth.isLogged' })
     }
   })
 }
@@ -263,7 +249,7 @@ function setFirebaseAuth() {
 // // // // // // // // // // // // // // // // // // // // // // // // 
 // Firebase data parser:
 
-const parseFirebaseData = (snapshot, asArray) => {
+function parseFirebaseData(snapshot, asArray) {
   let parsed = asArray ? [] : {}
 
   snapshot.forEach(doc => {
@@ -277,27 +263,6 @@ const parseFirebaseData = (snapshot, asArray) => {
   return parsed
 }
 
-//TARVIIKO OLLENKAAN TÄSSÄ KONTEKSTISSA???
-function addDefer(name) {
-  let defer = () => {
-    let res, rej
-    let promise = new Promise((resolve, reject) => {
-      res = resolve
-      rej = reject
-    })
-    promise.resolve = res
-    promise.reject = rej
-  
-    return promise
-  }
-  defers[name] = defer()
-}
-
-//TARVIIKO OLLENKAAN TÄSSÄ KONTEKSTISSA???
-function getDefer(name) {
-  return defers[name] || { resolve: () => {}, reject: () => {} }
-}
-
 export default {
   getData,
   setDocument,
@@ -308,8 +273,5 @@ export default {
   getFromStorage,
   deleteFromStorage,
   login,
-  logout,
-  //isLogged,
-  addDefer,
-  getDefer
+  logout
 }

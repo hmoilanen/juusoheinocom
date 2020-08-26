@@ -1,10 +1,10 @@
 /* eslint-disable no-console */
-/* import apiActions from './apiActions'
-import appActions from './appActions'
+import protoApi from './protoApi'
+import protoApp from './protoApp'
 
 export default {
   install(Vue, options) {
-    Vue.prototype.$api = apiActions
-    Vue.prototype.$app = appActions
+    Vue.prototype.$api = protoApi
+    Vue.prototype.$app = protoApp
   }
-} */
+}

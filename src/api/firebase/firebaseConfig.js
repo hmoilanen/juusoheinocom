@@ -1,5 +1,5 @@
 export default {
-  apiKey: "AIzaSyDuiTEVFZMrhxX7Z_oo71xDc2cjKNqo8xI",
+  apiKey: process.env.VUE_APP_GOOGLE_FIREBASE_API_KEY,
   authDomain: "juusoheinocom.firebaseapp.com",
   databaseURL: "https://juusoheinocom.firebaseio.com",
   projectId: "juusoheinocom",
