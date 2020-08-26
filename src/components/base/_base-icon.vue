@@ -77,6 +77,7 @@ export default {
     iconContact: () => import('@/components/icons/iconContact'),
 		iconCss: () => import('@/components/icons/iconCss'),
 		iconCypress: () => import('@/components/icons/iconCypress'),
+		iconDown: () => import('@/components/icons/iconDown'),
     iconFirebase: () => import('@/components/icons/iconFirebase'),
     iconFill: () => import('@/components/icons/iconFill'),
     iconFit: () => import('@/components/icons/iconFit'),
@@ -112,7 +113,10 @@ export default {
 svg.base-icon {
 	&.clickable { @extend %clickable; }
 	&.only-stroke {
-		@extend %icon--only-stroke;
+		fill: transparent !important;
+		color: transparent !important;
+		stroke: $app-color--hl !important;
+		stroke-width: 5px;
 	}
 }
 </style>

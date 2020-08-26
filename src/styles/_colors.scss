@@ -8,7 +8,7 @@ $app-color--secondary: lighten($app-color--main, 75%);
 $app-color--bg: desaturate(lighten($app-color--main, 100%), 10%);
 $app-color--theme: colorlist("white", "base");
 $app-color--hl: colorlist("custom", "juusoheino-hl");
-$app-color--hl2: lighten($app-color--hl, 38%);
+$app-color--hl2: lighten($app-color--hl, 42%);
 $app-color--hl-complementary: colorlist("custom", "juusoheino-hl-complementary");
 $app-color--error: $app-color--hl;
 

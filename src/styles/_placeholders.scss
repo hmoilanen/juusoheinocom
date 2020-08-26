@@ -40,12 +40,6 @@
   @extend %disabled;
   opacity: 0.2;
 }
-%icon--only-stroke {
-	fill: transparent !important;
-	color: transparent !important;
-	stroke: $app-color--hl !important;
-	stroke-width: 5px;
-}
 
 ////////////////////////////////////////////////////////////////////////
 // Other

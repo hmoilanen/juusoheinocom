@@ -1,6 +1,10 @@
 <template>
-  <!-- <on-click-outside :do="close"> -->
-    <div ref="container" class="base-dropdown" :class="classing" :style="[styling.root, mixinMargins]">
+  <on-click-outside :do="close">
+    <div
+			class="base-dropdown"
+			:class="classing"
+			:style="[styling.root, mixinMargins]"
+		>
       <base-label v-if="label" :required="required">{{ this.label }}</base-label>
 
       <div
@@ -8,7 +12,6 @@
         class="toggle"
         :style="styling.toggle"
         tabIndex="0"
-        @blur="close"
         @click="toggle"
         @keydown.esc="close"
         @keydown.up.prevent="activatePrev"
@@ -17,7 +20,7 @@
       >
         <span v-if="selected">{{ this.selected }}</span>
         <span v-else class="placeholder">{{ this.placeholder }}</span>
-        <base-icon tooltip="toggle">down</base-icon>
+        <base-icon tooltip="toggle" :only-stroke="true">down</base-icon>
       </div>
 
       <ul v-show="showDropdown" ref="list" class="list">
@@ -25,26 +28,26 @@
           v-for="(item, index) in value"
           :key="item"
           @click="select(item, index)"
-          :class="{ active: activeIndex === index }"
+          :class="{ active: activeIndex === index, ['itemi' + index]: true }"
         >{{ item }}</div>
       </ul>
 
       <base-feedback v-if="feedback" :mT="2">{{ this.feedback }}</base-feedback>
     </div>
-  <!-- </on-click-outside> -->
+  </on-click-outside>
 </template>
 
 <script>
 import Popper from 'popper.js'
 import { sizing, margins } from '@/utils/mixins'
-//import onClickOutside from '@/components/onClickOutside'
+import onClickOutside from '@/components/onClickOutside'
 
 export default {
   name: 'baseDropdown',
 
   mixins: [sizing, margins],
 
-  //components: { onClickOutside },
+  components: { onClickOutside },
 
   props: {
     value: {
@@ -75,11 +78,11 @@ export default {
       activeIndex: 0,
       mixinSizeCategories: { s: 7, m: 8, l: 9, xl: 10 }
     }
-  },
+	},
 
   beforeDestroy() {
-    if (this.popper) {
-      this.popper.destroy()
+		if (this.popper) {
+			this.popper.destroy()
     }
   },
 
@@ -93,15 +96,12 @@ export default {
       this.showDropdown = false
     },
 
-    toggle() {      
+    toggle() {
       this.showDropdown = !this.showDropdown
       if (this.showDropdown) {
         this.$nextTick(() => {
           this.setupPopper()
-          //this.scrollToHighlighted()
-          /* if (this.search) {
-            this.$refs.search.focus()
-          } */
+          this.scrollToHighlighted()
         })
       }
     },
@@ -120,7 +120,8 @@ export default {
       this.selected = item
       this.activeIndex = index
       this.$emit('itemSelected', item)
-      this.close()
+			this.close()
+			this.$refs.toggle.focus()
     },
 
     selectActive() {
@@ -230,8 +231,9 @@ $dropdown-font--placeholder: $app-font--placeholder;
 		svg {
 			flex-shrink: 0;
 			display: inline-block;
-			width: 0.8em;
-			height: 0.8em;
+			width: 1.4em;
+			height: 1.4em;
+			stroke: $app-color--main !important;
 			@extend %rotate-0;
 		}
 	}
