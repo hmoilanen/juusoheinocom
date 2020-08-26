@@ -52,9 +52,9 @@ export default {
   computed: {
     dynamicIcon() {
       if (this.$slots.default) { // By slot
-        return 'icon-' + this.$slots.default[0].text;
+        return 'Icon-' + this.$slots.default[0].text;
       }
-      return 'icon-' + this.icon; // By prop
+      return 'Icon-' + this.icon; // By prop
     },
 
     listeners () {
@@ -70,41 +70,41 @@ export default {
   },
 
   components: {
-    iconAftereffects: () => import('@/components/icons/iconAftereffects'),
-    iconArchicad: () => import('@/components/icons/iconArchicad'),
-		iconBacktotop: () => import('@/components/icons/iconBacktotop'),
-		iconConstlet: () => import('@/components/icons/iconConstlet'),
-    iconContact: () => import('@/components/icons/iconContact'),
-		iconCss: () => import('@/components/icons/iconCss'),
-		iconCypress: () => import('@/components/icons/iconCypress'),
-		iconDown: () => import('@/components/icons/iconDown'),
-    iconFirebase: () => import('@/components/icons/iconFirebase'),
-    iconFill: () => import('@/components/icons/iconFill'),
-    iconFit: () => import('@/components/icons/iconFit'),
-    iconGit: () => import('@/components/icons/iconGit'),
-		iconGithub: () => import('@/components/icons/iconGithub'),
-		iconGoto: () => import('@/components/icons/iconGoto'),
-		iconHtml: () => import('@/components/icons/iconHtml'),
-    iconIllustrator: () => import('@/components/icons/iconIllustrator'),
-    iconIndesign: () => import('@/components/icons/iconIndesign'),
-    iconJava: () => import('@/components/icons/iconJava'),
-    iconJavascript: () => import('@/components/icons/iconJavascript'),
-		iconJest: () => import('@/components/icons/iconJest'),
-		iconJuusoheino: () => import('@/components/icons/iconJuusoheino'),
-		iconLinkedin: () => import('@/components/icons/iconLinkedin'),
-    iconLove: () => import('@/components/icons/iconLove'),
-    iconMongodb: () => import('@/components/icons/iconMongodb'),
-    iconNodejs: () => import('@/components/icons/iconNodejs'),
-    iconPhotoshop: () => import('@/components/icons/iconPhotoshop'),
-    iconReact: () => import('@/components/icons/iconReact'),
-    iconRedirect: () => import('@/components/icons/iconRedirect'),
-    iconSass: () => import('@/components/icons/iconSass'),
-    iconShuffle: () => import('@/components/icons/iconShuffle'),
-    iconSql: () => import('@/components/icons/iconSql'),
-		iconSuccessFrame: () => import('@/components/icons/iconSuccessFrame'),
-    iconSuccessInner: () => import('@/components/icons/iconSuccessInner'),
-    iconVue: () => import('@/components/icons/iconVue'),
-    iconXd: () => import('@/components/icons/iconXd'),
+    IconAftereffects: () => import('@/components/icons/IconAftereffects'),
+    IconArchicad: () => import('@/components/icons/IconArchicad'),
+		IconBacktotop: () => import('@/components/icons/IconBacktotop'),
+		IconConstlet: () => import('@/components/icons/IconConstlet'),
+    IconContact: () => import('@/components/icons/IconContact'),
+		IconCss: () => import('@/components/icons/IconCss'),
+		IconCypress: () => import('@/components/icons/IconCypress'),
+		IconDown: () => import('@/components/icons/IconDown'),
+    IconFirebase: () => import('@/components/icons/IconFirebase'),
+    IconFill: () => import('@/components/icons/IconFill'),
+    IconFit: () => import('@/components/icons/IconFit'),
+    IconGit: () => import('@/components/icons/IconGit'),
+		IconGithub: () => import('@/components/icons/IconGithub'),
+		IconGoto: () => import('@/components/icons/IconGoto'),
+		IconHtml: () => import('@/components/icons/IconHtml'),
+    IconIllustrator: () => import('@/components/icons/IconIllustrator'),
+    IconIndesign: () => import('@/components/icons/IconIndesign'),
+    IconJava: () => import('@/components/icons/IconJava'),
+    IconJavascript: () => import('@/components/icons/IconJavascript'),
+		IconJest: () => import('@/components/icons/IconJest'),
+		IconJuusoheino: () => import('@/components/icons/IconJuusoheino'),
+		IconLinkedin: () => import('@/components/icons/IconLinkedin'),
+    IconLove: () => import('@/components/icons/IconLove'),
+    IconMongodb: () => import('@/components/icons/IconMongodb'),
+    IconNodejs: () => import('@/components/icons/IconNodejs'),
+    IconPhotoshop: () => import('@/components/icons/IconPhotoshop'),
+    IconReact: () => import('@/components/icons/IconReact'),
+    IconRedirect: () => import('@/components/icons/IconRedirect'),
+    IconSass: () => import('@/components/icons/IconSass'),
+    IconShuffle: () => import('@/components/icons/IconShuffle'),
+    IconSql: () => import('@/components/icons/IconSql'),
+		IconSuccessFrame: () => import('@/components/icons/IconSuccessFrame'),
+    IconSuccessInner: () => import('@/components/icons/IconSuccessInner'),
+    IconVue: () => import('@/components/icons/IconVue'),
+    IconXd: () => import('@/components/icons/IconXd'),
   }
 }
 </script>
