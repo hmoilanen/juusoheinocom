@@ -1,5 +1,5 @@
 <template>
-  <div class="google-map"></div>
+  <div id="google-map" class="google-map"></div>
 </template>
 
 <script>
@@ -60,7 +60,20 @@ export default {
 	},
 
   mounted() {
-    this.initMap()
+		const googleApiKey = process.env.VUE_APP_GOOGLE_MAPS_API_KEY
+
+		if (!document.getElementById('google-map--script')) {
+      let googleInit = document.createElement('script')
+      googleInit.async = true
+      googleInit.defer = true
+      googleInit.id = 'google-map--script'
+      googleInit.setAttribute('src', `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&callback`)
+      document.head.appendChild(googleInit)
+      googleInit.onload = () => this.initMap()
+    } else {
+      this.initMap()
+    }
+
     this.$on('hook:updated',() => {
       this.initMap()
 		})

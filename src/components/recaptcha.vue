@@ -19,6 +19,18 @@ export default {
   },
   
   mounted () {
+		/* if (!document.getElementById('g-recaptcha--script')) {
+			console.log('eio');
+			let recaptchaInit = document.createElement('script')
+			recaptchaInit.async = true
+			recaptchaInit.defer = true
+			recaptchaInit.id = 'g-recaptcha--script'
+			//recaptchaInit.setAttribute('src', 'https://www.google.com/recaptcha/api.js?onload=onLoadCallback&render=explicit')
+			recaptchaInit.setAttribute('src', 'https://www.google.com/recaptcha/api.js')
+			document.head.appendChild(recaptchaInit)
+			recaptchaInit.onload = () => {}
+		} */
+		
     // See: https://developers.google.com/recaptcha/docs/verify
     // Render the reCAPTCHA widget, see: index.html
     // Note: Each reCAPTCHA user response token is valid for two minutes,
