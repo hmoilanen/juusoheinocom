@@ -9,18 +9,18 @@
 </template>
 
 <script>
-import appCurtain from '@/components/appCurtain'
-import appUi from '@/components/appUi'
-import appHandler from '@/components/appHandler'
+import AppCurtain from '@/components/AppCurtain'
+import AppUi from '@/components/AppUi'
+import AppHandler from '@/components/AppHandler'
 
 export default {
-  name: 'app',
+  name: 'App',
 
   components: {
-    appCurtain,
-    appUi,
-    appHandler,
-    modalHandler: () => import('@/components/modalHandler')
+    AppCurtain,
+    AppUi,
+    AppHandler,
+    modalHandler: () => import('@/components/ModalHandler')
 	},
 
   computed: {

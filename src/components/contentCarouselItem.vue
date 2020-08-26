@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: 'contentCarouselItem',
+  name: 'ContentCarouselItem',
 
   props: {
 		image: {

@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'navTopToggler',
+  name: 'NavTopToggler',
 
   props: {
     mode: {

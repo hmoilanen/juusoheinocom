@@ -10,7 +10,7 @@
 
 <script>
 export default {
-	name: 'navTopLogo',
+	name: 'NavTopLogo',
 	
   props: {
     alternative: Boolean

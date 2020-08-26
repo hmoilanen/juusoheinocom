@@ -10,10 +10,10 @@
 
 <script>
 export default {
-  name: 'baseView',
+  name: 'BaseView',
 
   components: {
-    appFooter: () => import('@/components/appFooter'),
+    appFooter: () => import('@/components/AppFooter'),
   },
 
   props: {

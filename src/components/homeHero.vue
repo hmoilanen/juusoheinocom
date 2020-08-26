@@ -31,20 +31,20 @@
 </template>
 
 <script>
-import appContentWrapper from '@/components/appContentWrapper'
-import editableContent from '@/components/editableContent'
-import appText from '@/components/appText'
+import AppContentWrapper from '@/components/AppContentWrapper'
+import EditableContent from '@/components/EditableContent'
+import AppText from '@/components/AppText'
 import { gsap } from 'gsap'
 
 const tl = gsap.timeline({ paused: true })
 
 export default {
-  name: 'homeHero',
+  name: 'HomeHero',
 
   components: {
-    appContentWrapper,
-    editableContent,
-    appText
+    AppContentWrapper,
+    EditableContent,
+    AppText
 	},
 	
 	mounted() {

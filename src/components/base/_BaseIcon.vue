@@ -24,7 +24,7 @@
 import { sizing, margins } from '@/utils/mixins'
 
 export default {
-  name: 'baseIcon',
+  name: 'BaseIcon',
 
   mixins: [sizing, margins],
 

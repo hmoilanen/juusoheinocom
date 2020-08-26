@@ -6,14 +6,14 @@
 </template>
 
 <script>
-import contactLink from '@/components/contactLink'
+import ContactLink from '@/components/ContactLink'
 
 export default {
-  name: 'appUi',
+  name: 'AppUi',
 
   components: {
-    navTop: () => import('@/components/navTop'),
-    contactLink
+    navTop: () => import('@/components/NavTop'),
+    ContactLink
   },
 
   computed: {

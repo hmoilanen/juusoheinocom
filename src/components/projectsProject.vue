@@ -64,25 +64,25 @@
 
 <script>
 import store from '@/store/index'
-import appContentWrapper from '@/components/appContentWrapper'
-import editableContent from '@/components/editableContent'
-import contentCarousel from '@/components/contentCarousel'
-import contentCarouselItem from '@/components/contentCarouselItem'
-import appText from '@/components/appText'
+import AppContentWrapper from '@/components/AppContentWrapper'
+import EditableContent from '@/components/EditableContent'
+import ContentCarousel from '@/components/ContentCarousel'
+import ContentCarouselItem from '@/components/ContentCarouselItem'
+import AppText from '@/components/AppText'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default {
-  name: 'projectsProject',
+  name: 'ProjectsProject',
 
   components: {
-    appContentWrapper,
-    editableContent,
-		contentCarousel,
-		contentCarouselItem,
-    appText
+    AppContentWrapper,
+    EditableContent,
+		ContentCarousel,
+		ContentCarouselItem,
+    AppText
   },
 
   data() {

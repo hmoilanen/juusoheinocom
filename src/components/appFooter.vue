@@ -71,21 +71,21 @@
 <script>
 import { navLinks } from '@/utils/navigation'
 import { copyToClipboard, scrollToTop } from '@/utils/exec'
-import appContentWrapper from '@/components/appContentWrapper'
-import appExternalLinks from '@/components/appExternalLinks'
-import localeToggler from '@/components/localeToggler'
-import footerLink from '@/components/footerLink'
-import appText from '@/components/appText'
+import AppContentWrapper from '@/components/AppContentWrapper'
+import AppExternalLinks from '@/components/AppExternalLinks'
+import LocaleToggler from '@/components/LocaleToggler'
+import FooterLink from '@/components/FooterLink'
+import AppText from '@/components/AppText'
 
 export default {
-  name: 'appFooter',
+  name: 'AppFooter',
 
   components: {
-    appContentWrapper,
-    appExternalLinks,
-    localeToggler,
-    footerLink,
-    appText
+    AppContentWrapper,
+    AppExternalLinks,
+    LocaleToggler,
+    FooterLink,
+    AppText
   },
 
   data() {

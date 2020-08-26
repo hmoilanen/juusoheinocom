@@ -1,6 +1,6 @@
 <script>
 export default {
-  name: 'onClickOutside',
+  name: 'OnClickOutside',
 
   props: {
     do: {

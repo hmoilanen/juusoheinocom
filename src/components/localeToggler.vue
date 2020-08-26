@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'localeToggler',
+  name: 'LocaleToggler',
 
   props: {
     size: {

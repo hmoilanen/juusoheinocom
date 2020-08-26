@@ -26,7 +26,7 @@ export default {
   name: 'modalAddContent',
 
   components: {
-    dropzone: () => import('@/components/dropzone')
+    dropzone: () => import('@/components/Dropzone')
   },
 
   props: ['modalData'],

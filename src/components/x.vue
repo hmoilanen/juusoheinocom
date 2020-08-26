@@ -3,13 +3,13 @@
 </template>
 
 <script>
-// import customComponent from '@/components/customComponent'
+// import CustomComponent from '@/components/CustomComponent'
 
 export default {
-  name: 'componentName',
+  name: 'ComponentName',
 
   /* components: {
-    customComponent: () => import('@/components/customComponent')
+    CustomComponent: () => import('@/components/CustomComponent')
   }, */
 
   //props: {},

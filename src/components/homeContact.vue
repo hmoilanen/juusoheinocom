@@ -26,19 +26,19 @@
 </template>
 
 <script>
-import appContentWrapper from '@/components/appContentWrapper'
-import editableContent from '@/components/editableContent'
+import AppContentWrapper from '@/components/AppContentWrapper'
+import EditableContent from '@/components/EditableContent'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default {
-  name: 'homeContact',
+  name: 'HomeContact',
 
   components: {
-    appContentWrapper,
-    editableContent
+    AppContentWrapper,
+    EditableContent
 	},
 
 	mounted() {

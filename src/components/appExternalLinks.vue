@@ -19,7 +19,7 @@
 
 <script>
 export default {
-  name: 'appExternalLinks',
+  name: 'AppExternalLinks',
 
   props: {
     alternative: Boolean // For styling

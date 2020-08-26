@@ -12,7 +12,7 @@
 import { dataType, dynamicDataStructure } from '@/utils/data'
 
 export default {
-  name: 'editableContent',
+  name: 'EditableContent',
 
   props: {
     path: {

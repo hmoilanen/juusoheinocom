@@ -11,7 +11,7 @@
 import { margins } from '@/utils/mixins'
 
 export default {
-  name: 'baseDivider',
+  name: 'BaseDivider',
 
   mixins: [margins],
 

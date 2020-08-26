@@ -84,12 +84,12 @@
 </template>
 
 <script>
-import contactSuccessAnimation from '@/components/contactSuccessAnimation'
-import appContentWrapper from '@/components/appContentWrapper'
-import appTitle from '@/components/appTitle'
-import appText from '@/components/appText'
-import editableContent from '@/components/editableContent'
-import recaptcha from '@/components/recaptcha'
+import ContactSuccessAnimation from '@/components/ContactSuccessAnimation'
+import AppContentWrapper from '@/components/AppContentWrapper'
+import AppTitle from '@/components/AppTitle'
+import AppText from '@/components/AppText'
+import EditableContent from '@/components/EditableContent'
+import Recaptcha from '@/components/Recaptcha'
 import { mapState } from 'vuex'
 import { validateEmail } from '@/utils/regex'
 import { genericTimeStamp } from '@/utils/time'
@@ -98,15 +98,15 @@ import { gsap } from 'gsap'
 const tl = gsap.timeline({ paused: true })
 
 export default {
-  name: 'viewContact',
+  name: 'ViewContact',
 
   components: {
-    contactSuccessAnimation,
-    appContentWrapper,
-    appTitle,
-    appText,
-    editableContent,
-    recaptcha
+    ContactSuccessAnimation,
+    AppContentWrapper,
+    AppTitle,
+    AppText,
+    EditableContent,
+    Recaptcha
   },
 
   data() {

@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'baseGrid',
+  name: 'BaseGrid',
 
   props: {
     colMin: {

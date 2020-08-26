@@ -19,7 +19,7 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'modalHandler',
+  name: 'ModalHandler',
 
   components: {
     //addContent: () => import('@/components/modals/ModalAddContent'), // Implement if necessary

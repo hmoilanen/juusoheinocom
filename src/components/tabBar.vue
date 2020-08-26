@@ -15,7 +15,7 @@
 // Note: created for this app but ended up not used. Put somewhere safe
 
 export default {
-  name: 'tabBar',
+  name: 'TabBar',
 
   props: {
     tabs: {

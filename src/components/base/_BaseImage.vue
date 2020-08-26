@@ -16,7 +16,7 @@ import { margins } from '@/utils/mixins'
 import { getFileName } from '@/utils/strings'
 
 export default {
-  name: 'baseImage',
+  name: 'BaseImage',
 
   inheritAttrs: false,
 

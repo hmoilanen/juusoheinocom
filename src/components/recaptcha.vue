@@ -12,7 +12,7 @@
 // About reCaptcha, see: https://stackoverflow.com/questions/45754869/way-to-skip-recaptcha-images-challenge
 
 export default {
-  name: 'recaptcha',
+  name: 'Recaptcha',
 
   props: {
     disabled: Boolean // For styling

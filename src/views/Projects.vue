@@ -28,12 +28,12 @@
 
 
 <script>
-import appContentWrapper from '@/components/appContentWrapper'
-import appTitle from '@/components/appTitle'
-import appText from '@/components/appText'
-import editableContent from '@/components/editableContent'
-import projectsItem from '@/components/projectsItem'
-import projectsProject from '@/components/projectsProject'
+import AppContentWrapper from '@/components/AppContentWrapper'
+import AppTitle from '@/components/AppTitle'
+import AppText from '@/components/AppText'
+import EditableContent from '@/components/EditableContent'
+import ProjectsItem from '@/components/ProjectsItem'
+import ProjectsProject from '@/components/ProjectsProject'
 import { isImage } from '@/utils/regex'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -43,15 +43,15 @@ gsap.registerPlugin(ScrollTrigger)
 const tl = gsap.timeline({ paused: true })
 
 export default {
-  name: 'viewProjects',
+  name: 'ViewProjects',
 
   components: {
-    appContentWrapper,
-    appTitle,
-    appText,
-    editableContent,
-    projectsItem,
-    projectsProject
+    AppContentWrapper,
+    AppTitle,
+    AppText,
+    EditableContent,
+    ProjectsItem,
+    ProjectsProject
 	},
 
 	mounted() {

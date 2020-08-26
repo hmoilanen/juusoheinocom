@@ -36,7 +36,7 @@
 import { sizing, margins } from '@/utils/mixins'
 
 export default {
-  name: 'baseInput',
+  name: 'BaseInput',
 
   inheritAttrs: false,
 

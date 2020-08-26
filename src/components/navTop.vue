@@ -36,21 +36,21 @@
 <script>
 import { mapState, mapGetters } from 'vuex'
 import { navLinks } from '@/utils/navigation'
-import navTopLogo from '@/components/navTopLogo'
-import navTopToggler from '@/components/navTopToggler'
-import appExternalLinks from '@/components/appExternalLinks'
-import localeToggler from '@/components/localeToggler'
-import appText from '@/components/appText'
+import NavTopLogo from '@/components/NavTopLogo'
+import NavTopToggler from '@/components/NavTopToggler'
+import AppExternalLinks from '@/components/AppExternalLinks'
+import LocaleToggler from '@/components/LocaleToggler'
+import AppText from '@/components/AppText'
 
 export default {
-  name: 'navTop',
+  name: 'NavTop',
 
   components: {
-    navTopLogo,
-    navTopToggler,
-    appExternalLinks,
-    localeToggler,
-    appText
+    NavTopLogo,
+    NavTopToggler,
+    AppExternalLinks,
+    LocaleToggler,
+    AppText
   },
 
   data() {

@@ -16,11 +16,11 @@
 <script>
 // TODO: TEE TARKASTELU JOSSA SELVITETÄÄN MIKÄ ON MENNYT VIKAAN JA UI MUUTTUU SEN MUKAAN
 
-import appFooter from '@/components/appFooter'
+import AppFooter from '@/components/AppFooter'
 
 export default {
-  name: 'viewError',
+  name: 'ViewError',
 
-  components: { appFooter }
+  components: { AppFooter }
 }
 </script>

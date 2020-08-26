@@ -15,7 +15,7 @@
 import { sizing, margins } from '@/utils/mixins'
 
 export default {
-  name: 'baseText',
+  name: 'BaseText',
 
   mixins: [sizing, margins],
 
