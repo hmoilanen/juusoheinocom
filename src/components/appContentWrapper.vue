@@ -11,7 +11,7 @@
 import { sizing } from '@/utils/mixins'
 
 export default {
-  name: 'appContentWrapper',
+  name: 'AppContentWrapper',
 
   mixins: [sizing],
 

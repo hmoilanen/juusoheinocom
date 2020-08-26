@@ -1,5 +1,7 @@
 <script>
 export default {
+	name: 'SortableListItemHandle',
+	
   inject: ['sortableListItemHandleClass'],
 
   mounted () {

@@ -15,7 +15,7 @@
 import { isTouchDevice } from '@/utils/system'
 
 export default {
-  name: 'projectsItem',
+  name: 'ProjectsItem',
 
   props: {
     item: {

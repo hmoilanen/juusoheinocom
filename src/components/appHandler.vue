@@ -7,6 +7,8 @@
 // -convert component as renderless
 
 export default {
+	name: 'AppHandler',
+	
   async beforeCreate() {
     // Get data from firebase
     await Promise.all([

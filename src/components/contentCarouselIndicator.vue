@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'contentCarouselIndicator',
+  name: 'ContentCarouselIndicator',
 
   props: {
 		active: Number,

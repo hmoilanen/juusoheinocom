@@ -8,7 +8,7 @@
 import { sizing, margins } from '@/utils/mixins'
 
 export default {
-  name: 'baseWrapper',
+  name: 'BaseWrapper',
 
   mixins: [sizing, margins],
 

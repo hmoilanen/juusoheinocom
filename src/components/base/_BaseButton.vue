@@ -17,7 +17,7 @@ import { sizing, margins } from '@/utils/mixins';
 import { intoKebabCase } from '@/utils/strings';
 
 export default {
-  name: 'baseButton',
+  name: 'BaseButton',
 
   mixins: [sizing, margins],
 

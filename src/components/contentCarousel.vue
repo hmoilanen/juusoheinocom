@@ -32,17 +32,17 @@
 import VueSlickCarousel from 'vue-slick-carousel' // https://github.com/gs-shop/vue-slick-carousel
 import 'vue-slick-carousel/dist/vue-slick-carousel.css' // default styles
 // import 'vue-slick-carousel/dist/vue-slick-carousel-theme.css' // optional style for arrows & dots
-import contentCarouselIndicator from '@/components/contentCarouselIndicator' // https://github.com/gs-shop/vue-slick-carousel
+import ContentCarouselIndicator from '@/components/ContentCarouselIndicator' // https://github.com/gs-shop/vue-slick-carousel
 import { margins } from '@/utils/mixins'
 import { onScreen } from '@/utils/display'
 
 
 export default {
-  name: 'contentCarousel',
+  name: 'ContentCarousel',
 
   components: {
 		VueSlickCarousel,
-		contentCarouselIndicator
+		ContentCarouselIndicator
 	},
 
   mixins: [margins],

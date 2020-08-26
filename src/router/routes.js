@@ -38,7 +38,7 @@ export default [
       {
         path: ':id',
         name: 'project',
-        component: () => import('@/components/projectsProject'),
+        component: () => import('@/components/ProjectsProject'),
         meta: {
 					title: 'Project',
           preventBodyScrolling: true

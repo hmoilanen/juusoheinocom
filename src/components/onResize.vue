@@ -6,7 +6,7 @@ import elementResizeDetectorMaker from 'element-resize-detector'
 const erd = elementResizeDetectorMaker({ strategy: 'scroll' }) // 'scroll' for better performance
 
 export default {
-  name: 'onResize',
+  name: 'OnResize',
 
   data() {
     return {

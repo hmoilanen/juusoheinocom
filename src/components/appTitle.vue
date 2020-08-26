@@ -16,7 +16,7 @@
 import { margins } from '@/utils/mixins'
 
 export default {
-  name: 'appTitle',
+  name: 'AppTitle',
 
 	mixins: [margins],
 	

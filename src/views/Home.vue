@@ -11,27 +11,27 @@
 </template>
 
 <script>
-import heroCanvas from '@/components/heroCanvas'
-import homeHero from '@/components/homeHero'
-import homeAbout from '@/components/homeAbout'
-import homeProjects from '@/components/homeProjects'
-import homeTools from '@/components/homeTools'
-import homeContact from '@/components/homeContact'
+import HeroCanvas from '@/components/HeroCanvas'
+import HomeHero from '@/components/HomeHero'
+import HomeAbout from '@/components/HomeAbout'
+import HomeProjects from '@/components/HomeProjects'
+import HomeTools from '@/components/HomeTools'
+import HomeContact from '@/components/HomeContact'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default {
-  name: 'viewHome',
+  name: 'ViewHome',
 
   components: {
-    heroCanvas,
-    homeHero,
-    homeAbout,
-    homeProjects,
-    homeTools,
-		homeContact
+    HeroCanvas,
+    HomeHero,
+    HomeAbout,
+    HomeProjects,
+    HomeTools,
+		HomeContact
 	}
 }
 </script>

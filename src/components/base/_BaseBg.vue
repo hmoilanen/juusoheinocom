@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: 'baseBg',
+  name: 'BaseBg',
 
   props: {
     source: {

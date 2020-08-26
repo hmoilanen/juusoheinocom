@@ -53,10 +53,10 @@
 import vue2Dropzone from 'vue2-dropzone'
 
 export default {
-  name: 'dropzone',
+  name: 'Dropzone',
 
   components: {
-    vueDropzone: vue2Dropzone
+    VueDropzone: vue2Dropzone
   },
 
   props: {

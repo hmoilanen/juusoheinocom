@@ -14,7 +14,7 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { onScreen } from '@/utils/display'
 
 export default {
-	name: 'heroCanvas',
+	name: 'HeroCanvas',
 
 	// Using $options for preventing Vue's reactivity
 	initiated: false,

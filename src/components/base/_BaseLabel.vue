@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: 'baseLabel',
+  name: 'BaseLabel',
 
   props: {
     required: Boolean 

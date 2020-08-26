@@ -35,23 +35,23 @@
 </template>
 
 <script>
-import appContentWrapper from '@/components/appContentWrapper'
-import editableContent from '@/components/editableContent'
-import appTitle from '@/components/appTitle'
-import appText from '@/components/appText'
+import AppContentWrapper from '@/components/AppContentWrapper'
+import EditableContent from '@/components/EditableContent'
+import AppTitle from '@/components/AppTitle'
+import AppText from '@/components/AppText'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default {
-  name: 'homeTools',
+  name: 'HomeTools',
 
   components: {
-    appContentWrapper,
-    editableContent,
-    appTitle,
-    appText
+    AppContentWrapper,
+    EditableContent,
+    AppTitle,
+    AppText
   },
 
   props: {

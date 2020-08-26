@@ -42,11 +42,11 @@
 </template>
 
 <script>
-import appContentWrapper from '@/components/appContentWrapper'
-import editableContent from '@/components/editableContent'
-import contentCarousel from '@/components/contentCarousel'
-import contentCarouselItem from '@/components/contentCarouselItem'
-import appTitle from '@/components/appTitle'
+import AppContentWrapper from '@/components/AppContentWrapper'
+import EditableContent from '@/components/EditableContent'
+import ContentCarousel from '@/components/ContentCarousel'
+import ContentCarouselItem from '@/components/ContentCarouselItem'
+import AppTitle from '@/components/AppTitle'
 import { randomIntegerFromInterval } from '@/utils/math'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -54,14 +54,14 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 export default {
-  name: 'homeProjects',
+  name: 'HomeProjects',
 
   components: {
-		appContentWrapper,
-		contentCarousel,
-		contentCarouselItem,
-    editableContent,
-    appTitle
+		AppContentWrapper,
+		ContentCarousel,
+		ContentCarouselItem,
+    EditableContent,
+    AppTitle
 	},
 
 	data() {

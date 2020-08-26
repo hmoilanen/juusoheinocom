@@ -19,13 +19,13 @@
 import { mapState } from 'vuex'
 
 export default {
-  name: 'modalHandler',
+  name: 'ModalHandler',
 
   components: {
-    //addContent: () => import('@/components/modals/modalAddContent'), // Implement if necessary
-    editContent: () => import('@/components/modals/modalEditContent'),
-    login: () => import('@/components/modals/modalLogin'),
-    logout: () => import('@/components/modals/modalLogout')
+    //addContent: () => import('@/components/modals/ModalAddContent'), // Implement if necessary
+    editContent: () => import('@/components/modals/ModalEditContent'),
+    login: () => import('@/components/modals/ModalLogin'),
+    logout: () => import('@/components/modals/ModalLogout')
   },
 
   created() {

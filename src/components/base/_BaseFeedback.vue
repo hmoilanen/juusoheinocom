@@ -15,7 +15,7 @@ import { sizing, margins } from '@/utils/mixins'
 import { camelToKebab } from '@/utils/strings'
 
 export default {
-  name: 'baseFeedback',
+  name: 'BaseFeedback',
 
   mixins: [sizing, margins],
 

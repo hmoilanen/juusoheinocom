@@ -15,7 +15,7 @@
 import { sizing, margins } from '@/utils/mixins'
 
 export default {
-  name: 'baseText',
+  name: 'BaseText',
 
   mixins: [sizing, margins],
 
@@ -82,8 +82,7 @@ $text-font--handle: $app-font--handle;
 
 .base-text {
   position: relative;
-	//font-family: $text-font;
-	font-family: MarkPro, "sans-serif";
+	font-family: $text-font;
 	color: $text-color;
 	&::selection {
 		background: $text-color--selection-bg;

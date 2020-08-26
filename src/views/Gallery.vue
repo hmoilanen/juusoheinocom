@@ -64,13 +64,13 @@
 
 
 <script>
-import editableContent from '@/components/editableContent'
-import googleMap from '@/components/googleMap'
-import appContentWrapper from '@/components/appContentWrapper'
-import contentCarousel from '@/components/contentCarousel'
-import contentCarouselItem from '@/components/contentCarouselItem'
-import appTitle from '@/components/appTitle'
-import appText from '@/components/appText'
+import EditableContent from '@/components/EditableContent'
+import GoogleMap from '@/components/GoogleMap'
+import AppContentWrapper from '@/components/AppContentWrapper'
+import ContentCarousel from '@/components/ContentCarousel'
+import ContentCarouselItem from '@/components/ContentCarouselItem'
+import AppTitle from '@/components/AppTitle'
+import AppText from '@/components/AppText'
 import { randomString } from '@/utils/strings'
 import { randomIntegerFromInterval } from '@/utils/math'
 import { gsap } from 'gsap'
@@ -78,16 +78,16 @@ import { gsap } from 'gsap'
 const tl = gsap.timeline({ paused: true })
 
 export default {
-  name: 'viewGallery',
+  name: 'ViewGallery',
 
   components: {
-    editableContent,
-    googleMap,
-    appContentWrapper,
-		contentCarousel,
-		contentCarouselItem,
-		appTitle,
-    appText
+    EditableContent,
+    GoogleMap,
+    AppContentWrapper,
+		ContentCarousel,
+		ContentCarouselItem,
+		AppTitle,
+    AppText
   },
 
   data() {

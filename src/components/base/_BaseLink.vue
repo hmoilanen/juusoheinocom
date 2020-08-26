@@ -17,7 +17,7 @@
 import { sizing, margins } from "@/utils/mixins";
 
 export default {
-  name: "baseLink",
+  name: "BaseLink",
 
   mixins: [sizing, margins],
 

@@ -12,7 +12,7 @@
 import { margins } from '@/utils/mixins'
 
 export default {
-  name: 'baseFlex',
+  name: 'BaseFlex',
 
   mixins: [margins],
 

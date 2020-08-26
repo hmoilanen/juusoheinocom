@@ -11,7 +11,7 @@
 
 <script>
 export default {
-  name: 'baseScroller',
+  name: 'BaseScroller',
 
   props: {
     height: String,

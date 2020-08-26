@@ -17,7 +17,7 @@ import { gsap } from 'gsap'
 const tl = gsap.timeline({ paused: false, delay: 1 })
 
 export default {
-  name: 'appCurtain',
+  name: 'AppCurtain',
 
   data() {
     return {

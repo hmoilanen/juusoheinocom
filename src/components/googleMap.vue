@@ -14,7 +14,7 @@ import { googleMapStyles } from '@/utils/googleMapStyles'
 import { countries } from '@/api/countries'
 
 export default {
-  name: 'googleMap',
+  name: 'GoogleMap',
 
   props: {
     places: {

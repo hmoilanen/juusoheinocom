@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'footerLink',
+  name: 'FooterLink',
 
   props: {
     to: [String, Object],

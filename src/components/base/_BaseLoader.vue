@@ -10,7 +10,7 @@
 import { margins } from '@/utils/mixins'
 
 export default {
-  name: 'baseLoader',
+  name: 'BaseLoader',
 
   mixins: [margins]
 }

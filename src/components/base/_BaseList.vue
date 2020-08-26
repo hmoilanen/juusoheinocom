@@ -18,7 +18,7 @@
 import { margins } from '@/utils/mixins'
 
 export default {
-  name: 'baseList',
+  name: 'BaseList',
 
   mixins: [margins],
 

@@ -21,7 +21,7 @@
 
 <script>
 export default {
-  name: 'contactLink',
+  name: 'ContactLink',
 
   data() {
     return {

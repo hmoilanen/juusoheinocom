@@ -40,14 +40,14 @@
 <script>
 import Popper from 'popper.js'
 import { sizing, margins } from '@/utils/mixins'
-import onClickOutside from '@/components/onClickOutside'
+import OnClickOutside from '@/components/OnClickOutside'
 
 export default {
-  name: 'baseDropdown',
+  name: 'BaseDropdown',
 
   mixins: [sizing, margins],
 
-  components: { onClickOutside },
+  components: { OnClickOutside },
 
   props: {
     value: {

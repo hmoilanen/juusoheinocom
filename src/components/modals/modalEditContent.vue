@@ -29,12 +29,12 @@
 <script>
 import { dataType, dynamicDataStructure } from '@/utils/data'
 import { isImage } from '@/utils/regex'
-import dropzone from '@/components/dropzone'
+import dropzone from '@/components/Dropzone'
 
 export default {
-  name: 'modalEditContent',
+  name: 'ModalEditContent',
 
-  components: { dropzone },
+  components: { Dropzone },
 
   props: {
     modalData: {

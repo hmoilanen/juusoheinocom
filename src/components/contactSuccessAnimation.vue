@@ -23,7 +23,7 @@
 
 <script>
 export default {
-  name: 'contactSuccessAnimation',
+  name: 'ContactSuccessAnimation',
 
   props: {
     scale: {

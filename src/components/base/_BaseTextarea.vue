@@ -32,7 +32,7 @@
 import { sizing, margins } from '@/utils/mixins'
 
 export default {
-  name: 'baseTextarea',
+  name: 'BaseTextarea',
 
   inheritAttrs: false,
 
