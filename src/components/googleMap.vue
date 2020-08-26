@@ -11,7 +11,7 @@
 // Customize markers - complex icons: https://developers.google.com/maps/documentation/javascript/examples/icon-complex
 
 import { googleMapStyles } from '@/utils/googleMapStyles'
-import { countries } from '@/api/countries'
+import { countries } from '@/utils/googleMapCountries'
 
 export default {
   name: 'GoogleMap',

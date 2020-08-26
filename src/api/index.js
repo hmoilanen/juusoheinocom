@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import apiActions from './apiActions'
+/* import apiActions from './apiActions'
 import appActions from './appActions'
 
 export default {
@@ -7,4 +7,4 @@ export default {
     Vue.prototype.$api = apiActions
     Vue.prototype.$app = appActions
   }
-}
+} */

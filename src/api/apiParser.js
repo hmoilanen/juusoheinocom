@@ -1,4 +1,4 @@
-const parseFirebaseData = (snapshot, asArray) => {
+/* const parseFirebaseData = (snapshot, asArray) => {
   let parsed = asArray ? [] : {}
 
   snapshot.forEach(doc => {
@@ -14,4 +14,4 @@ const parseFirebaseData = (snapshot, asArray) => {
 
 export default {
   parseFirebaseData
-}
+} */

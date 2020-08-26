@@ -1,10 +1,10 @@
 import firebase from '@/api/firebase/firebaseInit'
 import store from '@/store'
-import apiParser from './apiParser'
+//import apiParser from './apiParser'
 
+// For creating references, see: https://firebase.google.com/docs/storage/web/create-reference
 const firestore = firebase.firestore()
 const storageRef = firebase.storage().ref()
-// For creating references, see: https://firebase.google.com/docs/storage/web/create-reference
 
 let defers = {} //TARVIIKO TÄSSÄ PROJEKTISSA OLLENKAAN?
 
@@ -36,7 +36,8 @@ const getData = (collectionName, document, path, asArray) => {
       target.get()
       .then(snapshot => {
         console.log('$api.getData - success')
-        const parsed = apiParser.parseFirebaseData(snapshot, asArray)
+        //const parsed = apiParser.parseFirebaseData(snapshot, asArray)
+        const parsed = parseFirebaseData(snapshot, asArray)
 
         if (typeof path === 'string') { // for accepting path also as falsy ('')
           let completePath = path === '' // for storing data to store's root
@@ -257,6 +258,23 @@ function setFirebaseAuth() {
       //store.dispatch('SET_STATE', { data: false, path: 'auth.isLogged' })
     }
   })
+}
+
+// // // // // // // // // // // // // // // // // // // // // // // // 
+// Firebase data parser:
+
+const parseFirebaseData = (snapshot, asArray) => {
+  let parsed = asArray ? [] : {}
+
+  snapshot.forEach(doc => {
+    if (asArray) {
+      parsed.push(doc.data())
+    } else {
+      parsed[doc.id] = doc.data()
+    }
+  })
+
+  return parsed
 }
 
 //TARVIIKO OLLENKAAN TÄSSÄ KONTEKSTISSA???
