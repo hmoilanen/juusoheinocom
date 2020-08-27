@@ -22,12 +22,15 @@ export default {
 			modalHandler: 10000,
 			navTop: 1000,
 			contentHandler: 10,
-		}
+		},
+
+		// This is for making getter 'GET_BREAKPOINT' reactive (updated in appHandler.vue)
+		windowWidth: 0
 	},
 
   getters: {
 		GET_BREAKPOINT: state => {
-			const windowWidth = window.innerWidth
+			const windowWidth = state.windowWidth
 			const breakpoints = state.breakpoints
 			const classes = ['s', 'm', 'l', 'xl']
 			let current = 'm'
@@ -40,7 +43,7 @@ export default {
 					current = classes[breakpoints.length]
 				}
 			}
-	
+
 			return {
 				current: current,
 				index: classes.indexOf(current),

@@ -131,7 +131,7 @@ export default {
 			
       return {
         paddingTop: `${defaultPadding}vmax`,
-        paddingBottom: `${defaultPadding}vmax`
+        paddingBottom: `${defaultPadding * 0.8}vmax`
       }
     }
   },

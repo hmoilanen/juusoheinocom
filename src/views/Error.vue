@@ -1,26 +1,57 @@
 <template>
-  <div class="view-error">
-    <base-wrapper :compensateNavTop="true">
-      <base-title tag="h1">404 - Page not found</base-title>
+	<base-view class="view-error">
+    <base-wrapper :center="true">
+			<base-title
+				class="error-face"
+				:size="12"
+				:scaling="2"
+				:uppercase="false"
+				:m-b="4"
+			>[ O _ o ] / ?</base-title>
+      <base-title
+				tag="h1"
+				:size="22"
+				:scaling="4"
+				:center="true"
+				:m-b="30"
+			>404 - Page not found</base-title>
       <!-- <base-title tag="h1">Ooops! Something went wrong</base-title> -->
-      
-      <base-link to="/" mode="router">
-        <base-text>back to front page</base-text>
-      </base-link>
-    </base-wrapper>
 
-    <app-footer></app-footer>
-  </div>
+			<base-link to="/" class="redirect">
+				<base-flex center="y" :m-b="18">
+					<base-title :size="7">to front page</base-title>
+					<base-icon class="redirect-icon" :only-stroke="true">redirect</base-icon>
+				</base-flex>
+			</base-link>
+    </base-wrapper>
+	</base-view>
 </template>
 
 <script>
-// TODO: TEE TARKASTELU JOSSA SELVITETÄÄN MIKÄ ON MENNYT VIKAAN JA UI MUUTTUU SEN MUKAAN
-
-import AppFooter from '@/components/AppFooter'
-
 export default {
-  name: 'ViewError',
-
-  components: { AppFooter }
+	name: 'ViewError'
 }
 </script>
+
+<style lang="scss" scoped>
+.view-error {
+	&::v-deep {
+		&.base-view .content {
+			display: flex;
+			align-items: center;
+			padding: 15vmin 6vmin 10vmin;
+		}
+	}
+
+	.error-face { color: $app-color--hl; }
+
+	.redirect-icon {
+		margin-left: 0.5rem;
+    margin-top: -0.1rem;
+    @extend %clickable;
+		transition: transform 0.4s ease;
+		transform: translateX(0);
+  }
+	.redirect:hover .redirect-icon { transform: translateX(5px); }
+}
+</style>

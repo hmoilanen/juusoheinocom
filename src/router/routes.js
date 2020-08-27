@@ -60,7 +60,11 @@ export default [
   {
     path: '/404',
     name: 'error',
-    component: () => import('@/views/Error'),
+		component: () => import('@/views/Error'),
+		meta: {
+			title: '404',
+			displayFooter: true
+		}
   },
   {
     path: '*',

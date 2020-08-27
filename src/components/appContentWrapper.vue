@@ -41,13 +41,6 @@ export default {
 
   computed: {
     styling() {
-      let justifyContent = this.center === 'x' || this.center === 'xy'
-        ? 'center'
-        : false
-      let alignItems = this.center === 'y' || this.center === 'xy'
-        ? 'center'
-        : false
-
       return {
 				padding: `0 ${this.mixinSizing}`
       }

@@ -21,7 +21,24 @@ export default {
     ])
 
     this.$store.dispatch('SET_STATE', { data: false, path: 'app.isLoading' })
-  },
+	},
+	
+	mounted() {
+		this.updateWindowWidth()
+
+		window.addEventListener('resize', () => {	
+			this.updateWindowWidth()
+		})
+	},
+
+	methods: {
+		updateWindowWidth() {
+			this.$store.dispatch('SET_STATE', {
+				data: window.innerWidth,
+				path: 'ui.windowWidth'
+			})
+		}
+	},
 
   watch: {
     // For preventing screen scrolling in certain circumstances

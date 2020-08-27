@@ -37,9 +37,6 @@ export const sizing = { // Generic sizing mixin for components
       function sizeCategory(size) {
         if (typeof size === 'string') {
           return self.mixinSizeCategories[size]
-          //JÄTIN TÄN VIELÄ TÄHÄN KOSKA VAIHIDOIN TARKASTELUN PROPIN VALIDATORIIIN JA JOS TULE ONGELMIA NIIN PALAA TÄHÄN!!!!
-          /* if (size === 's' || size === 'm' || size === 'l' || size === 'xl') {
-          } else return self.mixinSizeCategories.m */
         } else return size // = number
       }
 
@@ -54,7 +51,7 @@ export const sizing = { // Generic sizing mixin for components
         if (self.scaling) {
           let type = dataType(self.scaling)
           let breakpoint = self.$store.getters['ui/GET_BREAKPOINT']
-          let multiplier = 2 // = 2 * 0.125rem          
+					let multiplier = 2 // = 2 * 0.125rem
 
           if (type === 'boolean') {
             return size + (breakpoint.index * multiplier)
