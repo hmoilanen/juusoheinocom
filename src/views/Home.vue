@@ -9,7 +9,8 @@
 		<!-- <home-projects></home-projects> -->
 		<!-- <home-about></home-about> -->
 		<home-tools></home-tools>
-		<!-- <home-contact></home-contact> -->
+		<!-- <home-tools></home-tools> -->
+		<home-contact></home-contact>
   </base-view>
 </template>
 

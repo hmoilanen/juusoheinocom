@@ -1,12 +1,14 @@
 <template>
-	<editable-content path="home.contact" #default="{ content }">
-		<home-section class="home-contact" :header="content[`header-${$app.locale()}`]">
-
-			<base-wrapper max-width="paragraph">
-				<base-title
+  <div class="home-contact">
+    <app-content-wrapper>
+      <editable-content
+        v-if="!$app.isLoading()"
+        path="home.contact"
+        #default="{ content }"
+      >
+        <base-title
 					class="gsap--home-contact--text"
-          :size="16"
-					:scaling="true"
+          size="xl"
           :center="true"
         >{{ content[`title-${locale}`] }}</base-title>
 				<div class="button-container">
@@ -18,15 +20,14 @@
 						:highlight="true"
 					>{{ content[`link-${locale}`] }}</base-button>
 				</div>
-			</base-wrapper>
-
-		</home-section>
-	</editable-content>
+      </editable-content>
+    </app-content-wrapper>
+  </div>
 </template>
 
 <script>
+import AppContentWrapper from '@/components/AppContentWrapper'
 import EditableContent from '@/components/EditableContent'
-import HomeSection from '@/components/HomeSection'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -36,16 +37,15 @@ export default {
   name: 'HomeContact',
 
   components: {
-		EditableContent,
-		HomeSection
+    AppContentWrapper,
+    EditableContent
 	},
 
 	mounted() {
 		const tl = gsap.timeline({
 			scrollTrigger: {
-				trigger: '.gsap--home-contact--text',
-				start: '-300% 90%',
-				//toggleActions: 'play reset reset reset'
+				trigger: '.home-contact',
+				start: 'top top'
 			}
 		})
 

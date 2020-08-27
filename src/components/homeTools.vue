@@ -2,7 +2,7 @@
 	<editable-content path="home.tools.main" #default="{ content }">
 		<home-section class="home-tools" :header="content[`title-${$app.locale()}`]">
 
-			<base-wrapper max-width="460px">
+			<base-wrapper max-width="paragraph">
 				<app-text
 					class="gsap--home-tools--text"
 					:size="6.5"
@@ -60,7 +60,7 @@ export default {
 				trigger: '.gsap--home-tools--text',
 				start: 'top 85%',
 				//markers: true,
-				toggleActions: 'play reset reset reset'
+				//toggleActions: 'play reset reset reset'
 			}
 		})
 
@@ -81,7 +81,7 @@ export default {
 			}, 0.7)
 			.from('.gsap--home-tools--note', {
 				duration: 0.4,
-				delay: 0.4,
+				delay: 0.2,
 				opacity: 0,
 				y: 10,
 				ease: 'Power2.out'

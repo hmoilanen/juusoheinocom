@@ -8,7 +8,7 @@
 		<!-- <slot></slot> -->
 
 		<div class="wrapper" :style="styling.wrapper">
-			<div class="header gsap--home-section--header">
+			<div class="header" :class="randomKey">
 				<app-title :size="6">{{ header }}</app-title>			
 			</div>
 			<div class="content">
@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import { sizing } from '@/utils/mixins'
 import AppTitle from '@/components/AppTitle'
-import AppText from '@/components/AppText'
+import { sizing } from '@/utils/mixins'
+import { randomString } from '@/utils/strings'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -37,8 +37,7 @@ export default {
 	name: 'HomeSection',
 
 	components: {
-		AppTitle,
-		AppText
+		AppTitle
 	},
 
 	mixins: [sizing],
@@ -52,16 +51,28 @@ export default {
     scaling: { default: 5 }
 	},
 
+	data() {
+		return {
+			randomKey: ''
+		}
+	},
+
+	created() {
+		this.randomKey = `gsap--home-section--header-${randomString(4)}`
+	},
+
 	mounted() {
-		gsap.fromTo('.gsap--home-section--header', {
+		const headerElement = `.${this.randomKey}`
+
+		gsap.fromTo(headerElement, {
 			autoAlpha: 0,
 			y: 50,
 		}, {
 			scrollTrigger: {
-				trigger: '.gsap--home-section--header',
+				trigger: headerElement,
 				start: 'top 90%',
 				//markers: true,
-				toggleActions: 'play reset reset reset'
+				//toggleActions: 'play reset reset reset'
 			},
 			duration: 1.2,
 			autoAlpha: 1,
@@ -107,7 +118,7 @@ export default {
 		display: flex;
 		flex-direction: column;
 		
-		.header { padding: 1.6rem 0; }
+		.header { position: absolute; padding: 1.6rem 0; }
 
 		.content {
 			overflow-y: hidden;
