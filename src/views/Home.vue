@@ -3,13 +3,13 @@
     <hero-canvas>
     	<home-hero></home-hero>
 		</hero-canvas>
-		<home-section></home-section>
+		<!-- <home-section></home-section> -->
 		<!-- <home-section></home-section>
 		<home-section></home-section> -->
-		<home-projects></home-projects>
-		<home-about></home-about>
+		<!-- <home-projects></home-projects> -->
+		<!-- <home-about></home-about> -->
 		<home-tools></home-tools>
-		<home-contact></home-contact>
+		<!-- <home-contact></home-contact> -->
   </base-view>
 </template>
 

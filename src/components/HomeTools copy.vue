@@ -1,40 +1,43 @@
 <template>
-	<editable-content path="home.tools.main" #default="{ content }">
-		<home-section class="home-tools" :header="content[`title-${$app.locale()}`]">
+  <div class="home-tools">
+    <app-content-wrapper>
 
-			<base-wrapper max-width="460px">
+			<editable-content path="home.tools.main" #default="{ content }">
+				<app-title class="gsap--home-tools--title">{{ content[`title-${$app.locale()}`] }}</app-title>
 				<app-text
-					class="gsap--home-tools--text"
-					:size="6.5"
-					:scaling="0.5"
-					:m-b="30"
+					class="gsap--home-tools--title"
+					:size="8"
+					:m-b="40"
 				>{{ content[`text-${$app.locale()}`] }}</app-text>
-				<div class="grid">
-					<div
-						class="tool gsap--home-tools--tool"
-						v-for="(tool, key) in tools"
-						:key="key"
-					>
-						<base-icon size="xl">{{ key }}</base-icon>
-						<base-title :size="4" :truncate="true">
-							{{ tool.title }}
-							<span v-if="!tool.advanced">*</span>
-						</base-title>
+				
+				<base-wrapper max-width="460px">
+					<div class="grid">
+						<div
+							class="tool gsap--home-tools--tool"
+							v-for="(tool, key) in tools"
+							:key="key"
+						>
+							<base-icon size="xl">{{ key }}</base-icon>
+							<base-title :size="4" :truncate="true">
+								{{ tool.title }}
+								<span v-if="!tool.advanced">*</span>
+							</base-title>
+						</div>
 					</div>
-				</div>
+					<base-title class="gsap--home-tools--note" :size="4" m-t="xl">
+						<span>*</span> : {{ content[`nb-${$app.locale()}`] }}
+					</base-title>
+				</base-wrapper>
+			</editable-content>
 
-				<base-title class="gsap--home-tools--note" :size="4" m-t="xl">
-					<span>*</span> : {{ content[`nb-${$app.locale()}`] }}
-				</base-title>
-			</base-wrapper>
-
-		</home-section>
-	</editable-content>
+    </app-content-wrapper>
+  </div>
 </template>
 
 <script>
+import AppContentWrapper from '@/components/AppContentWrapper'
 import EditableContent from '@/components/EditableContent'
-import HomeSection from '@/components/HomeSection'
+import AppTitle from '@/components/AppTitle'
 import AppText from '@/components/AppText'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -45,9 +48,10 @@ export default {
   name: 'HomeTools',
 
   components: {
-		EditableContent,
-		HomeSection,
-		AppText
+    AppContentWrapper,
+    EditableContent,
+    AppTitle,
+    AppText
   },
 
   props: {
@@ -57,20 +61,18 @@ export default {
 	mounted() {
 		const tl = gsap.timeline({
 			scrollTrigger: {
-				trigger: '.gsap--home-tools--text',
-				start: 'top 85%',
-				//markers: true,
-				toggleActions: 'play reset reset reset'
+				trigger: '.home-tools',
+				start: '75% bottom'
 			}
 		})
 
 		tl
-			.from('.gsap--home-tools--text', {
+			.from('.gsap--home-tools--title', {
 				stagger: 0.2,
-				duration: 0.8,
-				y: 50,
+				duration: 0.5,
+				y: 70,
 				opacity: 0,
-				ease: 'Power2.out'
+				ease: 'Power3.out'
 			})
 			.from('.gsap--home-tools--tool', {
 				stagger: 0.04,
@@ -78,12 +80,10 @@ export default {
 				y: -10,
 				opacity: 0,
 				ease: 'Back.easeOut.config(1.7)'
-			}, 0.7)
+			}, 1)
 			.from('.gsap--home-tools--note', {
 				duration: 0.4,
-				delay: 0.4,
 				opacity: 0,
-				y: 10,
 				ease: 'Power2.out'
 			})
 	},
@@ -107,8 +107,15 @@ export default {
 $color--tools-asterisk: $app-color--hl;
 
 .home-tools {
+	min-height: 100vh;
+	display: flex;
+  align-items: center;
+	justify-content: center;
+
+	.app-content-wrapper { flex: 1; }
+
   .grid {
-    //margin-top: 2rem;
+    margin-top: 2rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
     grid-column-gap: 0.6rem;

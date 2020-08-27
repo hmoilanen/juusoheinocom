@@ -9,7 +9,7 @@
 
 		<div class="wrapper" :style="styling.wrapper">
 			<div class="header gsap--home-section--header">
-				<app-title :size="5">{{ header }}</app-title>			
+				<app-title :size="6">{{ header }}</app-title>			
 			</div>
 			<div class="content">
 				<div>
@@ -55,17 +55,17 @@ export default {
 	mounted() {
 		gsap.fromTo('.gsap--home-section--header', {
 			autoAlpha: 0,
-			x: -35,
+			y: 50,
 		}, {
 			scrollTrigger: {
 				trigger: '.gsap--home-section--header',
 				start: 'top 90%',
 				//markers: true,
-				//toggleActions: 'play reset reset reset'
+				toggleActions: 'play reset reset reset'
 			},
-			duration: 1.4,
+			duration: 1.2,
 			autoAlpha: 1,
-			x: 0,
+			y: 0,
 			ease: 'power2.out',
 		})
 	},
@@ -115,7 +115,7 @@ export default {
 			display: flex;
 			align-items: center;
 			& > div {
-				background: rgba(0, 0, 0, 0.05);//POSTUU!
+				//background: rgba(0, 0, 0, 0.05);//POSTUU!
 				flex: 1;
 			}
 		}

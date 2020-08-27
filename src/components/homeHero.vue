@@ -3,7 +3,7 @@
     <app-content-wrapper>
 
       <editable-content path="home.hero" #default="{ content }">
-        <base-title class="my-name gsap--home-hero" :size="7">{{ content.pretitle }}</base-title>
+        <base-title class="my-name gsap--home-hero" :size="8" :uppercase="false">{{ content.pretitle }}</base-title>
         <base-title
 					class="gsap--home-hero"
           :size="18"
