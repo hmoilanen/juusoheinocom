@@ -29,7 +29,7 @@
 <script>
 import { dataType, dynamicDataStructure } from '@/utils/data'
 import { isImage } from '@/utils/regex'
-import dropzone from '@/components/Dropzone'
+import Dropzone from '@/components/Dropzone'
 
 export default {
   name: 'ModalEditContent',
@@ -53,6 +53,7 @@ export default {
   },
 
   created() {
+		console.log('täällä');
     this.contentToEdit = JSON.parse(JSON.stringify(this.modalData.content))
     this.dataType = dataType(this.contentToEdit)
   },

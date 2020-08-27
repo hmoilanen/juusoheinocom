@@ -26,9 +26,11 @@ export default {
 	mounted() {
 		this.updateWindowWidth()
 
-		window.addEventListener('resize', () => {	
-			this.updateWindowWidth()
+		window.addEventListener('resize', this.updateWindowWidth)
+		this.$once('hook:beforeDestroy', () => {
+			window.removeEventListener('resize', this.updateWindowWidth)
 		})
+
 	},
 
 	methods: {

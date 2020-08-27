@@ -6,7 +6,7 @@
         <base-title class="my-name gsap--home-hero" :size="7">{{ content.pretitle }}</base-title>
         <base-title
 					class="gsap--home-hero"
-          :size="17"
+          :size="18"
           :scaling="true"
         >{{ content[`title-${locale}`] }}</base-title>
 

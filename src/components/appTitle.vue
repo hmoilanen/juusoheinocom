@@ -50,9 +50,9 @@ $app-title--color-inverted: $app-color--theme;
   .line {
     margin-right: 0.5rem;
     width: 6vmin;
-    min-width: 20px;
-    max-width: 30px;
-    height: 4px;
+    min-width: 10px;
+    max-width: 18px;
+    height: 2px;
     background: $app-title--color;
 	}
 

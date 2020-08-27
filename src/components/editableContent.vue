@@ -1,8 +1,8 @@
 <template>
   <div
-    @click="openEditModal"
     class="editable-content"
     :class="classing"
+    @click="openEditModal"
   >
     <slot :content="editableContent"></slot>
   </div>

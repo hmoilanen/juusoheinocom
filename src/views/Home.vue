@@ -3,6 +3,9 @@
     <hero-canvas>
     	<home-hero></home-hero>
 		</hero-canvas>
+		<home-section></home-section>
+		<!-- <home-section></home-section>
+		<home-section></home-section> -->
 		<home-projects></home-projects>
 		<home-about></home-about>
 		<home-tools></home-tools>
@@ -11,21 +14,19 @@
 </template>
 
 <script>
+import HomeSection from '@/components/HomeSection'
 import HeroCanvas from '@/components/HeroCanvas'
 import HomeHero from '@/components/HomeHero'
 import HomeAbout from '@/components/HomeAbout'
 import HomeProjects from '@/components/HomeProjects'
 import HomeTools from '@/components/HomeTools'
 import HomeContact from '@/components/HomeContact'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
 
 export default {
   name: 'ViewHome',
 
   components: {
+		HomeSection,
     HeroCanvas,
     HomeHero,
     HomeAbout,

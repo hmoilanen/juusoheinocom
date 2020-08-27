@@ -1,43 +1,43 @@
 <template>
   <div class="home-projects">
-    <app-content-wrapper>
-      
-			<editable-content path="home.projects" #default="{ content }">
+		<editable-content path="home.projects" #default="{ content }">
+      <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
+				
+    	<app-content-wrapper>
 				<base-flex class="gsap--home-projects--title" center="y">
-        	<app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
 					<base-icon
 						class="shuffle"
 						@click="newRandomProject"
 						:only-stroke="true"
 					>shuffle</base-icon>
 				</base-flex>
-			</editable-content>
 
-			<div class="gsap--home-projects--project">
-				<base-title
-					:size="7"
-					:scaling="1"
-					:m-t="10"
-				>{{ randomProject[`title-${$app.locale()}`] }}</base-title>
-				<base-title
-					:size="4"
-					:scaling="1"
-				>{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
-			</div>
+				<div class="gsap--home-projects--project">
+					<base-title
+						:size="7"
+						:scaling="1"
+						:m-t="10"
+					>{{ randomProject[`title-${$app.locale()}`] }}</base-title>
+					<base-title
+						:size="4"
+						:scaling="1"
+					>{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
+				</div>
 
-			<base-wrapper class="gsap--home-projects--project" maxWidth="medium" :m-t="20">
-				<content-carousel :key="randomProject.id">
-					<content-carousel-item
-						v-for="(image, index) in randomProject.images"
-						:key="index"
-						:image="imageSource(image)"
-						:clickable="true"
-						@click="goToCurrentProject"
-					></content-carousel-item>
-				</content-carousel>
-			</base-wrapper>
+				<base-wrapper class="gsap--home-projects--project" maxWidth="medium" :m-t="20">
+					<content-carousel :key="randomProject.id">
+						<content-carousel-item
+							v-for="(image, index) in randomProject.images"
+							:key="index"
+							:image="imageSource(image)"
+							:clickable="true"
+							@click="goToCurrentProject"
+						></content-carousel-item>
+					</content-carousel>
+				</base-wrapper>
 
-    </app-content-wrapper>
+    	</app-content-wrapper>
+		</editable-content>
   </div>
 </template>
 
