@@ -222,8 +222,7 @@ export default {
       }
 
 			this.submitting = true
-			
-			// TUDUU: Rikulta tähän jeesiä!
+
       await this.$api.setDocument('contacts', null, contact)
       .then(() => {
         setTimeout(() => {
