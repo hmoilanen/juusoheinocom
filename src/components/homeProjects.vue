@@ -1,5 +1,80 @@
 <template>
-  <div class="home-projects">
+	<editable-content path="home.projects" #default="{ content }">
+
+		<home-section
+			class="home-projects"
+			:header="content[`title-${$app.locale()}`]"
+		>
+			<!-- #default="{ width }" -->
+			<!-- <div class="testi"> -->
+				<!-- <div class="testi2"> -->
+				<!-- <base-wrapper maxWidth="medium" :style="{ width: width + 'px' }"> -->
+					<!-- <div class="testi2">DIVI</div> -->
+				<!-- <base-wrapper maxWidth="medium">
+					<content-carousel :key="randomProject.id">
+						<content-carousel-item
+							v-for="(image, index) in randomProject.images"
+							:key="index"
+							:image="imageSource(image)"
+							:clickable="true"
+							@click="goToCurrentProject"
+						></content-carousel-item>
+					</content-carousel>
+				</base-wrapper> -->
+				<!-- </div> -->
+			<!-- </div> -->
+
+			<!-- <div style="padding: 0 2rem;">
+				<div style="max-width:700px; min-height: 100px; background: pink;">
+					<content-carousel :key="randomProject.id">
+						<content-carousel-item
+							v-for="(image, index) in randomProject.images"
+							:key="index"
+							:image="imageSource(image)"
+							:clickable="true"
+							@click="goToCurrentProject"
+						></content-carousel-item>
+					</content-carousel>
+				</div>
+			</div> -->
+
+			<!-- <base-wrapper class="gsap--home-projects--project" maxWidth="medium"> -->
+				<!-- <base-flex class="gsap--home-projects--title" center="y">
+					<base-icon
+						class="shuffle"
+						@click="newRandomProject"
+						:only-stroke="true"
+					>shuffle</base-icon>
+				</base-flex> -->
+
+				<!-- <div class="gsap--home-projects--project">
+					<base-title
+						:size="7"
+						:scaling="1"
+						:m-t="10"
+					>{{ randomProject[`title-${$app.locale()}`] }}</base-title>
+					<base-title
+						:size="4"
+						:scaling="1"
+					>{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
+				</div> -->
+
+				<!-- <div style="height: 100px; background: pink;"></div> -->
+
+				<!-- <content-carousel :key="randomProject.id">
+					<content-carousel-item
+						v-for="(image, index) in randomProject.images"
+						:key="index"
+						:image="imageSource(image)"
+						:clickable="true"
+						@click="goToCurrentProject"
+					></content-carousel-item>
+				</content-carousel> -->
+			<!-- </base-wrapper> -->
+		</home-section>
+	</editable-content>
+
+  <!-- <div class="home-projects">
 		<editable-content path="home.projects" #default="{ content }">
       <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
 				
@@ -38,15 +113,16 @@
 
     	</app-content-wrapper>
 		</editable-content>
-  </div>
+  </div> -->
 </template>
 
 <script>
-import AppContentWrapper from '@/components/AppContentWrapper'
 import EditableContent from '@/components/EditableContent'
+import HomeSection from '@/components/HomeSection'
 import ContentCarousel from '@/components/ContentCarousel'
 import ContentCarouselItem from '@/components/ContentCarouselItem'
-import AppTitle from '@/components/AppTitle'
+//import AppContentWrapper from '@/components/AppContentWrapper'
+//import AppTitle from '@/components/AppTitle'
 import { randomIntegerFromInterval } from '@/utils/math'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -57,11 +133,12 @@ export default {
   name: 'HomeProjects',
 
   components: {
-		AppContentWrapper,
+		EditableContent,
+		HomeSection,
 		ContentCarousel,
 		ContentCarouselItem,
-    EditableContent,
-    AppTitle
+		//AppContentWrapper,
+    //AppTitle
 	},
 
 	data() {
@@ -82,7 +159,7 @@ export default {
 	},
 
   mounted() {
-		const tl = gsap.timeline({
+		/* const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '.home-projects',
 				start: 'top center',
@@ -103,7 +180,7 @@ export default {
 				y: 70,
 				opacity: 0,
 				ease: 'Power3.out'
-			}, 1)
+			}, 1) */
 	},
 
   computed: {
@@ -147,19 +224,51 @@ export default {
 $home-projects--color-hl: $app-color--hl;
 
 .home-projects {
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-
-	.app-content-wrapper { width: 100%; }
-	.app-title { margin-bottom: 0; }
+	//.app-content-wrapper { width: 100%; }
+	//.app-title { margin-bottom: 0; }
 	.shuffle { @extend %clickable; }
   .redirect {
     margin-left: 0.5rem;
     margin-top: -0.1rem;
     @extend %clickable;
     color: $home-projects--color-hl;
+	}
+
+	.testi {
+		//overflow: hidden;
+		//display: flex;
+		//align-items: stretch;
+		min-height: 50px;
+		//flex-direction: column;
+		//max-width: 100%;
+		//background: pink;
+		//position: relative;
+		//min-width: 200px;
+		//max-width: 800px;
+		//margin: 0 auto;
+		//border: 1px solid red;
+		.testi2 {
+			//flex: 1;
+			//width: 100%;
+			background: rgba(255, 217, 0, 0.377);
+			//sdisplay: flex;
+			margin-bottom: 10px;
+		}
+		& > * { width: 100%; }
+
+
+		//display: flex;
+		//align-items: stretch;
+		/* .base-wrapper {
+			//flex: 1;
+			position: relative;
+			//width: 100%;
+			//width: 50vw;
+			display: flex;
+			flex-direction: column;
+			align-items: stretch;
+			background: yellow;
+		} */
 	}
 }
 </style>

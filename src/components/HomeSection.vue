@@ -9,11 +9,13 @@
 
 		<div class="wrapper" :style="styling.wrapper">
 			<div class="header" :class="randomKey">
-				<app-title :size="6">{{ header }}</app-title>			
+				<app-title :size="6" :inverted="invertedColor">{{ header }}</app-title>			
 			</div>
-			<div class="content">
-				<div>
-					<slot>
+			<div class="content" ref="content">
+				<div class="content-inner" :style="styling.content">
+					<slot :width="contentContainerWidth">
+					<!-- <slot :width="contentContainerWidth"> -->
+						<!-- {{contentContainerWidth}} -->
 						content
 						<!-- <app-title v-for="item in 15" m-b="xl" :key="item">otsikko</app-title> -->
 					</slot>
@@ -48,12 +50,14 @@ export default {
 			default: 'header'
 		},
     size: { default: 8 }, // Size of side paddings (min: 8 * 0.125rem = 1rem)
-    scaling: { default: 5 }
+		scaling: { default: 5 },
+		invertedColor: Boolean
 	},
 
 	data() {
 		return {
-			randomKey: ''
+			randomKey: '',
+			//contentContainerWidth: 0
 		}
 	},
 
@@ -62,6 +66,13 @@ export default {
 	},
 
 	mounted() {
+		/* this.trackContentContainerSize()
+		
+		window.addEventListener('resize', this.trackContentContainerSize)
+		this.$once('hook:beforeDestroy', () => {
+			window.removeEventListener('resize', this.trackContentContainerSize)
+		}) */
+
 		const headerElement = `.${this.randomKey}`
 
 		gsap.fromTo(headerElement, {
@@ -80,6 +91,12 @@ export default {
 			ease: 'power2.out',
 		})
 	},
+
+	/* methods: {
+		trackContentContainerSize() {
+			this.contentContainerWidth = this.$refs.content.offsetWidth
+		}
+	}, */
 	
 	computed: {
 		styling() {
@@ -99,7 +116,9 @@ export default {
 				wrapper: {
 					height: `${homeSectionHeight - ui.navTopHeight - paddingBottom}px`,
 					maxWidth: `${ui.contentWidth.max}px`
-				}
+				},
+				//content: { width: this.contentContainerWidth + 'px' }
+				content: { }
 			}
 		}
 	}
@@ -125,8 +144,10 @@ export default {
 			flex: 1;
 			display: flex;
 			align-items: center;
-			& > div {
-				//background: rgba(0, 0, 0, 0.05);//POSTUU!
+			background: pink;//POSTUU!
+			.content-inner {
+				background: rgba(0, 0, 0, 0.05);//POSTUU!
+				position: relative;
 				flex: 1;
 			}
 		}

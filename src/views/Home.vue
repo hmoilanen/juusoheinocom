@@ -3,19 +3,14 @@
     <hero-canvas>
     	<home-hero></home-hero>
 		</hero-canvas>
-		<!-- <home-section></home-section> -->
-		<!-- <home-section></home-section>
-		<home-section></home-section> -->
-		<!-- <home-projects></home-projects> -->
-		<!-- <home-about></home-about> -->
+		<home-projects></home-projects>
+		<home-about></home-about>
 		<home-tools></home-tools>
-		<!-- <home-tools></home-tools> -->
 		<home-contact></home-contact>
   </base-view>
 </template>
 
 <script>
-import HomeSection from '@/components/HomeSection'
 import HeroCanvas from '@/components/HeroCanvas'
 import HomeHero from '@/components/HomeHero'
 import HomeAbout from '@/components/HomeAbout'
@@ -27,7 +22,6 @@ export default {
   name: 'ViewHome',
 
   components: {
-		HomeSection,
     HeroCanvas,
     HomeHero,
     HomeAbout,
