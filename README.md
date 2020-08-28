@@ -1,4 +1,4 @@
-# vue-boilerplate
+# juusoheino.com
 
 ## Project setup
 ```
