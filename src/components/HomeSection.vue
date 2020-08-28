@@ -13,7 +13,7 @@
 			</div>
 			<div class="content" ref="content">
 				<div class="content-inner" :style="styling.content">
-					<slot :width="contentContainerWidth">
+					<slot>
 					<!-- <slot :width="contentContainerWidth"> -->
 						<!-- {{contentContainerWidth}} -->
 						content
