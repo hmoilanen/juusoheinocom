@@ -144,9 +144,9 @@ export default {
 			flex: 1;
 			display: flex;
 			align-items: center;
-			background: pink;//POSTUU!
+			//background: pink;//POSTUU!
 			.content-inner {
-				background: rgba(0, 0, 0, 0.05);//POSTUU!
+				//background: rgba(0, 0, 0, 0.05);//POSTUU!
 				position: relative;
 				flex: 1;
 			}
