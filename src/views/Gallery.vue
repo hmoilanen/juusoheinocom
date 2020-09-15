@@ -149,21 +149,22 @@ export default {
 		galleryIntroSeen() {
 			return this.$store.state.ui.galleryIntroSeen
 		},
-
-    countries() {
+		
+		countries() {
       if (!this.$app.isLoading()) {
         const { main, ...gallery } = this.$store.state.content.gallery
         let listOfCountries = {}
 
-        for (let country in gallery) {
-					const { info, ...images } = gallery[country]
-					const countryName = info['name-en'].toLowerCase().split(' ').join('')
+        for (let country in gallery) {	
+					const countryData = gallery[country]
+					const countryName = countryData.info['name-en'].toLowerCase().split(' ').join('')
+					const images = countryData.images
 					
 					listOfCountries[countryName] = {
-						...info,
+						...countryData.info,
 						images
 					}
-        }
+				}
 
         return listOfCountries
       } else return null

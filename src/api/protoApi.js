@@ -1,11 +1,18 @@
-import firebase from '@/api/firebase/firebaseInit'
+//import firebase from '@/api/firebase/firebaseInit'
+import * as firebase from 'firebase/app';
+import 'firebase/firestore';
+import 'firebase/auth';
+import 'firebase/storage';
 import store from '@/store'
 
 // Creating references, see: https://firebase.google.com/docs/storage/web/create-reference
-const firestore = firebase.firestore()
-const storageRef = firebase.storage().ref()
+//const firestore = firebase.firestore()
+//const storageRef = firebase.storage().ref()
 
-setFirebaseAuth()
+let firestore
+let storageRef
+
+setFirebase()
 
 // // // // // // // // // // // // // // // // // // // // // // // // 
 // Firebase firestore methods:
@@ -218,7 +225,7 @@ const deleteFromStorage = path => {
 }
 
 // // // // // // // // // // // // // // // // // // // // // // // // 
-// Firebase auth methods:
+// Firebase config / auth methods:
 // See: https://firebase.google.com/docs/auth/web/start
 
 const login = (email, password) => {
@@ -236,14 +243,37 @@ const logout = () => {
   firebase.auth().signOut()
 }
 
-function setFirebaseAuth() {
+// Set Firebase and initiate the app with it + relevant data
+async function setFirebase() {
+	if (!firestore) {
+		//const firebaseConfigURL = 'http://localhost:3001/api/firebaseConfig' // TUDU: VAIHDAA TÄMÄ KUN HEROKUSSA
+		const firebaseConfigURL = 'https://pure-falls-91716.herokuapp.com/api/firebaseConfig'
+		const response = await fetch(firebaseConfigURL)
+		const body = await response.json()
+		const firebaseApp = await firebase.initializeApp(body)
+
+		firestore = firebaseApp.firestore()
+		storageRef = firebaseApp.storage().ref()
+	}
+
   firebase.auth().onAuthStateChanged((user) => {
     if (user) {
       store.dispatch('SET_STATE', { data: true, path: 'app.isLogged' })
     } else {
       store.dispatch('SET_STATE', { data: false, path: 'app.isLogged' })
     }
-  })
+	})
+	
+	await Promise.all([
+		getData('home', null, 'content'),
+		getData('contact', null, 'content'),
+		getData('projects', null, 'content'),
+		getData('gallery', null, 'content'),
+		getData('components', null, 'content'),
+		getData('meta', null, 'content')
+	])
+
+	store.dispatch('SET_STATE', { data: false, path: 'app.isLoading' })
 }
 
 // // // // // // // // // // // // // // // // // // // // // // // // 

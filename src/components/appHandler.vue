@@ -9,20 +9,6 @@
 export default {
 	name: 'AppHandler',
 	
-  async beforeCreate() {
-    // Get data from firebase
-    await Promise.all([
-			this.$api.getData('home', null, 'content'),
-      this.$api.getData('contact', null, 'content'),
-      this.$api.getData('projects', null, 'content'),
-      this.$api.getData('gallery', null, 'content'),
-      this.$api.getData('components', null, 'content'),
-      this.$api.getData('meta', null, 'content')
-    ])
-
-    this.$store.dispatch('SET_STATE', { data: false, path: 'app.isLoading' })
-	},
-	
 	mounted() {
 		this.updateWindowWidth()
 
