@@ -1,5 +1,3 @@
-import firebaseConfig from '@/api/firebase/firebaseConfig'
-
 export default {
 	namespaced: true,
 	
@@ -29,7 +27,7 @@ export default {
 			const appURL = process.env.NODE_ENV === 'production'
 				? state.domain
 				: `${window.location.protocol}//${window.location.host}`
-			const storage = firebaseConfig.storageBucket
+			const storage = 'juusoheinocom.appspot.com'
 			const storageURL = `https://storage.googleapis.com/${storage}/`
 			const imageURL = `${storageURL}images/`
 			
