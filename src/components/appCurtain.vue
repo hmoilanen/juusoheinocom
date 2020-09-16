@@ -7,6 +7,7 @@
 			:class="`pixel-${index}`"
 		></div>
 		<base-loader v-if="showLoader" class="curtain-loader"></base-loader>
+		<div class="CY--app-curtain--reset" @click="proceed"></div>
 	</div>
 
 </template>
@@ -136,5 +137,13 @@ $app-curtain--color-hl: $app-color--hl;
     transform: translateX(-50%);
     bottom: 10vh;
   }
+
+	.CY--app-curtain--reset {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 1px;
+		height: 1px;
+	}
 }
 </style>

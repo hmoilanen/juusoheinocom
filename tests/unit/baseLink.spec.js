@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
-import baseLink from '@/components/base/_base-link.vue'
+import baseLink from '@/components/base/_BaseLink.vue'
 
-describe('baseLink.vue', () => {
+describe('_BaseLink.vue', () => {
 	it('click event is emitted / listened when clicked', () => {
 		const onClick = jest.fn()
 		const wrapper = mount(baseLink, {

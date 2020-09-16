@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
-import baseTextarea from '@/components/base/_base-textarea.vue'
+import baseTextarea from '@/components/base/_BaseTextarea.vue'
 
-describe('baseTextarea.vue', () => {
+describe('_BaseTextarea.vue', () => {
 	it('two way data binding (value/input) works', () => {
 		const text = 'test text'
 		const wrapper = mount(baseTextarea, {

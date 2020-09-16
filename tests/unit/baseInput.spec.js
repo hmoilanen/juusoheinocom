@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
-import baseInput from '@/components/base/_base-input.vue'
+import baseInput from '@/components/base/_BaseInput.vue'
 
-describe('baseInput.vue', () => {
+describe('_BaseInput.vue', () => {
 	it('two way data binding (value/input) works', () => {
 		const text = 'test text'
 		const wrapper = mount(baseInput, {

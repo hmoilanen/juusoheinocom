@@ -1,4 +1,4 @@
-describe('Some Firebase Test', () => {
+describe('Generic Firebase Tests', () => {
   it('Adds document to "tests" collection of Firestore', () => {
     cy.callFirestore('add', 'tests', { some: 'value' })
 	})

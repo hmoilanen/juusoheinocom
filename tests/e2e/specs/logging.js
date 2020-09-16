@@ -3,8 +3,8 @@
 describe('Login / logout', () => {
 	beforeEach(() => {
 		cy.logout()
-		cy.visit('/')
-		cy.get('.app-curtain--reset').click()
+		cy.visit('https://juusoheino.com')
+		cy.get('.CY--app-curtain--reset').click()
 		cy.get('.login--juusoheino').click()
 		cy.contains('Login')
 	})

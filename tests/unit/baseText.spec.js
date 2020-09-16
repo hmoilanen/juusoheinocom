@@ -1,7 +1,7 @@
 import { mount } from '@vue/test-utils'
-import baseText from '@/components/base/_base-text.vue'
+import baseText from '@/components/base/_BaseText.vue'
 
-describe('baseText.vue', () => {
+describe('_BaseText.vue', () => {
 	it('display string in component through slot', () => {
 		const text = 'test text'
 		const wrapper = mount(baseText, {
