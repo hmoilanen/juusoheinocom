@@ -5,7 +5,7 @@ describe('Login / logout', () => {
 		cy.logout()
 		cy.visit('https://juusoheino.com')
 		cy.get('.CY--app-curtain--reset').click()
-		cy.get('.login--juusoheino').click()
+		cy.get('.CY--login--juusoheino').click()
 		cy.contains('Login')
 	})
 
@@ -19,8 +19,6 @@ describe('Login / logout', () => {
   it('Manual login works with Firebase', () => {
 		cy.login()
 	})
-
-
 
   it('Displaying editable content reacts to state.app.isLogged', () => {
 		cy.get('.is-editable').should('not.exist')
