@@ -246,11 +246,10 @@ const logout = () => {
 // Set Firebase and initiate the app with it + relevant data
 async function setFirebase() {
 	if (!firestore) {
-		//const firebaseConfigURL = 'http://localhost:3001/api/firebaseConfig' // TUDU: VAIHDAA TÄMÄ KUN HEROKUSSA
-		const firebaseConfigURL = 'https://pure-falls-91716.herokuapp.com/api/firebaseConfig'
+		const firebaseConfigURL = `${store.state.app.backendDomain}/api/firebaseConfig`
 		const response = await fetch(firebaseConfigURL)
-		const body = await response.json()
-		const firebaseApp = await firebase.initializeApp(body)
+		const responseBody = await response.json()
+		const firebaseApp = await firebase.initializeApp(responseBody)
 
 		firestore = firebaseApp.firestore()
 		storageRef = firebaseApp.storage().ref()

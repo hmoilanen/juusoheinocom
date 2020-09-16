@@ -59,15 +59,17 @@ export default {
 		}
 	},
 
-  mounted() {
-		const googleApiKey = process.env.VUE_APP_GOOGLE_MAPS_API_KEY
+  async mounted() {
+		const googleMapsConfigURL = `${this.$store.state.app.backendDomain}/api/googleMapsConfig`
+		const response = await fetch(googleMapsConfigURL)
+		const responseBody = await response.json()
 
 		if (!document.getElementById('google-map--script')) {
       let googleInit = document.createElement('script')
       googleInit.async = true
       googleInit.defer = true
       googleInit.id = 'google-map--script'
-      googleInit.setAttribute('src', `https://maps.googleapis.com/maps/api/js?key=${googleApiKey}&callback`)
+      googleInit.setAttribute('src', `https://maps.googleapis.com/maps/api/js?key=${responseBody.apiKey}&callback`)
       document.head.appendChild(googleInit)
       googleInit.onload = () => this.initMap()
     } else {

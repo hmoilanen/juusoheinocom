@@ -3,6 +3,7 @@ export default {
 	
 	state: {
 		domain: 'https://juusoheino.com',
+		backendDomain: 'https://pure-falls-91716.herokuapp.com',
 		isLoading: true,
 		isLogged: false,
 		locale: 'en',

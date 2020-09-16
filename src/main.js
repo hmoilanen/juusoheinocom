@@ -5,7 +5,6 @@ import router from '@/router/index'
 import store from '@/store/index'
 import api from '@/api'
 import '@/components/base/_globals'
-//import '@/registerServiceWorker'
 
 // Plugins
 Vue.use(api)
