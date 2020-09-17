@@ -1,7 +1,7 @@
 describe('Navigation', () => {
 	beforeEach(() => {
 		cy.visit('/')
-		cy.get('.app-curtain--reset').click()
+		cy.get('.CY--app-curtain--reset').click()
 	})
 
   it('opens navigation menu and closes it correctly', () => {
@@ -18,7 +18,7 @@ describe('Navigation', () => {
 			.should('not.exist')
 	})
 
-	it('navigation menu\'s link trigger click and hides it', () => {
+	it('clicking navigation menu\'s link hides it', () => {
 		cy.get('.nav-top-toggler')
 			.click()
 		
