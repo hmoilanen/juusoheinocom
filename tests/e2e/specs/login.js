@@ -9,8 +9,6 @@ describe('Login / logout', () => {
 		cy.contains('Login')
 	})
 
-  //it.only('Logging in allowed with right credentials', () => {})
-
   it('Login modal opens and closes manually', () => {
 		cy.contains('close').click()
 		cy.contains('Login').should('not.exist')
@@ -20,24 +18,22 @@ describe('Login / logout', () => {
 		cy.login()
 	})
 
-  it('Displaying editable content reacts to state.app.isLogged', () => {
+	it('Login prevented with wrong credentials', () => {		
+		cy.get('#modal-login--email').type('test')
+		cy.get('#modal-login--password').type('test')
+		cy.get('#modal-login--submit').click()
+
+		cy.contains('Wrong email or password')
+	})
+
+  it('Login enables editing of content straight from UI', () => {
 		cy.get('.is-editable').should('not.exist')
-		//cy.contains('Login')
 
 		cy.window().should('have.property', '__store__')
 		cy.window().then(win => {
 			win.__store__.dispatch('SET_STATE', { data: true, path: 'app.isLogged' })
 		})
 
-		//cy.contains('close').click()
 		cy.get('.is-editable').should('exist')
-	})
-
-  it('Logging in prevented with wrong credentials', () => {		
-		cy.get('#modal-login--email').type('test')
-		cy.get('#modal-login--password').type('test')
-		cy.get('#modal-login--submit').click()
-
-		cy.contains('Wrong email or password')
 	})
 })

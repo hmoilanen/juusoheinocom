@@ -21,7 +21,7 @@
           <base-flex center="y">
             <base-icon
 							class="CY--login--juusoheino"
-              @click="logging"
+              @click="openLogin"
               app="juusoheino"
               :size="18"
               :m-l="-4"
@@ -150,7 +150,7 @@ export default {
       }
     },
 
-    logging() {
+    openLogin() {
       if (this.$app.isLogged()) {
         this.$store.dispatch('modals/SET_MODAL', { active: 'logout' })
       } else {

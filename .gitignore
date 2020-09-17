@@ -15,6 +15,7 @@
 
 # other files
 serviceAccount.json
+cypress.env.json
 
 # rules
 /firestore.rules
