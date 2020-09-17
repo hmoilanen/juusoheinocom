@@ -14,7 +14,7 @@
 .env.*.local
 
 # other files
-serviceAccount.js
+serviceAccount.json
 
 # rules
 /firestore.rules

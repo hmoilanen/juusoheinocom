@@ -2,9 +2,9 @@
 
 //import store from '@/store/index'
 import firebase from 'firebase/app'
-import 'firebase/firestore'
 import 'firebase/auth'
 import 'firebase/database'
+import 'firebase/firestore'
 import { attachCustomCommands } from 'cypress-firebase'
 //import firebaseConfig from '../../../src/api/firebase/firebaseConfig.js'
 
