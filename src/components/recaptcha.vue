@@ -72,6 +72,12 @@ export default {
 
   computed: {
     sitekey() {
+			// This is only for testing purposes.
+			// See: https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do
+			if (window.Cypress) {
+				return '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+			}
+
       return this.$app.isLoading()
         ? false
         : this.$store.state.content.meta.recaptcha.sitekey

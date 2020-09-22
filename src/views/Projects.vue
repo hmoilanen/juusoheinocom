@@ -100,7 +100,6 @@ export default {
 
   computed: {
     projects() {
-      let locale = this.$app.locale()
       if (!this.$store.state.app.isLoading) {
         let { main, ...projects } = this.$store.state.content.projects
         return projects

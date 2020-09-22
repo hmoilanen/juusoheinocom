@@ -30,7 +30,7 @@ export default {
         modalHandler: this.$store.state.modals.showModal
       }
     }
-  }
+	}
 }
 </script>
 

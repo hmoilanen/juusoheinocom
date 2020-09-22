@@ -1,12 +1,16 @@
 <template>
   <div class="projects-item" :class="classing">
 		<div class="bg">
-			<base-bg :source="imageURL(item.bg)" posY="top"></base-bg>
+			<base-bg :source="imageURL(projectThumbnail)" posY="top"></base-bg>
 		</div>
 
 		<div class="info">
-			<base-title :size="11" :scaling="0.5">{{ this.item['title-' + $app.locale()] || 'item' }}</base-title>  
-			<base-title :size="6" :scaling="0.5">{{ this.item['type-' + $app.locale()] }}, {{ this.item.year }}</base-title>
+			<base-title :size="11" :scaling="0.5">
+				{{ this.item['title-' + $app.locale()] || 'item' }}
+			</base-title>  
+			<base-title :size="6" :scaling="0.5">
+				{{ this.item['type-' + $app.locale()] }}, {{ this.item.year }}
+			</base-title>
 		</div>
   </div>
 </template>
@@ -27,11 +31,15 @@ export default {
   methods: {
     imageURL(URL) {
       const imageURL = this.$store.getters['app/GET_URL'].imageURL
-      return `${imageURL}projects/${this.$vnode.key}/${URL}`
+			return `${imageURL}projects/${this.$vnode.key}/${URL}`
     }
 	},
 	
 	computed: {
+		projectThumbnail() {
+			return this.item.images.slice(-1)
+		},
+
 		classing() {
 			return {
 				'is-touch-device': isTouchDevice() ? true : false

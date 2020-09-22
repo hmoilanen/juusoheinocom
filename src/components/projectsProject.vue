@@ -6,7 +6,7 @@
 
 				<content-carousel>
 					<content-carousel-item
-						v-for="(image, index) in content.images"
+						v-for="(image, index) in sortedImages(content.images)"
 						:key="index"
 						:image="imageSource(image)"
 					></content-carousel-item>
@@ -139,10 +139,23 @@ export default {
     
     dynamicPath() {
       return `projects.${this.projectId}`
-    }
+		},
+		
+		testi() {
+			const lista = [1,2,3,4,5]
+			//return lista.splice(lista.length - 1, 1)
+			lista.splice(lista.length - 1, 1)
+			return lista
+		}
   },
 
   methods: {
+		sortedImages(arrayOfImages) {
+			const images = arrayOfImages.slice()
+			images.splice(-1, 1)
+			return images
+		},
+
     imageSource(image) {
       const imageURL = this.$store.getters['app/GET_URL'].imageURL
       return `${imageURL}projects/${this.projectId}/${image}`

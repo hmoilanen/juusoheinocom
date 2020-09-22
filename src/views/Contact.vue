@@ -18,7 +18,11 @@
           >{{ content[`text-${locale}`] }}</app-text>
         </editable-content>
         
-        <form v-if="!submitted" @submit.prevent>
+        <form
+					v-if="!submitted"
+					@submit.prevent
+					data-test="form--"
+				>
           <base-spacer :size="15">
             <base-input
 							class="gsap--view-contact--form"
@@ -27,6 +31,7 @@
               :label="formContent.name.label[locale]"
               :placeholder="formContent.name.placeholder[locale]"
               :disabled="submitting"
+							data-test="form--name"
             ></base-input>
             <base-input
 							class="gsap--view-contact--form"
@@ -37,6 +42,7 @@
               :placeholder="formContent.email.placeholder[locale]"
               :feedback="emailFeedback"
               :disabled="submitting"
+							data-test="form--email"
             ></base-input>
             <base-dropdown
               ref="budget"
@@ -56,6 +62,7 @@
               :disabled="submitting"
               :maxLength="1000"
               :rows="4"
+							data-test="form--description"
             ></base-textarea>
 
             <recaptcha
@@ -63,6 +70,7 @@
               ref="recaptcha"
               @verified="verify"
               :disabled="submitting"
+							data-test="form--recaptcha"
             ></recaptcha>
 
 						<div class="gsap--view-contact--form">
@@ -71,6 +79,7 @@
 								:disabled="!allowSubmit"
 								:loading="!allowSubmit && submitting"
 								size="l"
+								data-test="form--submit"
 							>{{ formContent.submit[locale] }}</base-button>
 							<app-text v-if="submitted === false && !submitting" m-t="m">{{ this.mainFeedback }}</app-text>
 						</div>
@@ -123,6 +132,12 @@ export default {
 	},
 	
 	mounted() {
+		// This is for stubbing recaptcha when testing with Cypress due to
+		// problems it is currently having with iframes (recaptcha).
+		if (window.Cypress) {
+			this.recaptchaVerified = true
+		}
+
 		tl
 			.from('.gsap--view-contact--title', {
 				stagger: 0.2,

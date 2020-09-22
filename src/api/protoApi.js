@@ -245,11 +245,23 @@ const logout = () => {
 
 // Set Firebase and initiate the app with it + relevant data
 async function setFirebase() {
+	const firebaseConfig = {
+		apiKey: "AIzaSyDuiTEVFZMrhxX7Z_oo71xDc2cjKNqo8xI",
+		authDomain: "juusoheinocom.firebaseapp.com",
+		databaseURL: "https://juusoheinocom.firebaseio.com",
+		projectId: "juusoheinocom",
+		storageBucket: "juusoheinocom.appspot.com",
+		messagingSenderId: "829965520185",
+		appId: "1:829965520185:web:9f232931cacf36df192ce8",
+		measurementId: "G-ES0TRDVRKY"
+	}
+
 	if (!firestore) {
-		const firebaseConfigURL = `${store.state.app.backendDomain}/api/firebaseConfig`
-		const response = await fetch(firebaseConfigURL)
-		const responseBody = await response.json()
-		const firebaseApp = await firebase.initializeApp(responseBody)
+		//const firebaseConfigURL = `${store.state.app.backendDomain}/api/firebaseConfig`
+		//const response = await fetch(firebaseConfigURL)
+		//const responseBody = await response.json()
+		//const firebaseApp = await firebase.initializeApp(responseBody)
+		const firebaseApp = await firebase.initializeApp(firebaseConfig)
 
 		firestore = firebaseApp.firestore()
 		storageRef = firebaseApp.storage().ref()
