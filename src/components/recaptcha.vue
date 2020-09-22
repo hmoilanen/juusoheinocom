@@ -16,58 +16,58 @@ export default {
 
   props: {
     disabled: Boolean // For styling
-  },
+	},
+
+	data() {
+		return {
+			recaptchaConfig: ''
+		}
+	},
   
-  mounted () {
-		/* if (!document.getElementById('g-recaptcha--script')) {
-			console.log('eio');
-			let recaptchaInit = document.createElement('script')
-			recaptchaInit.async = true
-			recaptchaInit.defer = true
-			recaptchaInit.id = 'g-recaptcha--script'
-			//recaptchaInit.setAttribute('src', 'https://www.google.com/recaptcha/api.js?onload=onLoadCallback&render=explicit')
-			recaptchaInit.setAttribute('src', 'https://www.google.com/recaptcha/api.js')
-			document.head.appendChild(recaptchaInit)
-			recaptchaInit.onload = () => {}
-		} */
+  async mounted () {
+		const recaptchaConfigURL = `${this.$store.state.app.backendDomain}/api/recaptcha`
 		
-    // See: https://developers.google.com/recaptcha/docs/verify
-    // Render the reCAPTCHA widget, see: index.html
-    // Note: Each reCAPTCHA user response token is valid for two minutes,
-    // and can only be verified once to prevent replay attacks.
-    // If a new token is needed, re-run the reCAPTCHA verification.
-    if (window.grecaptcha) {
-      const widget = window.grecaptcha.render('g-recaptcha', {
-        sitekey: this.sitekey,
-        // Executed when user solves the reCAPTCHA.
-        callback: (responseToken) => {
-          const xhr = new XMLHttpRequest() // To intereact with server.
-          const URL = 'https://us-central1-constlet.cloudfunctions.net/recaptchaJuusoheinocom'
-          const data = {
-            token: responseToken
-          }
-          
-          // Initialize a request.
-          xhr.open('POST', URL)
-          // Communicate with server what kind of data is sent.
-          xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
-          xhr.send(JSON.stringify(data))
-          // An event handler called whenever XMLHttpRequest.readystate changes.
-          xhr.onreadystatechange = async () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) { // XMLHttpRequest.DONE === 4
-              const response = JSON.parse(xhr.responseText)
-              if (response.success) {
-                this.$emit('verified', true)
-              }
-            }
-          }
-        },
-        // Executed when the reCAPTCHA response expires and user needs to re-verify.
-        'expired-callback': () => {
-          this.$emit('verified', false)
-        }
-      })
-    }
+		try {
+			const response = await fetch(recaptchaConfigURL)
+			const responseBody = await response.json()
+
+			this.recaptchaConfig = responseBody
+
+			if (window.grecaptcha) {
+				const widget = window.grecaptcha.render('g-recaptcha', {
+					sitekey: this.sitekey,
+					// Executed when user solves the reCAPTCHA.
+					callback: (responseToken) => {
+						const xhr = new XMLHttpRequest() // To intereact with server.
+						const URL = 'https://us-central1-constlet.cloudfunctions.net/recaptchaJuusoheinocom'
+						const data = {
+							token: responseToken
+						}
+						
+						// Initialize a request.
+						xhr.open('POST', URL)
+						// Communicate with server what kind of data is sent.
+						xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8")
+						xhr.send(JSON.stringify(data))
+						// An event handler called whenever XMLHttpRequest.readystate changes.
+						xhr.onreadystatechange = async () => {
+							if (xhr.readyState === XMLHttpRequest.DONE) { // XMLHttpRequest.DONE === 4
+								const response = JSON.parse(xhr.responseText)
+								if (response.success) {
+									this.$emit('verified', true)
+								}
+							}
+						}
+					},
+					// Executed when the reCAPTCHA response expires and user needs to re-verify.
+					'expired-callback': () => {
+						this.$emit('verified', false)
+					}
+				})
+			}
+		} catch (err) {
+			console.error(err)
+		}
   },
 
   computed: {
@@ -80,7 +80,7 @@ export default {
 
       return this.$app.isLoading()
         ? false
-        : this.$store.state.content.meta.recaptcha.sitekey
+        : this.recaptchaConfig
     },
 
     classing() {
@@ -92,7 +92,6 @@ export default {
 
   methods: {
     // If component needs to be controlled from the parent component:
-
     execute () {
       window.grecaptcha.execute(this.widget)
     },
