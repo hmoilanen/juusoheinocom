@@ -27,15 +27,15 @@ The philosophy of usage of technologies may not be the most optimal in every asp
 
 ### Structure
 
-The application strongly relies on base components which are used as much as possible. Most of them are in use in multiple places / cases but some just maybe for once. This is because I have been building a "bank" of those just to enable me to execute differrent projects fast and efficiently just by bringing them in. Base components are named with prefix _Base... and are enabled to be used globally without registering.
+The application strongly relies on base components which are used as much as possible. Most of them are in use in multiple places / cases but some just maybe for once. This is because I have been building a "bank" of those just to enable me to execute differrent projects fast and efficiently just by bringing them in. Base components are named with prefix _Base... and are enabled to be used globally without registering separately.
 
-Other components, if view / route related, are named base on their parents as viewXxx -> viewXxxChild etc. All components and code generally follow the Vue's official suggestions of best practices.
+Other components, if view / route related, are named based on their parents as viewXxx -> viewXxxChild etc. All components and code generally follow the Vue's official suggestions of best practices.
 
 Once logged in the webpage includes implemented interface and custom admin tools for editing it's text and image content on site.
 
 ### Testing
 
-Unit testing is done wth [Jest](https://jestjs.io/) and e2e with [Cypress](https://www.cypress.io/). Some of the most used base componets are tested but the main focus is on setting smoke tests for the most important functionalities of the app. To be fully honest, it's mainly executed casually just to show I can do it though. :)
+Unit testing is done with [Jest](https://jestjs.io/) and e2e with [Cypress](https://www.cypress.io/). Some of the most used base componets are tested but the main focus is on setting smoke tests for the most important functionalities of the app. To be fully honest, it's mainly executed casually just to show I can do it though. :)
 
 ### Other
 
