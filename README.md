@@ -1,6 +1,16 @@
 # juusoheino.com
 
+https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
+
 ## Project setup
+`
+npm install
+`
+
+``
+npm install
+``
+
 ```
 npm install
 ```
