@@ -2,8 +2,15 @@
 
 https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 
+https://en.wikipedia.org/wiki/Markdown
+
 ## Project setup
 `
+npm install
+`
+`
+npm install
+npm install
 npm install
 `
 
@@ -12,6 +19,8 @@ npm install
 ``
 
 ```
+npm install
+npm install
 npm install
 ```
 
