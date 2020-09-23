@@ -5,24 +5,21 @@ https://gist.github.com/PurpleBooth/109311bb0361f32d87a2
 https://en.wikipedia.org/wiki/Markdown
 
 ## Project setup
-`
-npm install
-`
-`
-npm install
-npm install
-npm install
-`
 
-``
-npm install
-``
-
+### Installing
 ```
 npm install
-npm install
-npm install
 ```
+### Initialize the app
+```
+npm run serve
+```
+### Running the tests
+```
+npm run test:unit
+npm run test:e2e
+```
+
 
 ### Compiles and hot-reloads for development
 ```
