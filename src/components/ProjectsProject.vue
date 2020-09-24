@@ -1,5 +1,5 @@
 <template>
-  <div class="projects-project">      
+  <div ref="project" class="projects-project">
     <base-loader v-if="loading"></base-loader>
     <app-content-wrapper v-else>
       <editable-content :path="dynamicPath" #default="{ content }">
@@ -35,13 +35,13 @@
                 #default="{ item }"
                 marker="square"
               >
-                <app-text>{{ item }}</app-text>
+                <app-text :weight="400">{{ item }}</app-text>
               </base-list>
             </div>
 
             <div class="gsap--projects-project--info">
               <base-title :size="textTitleSize" :m-b="2">{{ subtitle('about') }}</base-title>
-              <app-text v-html="content['text-' + locale]"></app-text>
+              <app-text v-html="content['text-' + locale]" :weight="400"></app-text>
             </div>
 
             <div class="gsap--projects-project--info">
@@ -51,7 +51,7 @@
                 #default="{ item }"
                 marker="square"
               >
-                <app-text>{{ item }}</app-text>
+                <app-text :weight="400">{{ item }}</app-text>
               </base-list>
             </div>
           </base-spacer>
@@ -59,6 +59,9 @@
       	</base-wrapper>
       </editable-content>
     </app-content-wrapper>
+
+		<!-- <div v-if="displayScrollIndicator" class="scroll-indicator"></div> -->
+		<scroll-indicator v-if="show"></scroll-indicator>
   </div>
 </template>
 
@@ -69,6 +72,7 @@ import EditableContent from '@/components/EditableContent'
 import ContentCarousel from '@/components/ContentCarousel'
 import ContentCarouselItem from '@/components/ContentCarouselItem'
 import AppText from '@/components/AppText'
+import ScrollIndicator from '@/components/ScrollIndicator'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -82,7 +86,8 @@ export default {
     EditableContent,
 		ContentCarousel,
 		ContentCarouselItem,
-    AppText
+		AppText,
+		ScrollIndicator
   },
 
   data() {
@@ -90,7 +95,8 @@ export default {
       loading: true,
       routeName: '',
       projectId: '',
-      textTitleSize: 7
+			textTitleSize: 7,
+			show: true
     }
   },
 
@@ -107,12 +113,20 @@ export default {
 	},
 	
 	mounted() {
+		this.displayScrollIndicator()
+
+		this.$refs.project.addEventListener('scroll', this.displayScrollIndicator)
+		this.$once('hook:beforeDestroy', () => {
+			this.$refs.project.removeEventListener('resize', this.displayScrollIndicator)
+		})
+
 		gsap.utils.toArray('.gsap--projects-project--info').forEach(info => {
 			gsap.from(info, 0.6, {
 				scrollTrigger: {
 					scroller: '.projects-project',
 					trigger: info,
-					start: '30% bottom',
+					//start: '30% bottom',
+					start: 'top bottom',
 				},
 				opacity: 0,
 				y: 70,
@@ -143,6 +157,20 @@ export default {
   },
 
   methods: {
+		displayScrollIndicator() {
+			const project = this.$refs.project
+			const elementHeight = project.offsetHeight
+			const contentHeight = project.scrollHeight
+			const scrollPosition = project.scrollTop
+			const buffer = 60
+
+			if (contentHeight - elementHeight > scrollPosition + buffer)	{
+				this.show = true
+			} else {
+				this.show = false
+			}
+		},
+
 		sortedImages(arrayOfImages) {
 			const images = arrayOfImages.slice()
 			images.splice(-1, 1)

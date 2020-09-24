@@ -22,7 +22,7 @@ export default {
   props: {
     size: {
       type: [Number, String],
-      default: 7
+      default: 6.5
     },
     scaling: [Boolean, Array, Object, Number],
     weight: {

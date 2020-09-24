@@ -2,18 +2,21 @@
   <div class="base-view" :style="styling.root">
     <div class="content" :style="styling.content">
       <slot>{{ $options.name }}</slot>
-      <div v-if="displayScrollIndicator" class="scroll-indicator"></div>
+			<scroll-indicator v-if="displayScrollIndicator"></scroll-indicator>
     </div>
     <app-footer v-if="displayFooter"></app-footer>
   </div>
 </template>
 
 <script>
+import ScrollIndicator from '@/components/ScrollIndicator'
+
 export default {
   name: 'BaseView',
 
   components: {
-    appFooter: () => import('@/components/AppFooter'),
+		ScrollIndicator,
+		appFooter: () => import('@/components/AppFooter')
   },
 
   props: {
@@ -85,36 +88,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-$base-view--color-secondary: $app-color--secondary;
-$base-view--color-hl: $app-color--hl;
-$base-view--scroll-indicator--width: 2px;
-$base-view--scroll-indicator--height: 25px;
-
-.base-view {
-  .scroll-indicator {
-    overflow: hidden;
-    position: fixed;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: $base-view--scroll-indicator--width;
-    height: $base-view--scroll-indicator--height;
-    background: $base-view--color-secondary;
-    &::after {
-      content: "";
-      position: absolute;
-      width: $base-view--scroll-indicator--width;
-      height: $base-view--scroll-indicator--width;
-      background: $base-view--color-hl;
-      animation: scroll 1.6s ease-out infinite;
-    }
-
-    @keyframes scroll {
-      0%, 10% { transform: translateY(-#{$base-view--scroll-indicator--width}); }
-      80%, 100% { transform: translateY(#{$base-view--scroll-indicator--height}); }
-    }
-  }
-}
-</style>
