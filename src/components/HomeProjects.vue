@@ -77,9 +77,8 @@ export default {
     randomProject() {
 			const project = this.projectIds[this.randomProjectIndex]
 			const sortedImages = [...this.projects[project].images]
-			console.log('sortedImages', sortedImages);
 			sortedImages.splice(-1, 1)
-			console.log('sortedImages2', sortedImages);
+
 			const randomProject = Object.assign(
 				{},
 				this.projects[project],
