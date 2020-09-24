@@ -44,8 +44,7 @@ export default {
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '.gsap--home-contact--text',
-				start: '-300% 90%',
-				//toggleActions: 'play reset reset reset'
+				start: '-300% 90%'
 			}
 		})
 

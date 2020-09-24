@@ -2,24 +2,34 @@
 	<section
 		ref="homeSection"
 		class="home-section"
+		:class="classing"
 		:style="styling.root"
 	>
-		<!-- <base-wrapper :max-width="true"></base-wrapper> -->
-		<!-- <slot></slot> -->
-
-		<div class="wrapper" :style="styling.wrapper">
+		<div
+			v-if="!forProject"
+			class="wrapper"
+			:style="styling.wrapper"
+		>
 			<div class="header" :class="randomKey">
-				<app-title :size="6" :inverted="invertedColor">{{ header }}</app-title>			
+				<app-title :size="6" :inverted="invertedColor">{{ header }}</app-title>
 			</div>
 			<div class="content" ref="content">
-				<div class="content-inner" :style="styling.content">
-					<slot>
-					<!-- <slot :width="contentContainerWidth"> -->
-						<!-- {{contentContainerWidth}} -->
-						content
-						<!-- <app-title v-for="item in 15" m-b="xl" :key="item">otsikko</app-title> -->
-					</slot>
+				<div class="content-inner">
+					<slot>content</slot>
 				</div>
+			</div>
+		</div>
+
+		<div v-else class="project-wrapper-outer" :style="styling.project">
+			<div class="header" :class="randomKey">
+				<app-title :size="6" :inverted="invertedColor">{{ header }}</app-title>			
+				<base-icon
+					@click="goTo"
+					:only-stroke="true"
+				>redirect</base-icon>
+			</div>
+			<div class="project-wrapper-inner">
+				<slot></slot>
 			</div>
 		</div>
 
@@ -51,13 +61,14 @@ export default {
 		},
     size: { default: 8 }, // Size of side paddings (min: 8 * 0.125rem = 1rem)
 		scaling: { default: 5 },
-		invertedColor: Boolean
+		invertedColor: Boolean,
+		forProject: Boolean
 	},
 
 	data() {
 		return {
 			randomKey: '',
-			//contentContainerWidth: 0
+			contentContainerWidth: 0
 		}
 	},
 
@@ -66,13 +77,6 @@ export default {
 	},
 
 	mounted() {
-		/* this.trackContentContainerSize()
-		
-		window.addEventListener('resize', this.trackContentContainerSize)
-		this.$once('hook:beforeDestroy', () => {
-			window.removeEventListener('resize', this.trackContentContainerSize)
-		}) */
-
 		const headerElement = `.${this.randomKey}`
 
 		gsap.fromTo(headerElement, {
@@ -82,8 +86,6 @@ export default {
 			scrollTrigger: {
 				trigger: headerElement,
 				start: 'top 90%',
-				//markers: true,
-				//toggleActions: 'play reset reset reset'
 			},
 			duration: 1.2,
 			autoAlpha: 1,
@@ -91,14 +93,14 @@ export default {
 			ease: 'power2.out',
 		})
 	},
-
-	/* methods: {
-		trackContentContainerSize() {
-			this.contentContainerWidth = this.$refs.content.offsetWidth
-		}
-	}, */
 	
 	computed: {
+		classing() {
+			return {
+				'for-project': this.forProject
+			}
+		},
+		
 		styling() {
 			const homeSectionHeight = window.innerHeight
 			const ui = this.$store.state.ui
@@ -111,15 +113,23 @@ export default {
 					paddingTop: `${ui.navTopHeight}px`,
 					paddingLeft: paddingSides,
 					paddingRight: paddingSides,
-					paddingBottom: '1rem',
+					paddingBottom: `${paddingBottom}px`,
 				},
 				wrapper: {
 					height: `${homeSectionHeight - ui.navTopHeight - paddingBottom}px`,
 					maxWidth: `${ui.contentWidth.max}px`
 				},
-				//content: { width: this.contentContainerWidth + 'px' }
-				content: { }
+				project: {
+					height: `${homeSectionHeight - ui.navTopHeight - paddingBottom}px`
+				}
 			}
+		}
+	},
+
+	methods: {
+		goTo() {
+			console.log('tapahtuu');
+			this.$router.push({ name: 'projects' })
 		}
 	}
 }
@@ -127,29 +137,54 @@ export default {
 
 <style lang="scss" scoped>
 .home-section {
-	// See: this.styling
-	display: flex;
-	justify-content: center;
-	border-top: 1px solid rgba(0, 0, 0, 0.03);
+	position: relative;
+	&:not(.for-project) {
+		display: flex;
+		justify-content: center;
+		border-top: 1px solid rgba(0, 0, 0, 0.03);
+	}
+
+	.header {
+		position: absolute;
+		left: 0;
+		right: 0;
+		padding: 1.6rem 0;
+		display: flex;
+		.base-icon {
+			margin-top: 0.2rem;
+			@extend %clickable;
+		}
+	}
+	
 	.wrapper {
 		// See: this.styling
+		position: relative;
 		flex: 1;
 		display: flex;
-		flex-direction: column;
-		
-		.header { position: absolute; padding: 1.6rem 0; }
-
+		flex-direction: column;	
 		.content {
 			overflow-y: hidden;
 			flex: 1;
 			display: flex;
 			align-items: center;
-			//background: pink;//POSTUU!
 			.content-inner {
-				//background: rgba(0, 0, 0, 0.05);//POSTUU!
 				position: relative;
 				flex: 1;
 			}
+		}
+	}
+
+	.project-wrapper-outer {
+		position: relative;
+		padding: 0 0.2rem;
+		.project-wrapper-inner {
+			position: absolute;
+			top: 50%;
+			left: 0;
+			right: 0;
+			transform: translateY(-50%);
+			max-width: 900px;
+			margin: 0 auto;
 		}
 	}
 }

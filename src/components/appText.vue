@@ -1,6 +1,7 @@
 <template>
   <base-text
     class="app-text"
+		:class="classing"
     :size="size"
     :scaling="scaling"
     :weight="weight"
@@ -28,7 +29,15 @@ export default {
       type: Number,
       default: 500
     }
-  }
+	},
+	
+	computed: {
+		classing() {
+			return {
+				bold: this.weight >= 500 ? true : false
+			}
+		}
+	}
 }
 </script>
 
@@ -36,7 +45,8 @@ export default {
 .app-text {
   &.base-text {
 		line-height: 1.6em !important;
-		font-family: $font-set--app-bold;
+		font-family: $font-set--app;
+		&.bold { font-family: $font-set--app-bold; }
 	}
 }
 </style>

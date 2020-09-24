@@ -31,7 +31,10 @@
 
 			<base-wrapper max-width="paragraph" :padding="true">
 				<editable-content path="gallery.main" #default="{ content }">
-					<app-text class="gsap--view-gallery--intro-text">{{ content[`text-${$app.locale()}`] }}</app-text>
+					<app-text
+						class="gsap--view-gallery--intro-text"
+						:weight="400"
+					>{{ content[`text-${$app.locale()}`] }}</app-text>
 					<base-title
 						class="skip gsap--view-gallery--intro-skip"
 						@click="skipIntro"

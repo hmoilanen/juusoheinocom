@@ -1,119 +1,20 @@
 <template>
 	<editable-content path="home.projects" #default="{ content }">
-
 		<home-section
 			class="home-projects"
 			:header="content[`title-${$app.locale()}`]"
+			:forProject="true"
 		>
-			<!-- #default="{ width }" -->
-			<!-- <div class="testi"> -->
-				<!-- <div class="testi2"> -->
-				<!-- <base-wrapper maxWidth="medium" :style="{ width: width + 'px' }"> -->
-					<!-- <div class="testi2">DIVI</div> -->
-				<!-- <base-wrapper maxWidth="medium">
-					<content-carousel :key="randomProject.id">
-						<content-carousel-item
-							v-for="(image, index) in randomProject.images"
-							:key="index"
-							:image="imageSource(image)"
-							:clickable="true"
-							@click="goToCurrentProject"
-						></content-carousel-item>
-					</content-carousel>
-				</base-wrapper> -->
-				<!-- </div> -->
-			<!-- </div> -->
-
-			<!-- <div style="padding: 0 2rem;">
-				<div style="max-width:700px; min-height: 100px; background: pink;">
-					<content-carousel :key="randomProject.id">
-						<content-carousel-item
-							v-for="(image, index) in randomProject.images"
-							:key="index"
-							:image="imageSource(image)"
-							:clickable="true"
-							@click="goToCurrentProject"
-						></content-carousel-item>
-					</content-carousel>
-				</div>
-			</div> -->
-
-			<!-- <base-wrapper class="gsap--home-projects--project" maxWidth="medium"> -->
-				<!-- <base-flex class="gsap--home-projects--title" center="y">
-					<base-icon
-						class="shuffle"
-						@click="newRandomProject"
-						:only-stroke="true"
-					>shuffle</base-icon>
-				</base-flex> -->
-
-				<!-- <div class="gsap--home-projects--project">
-					<base-title
-						:size="7"
-						:scaling="1"
-						:m-t="10"
-					>{{ randomProject[`title-${$app.locale()}`] }}</base-title>
-					<base-title
-						:size="4"
-						:scaling="1"
-					>{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
-				</div> -->
-
-				<!-- <div style="height: 100px; background: pink;"></div> -->
-
-				<!-- <content-carousel :key="randomProject.id">
-					<content-carousel-item
-						v-for="(image, index) in randomProject.images"
-						:key="index"
-						:image="imageSource(image)"
-						:clickable="true"
-						@click="goToCurrentProject"
-					></content-carousel-item>
-				</content-carousel> -->
-			<!-- </base-wrapper> -->
+			<content-carousel class="gsap--home-project">
+				<content-carousel-item
+					v-for="(image, index) in randomProject.images"
+					:key="index"
+					:image="imageSource(image)"
+					@item-clicked="jeejee"
+				></content-carousel-item>
+			</content-carousel>
 		</home-section>
 	</editable-content>
-
-  <!-- <div class="home-projects">
-		<editable-content path="home.projects" #default="{ content }">
-      <app-title>{{ content[`title-${$app.locale()}`] }}</app-title>
-				
-    	<app-content-wrapper>
-				<base-flex class="gsap--home-projects--title" center="y">
-					<base-icon
-						class="shuffle"
-						@click="newRandomProject"
-						:only-stroke="true"
-					>shuffle</base-icon>
-				</base-flex>
-
-				<div class="gsap--home-projects--project">
-					<base-title
-						:size="7"
-						:scaling="1"
-						:m-t="10"
-					>{{ randomProject[`title-${$app.locale()}`] }}</base-title>
-					<base-title
-						:size="4"
-						:scaling="1"
-					>{{ randomProject[`type-${$app.locale()}`] }}, {{ randomProject.year }}</base-title>
-				</div>
-
-				<base-wrapper class="gsap--home-projects--project" maxWidth="medium" :m-t="20">
-					<content-carousel :key="randomProject.id">
-						<content-carousel-item
-							v-for="(image, index) in randomProject.images"
-							:key="index"
-							:image="imageSource(image)"
-							:clickable="true"
-							@click="goToCurrentProject"
-						></content-carousel-item>
-					</content-carousel>
-				</base-wrapper>
-
-    	</app-content-wrapper>
-		</editable-content>
-  </div> -->
 </template>
 
 <script>
@@ -121,8 +22,6 @@ import EditableContent from '@/components/EditableContent'
 import HomeSection from '@/components/HomeSection'
 import ContentCarousel from '@/components/ContentCarousel'
 import ContentCarouselItem from '@/components/ContentCarouselItem'
-//import AppContentWrapper from '@/components/AppContentWrapper'
-//import AppTitle from '@/components/AppTitle'
 import { randomIntegerFromInterval } from '@/utils/math'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -136,9 +35,7 @@ export default {
 		EditableContent,
 		HomeSection,
 		ContentCarousel,
-		ContentCarouselItem,
-		//AppContentWrapper,
-    //AppTitle
+		ContentCarouselItem
 	},
 
 	data() {
@@ -159,40 +56,40 @@ export default {
 	},
 
   mounted() {
-		/* const tl = gsap.timeline({
-			scrollTrigger: {
-				trigger: '.home-projects',
-				start: 'top center',
-			}
-		})
+		const headerElement = '.gsap--home-project'
 
-		tl
-			.from('.gsap--home-projects--title', {
-				stagger: 0.2,
-				duration: 0.5,
-				y: 70,
-				opacity: 0,
-				ease: 'Power3.out'
-			})
-			.from('.gsap--home-projects--project', {
-				stagger: 0.2,
-				duration: 0.6,
-				y: 70,
-				opacity: 0,
-				ease: 'Power3.out'
-			}, 1) */
+		gsap.fromTo(headerElement, {
+			autoAlpha: 0,
+			y: 70,
+		}, {
+			scrollTrigger: {
+				trigger: headerElement,
+				start: 'top 90%',
+			},
+			duration: 1.2,
+			autoAlpha: 1,
+			y: 0,
+			ease: 'power2.out',
+		})
 	},
 
   computed: {
     randomProject() {
-			const projectId = this.projectIds[this.randomProjectIndex]
-			const project = Object.assign(
+			const project = this.projectIds[this.randomProjectIndex]
+			const sortedImages = [...this.projects[project].images]
+			console.log('sortedImages', sortedImages);
+			sortedImages.splice(-1, 1)
+			console.log('sortedImages2', sortedImages);
+			const randomProject = Object.assign(
 				{},
-				this.projects[projectId],
-				{ id: projectId }
+				this.projects[project],
+				{
+					id: project,
+					images: sortedImages
+				}
 			)
 
-			return project
+			return randomProject
     }
   },
 
@@ -215,6 +112,10 @@ export default {
 			}
 			
 			this.randomProjectIndex = newIndex
+		},
+
+		jeejee() {
+			console.log('klikattu');
 		}
   }
 }
@@ -224,51 +125,12 @@ export default {
 $home-projects--color-hl: $app-color--hl;
 
 .home-projects {
-	//.app-content-wrapper { width: 100%; }
-	//.app-title { margin-bottom: 0; }
 	.shuffle { @extend %clickable; }
   .redirect {
     margin-left: 0.5rem;
     margin-top: -0.1rem;
     @extend %clickable;
     color: $home-projects--color-hl;
-	}
-
-	.testi {
-		//overflow: hidden;
-		//display: flex;
-		//align-items: stretch;
-		min-height: 50px;
-		//flex-direction: column;
-		//max-width: 100%;
-		//background: pink;
-		//position: relative;
-		//min-width: 200px;
-		//max-width: 800px;
-		//margin: 0 auto;
-		//border: 1px solid red;
-		.testi2 {
-			//flex: 1;
-			//width: 100%;
-			background: rgba(255, 217, 0, 0.377);
-			//sdisplay: flex;
-			margin-bottom: 10px;
-		}
-		& > * { width: 100%; }
-
-
-		//display: flex;
-		//align-items: stretch;
-		/* .base-wrapper {
-			//flex: 1;
-			position: relative;
-			//width: 100%;
-			//width: 50vw;
-			display: flex;
-			flex-direction: column;
-			align-items: stretch;
-			background: yellow;
-		} */
 	}
 }
 </style>

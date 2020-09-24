@@ -1,6 +1,6 @@
 export default {
 	namespaced: true,
-	
+
 	state: {
 		domain: 'https://juusoheino.com',
 		backendDomain: 'https://pure-falls-91716.herokuapp.com',
@@ -9,7 +9,7 @@ export default {
 		locale: 'en',
 
 		externals: [
-			{ title: 'Github', icon: 'github', link: 'https://github.com/' },
+			{ title: 'Github', icon: 'github', link: 'https://github.com/hmoilanen/juusoheinocom' },
 			{ title: 'LinkedIn', icon: 'linkedin', link: 'https://www.linkedin.com/in/heinojuuso/' },
 			{ title: 'Constlet', icon: 'constlet', link: 'https://constlet.com' }
 		],
@@ -22,7 +22,7 @@ export default {
 			emailSuffix: 'com'
 		}
 	},
-	
+
 	getters: {
 		GET_URL: state => {
 			const appURL = process.env.NODE_ENV === 'production'
@@ -31,14 +31,14 @@ export default {
 			const storage = 'juusoheinocom.appspot.com'
 			const storageURL = `https://storage.googleapis.com/${storage}/`
 			const imageURL = `${storageURL}images/`
-			
+
 			return {
 				appURL: appURL,
 				storageURL: storageURL,
 				imageURL: imageURL
 			}
 		},
-	
+
 		GET_OFFICIAL: state => {
 			const official = state.official
 			const currentYear = new Date().getFullYear()
@@ -57,13 +57,13 @@ export default {
 					}
 				}] */
 			}
-	
+
 			Object.assign(info, official)
-	
+
 			return info
 		}
 	},
-	
+
 	mutations: {
 		UPDATE_WINDOW: (state, updatedWindowObject) => {
 			Vue.set(state, 'window', updatedWindowObject)

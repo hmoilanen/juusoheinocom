@@ -5,10 +5,10 @@
 		</div>
 
 		<div class="info">
-			<base-title :size="11" :scaling="0.5">
+			<base-title :size="10" :scaling="0.5">
 				{{ this.item['title-' + $app.locale()] || 'item' }}
 			</base-title>  
-			<base-title :size="6" :scaling="0.5">
+			<base-title :size="5" :scaling="0.5">
 				{{ this.item['type-' + $app.locale()] }}, {{ this.item.year }}
 			</base-title>
 		</div>

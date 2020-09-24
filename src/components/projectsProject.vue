@@ -139,13 +139,6 @@ export default {
     
     dynamicPath() {
       return `projects.${this.projectId}`
-		},
-		
-		testi() {
-			const lista = [1,2,3,4,5]
-			//return lista.splice(lista.length - 1, 1)
-			lista.splice(lista.length - 1, 1)
-			return lista
 		}
   },
 

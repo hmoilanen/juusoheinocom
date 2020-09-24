@@ -1,5 +1,9 @@
 <template>
-  <div class="base-wrapper" :class="classing" :style="[styling, mixinMargins]">
+  <div
+		class="base-wrapper"
+		:class="classing"
+		:style="[styling, mixinMargins]"
+	>
     <slot>{{ $options.name }}</slot>
   </div>
 </template>

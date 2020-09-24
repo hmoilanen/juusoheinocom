@@ -15,7 +15,7 @@
 						v-for="(tool, key) in tools"
 						:key="key"
 					>
-						<base-icon size="xl">{{ key }}</base-icon>
+						<base-icon size="l" :scaling="0.2">{{ key }}</base-icon>
 						<base-title :size="4" :truncate="true">
 							{{ tool.title }}
 							<span v-if="!tool.advanced">*</span>
@@ -58,9 +58,7 @@ export default {
 		const tl = gsap.timeline({
 			scrollTrigger: {
 				trigger: '.gsap--home-tools--text',
-				start: 'top 85%',
-				//markers: true,
-				//toggleActions: 'play reset reset reset'
+				start: 'top 85%'
 			}
 		})
 
@@ -108,11 +106,14 @@ $color--tools-asterisk: $app-color--hl;
 
 .home-tools {
   .grid {
-    //margin-top: 2rem;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
     grid-column-gap: 0.6rem;
     grid-row-gap: 0.6rem;
+
+		@media only screen and (min-width: 380px) {
+			grid-template-columns: repeat(auto-fill, minmax(75px, 1fr));
+		}
   }
   .tool {
     position: relative;

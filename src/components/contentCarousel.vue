@@ -1,6 +1,6 @@
 <template>
   <div class="content-carousel" :style="mixinMargins">
-    <Vue-slick-carousel
+    <vue-slick-carousel
       v-bind="settings"
       ref="carousel"
 			@beforeChange="updateCurrentIndex"
@@ -14,7 +14,7 @@
           <span>{{ index + 1 }}</span>
         </div>
       </slot>
-    </Vue-slick-carousel>
+    </vue-slick-carousel>
 
     <base-flex center="x" m-t="m">
       <content-carousel-indicator

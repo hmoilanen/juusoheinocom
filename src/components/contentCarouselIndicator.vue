@@ -103,6 +103,7 @@ $index-indicator--margin: 0.6em;
     .index {
       margin: 0 $index-indicator--margin;
       font-weight: 700;
+      font-size: 0.95rem;
       color: $index-indicator--color;
       cursor: pointer;
       &:hover { color: $index-indicator--color-active; }

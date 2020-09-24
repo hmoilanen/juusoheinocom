@@ -3,8 +3,8 @@
     <hero-canvas>
     	<home-hero></home-hero>
 		</hero-canvas>
-		<!-- <home-projects></home-projects> -->
 		<home-about></home-about>
+		<home-projects></home-projects>
 		<home-tools></home-tools>
 		<home-contact></home-contact>
   </base-view>

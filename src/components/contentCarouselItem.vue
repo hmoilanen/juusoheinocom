@@ -3,6 +3,7 @@
 		class="content-carousel-item"
 		:class="classing"
 		v-on="listeners"
+		@click="itemClicked"
 	>
 		<base-bg :source="image" fit="contain"></base-bg>
 	</div>
@@ -29,6 +30,12 @@ export default {
 			return {
 				clickable: this.clickable
 			}
+		}
+	},
+
+	methods: {
+		itemClicked() {
+			this.$emit('item-clicked')
 		}
 	}
 }

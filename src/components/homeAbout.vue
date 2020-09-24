@@ -6,7 +6,11 @@
 			:invertedColor="true"
 		>
 			<base-wrapper max-width="700px">
-				<app-text class="quote-text gsap--home-about--text" :size="8">{{ content[`text-${locale}`] }}</app-text>
+				<app-text
+					class="quote-text gsap--home-about--text"
+					:size="6.5"
+					:scaling="0.4"
+				>{{ content[`text-${locale}`] }}</app-text>
 			</base-wrapper>
 			
 			<base-wrapper max-width="paragraph">
@@ -14,46 +18,17 @@
 						<base-title
 							class="gsap--home-about--quote"
 							:center="true"
-							:size="10"
+							:size="8"
+							:scaling="0.4"
 							v-html="content[`quote-${locale}`]"
 						></base-title>
 					</div>
 				</base-wrapper>
 		</home-section>
 	</editable-content>
-
-  <!-- <div class="home-about">
-    <app-content-wrapper>
-      <editable-content
-        v-if="!$app.isLoading()"
-        path="home.about"
-        #default="{ content }"
-      >
-        <app-title
-					class="gsap--home-about--title"
-					:inverted="true"
-				>{{ content[`title-${locale}`] }}</app-title>
-        <app-text class="gsap--home-about--title" :size="8">{{ content[`text-${locale}`] }}</app-text>
-
-				<base-wrapper max-width="paragraph">
-					<div class="quote">
-						<base-title
-							class="gsap--home-about--quote"
-							:center="true"
-							:size="10"
-							v-html="content[`quote-${locale}`]"
-						></base-title>
-					</div>
-				</base-wrapper>
-      </editable-content>
-    </app-content-wrapper>
-  </div> -->
 </template>
 
 <script>
-//import AppContentWrapper from '@/components/AppContentWrapper'
-//import EditableContent from '@/components/EditableContent'
-//import AppTitle from '@/components/AppTitle'
 import EditableContent from '@/components/EditableContent'
 import HomeSection from '@/components/HomeSection'
 import AppText from '@/components/AppText'
@@ -69,8 +44,6 @@ export default {
 		EditableContent,
 		HomeSection,
     AppText
-    //AppContentWrapper,
-    //AppTitle,
   },
 
 	mounted() {
@@ -78,7 +51,6 @@ export default {
 			scrollTrigger: {
 				trigger: '.gsap--home-about--text',
 				start: 'top 90%',
-				//toggleActions: 'play reset reset reset'
 			}
 		})
 

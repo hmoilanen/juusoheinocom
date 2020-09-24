@@ -5,7 +5,7 @@
 		:style="mixinMargins"
 	>
     <div class="line"></div>
-    <base-title :size="size" :scaling="1">
+    <base-title :size="size" :scaling="0.5">
       <slot>{{ $options.name }}</slot>
     </base-title>
     <slot name="icon"></slot>

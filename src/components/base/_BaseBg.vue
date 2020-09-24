@@ -123,7 +123,7 @@ export default {
   bottom: 0;
   position: relative;
   width: 100%;
-  background: rgba(200, 200, 200, 0.2);
+  background: rgba(200, 200, 200, 0.1);
 
   &.steady { background-size: cover; }
 }
