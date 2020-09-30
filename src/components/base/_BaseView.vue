@@ -1,5 +1,6 @@
 <template>
   <div class="base-view" :style="styling.root">
+		<home-canvas v-if="displayCanvas"></home-canvas>
     <div class="content" :style="styling.content">
       <slot>{{ $options.name }}</slot>
 			<scroll-indicator v-if="displayScrollIndicator"></scroll-indicator>
@@ -16,6 +17,7 @@ export default {
 
   components: {
 		ScrollIndicator,
+		HomeCanvas: () => import('@/components/HomeCanvas'),
 		appFooter: () => import('@/components/AppFooter')
   },
 
@@ -33,6 +35,12 @@ export default {
   },
 
   computed: {
+		displayCanvas() {
+			return !this.$app.isLoading() && this.$route.name === 'home'
+				?	true
+				: false
+		},
+
     displayFooter() {
       return this.$route.meta.displayFooter || false
     },
@@ -88,3 +96,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.base-view {
+	position: relative;
+
+	.hero-canvas {
+		position: fixed;
+		top: 0;
+	}
+}
+</style>

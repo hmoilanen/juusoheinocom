@@ -62,7 +62,8 @@ export default {
     size: { default: 8 }, // Size of side paddings (min: 8 * 0.125rem = 1rem)
 		scaling: { default: 5 },
 		invertedColor: Boolean,
-		forProject: Boolean
+		forProject: Boolean,
+		noColor: Boolean
 	},
 
 	data() {
@@ -97,7 +98,8 @@ export default {
 	computed: {
 		classing() {
 			return {
-				'for-project': this.forProject
+				'for-project': this.forProject,
+				'no-bg-color': this.noColor
 			}
 		},
 		
@@ -114,6 +116,7 @@ export default {
 					paddingLeft: paddingSides,
 					paddingRight: paddingSides,
 					paddingBottom: `${paddingBottom}px`,
+					backgroundColor: this.noColor ? false : ''
 				},
 				wrapper: {
 					height: `${homeSectionHeight - ui.navTopHeight - paddingBottom}px`,
@@ -136,8 +139,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$home-section--color-bg--default: transparentize($app-color--theme, 0.075);
+
 .home-section {
 	position: relative;
+	&:not(.no-bg-color) { background: $home-section--color-bg--default; }
 	&:not(.for-project) {
 		display: flex;
 		justify-content: center;

@@ -284,10 +284,8 @@ $nav-top-dropdown--animation-duration: 0.3s;
   align-items: center;
   justify-content: space-between;
 	transition: background-color 0.8s ease;
-  background: rgba(255, 255, 255, 0.02);
 	pointer-events: none;
 	& > * { pointer-events: all; }
-	&:hover { background: rgba(255, 255, 255, 0.85); }
 
   .brand {
     .base-icon {

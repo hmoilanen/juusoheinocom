@@ -1,8 +1,6 @@
 <template>
   <base-view class="view-home" :compensateNavTop="false">
-    <hero-canvas>
-    	<home-hero></home-hero>
-		</hero-canvas>
+    <home-hero></home-hero>
 		<home-about></home-about>
 		<home-projects></home-projects>
 		<home-tools></home-tools>
@@ -11,7 +9,6 @@
 </template>
 
 <script>
-import HeroCanvas from '@/components/HeroCanvas'
 import HomeHero from '@/components/HomeHero'
 import HomeAbout from '@/components/HomeAbout'
 import HomeProjects from '@/components/HomeProjects'
@@ -22,7 +19,6 @@ export default {
   name: 'ViewHome',
 
   components: {
-    HeroCanvas,
     HomeHero,
     HomeAbout,
     HomeProjects,

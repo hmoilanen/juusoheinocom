@@ -1,38 +1,36 @@
 <template>
-  <div class="home-hero">
-    <app-content-wrapper>
+	<editable-content path="home.hero" #default="{ content }">
+		<home-section class="home-tools" header="Juuso Heino" :no-color="true">
 
-      <editable-content path="home.hero" #default="{ content }">
-        <base-title class="my-name gsap--home-hero" :size="8" :uppercase="false">{{ content.pretitle }}</base-title>
-        <base-title
-					class="gsap--home-hero"
-          :size="18"
-          :scaling="true"
-        >{{ content[`title-${locale}`] }}</base-title>
+			<base-title
+				class="gsap--home-hero"
+				:size="18"
+				:scaling="5"
+				style="max-width: 700px"
+			>{{ content[`title-${locale}`] }}</base-title>
 
-        <base-flex class="gsap--home-hero" justify="start" m-t="l">
-          <base-wrapper max-width="paragraph" :disable-margins="true">
-            <app-text :scaling="0.8" >{{ content[`text-${locale}`] }}</app-text>
-          </base-wrapper>
-        </base-flex>
+			<base-flex class="gsap--home-hero" justify="start" m-t="l">
+				<base-wrapper max-width="paragraph" :disable-margins="true">
+					<app-text :scaling="0.8" >{{ content[`text-${locale}`] }}</app-text>
+				</base-wrapper>
+			</base-flex>
 
-				<base-flex :m-t="12">
-					<base-link to="projects" class="gsap--home-hero" m-r="m">
-						<base-button :highlight="true">{{ content[`link1-${locale}`] }}</base-button>
-					</base-link>
-					<base-link to="contact" class="gsap--home-hero">
-						<base-button :highlight="true">{{ content[`link2-${locale}`] }}</base-button>
-					</base-link>
-				</base-flex>
-      </editable-content>
+			<base-flex :m-t="12">
+				<base-link to="projects" class="gsap--home-hero" m-r="m">
+					<base-button :highlight="true">{{ content[`link1-${locale}`] }}</base-button>
+				</base-link>
+				<base-link to="contact" class="gsap--home-hero">
+					<base-button :highlight="true">{{ content[`link2-${locale}`] }}</base-button>
+				</base-link>
+			</base-flex>
 
-    </app-content-wrapper>
-  </div>
+		</home-section>
+	</editable-content>
 </template>
 
 <script>
-import AppContentWrapper from '@/components/AppContentWrapper'
 import EditableContent from '@/components/EditableContent'
+import HomeSection from '@/components/HomeSection'
 import AppText from '@/components/AppText'
 import { gsap } from 'gsap'
 
@@ -42,8 +40,8 @@ export default {
   name: 'HomeHero',
 
   components: {
-    AppContentWrapper,
-    EditableContent,
+		EditableContent,
+		HomeSection,
     AppText
 	},
 	

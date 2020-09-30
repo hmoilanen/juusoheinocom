@@ -1,5 +1,5 @@
 <template>
-  <div class="hero-canvas" ref="heroCanvas">
+  <div class="hero-canvas" ref="homeCanvas">
 		<slot></slot>
 	</div>
 </template>
@@ -14,7 +14,7 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 import { onScreen } from '@/utils/display'
 
 export default {
-	name: 'HeroCanvas',
+	name: 'HomeCanvas',
 
 	// Using $options for preventing Vue's reactivity
 	initiated: false,
@@ -29,7 +29,7 @@ export default {
 	cubeAttrs: [],
 	containerObject: null,
 	
-	amount: 1400,
+	amount: 1300,
 	planeWidth: 4000,
 	planeHeight: 4000,
 	planeDepth: 10000,
@@ -46,7 +46,7 @@ export default {
 		threshold: 0.9,
 		strength: 0.55,
 		radius: 0
-		// Or:
+		// Or other kind of scheme setup:
 		//exposure: 0.9,
 		//threshold: 0.98,
 		//strength: 0.21,
@@ -61,12 +61,12 @@ export default {
 
 		window.addEventListener('resize', this.onWindowResize, false)
 		window.addEventListener('scroll', this.onWindowScroll, false)
-		this.$refs.heroCanvas.addEventListener('mousemove', this.onMousemove, false)
+		this.$refs.homeCanvas.addEventListener('mousemove', this.onMousemove, false)
 		
 		this.$on('hook:beforeDestroy', () => {
 			window.removeEventListener('resize', this.onWindowResize)
 			window.removeEventListener('scroll', this.onWindowScroll)
-			this.$refs.heroCanvas.removeEventListener('mousemove', this.onMousemove)
+			this.$refs.homeCanvas.removeEventListener('mousemove', this.onMousemove)
 		})
 	},
 
@@ -93,7 +93,7 @@ export default {
 			// Animation controls / adjustments (use when developing)
 			//this.setGUI()
 			//this.$options.stats = new Stats()
-			//this.$refs.heroCanvas.appendChild(this.$options.stats.dom)
+			//this.$refs.homeCanvas.appendChild(this.$options.stats.dom)
 		},
 
 		setRenderer() {
@@ -101,7 +101,7 @@ export default {
 			this.$options.renderer.setSize(window.innerWidth, window.innerHeight)
 			this.$options.renderer.setPixelRatio(window.devicePixelRatio)
 			this.$options.renderer.toneMapping = THREE.ReinhardToneMapping
-			this.$refs.heroCanvas.appendChild(this.$options.renderer.domElement)
+			this.$refs.homeCanvas.appendChild(this.$options.renderer.domElement)
 		},
 
 		setCamera() {
@@ -191,9 +191,9 @@ export default {
 
 		createCube() {
 			let attrs = {
-				speed: 1, // 0.1-1
-				rotationSpeed: 0.001, // 0.1-1
-				acceleration: 1 // 0-1
+				speed: 1,
+				rotationSpeed: 0.001,
+				acceleration: 1
 			}
 			const dispersion = {
 				acceleration: 0.1,
@@ -220,7 +220,7 @@ export default {
 			}
 
 			// Set cube's position on plane
-			cube.position.x = this.planeDepth / -2
+			cube.position.x = this.$options.planeDepth / -2
 			cube.position.y = Math.random() * this.$options.planeHeight - (this.$options.planeHeight / 2)
 			cube.position.z = Math.random() * this.$options.planeWidth - (this.$options.planeWidth / 2)
 
@@ -321,7 +321,7 @@ export default {
 
 		onWindowScroll() {
 			// Check if canvas is vertically visible on screen and run .animate() if so
-			const canvasOnScreen = this.$refs.heroCanvas.getBoundingClientRect()
+			const canvasOnScreen = this.$refs.homeCanvas.getBoundingClientRect()
 
 			if (onScreen(canvasOnScreen)) {
 				if (!this.$options.animating) {

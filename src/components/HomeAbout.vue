@@ -4,6 +4,7 @@
 			class="home-about"
 			:header="content[`title-${$app.locale()}`]"
 			:invertedColor="true"
+			:no-color="true"
 		>
 			<base-wrapper max-width="700px">
 				<app-text
@@ -79,7 +80,7 @@ export default {
 
 <style lang="scss" scoped>
 $home-about--color: $app-color--theme;
-$home-about--color-bg: $app-color--main;
+$home-about--color-bg: transparentize($app-color--main, 0.1);
 $home-about--color-hl: $app-color--hl;
 
 .home-about {
