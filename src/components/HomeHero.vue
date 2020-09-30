@@ -11,7 +11,7 @@
 
 			<base-flex class="gsap--home-hero" justify="start" m-t="l">
 				<base-wrapper max-width="paragraph" :disable-margins="true">
-					<app-text :scaling="0.8" >{{ content[`text-${locale}`] }}</app-text>
+					<app-text :scaling="1" >{{ content[`text-${locale}`] }}</app-text>
 				</base-wrapper>
 			</base-flex>
 

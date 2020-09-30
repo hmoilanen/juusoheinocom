@@ -123,7 +123,8 @@ export default {
 					maxWidth: `${ui.contentWidth.max}px`
 				},
 				project: {
-					height: `${homeSectionHeight - ui.navTopHeight - paddingBottom}px`
+					height: `${homeSectionHeight - ui.navTopHeight - paddingBottom}px`,
+					maxWidth: `${ui.contentWidth.max}px`
 				}
 			}
 		}
@@ -183,6 +184,7 @@ $home-section--color-bg--default: transparentize($app-color--theme, 0.075);
 	.project-wrapper-outer {
 		position: relative;
 		padding: 0 0.2rem;
+		margin: 0 auto;
 		.project-wrapper-inner {
 			position: absolute;
 			top: 50%;
