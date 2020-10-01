@@ -1,9 +1,13 @@
 <template>
-  <base-link class="footer-link" :to="to">
+  <base-link
+		class="footer-link"
+		:class="{ active: active }"
+		:to="to"
+	>
     <base-title
-      :class="{ active: active }"
-      :size="9"
-      :weight="900"
+      :size="6"
+			:scaling="0.2"
+      :weight="700"
     >
       <slot>{{ $options.name }}</slot>
     </base-title>
@@ -17,7 +21,19 @@ export default {
   props: {
     to: [String, Object],
     active: Boolean
-  }
+	},
+	
+	computed: {
+		styling() {
+			const margin = window.innerWidth > 800
+				?	'1.8em'
+				: '0.8em'
+
+			return {
+				margin: `0 ${margin}`
+			}
+		}
+	}
 }
 </script>
 
@@ -29,34 +45,30 @@ $footer-link--color-hl: $app-color--hl;
   .base-title {
     position: relative;
     display: flex;
-    align-items: center;
+		align-items: center;
+		margin: 0 0.8em;
+
+		@media only screen and (min-width: 800px) { margin: 0 1.4em; }
+
     &::before {
       content: "";
-      margin-right: 0;
-      position: relative;
-      top: 50%;
-      transform: translateY(-50%);
-      display: inline-block;
+      position: absolute;
+			top: calc(100% + 0.2rem);
+			left: 50%;
+			transform: translateX(-50%);
       width: 0;
       height: 3px;
       background: $footer-link--color;
-      transition: all 0.5s ease;
+      transition: all 0.3s ease;
     }
     &:hover {
-      &::before {
-        margin-right: 0.3em;
-        width: 10px;
-      }
-    }
-    &.active {
-      @extend %disabled;
-      &:before {
-        margin-right: 0.3em;
-        width: 10px;
-        background: $footer-link--color-hl;
-        color: $footer-link--color-hl;
-      }
-    }
-  }
+      &::before { width: 100%; }
+		}
+	}
+
+	&.active {
+		@extend %disabled;
+		& > * { color: $footer-link--color-hl; }
+	}
 }
 </style>

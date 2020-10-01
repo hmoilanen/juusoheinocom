@@ -1,55 +1,56 @@
 <template>
   <div class="app-footer" ref="footer" :style="styling">
     <app-content-wrapper>
+<base-spacer class="about" size="xl">
+			<div class="footer-links">
+				<footer-link
+					v-for="(link, index) in links"
+					:key="index"
+					:to="link.path"
+					:active="isActiveRoute(link.name)"
+				>
+					{{ link.title.toUpperCase() }}
+				</footer-link>
+			</div>
 
-      <base-grid colMin="240px" fillType="fill" :gap="{ x: '4rem', y: '2rem' }">
-        <base-spacer class="about" size="xl">
-          <app-external-links></app-external-links>
+				<base-flex center="x">
+					<app-external-links></app-external-links>
+				</base-flex>
 
-          <div>
-            <base-text
-              @click="copyEmail('jhcom-email')"
-              :clickable="true"
-              :size="8"
-              :weight="700"
-            >{{ this.email }}</base-text>
-            <input id="jhcom-email" type="hidden" :value="email">
-          </div>
+				<base-flex center="x">
+					<locale-toggler></locale-toggler>
+				</base-flex>
 
-          <locale-toggler></locale-toggler>
-          
-          <base-flex center="y">
-            <base-icon
+				<base-flex center="x">
+					<base-text
+						@click="copyEmail('jhcom-email')"
+						:clickable="true"
+						:size="7"
+						:weight="700"
+					>{{ this.email }}</base-text>
+					<input id="jhcom-email" type="hidden" :value="email">
+				</base-flex>
+				
+				<base-flex center="x">
+					<base-flex center="y">
+						<base-icon
 							class="CY--login--juusoheino"
-              @click="openLogin"
-              app="juusoheino"
-              :size="18"
-              :m-l="-4"
-              :m-r="4"
-            >juusoheino</base-icon>
-            <base-flex :column="true" :m-t="1">
-              <app-text>{{ this.official.watermark }}</app-text>
-              <app-text class="love">
-                Made with
-                <base-icon :size="5">love</base-icon>
-              </app-text>
-            </base-flex>
-          </base-flex>
-        </base-spacer>
-
-        <base-flex :column="true">
-          <base-spacer size="m">
-            <footer-link
-              v-for="(link, index) in links"
-              :key="index"
-              :to="link.path"
-              :active="isActiveRoute(link.name)"
-            >
-              {{ link.title.toUpperCase() }}
-            </footer-link>
-          </base-spacer>
-        </base-flex>
-      </base-grid>
+							@click="openLogin"
+							app="juusoheino"
+							:size="18"
+							:m-l="-4"
+							:m-r="4"
+						>juusoheino</base-icon>
+						<base-flex :column="true" :m-t="1">
+							<app-text>{{ this.official.watermark }}</app-text>
+							<app-text class="love">
+								Made with
+								<base-icon :size="5">love</base-icon>
+							</app-text>
+						</base-flex>
+					</base-flex>
+				</base-flex>
+			</base-spacer>
       
       <base-flex
         class="backtotop"
@@ -127,7 +128,7 @@ export default {
     },
 
     styling() {
-			const defaultPadding = 5
+			const defaultPadding = 4
 			
       return {
         paddingTop: `${defaultPadding}vmax`,
@@ -186,7 +187,14 @@ $footer--color-highlight: $app-color--hl;
 .app-footer {
   position: relative;
   border-top: 1px solid rgb(240, 240, 240);
-  background: $footer--color-bg;
+	background: $footer--color-bg;
+	
+	.footer-links {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		padding-bottom: 0rem;
+	}
   
   .love {
     .base-icon {
