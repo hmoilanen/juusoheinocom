@@ -5,6 +5,7 @@
       <div v-if="showDropdownNav" class="menu">
         <base-link
 					class="nav-top-link"
+					:style="styling.link"
           v-for="(link, index) in navLinks"
           :key="index"
           :to="link.path"
@@ -100,12 +101,15 @@ export default {
       let wWidth = window.innerWidth
       let wHeight = window.innerHeight
 
-      if (e) {
+      if (e && this.showDropdownNav) {
         let cursorOffsetX = -(0.5 - e.pageX / wWidth)
         let cursorOffsetY = -(0.5 - e.pageY / wHeight)
 
         this.cursorOffsetX = cursorOffsetX
-        this.cursorOffsetY = cursorOffsetY
+				this.cursorOffsetY = cursorOffsetY
+				
+				console.log('this.cursorOffsetX', this.cursorOffsetX);
+				console.log('this.cursorOffsetY', this.cursorOffsetY);
       }
 
       //if (angle < 0) { angle = angle + 360 }
@@ -150,9 +154,10 @@ export default {
     },
 
     closeDropdown() {
-      //this.showDropdownNav = false
-      this.showDropdownNav = !this.showDropdownNav
       this.$store.dispatch('SET_STATE', { data: false, path: 'ui.preventBodyScrolling' })
+			this.showDropdownNav = !this.showDropdownNav
+			this.cursorOffsetX = 0
+			this.cursorOffsetY = 0
     },
 
     goToProjects() {
@@ -184,20 +189,25 @@ export default {
     },
 
     styling() {
+			// https://codepen.io/bosworthco/pen/RjBvgw
       //let angleX = 0.5 - (this.xxx / this.ruutuX)
       //let angleY = (0.5 - (this.yyy / this.ruutuY)) * -1
-      let height = this.navTopHeight + 'px' 
+			const height = this.navTopHeight + 'px'
+			const rotateAmountX = 1
+			const rotateAmountY = -2
+			
       return {
         root: {
           height: height,
           zIndex: this.zIndex.navTop
         },
-        dropdown: {
+        /* dropdown: {
           paddingTop: height
-        },
-        /* sisus: {
-          transform: `rotateY(${angleX * 100}deg) rotateX(${angleY * 100}deg)`
-        } */
+        }, */
+        link: {
+          //transform: `rotateY(${angleX * 100}deg) rotateX(${angleY * 100}deg)`
+          transform: `rotateY(${this.cursorOffsetX * (100 / rotateAmountY)}deg) rotateX(${this.cursorOffsetY * (100 / rotateAmountX)}deg)`
+        }
       }
     }
   }
